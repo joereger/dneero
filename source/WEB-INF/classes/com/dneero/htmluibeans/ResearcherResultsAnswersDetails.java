@@ -43,7 +43,7 @@ public class ResearcherResultsAnswersDetails implements Serializable {
                 if (com.dneero.util.Num.isinteger(tmpQuestionid)){
                     logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
                     question = Question.get(Integer.parseInt(tmpQuestionid));
-                    Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
+                    Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, new Blogger());
                     results = component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
                 }
             }

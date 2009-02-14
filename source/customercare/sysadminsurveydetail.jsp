@@ -175,7 +175,7 @@ String acl = "customercare";
                     </tr>
                     <tr>
                         <td valign="top">
-                            <font class="formfieldnamefont">Number of Respondents Requested</font>
+                            <font class="formfieldnamefont">Slots Remaining</font>
                             <br/>
                             <font class="smallfont">The number of people that you would like to have join the conversation and post to their peers.  Once this number is reached no more people can join the conversation.  The minimum is 100.</font>
                         </td>

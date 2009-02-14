@@ -54,7 +54,7 @@ public class ResearcherResultsAnswersCsv implements Serializable {
                     row[1]= Time.dateformatcompactwithtime(Time.getCalFromDate(response.getResponsedate()));
                     for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
                         Question question = iterator1.next();
-                        Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, Blogger.get(response.getBloggerid()));
+                        Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, Blogger.get(response.getBloggerid()));
                         //Append each question to the end of the row
                         row = Util.appendToEndOfStringArray(row, component.getCsvForResult());
                     }

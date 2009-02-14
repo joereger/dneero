@@ -33,6 +33,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private Date startdate;
     private Date enddate;
     private int status;
+    private int embedversion = Survey.EMBEDVERSION_01;
     private Survey survey;
 
 
@@ -58,6 +59,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 startdate = survey.getStartdate();
                 enddate = survey.getEnddate();
                 status = survey.getStatus();
+                embedversion = survey.getEmbedversion();
             }
         }
     }
@@ -123,6 +125,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
             survey.setImpressionspaid(0);
             survey.setImpressionstobepaid(0);
             survey.setIsaggressiveslotreclamationon(false);
+            survey.setEmbedversion(embedversion);
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
@@ -151,7 +154,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 survey.setDescription(description);
                 survey.setStartdate(startdate);
                 survey.setEnddate(enddate);
-
+                survey.setEmbedversion(embedversion);
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
@@ -182,7 +185,12 @@ public class ResearcherSurveyDetail01 implements Serializable {
         }
     }
 
-
+    public TreeMap<String, String> getEmbedVersions(){
+        TreeMap<String, String> out = new TreeMap<String, String>();
+        out.put(String.valueOf(Survey.EMBEDVERSION_01), "EMBEDVERSION_01");
+        out.put(String.valueOf(Survey.EMBEDVERSION_02), "EMBEDVERSION_02");
+        return out;
+    }
 
 
     public String getTitle() {
@@ -237,5 +245,11 @@ public class ResearcherSurveyDetail01 implements Serializable {
         this.survey=survey;
     }
 
-    
+    public int getEmbedversion() {
+        return embedversion;
+    }
+
+    public void setEmbedversion(int embedversion) {
+        this.embedversion=embedversion;
+    }
 }

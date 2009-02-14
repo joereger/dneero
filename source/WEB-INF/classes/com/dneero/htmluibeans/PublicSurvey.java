@@ -3,7 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
-import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.display.components.Dropdown;
 import com.dneero.display.components.Essay;
 import com.dneero.display.components.Textbox;
@@ -250,7 +250,7 @@ public class PublicSurvey implements Serializable {
             bloggerhastakentoomanysurveysalreadytoday = true;
         } else {
             bloggerhastakentoomanysurveysalreadytoday = false;
-        }
+        }  
 
         //See if blogger is qualified to take survey
         qualifiesforsurvey = true;
@@ -268,9 +268,9 @@ public class PublicSurvey implements Serializable {
 
         //To display to those looking to take survey
         if (!loggedinuserhasalreadytakensurvey){
-            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, userwhotooksurvey);
+            takesurveyhtml = SurveyTemplateProcessor.getHtmlForSurveyTaking(survey, new Blogger(), true, userwhotooksurvey);
         } else if (Pagez.getUserSession().getUser()!=null) {
-            takesurveyhtml = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), true, userwhotooksurvey);
+            takesurveyhtml = SurveyTemplateProcessor.getHtmlForSurveyTaking(survey, Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), true, userwhotooksurvey);
         }
 
 
@@ -319,7 +319,7 @@ public class PublicSurvey implements Serializable {
                     if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
                         blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
                     }
-                    psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger));
+                    psli.setComponent(ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger));
                     userquestionlistitems.add(psli);
                 }
             }
@@ -338,7 +338,7 @@ public class PublicSurvey implements Serializable {
                 if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
                     blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
                 }
-                psli.setComponent(ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger));
+                psli.setComponent(ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger));
                 optionaluserquestionlistitems.add(psli);
             }
         }
@@ -493,7 +493,7 @@ public class PublicSurvey implements Serializable {
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
             logger.debug("found question.getQuestionid()="+question.getQuestionid());
-            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+            Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
             logger.debug("found component.getName()="+component.getName());
             try{
                 component.validateAnswer(srp);

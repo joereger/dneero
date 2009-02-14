@@ -2,12 +2,13 @@ package com.dneero.survey.servlet.v1;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
+import com.dneero.dao.Pl;
 import com.dneero.util.Str;
 import com.dneero.util.RandomString;
-import com.dneero.display.SurveyInBlogWrapper;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
+import com.dneero.systemprops.BaseUrl;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
@@ -103,7 +104,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
                     scrollablediv.append("<div style=\"background : #ffffff; padding: 5px; width: 405px; height: 215px; overflow : auto; text-align: left;\">"+"\n");
                     scrollablediv.append(surveyashtml);
                     scrollablediv.append("</div>"+"\n");
-                    String surveyashtmlwrapped = SurveyInBlogWrapper.wrap(user, survey, scrollablediv.toString(), true, makeHttpsIfSSLIsOn);
+                    String surveyashtmlwrapped = wrap(user, survey, scrollablediv.toString(), true, makeHttpsIfSSLIsOn);
                     output = Str.cleanForjavascriptAndReplaceDoubleQuoteWithSingle(surveyashtmlwrapped);
                     output = output.replaceAll("\\n", "\"+\\\n\"");
                     output = output.replaceAll("\\r", "\"+\\\n\"");
@@ -145,6 +146,53 @@ public class SurveyJavascriptServlet extends HttpServlet {
         String urlofsurvey = baseurl+"s?s="+surveyid+"&u="+userid+"&r="+responseid+"&p="+ispreviewStr+"&h="+makeHttpsIfSSLIsOnStr+"&c="+cacheStr+randomStr;
         return "<script src=\""+urlofsurvey+"\"></script>";
     }
+
+
+    private static String wrap(User user, Survey survey, String in, boolean includeFooter, boolean makeHttpsIfSSLIsOn){
+            StringBuffer out = new StringBuffer();
+            if (survey==null){
+                survey = new Survey();
+            }
+            int userid = 0;
+            if (user!=null){
+                userid = user.getUserid();
+            }
+            Pl pl = null;
+            if (user!=null){
+                pl = Pl.get(user.getPlid());
+            }
+            String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn, pl);
+            out.append("<!-- Start dNeero Conversation -->\n" +
+                    "<div style=\"border: 5px solid #cccccc; width: 415px\">"+
+                    "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" width=\"415\">\n" +
+                    "\t<tr>\n" +
+                    "\t\t<td valign=\"top\" align=\"left\" colspan=\"7\" height=\"215\">\n" +
+                    "\t\t\t<!-- Start Conversation Questions -->\n" +
+                    in +
+                    "\n" +
+                    "\t\t\t<!-- End Conversation Questions -->\n" +
+                    "\t\t</td>\n" +
+                    "\t</tr>\n");
+             if(includeFooter){
+                out.append("\t<tr>\t\n" +
+                        "\t\t<td valign=\"bottom\" align=\"left\" bgcolor=\"#ffffff\">\n" +
+                        "\t\t\t<a href=\""+baseurl+"survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+userid+"\"><img src=\""+baseurl+"images/surveyinblog/dneero-survey-questionmark.gif\" border=\"0\"></a>\n" +
+                        "\t\t</td>\n" +
+                        "\t\t<td valign=\"bottom\" align=\"center\" bgcolor=\"#ffffff\">\n" +
+                        "\t\t\t<a href=\""+baseurl+"survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=results\"><img src=\""+baseurl+"images/surveyinblog/dneero-survey-people.gif\" border=\"0\"></a>\n" +
+                        "\t\t</td>\n" +
+                        "\t\t<td valign=\"bottom\" align=\"right\" bgcolor=\"#ffffff\">\n" +
+                        "\t\t\t<a href=\""+baseurl+"survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+userid+"&show=disclosure\"><img src=\""+baseurl+"images/surveyinblog/dneero-survey-logo.gif\" border=\"0\"></a>\n" +
+                        "\t\t</td>\n" +
+                        "\t</tr>\n");
+            }
+            out.append("</table>\n" +
+                    "</div>"+
+                    "<!-- End dNeero Conversation -->");
+
+             return out.toString();
+        }
+
 
 
 }

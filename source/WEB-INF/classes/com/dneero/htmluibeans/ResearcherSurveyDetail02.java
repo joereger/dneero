@@ -3,8 +3,7 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.display.components.*;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.UserSession;
@@ -13,7 +12,6 @@ import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -49,7 +47,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
             title = survey.getTitle();
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
-                surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
+                surveyForTakers = SurveyTemplateProcessor.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
                 status = survey.getStatus();
             }
         }

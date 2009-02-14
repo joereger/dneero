@@ -85,7 +85,7 @@ public class SurveyResultsDisplay {
             Question question = iterator.next();
             if ((!question.getIsuserquestion()&&includeMainquestions)||(question.getIsuserquestion()&&includeUserquestions)){
                 logger.debug("found question.getQuestionid()="+question.getQuestionid());
-                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+                Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
                 logger.debug("found component.getName()="+component.getName());
                 out.append("<br/><br/>");
                 //out.append("<table width=100% cellpadding=0 cellspacing=0 border=0>");

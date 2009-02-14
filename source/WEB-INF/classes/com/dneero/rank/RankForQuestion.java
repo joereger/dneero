@@ -20,7 +20,7 @@ public class RankForQuestion {
 
     public static void processAndSave(Question question, Response response){
         Blogger blogger = Blogger.get(response.getBloggerid());
-        Component qComp = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+        Component qComp = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
         if (qComp.supportsRank()){
             //Find rankings for this question
             ArrayList<Integer> rankids = new ArrayList<Integer>();
@@ -74,7 +74,7 @@ public class RankForQuestion {
 
     public static ArrayList<RankUnit> calculatePointsForSpecificRank(Rank rank, Question question, Response response){
         Blogger blogger = Blogger.get(response.getBloggerid());
-        Component qComp = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+        Component qComp = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
         ArrayList<RankUnit> rankUnits = qComp.calculateRankPoints(rank, response);
         return rankUnits;
     }

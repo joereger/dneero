@@ -9,6 +9,8 @@ import com.dneero.rank.RankUnit;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.jdom.Element;
+
 /**
  * User: Joe Reger Jr
  * Date: Jul 6, 2006
@@ -29,5 +31,6 @@ public interface Component {
     public String[] getCsvForResult();
     public boolean supportsRank();
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response);
+    public Element getXmlForDisplay(Response response);
 
 }

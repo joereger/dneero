@@ -105,7 +105,7 @@ public class ReviewableQuestion implements Reviewable {
         out.append("From Survey: "+Str.cleanForHtml(survey.getTitle()));
         out.append("</b></font>");
         out.append("<br/>");
-        Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
+        Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, new Blogger());
         out.append(component.getHtmlForInput(null));
         return out.toString();
     }

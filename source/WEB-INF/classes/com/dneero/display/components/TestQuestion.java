@@ -8,6 +8,8 @@ import com.dneero.display.components.def.ComponentException;
 import com.dneero.rank.RankUnit;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
+import org.jdom.Element;
+import org.jdom.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -323,6 +325,12 @@ public class TestQuestion implements Component {
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         return rankUnits;
+    }
+
+    public Element getXmlForDisplay(Response response) {
+        Element element = new Element("testquestion");
+
+        return element;
     }
 
 }

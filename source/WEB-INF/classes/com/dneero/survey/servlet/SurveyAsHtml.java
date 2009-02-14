@@ -2,11 +2,6 @@ package com.dneero.survey.servlet;
 
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.dao.Blogger;
-import com.dneero.display.SurveyTemplateProcessor;
-import com.dneero.util.Str;
-
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr

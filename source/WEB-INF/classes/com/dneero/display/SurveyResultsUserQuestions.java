@@ -6,7 +6,6 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.finders.FindResponses;
 import com.dneero.finders.SurveyCriteriaXML;
-import com.dneero.htmluibeans.ResearcherRankPeopleComparatorPoints;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -86,7 +85,7 @@ public class SurveyResultsUserQuestions {
             Question question = iterator.next();
             if (question.getIsuserquestion()){
                 logger.debug("found question.getQuestionid()="+question.getQuestionid());
-                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+                Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
                 logger.debug("found component.getName()="+component.getName());
                 User user = User.get(question.getUserid());
 //                out.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid="+NicknameHelper.getNameOrNickname(user)+" "+user.getLastname()+"</a> wanted to know:</b></font>");

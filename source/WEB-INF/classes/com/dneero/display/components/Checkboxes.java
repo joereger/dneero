@@ -16,6 +16,8 @@ import java.text.DecimalFormat;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
+import org.jdom.Element;
+import org.jdom.Text;
 
 /**
  * User: Joe Reger Jr
@@ -107,12 +109,10 @@ public class Checkboxes implements Component {
         out.append("<p class=\"questiontitle\">");
         out.append(question.getQuestion());
         out.append("</p>");
-
         List<Questionresponse> responses = new ArrayList<Questionresponse>();
         if (blogger!=null && response!=null){
             responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
         }
-
         String options = "";
         for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
             Questionconfig questionconfig = iterator.next();
@@ -304,6 +304,51 @@ public class Checkboxes implements Component {
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         return rankUnits;
+    }
+
+    public Element getXmlForDisplay(Response response) {
+        Element element = new Element("checkboxes");
+        element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
+        //Question
+        Element quest = new Element("question");
+        quest.setContent(new Text(question.getQuestion()));
+        element.addContent(quest);
+        //Get responses
+        List<Questionresponse> responses = new ArrayList<Questionresponse>();
+        if (blogger!=null && response!=null){
+            responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+        }
+        String options = "";
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            if (questionconfig.getName().trim().equals("options")){
+                options = questionconfig.getValue();
+            }
+        }
+        String[] optionsSplit = options.split("\\n");
+        //@todo test checkbox because i don't think that the hashmap holding the values properly handles multiple values for the same name
+        for (int i = 0; i < optionsSplit.length; i++) {
+            String s = optionsSplit[i];
+            boolean isSelected = false;
+            if (responses!=null && responses.size()>0){
+                for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                    Questionresponse questionresponse = iterator.next();
+                    if (questionresponse.getValue().trim().equals(s.trim())){
+                        isSelected = true;
+                    }
+                }
+            }
+            Element option = new Element("option");
+            option.setContent(new Text(s));
+            if (isSelected){
+                option.setAttribute("isselected", "true");
+            } else {
+                option.setAttribute("isselected", "false");
+            }
+            element.addContent(option);
+        }
+        //Return
+        return element;
     }
 
 }

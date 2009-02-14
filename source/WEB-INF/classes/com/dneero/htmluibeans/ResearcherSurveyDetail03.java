@@ -11,10 +11,6 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.survey.servlet.*;
-import com.dneero.survey.servlet.v1.SurveyFlashServlet;
-import com.dneero.survey.servlet.v1.SurveyImageServlet;
-import com.dneero.survey.servlet.v1.SurveyJavascriptServlet;
-import com.dneero.survey.servlet.v1.SurveyLinkServlet;
 import com.dneero.helpers.UserInputSafe;
 
 import java.io.Serializable;
@@ -71,10 +67,17 @@ public class ResearcherSurveyDetail03 implements Serializable {
                 embedjavascript = survey.getEmbedjavascript();
                 embedflash = survey.getEmbedflash();
                 embedlink = survey.getEmbedlink();
-                embedjavascriptsyntax = SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true, true, true, true);
-                embedflashsyntax = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, survey.getPlid(), true, false, true);
-                embedimagesyntax = SurveyImageServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);
-                embedlinksyntax = SurveyLinkServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);
+                if (survey.getEmbedversion()==Survey.EMBEDVERSION_01){
+                    embedjavascriptsyntax = com.dneero.survey.servlet.v1.SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true, true, true, true);
+                    embedflashsyntax = com.dneero.survey.servlet.v1.SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, survey.getPlid(), true, false, true);
+                    embedimagesyntax = com.dneero.survey.servlet.v1.SurveyImageServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);
+                    embedlinksyntax = com.dneero.survey.servlet.v1.SurveyLinkServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);
+                } else if (survey.getEmbedversion()==Survey.EMBEDVERSION_02) {
+                    embedjavascriptsyntax = com.dneero.survey.servlet.v2.SurveyJavascriptServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true, true, true, true);
+                    embedflashsyntax = com.dneero.survey.servlet.v2.SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, survey.getPlid(), true, false, true);
+                    embedimagesyntax = com.dneero.survey.servlet.v2.SurveyImageServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);
+                    embedlinksyntax = com.dneero.survey.servlet.v2.SurveyLinkServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, true);   
+                }
                 status = survey.getStatus();
                 questions=new ArrayList();
                 if (survey!=null && survey.getQuestions()!=null){

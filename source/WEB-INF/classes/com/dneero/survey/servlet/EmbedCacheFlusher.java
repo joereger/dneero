@@ -13,6 +13,8 @@ public class EmbedCacheFlusher {
     public static void flushCache(int surveyid, int userid){
         Logger logger = Logger.getLogger(EmbedCacheFlusher.class);
 
+        //@todo why am i not flushing a group here? "embeddedsurveycache"+"/"+"surveyid-"+surveyid
+
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+true+"-makeHttpsIfSSLIsOn"+true,   "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
@@ -21,6 +23,19 @@ public class EmbedCacheFlusher {
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
         CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservletxmlresponse-v2-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashservletxmlresponse-v2-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+true+"-makeHttpsIfSSLIsOn"+true,   "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+true+"-makeHttpsIfSSLIsOn"+false,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyjavascriptservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+false+"-makeHttpsIfSSLIsOn"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+false, "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+        CacheFactory.getCacheProvider("DbcacheProvider").flush("surveyflashfacebookservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+true,  "embeddedsurveycache"+"/"+"surveyid-"+surveyid);
+
+
 
     }
 

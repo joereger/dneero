@@ -206,71 +206,133 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                         <%}%>
                     </td>
                     <td valign="top">
-                        <!-- Begin Question Key -->
-                        <div class="rounded" style="background: #e6e6e6;">
-                            <font class="mediumfont">Question Tags:</font>
-                            <br/>
-                            <font class="smallfont">Use these tags to move a question around in the conversation.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
-                            <br/>
-                            <%
-                                for (Iterator iterator=researcherSurveyDetail03.getQuestions().iterator(); iterator.hasNext();){
-                                    Question question=(Question) iterator.next();
-                                    %>
-                                    <b><font class="smallfont">&lt;$question_<%=question.getQuestionid()%>$></font></b>
-                                    <br/>
-                                    <font class="tinyfont"><%=question.getQuestion()%></font>
-                                    <br/><br/>
-                                    <%
-                                }
-                            %>
-                        </div>
-                        <!-- End Question Key -->
-                        <div class="rounded" style="background: #e6e6e6;">
-                            <font class="mediumfont">Supported HTML Tags:</font>
-                            <br/>
-                            <font class="smallfont">A powerful subset of html tags is supported.  These tags must be carefully applied in xHTML format.  If the conversation does not display then there is an error with the html syntax.  You can style these tags with basic CSS.</font>
-                            <br/>
-                            <table cellpadding="0" cellspacing="5" border="0">
-                                <tr>
-                                    <td valign="top" width="50%">
-                                        &lt;a&gt;<br/>
-                                        &lt;b&gt;<br/>
-                                        &lt;blockquote&gt;<br/>
-                                        &lt;div&gt;<br/>
-                                        &lt;h1&gt; - &lt;h6&gt;<br/>
-                                        &lt;hr&gt;<br/>
-                                        &lt;i&gt;<br/>
-                                        &lt;img&gt;<br/>
-                                        &lt;li&gt;<br/>
-                                        &lt;ol&gt;<br/>
-                                    </td>
-                                    <td valign="top" width="50%">
-                                        &lt;p&gt;<br/>
-                                        &lt;pre&gt;<br/>
-                                        &lt;strong&gt;<br/>
-                                        &lt;style&gt;<br/>
-                                        &lt;table&gt;<br/>
-                                        &lt;td&gt;<br/>
-                                        &lt;th&gt;<br/>
-                                        &lt;tr&gt;<br/>
-                                        &lt;ul&gt;<br/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="rounded" style="background: #e6e6e6;">
-                            <font class="mediumfont">Tips:</font>
-                            <font class="smallfont">
-                                <ul>
-                                    <li>HTML in conversations can be finickey.  We must display inside of a Flash movie to provide access to more bloggers and it requires very strictly perfect HTML.</li>
-                                    <li>Make small changes at first.</li>
-                                    <li>A very common mistake is not closing tags.  All tags must be closed with another tag of the same name (or self-closed).</li>
-                                    <li>If you get into trouble and can't get your conversation to display, start over by clicking Reset.</li>
-                                    <li>Images can be added to conversations and will display in Flash and Javascript embedding.  However, you must close the image tag and you must include width and height attributes that are properly quoted.  Here's an example:<br/>&lt;img src="http://domain.com/image.jpg" width="100" height="50"/> (Note the closing / at the end of the img tag)</li>
-                                    <li>Only JPEG/JPG files are supported.  These files can not be progressive JPEGs.</li>
-                                </ul>
-                            </font>
-                        </div>
+                        <%if (researcherSurveyDetail03.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_01){%>
+                            <div class="rounded" style="background: #e6e6e6;">
+                                <font class="mediumfont">Question Tags:</font>
+                                <br/>
+                                <font class="smallfont">Use these tags to move a question around in the conversation.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
+                                <br/>
+                                <%
+                                    for (Iterator iterator=researcherSurveyDetail03.getQuestions().iterator(); iterator.hasNext();){
+                                        Question question=(Question) iterator.next();
+                                        %>
+                                        <b><font class="smallfont">&lt;$question_<%=question.getQuestionid()%>$></font></b>
+                                        <br/>
+                                        <font class="tinyfont"><%=question.getQuestion()%></font>
+                                        <br/><br/>
+                                        <%
+                                    }
+                                %>
+                            </div>
+                            <div class="rounded" style="background: #e6e6e6;">
+
+                                <font class="mediumfont">Supported HTML Tags:</font>
+                                <br/>
+                                <font class="smallfont">A powerful subset of html tags is supported.  These tags must be carefully applied in xHTML format.  If the conversation does not display then there is an error with the html syntax.  You can style these tags with basic CSS.</font>
+                                <br/>
+                                <table cellpadding="0" cellspacing="5" border="0">
+                                    <tr>
+                                        <td valign="top" width="50%">
+                                            &lt;a&gt;<br/>
+                                            &lt;b&gt;<br/>
+                                            &lt;blockquote&gt;<br/>
+                                            &lt;div&gt;<br/>
+                                            &lt;h1&gt; - &lt;h6&gt;<br/>
+                                            &lt;hr&gt;<br/>
+                                            &lt;i&gt;<br/>
+                                            &lt;img&gt;<br/>
+                                            &lt;li&gt;<br/>
+                                            &lt;ol&gt;<br/>
+                                        </td>
+                                        <td valign="top" width="50%">
+                                            &lt;p&gt;<br/>
+                                            &lt;pre&gt;<br/>
+                                            &lt;strong&gt;<br/>
+                                            &lt;style&gt;<br/>
+                                            &lt;table&gt;<br/>
+                                            &lt;td&gt;<br/>
+                                            &lt;th&gt;<br/>
+                                            &lt;tr&gt;<br/>
+                                            &lt;ul&gt;<br/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="rounded" style="background: #e6e6e6;">
+                                <font class="mediumfont">Tips:</font>
+                                <font class="smallfont">
+                                    <ul>
+                                        <li>HTML in conversations can be finickey.  We must display inside of a Flash movie to provide access to more bloggers and it requires very strictly perfect HTML.</li>
+                                        <li>Make small changes at first.</li>
+                                        <li>A very common mistake is not closing tags.  All tags must be closed with another tag of the same name (or self-closed).</li>
+                                        <li>If you get into trouble and can't get your conversation to display, start over by clicking Reset.</li>
+                                        <li>Images can be added to conversations and will display in Flash and Javascript embedding.  However, you must close the image tag and you must include width and height attributes that are properly quoted.  Here's an example:<br/>&lt;img src="http://domain.com/image.jpg" width="100" height="50"/> (Note the closing / at the end of the img tag)</li>
+                                        <li>Only JPEG/JPG files are supported.  These files can not be progressive JPEGs.</li>
+                                    </ul>
+                                </font>
+                            </div>
+                        <%} else if (researcherSurveyDetail03.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02) {%>
+                            <font class="mediumfont">Embed Version 2</font>
+                            <div class="rounded" style="background: #e6e6e6;">
+                                <font class="mediumfont">Question Tags:</font>
+                                <br/>
+                                <font class="smallfont">Use these tags to move a question around in the conversation.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
+                                <br/>
+                                <%
+                                    for (Iterator iterator=researcherSurveyDetail03.getQuestions().iterator(); iterator.hasNext();){
+                                        Question question=(Question) iterator.next();
+                                        %>
+                                        <b><font class="smallfont">&lt;$question_<%=question.getQuestionid()%>$></font></b>
+                                        <br/>
+                                        <font class="tinyfont"><%=question.getQuestion()%></font>
+                                        <br/><br/>
+                                        <%
+                                    }
+                                %>
+                            </div>
+                            <div class="rounded" style="background: #e6e6e6;">
+                                <font class="mediumfont">Supported Tags:</font>
+                                <br/>
+                                <font class="smallfont">A powerful subset of html tags is supported.  These tags must be carefully applied in xHTML format.  If the conversation does not display then there is an error with the html syntax.  You can style these tags with basic CSS.</font>
+                                <br/>
+                                <table cellpadding="0" cellspacing="5" border="0">
+                                    <tr>
+                                        <td valign="top" width="50%">
+                                            &lt;a&gt;<br/>
+                                            &lt;b&gt;<br/>
+                                            &lt;blockquote&gt;<br/>
+                                            &lt;div&gt;<br/>
+                                            &lt;h1&gt; - &lt;h6&gt;<br/>
+                                            &lt;hr&gt;<br/>
+                                            &lt;i&gt;<br/>
+                                            &lt;img&gt;<br/>
+                                            &lt;li&gt;<br/>
+                                            &lt;ol&gt;<br/>
+                                        </td>
+                                        <td valign="top" width="50%">
+                                            &lt;p&gt;<br/>
+                                            &lt;pre&gt;<br/>
+                                            &lt;strong&gt;<br/>
+                                            &lt;style&gt;<br/>
+                                            &lt;table&gt;<br/>
+                                            &lt;td&gt;<br/>
+                                            &lt;th&gt;<br/>
+                                            &lt;tr&gt;<br/>
+                                            &lt;ul&gt;<br/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="rounded" style="background: #e6e6e6;">
+                                <font class="mediumfont">Tips:</font>
+                                <font class="smallfont">
+                                    <ul>
+                                        <li>Make small changes, save them and see what they look like.</li>
+
+                                    </ul>
+                                </font>
+                            </div>
+                        <%}%>
                     </td>
                 </tr>
             </table>

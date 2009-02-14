@@ -129,7 +129,7 @@ public class BloggerIndex implements Serializable {
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question = iterator.next();
             logger.debug("found question.getQuestionid()="+question.getQuestionid());
-            Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+            Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
             logger.debug("found component.getName()="+component.getName());
             try{
                 component.validateAnswer(srp);

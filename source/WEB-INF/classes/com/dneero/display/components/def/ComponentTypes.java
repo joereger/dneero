@@ -2,7 +2,6 @@ package com.dneero.display.components.def;
 
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Question;
-import com.dneero.dao.Response;
 import com.dneero.dao.Survey;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.*;
@@ -10,6 +9,7 @@ import com.dneero.display.components.*;
 import java.util.*;
 
 import org.apache.log4j.Logger;
+import org.jdom.Element;
 
 /**
  * User: Joe Reger Jr
@@ -22,29 +22,29 @@ public class ComponentTypes {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public static Component getComponentByID(int ID, Question question, Blogger blogger){
+    public static Component getComponentByType(int typeID, Question question, Blogger blogger){
         if (blogger==null){
             blogger = new Blogger();
         }
-        if (ID== Textbox.ID){
+        if (typeID== Textbox.ID){
             return new Textbox(question, blogger);
         }
-        if (ID== Essay.ID){
+        if (typeID== Essay.ID){
             return new Essay(question, blogger);
         }
-        if (ID== Dropdown.ID){
+        if (typeID== Dropdown.ID){
             return new Dropdown(question, blogger);
         }
-        if (ID== Checkboxes.ID){
+        if (typeID== Checkboxes.ID){
             return new Checkboxes(question, blogger);
         }
-        if (ID== Range.ID){
+        if (typeID== Range.ID){
             return new Range(question, blogger);
         }
-        if (ID== Matrix.ID){
+        if (typeID== Matrix.ID){
             return new Matrix(question, blogger);
         }
-        if (ID== TestQuestion.ID){
+        if (typeID== TestQuestion.ID){
             return new TestQuestion(question, blogger);
         }
         return null;
@@ -88,8 +88,34 @@ public class ComponentTypes {
         if (com.dneero.util.Num.isinteger(qidStr)){
             Question question = Question.get(Integer.parseInt(qidStr));
             if (question.getSurveyid()==survey.getSurveyid()){
-                return getComponentByID(question.getComponenttype(), question, blogger);
+                return getComponentByType(question.getComponenttype(), question, blogger);
             }
+        }
+        return null;
+    }
+
+    public Component getByElement(Element element, Blogger blogger, Survey survey){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (element==null){
+            return null;
+        }
+        //Handle questions
+        if (element.getName().equals("question")){
+            logger.debug("element.getName().equals(\"question\")");
+            logger.debug("element.getAttribute(\"questionid\").getValue()="+element.getAttribute("questionid").getValue());
+            if (com.dneero.util.Num.isinteger(element.getAttribute("questionid").getValue())){
+                Question question = Question.get(Integer.parseInt(element.getAttribute("questionid").getValue()));
+                if (question.getSurveyid()==survey.getSurveyid()){
+                    return getComponentByType(question.getComponenttype(), question, blogger);
+                }
+            }
+        }
+        //Handle other types of components
+        if (element.getName().equals("video")){
+            logger.debug("element.getName().equals(\"video\")");
+        }
+        if (element.getName().equals("text")){
+            logger.debug("element.getName().equals(\"text\")");
         }
         return null;
     }

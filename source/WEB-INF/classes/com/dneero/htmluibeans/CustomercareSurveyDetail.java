@@ -15,7 +15,7 @@ import com.dneero.ui.SurveyEnhancer;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.survey.servlet.v1.SurveyFlashServlet;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
-import com.dneero.display.SurveyTakerDisplay;
+import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 
@@ -49,7 +49,7 @@ public class CustomercareSurveyDetail implements Serializable {
         if (survey!=null && survey.getSurveyid()>0){
             surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, survey.getPlid(), true, true, false);
             surveyEnhancer = new SurveyEnhancer(survey);
-            surveyForTakers = SurveyTakerDisplay.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
+            surveyForTakers = SurveyTemplateProcessor.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
             sms = new SurveyMoneyStatus(survey);
             researcher = Researcher.get(survey.getResearcherid());
             user = User.get(researcher.getUserid());

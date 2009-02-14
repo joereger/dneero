@@ -99,7 +99,7 @@ public class SurveyFlashServlet extends HttpServlet {
         }
 
         byte[] bytes = null;
-        String nameInCache = "surveyflashservlet-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
+        String nameInCache = "surveyflashservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
         Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
         if (fromCache!=null && cache){

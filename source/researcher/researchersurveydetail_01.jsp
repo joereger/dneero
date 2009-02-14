@@ -29,6 +29,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
             researcherSurveyDetail01.setDescription(Textarea.getValueFromRequest("description", "Description", true));
             researcherSurveyDetail01.setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             researcherSurveyDetail01.setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
+            researcherSurveyDetail01.setEmbedversion(Dropdown.getIntFromRequest("embedversion", "Embed Version", true));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail01.saveSurvey();
@@ -120,6 +121,22 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                 <%}%>
                             </td>
                         </tr>
+                        <%if (Pagez.getUserSession().getIsSysadmin()){%>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont">Embed Version</font>
+                                </td>
+                                <td valign="top">
+                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                        <%=Dropdown.getHtml("embedversion", String.valueOf(researcherSurveyDetail01.getEmbedversion()),researcherSurveyDetail01.getEmbedVersions(), "", "")%>
+                                    <%} else {%>
+                                        <font class="normalfont">Embed Version: <%=researcherSurveyDetail01.getEmbedversion()%></font>
+                                    <%}%>
+                                </td>
+                            </tr>
+                        <%} else {%>
+                            <input type="hidden" name="embedversion" value="<%=Survey.EMBEDVERSION_01%>">
+                        <%}%>
                     </table>
 
                 </td>

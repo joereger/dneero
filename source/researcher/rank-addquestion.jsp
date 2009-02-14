@@ -85,7 +85,7 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
                                        .list();
         for (Iterator<Question> qIterator = questions.iterator(); qIterator.hasNext();) {
             Question question = qIterator.next();
-            Component cpt =  ComponentTypes.getComponentByID(question.getComponenttype(), question, null);
+            Component cpt =  ComponentTypes.getComponentByType(question.getComponenttype(), question, null);
             if (cpt.supportsRank()){
                 %>
                 Question: <a href="/researcher/rank-addquestion.jsp?rankid=<%=researcherRankAddquestion.getRank().getRankid()%>&surveyid=<%=researcherRankAddquestion.getSurvey().getSurveyid()%>&questionid=<%=question.getQuestionid()%>"><%=question.getQuestion()%></a>

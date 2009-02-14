@@ -103,7 +103,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
         }
 
         byte[] bytes = null;
-        String nameInCache = "surveyflashfacebookservlet-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
+        String nameInCache = "surveyflashfacebookservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
         Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
         if (fromCache!=null && cache){

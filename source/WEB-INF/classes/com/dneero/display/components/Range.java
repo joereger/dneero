@@ -14,6 +14,8 @@ import java.text.NumberFormat;
 import java.text.DecimalFormat;
 
 import org.apache.log4j.Logger;
+import org.jdom.Element;
+import org.jdom.Text;
 
 /**
  * User: Joe Reger Jr
@@ -399,6 +401,54 @@ public class Range implements Component {
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         return rankUnits;
+    }
+
+    public Element getXmlForDisplay(Response response) {
+        Element element = new Element("range");
+        element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
+        //Question
+        Element quest = new Element("question");
+        quest.setContent(new Text(question.getQuestion()));
+        element.addContent(quest);
+        //Addl Vars
+        String mintitle = "Low";
+        double min = 1;
+        double step = 1;
+        double max = 5;
+        String maxtitle = "High";
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            if (questionconfig.getName().equals("mintitle")){
+                mintitle = questionconfig.getValue();
+            } else if (questionconfig.getName().equals("min")){
+                min = Double.parseDouble(questionconfig.getValue());
+            } else if (questionconfig.getName().equals("step")){
+                step = Double.parseDouble(questionconfig.getValue());
+            } else if (questionconfig.getName().equals("max")){
+                max = Double.parseDouble(questionconfig.getValue());
+            } else if (questionconfig.getName().equals("maxtitle")){
+                maxtitle = questionconfig.getValue();
+            }
+        }
+        element.setAttribute("mintitle", mintitle);
+        element.setAttribute("min", String.valueOf(min));
+        element.setAttribute("step", String.valueOf(step));
+        element.setAttribute("max", String.valueOf(max));
+        element.setAttribute("maxtitle", maxtitle);
+        //Answer
+        Element answer = new Element("answer");
+        String value = "Not answered.";
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                value = questionresponse.getValue();
+            }
+        }
+        answer.setContent(new Text(value));
+        element.addContent(answer);
+        //Return
+        return element;
     }
 
 }

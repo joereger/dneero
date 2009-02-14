@@ -180,7 +180,7 @@ public class StoreResponse {
                     for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
                         Question question = iterator.next();
                         logger.debug("start processing questionid="+question.getQuestionid()+" "+question.getQuestion());
-                        Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, blogger);
+                        Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
                         try{component.processAnswer(srp, response);} catch (ComponentException cex){allCex.addErrorsFromAnotherGeneralException(cex);}
                         logger.debug("end processing questionid="+question.getQuestionid()+" "+question.getQuestion());
                     }

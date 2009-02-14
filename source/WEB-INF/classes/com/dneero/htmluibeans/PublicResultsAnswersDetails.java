@@ -41,7 +41,7 @@ public class PublicResultsAnswersDetails implements Serializable {
             if (com.dneero.util.Num.isinteger(tmpQuestionid)){
                 logger.debug("beginView called: found tmpQuestionid in request param="+tmpQuestionid);
                 Question question = Question.get(Integer.parseInt(tmpQuestionid));
-                Component component = ComponentTypes.getComponentByID(question.getComponenttype(), question, new Blogger());
+                Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, new Blogger());
                 try{
                     results = "<font class=\"mediumfont\">Answers to the question: "+question.getQuestion()+"</font><br/><br/>"+component.getHtmlForResultDetail(Util.setToArrayList(question.getQuestionresponses()));
                 } catch (Exception ex){

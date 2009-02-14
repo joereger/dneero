@@ -15,6 +15,8 @@ import java.text.NumberFormat;
 import java.text.DecimalFormat;
 
 import org.apache.log4j.Logger;
+import org.jdom.Element;
+import org.jdom.Text;
 
 /**
  * User: Joe Reger Jr
@@ -272,6 +274,29 @@ public class Essay implements Component {
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         return rankUnits;
+    }
+
+    public Element getXmlForDisplay(Response response) {
+        Element element = new Element("essay");
+        element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
+        //Question
+        Element quest = new Element("question");
+        quest.setContent(new Text(question.getQuestion()));
+        element.addContent(quest);
+        //Answer
+        Element answer = new Element("answer");
+        String value = "Not answered.";
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                value = questionresponse.getValue();
+            }
+        }
+        answer.setContent(new Text(value));
+        element.addContent(answer);
+        //Return
+        return element;
     }
 
 

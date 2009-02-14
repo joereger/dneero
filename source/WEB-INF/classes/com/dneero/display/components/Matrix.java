@@ -10,6 +10,8 @@ import com.dneero.util.Str;
 import com.dneero.util.Util;
 import com.dneero.rank.RankUnit;
 import org.apache.log4j.Logger;
+import org.jdom.Element;
+import org.jdom.Text;
 
 import java.util.*;
 import java.text.NumberFormat;
@@ -469,6 +471,83 @@ public class Matrix implements Component {
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response) {
         ArrayList<RankUnit> rankUnits = new ArrayList<RankUnit>();
         return rankUnits;
+    }
+
+    public Element getXmlForDisplay(Response response) {
+        Element element = new Element("matrix");
+        element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
+        //Question
+        Element quest = new Element("question");
+        quest.setContent(new Text(question.getQuestion()));
+        element.addContent(quest);
+        //Get responses
+        if (blogger!=null && response!=null){
+            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"' and responseid='"+response.getResponseid()+"'").list();
+            ArrayList<String> checkedboxes = new ArrayList<String>();
+            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+                Questionresponse questionresponse = iterator.next();
+                checkedboxes.add(questionresponse.getValue());
+            }
+            //Get config params
+            String rowsStr = "";
+            String colsStr = "";
+            String respondentcanselectmanyStr = "0";
+            for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+                Questionconfig questionconfig = iterator.next();
+                if (questionconfig.getName().equals("rows")){
+                    rowsStr = questionconfig.getValue();
+                }
+                if (questionconfig.getName().equals("cols")){
+                    colsStr = questionconfig.getValue();
+                }
+                if (questionconfig.getName().equals("respondentcanselectmany")){
+                    respondentcanselectmanyStr = questionconfig.getValue();
+                }
+            }
+            String[] rows = rowsStr.split("\\n");
+            String[] cols = colsStr.split("\\n");
+            boolean respondentcanselectmany = false;
+            if (respondentcanselectmanyStr.equals("1")){
+                respondentcanselectmany = true;
+                element.setAttribute("respondentcanselectmany", "true");
+            } else {
+                element.setAttribute("respondentcanselectmany", "false");
+            }
+            //Rows
+            Element rowsEl = new Element("rows");
+            for (int i = 0; i < rows.length; i++) {
+                String row = rows[i].trim();
+                Element rowEl = new Element("row");
+                rowEl.setContent(new Text(row));
+                rowsEl.addContent(rowEl);
+            }
+            element.addContent(rowsEl);
+            //Cols
+            Element colsEl = new Element("cols");
+            for (int i = 0; i < cols.length; i++) {
+                String col = cols[i].trim();
+                Element colEl = new Element("col");
+                colEl.setContent(new Text(col));
+                colsEl.addContent(colEl);
+            }
+            element.addContent(colsEl);
+            //Checked
+            Element checkedEl = new Element("checked");
+            for (Iterator it = checkedboxes.iterator(); it.hasNext(); ) {
+                String checked = (String)it.next();
+                String[] split = checked.split(DELIM);
+                if (split.length>=2){
+                    Element rowcolpair = new Element("rowcolpair");
+                    rowcolpair.setAttribute("row", split[0]);
+                    rowcolpair.setAttribute("col", split[1]);
+                    checkedEl.addContent(rowcolpair);
+                }
+            }
+            element.addContent(checkedEl);
+        }
+        //Return
+        return element;
+
     }
 
 }
