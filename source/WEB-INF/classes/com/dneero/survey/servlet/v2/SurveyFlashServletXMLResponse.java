@@ -3,6 +3,8 @@ package com.dneero.survey.servlet.v2;
 import org.apache.log4j.Logger;
 import org.apache.catalina.connector.ClientAbortException;
 import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.Text;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.util.RandomString;
+import com.dneero.util.Util;
 import com.dneero.pageperformance.PagePerformanceUtil;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
@@ -35,7 +38,6 @@ import com.flagstone.transform.*;
  * Time: 10:31:40 AM
  */
 public class SurveyFlashServletXMLResponse extends HttpServlet {
-
 
 
     public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -103,16 +105,20 @@ public class SurveyFlashServletXMLResponse extends HttpServlet {
         } else {
             logger.debug("rebuilding responseAsXML and putting into cache");
             try{
-
                 if (survey!=null && survey.getSurveyid()>0){
                     User user = User.get(userid);
                     Blogger blogger = Blogger.get(user.getBloggerid());
                     Document responseAsXMLDoc = SurveyTemplateProcessorV2.getXmlForDisplay(survey, blogger, resp, false, false);
-                    responseAsXML = responseAsXMLDoc.toString();
+                    responseAsXML = Util.jdomXmlDocAsString(responseAsXMLDoc);
+                } else {
+                    Element el = new Element("error");
+                    el.setContent(new Text("This conversation is not currently available."));
+                    Document doc = new Document(el);
+                    responseAsXML = Util.jdomXmlDocAsString(doc);
                 }
-
                 logger.debug("responseAsXML="+responseAsXML);
-                try{responseAsXML = URLEncoder.encode(responseAsXML.toString(), "UTF-8");}catch(Exception ex){logger.error("",ex);}
+                //Consider: responseAsXML = URLEncoder.encode(responseAsXML.toString(), "UTF-8");
+                //Cache put
                 if (1==1){
                     try{
                         //Put bytes into cache

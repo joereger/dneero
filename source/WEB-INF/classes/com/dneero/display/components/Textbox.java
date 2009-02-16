@@ -319,7 +319,8 @@ public class Textbox implements Component {
     }
 
     public Element getXmlForDisplay(Response response) {
-        Element element = new Element("textbox");
+        Element element = new Element("question");
+        element.setAttribute("type", "textbox");
         element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
         //Question
         Element quest = new Element("question");

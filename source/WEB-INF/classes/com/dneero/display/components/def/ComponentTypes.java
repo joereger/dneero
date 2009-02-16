@@ -106,6 +106,7 @@ public class ComponentTypes {
             if (com.dneero.util.Num.isinteger(element.getAttribute("questionid").getValue())){
                 Question question = Question.get(Integer.parseInt(element.getAttribute("questionid").getValue()));
                 if (question.getSurveyid()==survey.getSurveyid()){
+                    logger.debug("returning getComponentByType question.getComponenttype()="+question.getComponenttype()+" question.getQuestionid()="+question.getQuestionid());
                     return getComponentByType(question.getComponenttype(), question, blogger);
                 }
             }
@@ -117,6 +118,7 @@ public class ComponentTypes {
         if (element.getName().equals("text")){
             logger.debug("element.getName().equals(\"text\")");
         }
+        logger.debug("returning null component");
         return null;
     }
 

@@ -277,7 +277,8 @@ public class Essay implements Component {
     }
 
     public Element getXmlForDisplay(Response response) {
-        Element element = new Element("essay");
+        Element element = new Element("question");
+        element.setAttribute("type", "essay");
         element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
         //Question
         Element quest = new Element("question");

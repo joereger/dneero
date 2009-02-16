@@ -328,7 +328,8 @@ public class TestQuestion implements Component {
     }
 
     public Element getXmlForDisplay(Response response) {
-        Element element = new Element("testquestion");
+        Element element = new Element("question");
+        element.setAttribute("type", "testquestion");
 
         return element;
     }

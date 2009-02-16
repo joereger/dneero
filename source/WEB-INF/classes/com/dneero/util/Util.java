@@ -1,9 +1,12 @@
 package com.dneero.util;
 
 import org.apache.log4j.Logger;
+import org.jdom.output.XMLOutputter;
+import org.jdom.Document;
 
 import javax.servlet.http.Cookie;
 import java.util.*;
+import java.io.ByteArrayOutputStream;
 
 import sun.reflect.Reflection;
 
@@ -209,6 +212,19 @@ public class Util {
             }
         }
         return out;
+    }
+
+    public static String jdomXmlDocAsString(Document doc){
+        Logger logger = Logger.getLogger(Util.class);
+        try {
+            XMLOutputter serializer = new XMLOutputter();
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            serializer.output(doc, out);
+            return out.toString();
+        } catch (Exception ex) {
+            logger.debug("",ex);
+        }
+        return "";
     }
 
 

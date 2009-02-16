@@ -404,7 +404,8 @@ public class Range implements Component {
     }
 
     public Element getXmlForDisplay(Response response) {
-        Element element = new Element("range");
+        Element element = new Element("question");
+        element.setAttribute("type", "range");
         element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
         //Question
         Element quest = new Element("question");

@@ -474,7 +474,8 @@ public class Matrix implements Component {
     }
 
     public Element getXmlForDisplay(Response response) {
-        Element element = new Element("matrix");
+        Element element = new Element("question");
+        element.setAttribute("type", "matrix");
         element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
         //Question
         Element quest = new Element("question");

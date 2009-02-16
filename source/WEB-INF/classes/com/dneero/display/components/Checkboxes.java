@@ -307,7 +307,8 @@ public class Checkboxes implements Component {
     }
 
     public Element getXmlForDisplay(Response response) {
-        Element element = new Element("checkboxes");
+        Element element = new Element("question");
+        element.setAttribute("type", "checkboxes");
         element.setAttribute("questionid", String.valueOf(question.getQuestionid()));
         //Question
         Element quest = new Element("question");

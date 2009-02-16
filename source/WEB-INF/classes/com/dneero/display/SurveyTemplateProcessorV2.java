@@ -129,6 +129,7 @@ public class SurveyTemplateProcessorV2 {
                         Element q = component.getXmlForDisplay(response);
                         q.setAttribute("isuserquestion", "true");
                         q.setAttribute("userwhocreatedquestion", NicknameHelper.getNameOrNickname(userwhocreatedquestion));
+                        q.setAttribute("useridwhocreatedquestion", String.valueOf(userwhocreatedquestion.getUserid()));
                         out.addContent(q);
                     }
                 }
@@ -340,14 +341,22 @@ public class SurveyTemplateProcessorV2 {
             ComponentTypes ct = new ComponentTypes();
             Component component = ct.getByElement(templateNode, blogger, survey);
             if (component!=null){
+                logger.debug("adding content for templateNode");
                 out = component.getXmlForDisplay(response);
             }
             //Children
             if (templateNode.getChildren()!=null && templateNode.getChildren().size()>0){
                 for (Iterator iterator = templateNode.getChildren().iterator(); iterator.hasNext();) {
                     Element element = (Element) iterator.next();
-                    logger.debug("(child) element.getName()="+element.getName());
-                    out.addContent(getXmlForDisplay(survey, blogger, response, element));
+                    logger.debug("(child) element.getName()="+element.getName()+"... will call getXmlForDisplay()");
+                    Element eltoadd = getXmlForDisplay(survey, blogger, response, element);
+                    if (eltoadd!=null){
+                        if (out!=null){
+                            out.addContent(eltoadd);
+                        } else {
+                            out = eltoadd;
+                        }
+                    }
                 }
             }
         } catch (Exception ex) {

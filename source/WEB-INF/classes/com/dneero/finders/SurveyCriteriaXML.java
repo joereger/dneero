@@ -435,15 +435,7 @@ public class SurveyCriteriaXML {
         setValueOfArrayNode("dneerousagemethods", dneerousagemethods);
         setValueOfArrayNode("panelids", panelids);
         setValueOfArrayNode("superpanelids", superpanelids);
-        try {
-            XMLOutputter serializer = new XMLOutputter();
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            serializer.output(doc, out);
-            return out.toString();
-        } catch (Exception ex) {
-            logger.debug("",ex);
-        }
-        return "";
+        return Util.jdomXmlDocAsString(doc);
     }
 
     private void setValueOfSimpleStringNode(String nodename, String value){
