@@ -12,7 +12,17 @@ import java.util.Iterator;
  */
 public class Checkboxes {
 
-    public static String getHtml(String name, ArrayList<String> values, ArrayList<String> options, String styleclass, String style){
+	public static String getHtml(String name, ArrayList<String> values, ArrayList<String> options, String styleclass, String style){
+        //This just converts the arraylist into a treemap
+        TreeMap<String, String> opts = new TreeMap<String, String>();
+        for (Iterator<String> stringIterator=options.iterator(); stringIterator.hasNext();) {
+            String s=stringIterator.next();
+            opts.put(s, s);
+        }
+        return getHtml(name, values, opts, styleclass, style);
+    }
+
+    public static String getHtml(String name, ArrayList<String> values, TreeMap<String, String> options, String styleclass, String style){
         StringBuffer out = new StringBuffer();
 
         if (styleclass!=null && !styleclass.equals("")){
@@ -22,14 +32,18 @@ public class Checkboxes {
             style = "style=\""+style+"\"";
         }
 
-        for (Iterator iterator = options.iterator(); iterator.hasNext();) {
-            String s = (String) iterator.next();
+        Iterator keyValuePairs = options.entrySet().iterator();
+        for (int i = 0; i < options.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String key = (String)mapentry.getKey();
+            String val = (String)mapentry.getValue();
             String selected = "";
-            if (isSelected(s, values)){
+            if (isSelected(key, values)){
                 selected = " checked='true'";
             }
-            out.append("<input type=\"checkbox\" name=\""+ Str.cleanForHtml(name) +"\" value=\""+Str.cleanForHtml(s.trim())+"\" style "+selected+"><font "+styleclass+" "+style+">" + s.trim() +"</font>");
+            out.append("<input type=\"checkbox\" name=\""+ Str.cleanForHtml(name) +"\" value=\""+Str.cleanForHtml(key.trim())+"\" style "+selected+"><font "+styleclass+" "+style+">" + val.trim() +"</font>");
             out.append("<br/>");
+
         }
 
         return out.toString();
