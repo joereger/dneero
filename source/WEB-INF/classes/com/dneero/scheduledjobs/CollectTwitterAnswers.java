@@ -31,6 +31,7 @@ import twitter4j.RateLimitStatus;
  * User: Joe Reger Jr
  * Date: Jul 19, 2006
  * Time: 2:22:28 PM
+ * Just adding this line to test SVN 1.6 + Idea 8.1.3
  */
 
 public class CollectTwitterAnswers implements Job {
