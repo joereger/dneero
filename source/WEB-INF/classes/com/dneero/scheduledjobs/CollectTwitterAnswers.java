@@ -112,9 +112,9 @@ public class CollectTwitterAnswers implements Job {
             }
             //See if the user qualifies
             boolean iscriteriaxmlqualified = false;
-            if (user!=null){
+            if (user!=null && twitask!=null){
                 SurveyCriteriaXML scXML = new SurveyCriteriaXML(twitask.getCriteriaxml());
-                if (scXML.isUserQualified(user)){
+                if (scXML!=null && scXML.isUserQualified(user)){
                     iscriteriaxmlqualified = true;
                 }
             }
