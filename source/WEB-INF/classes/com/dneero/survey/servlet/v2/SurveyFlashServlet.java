@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.net.URLEncoder;
@@ -21,6 +22,7 @@ import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.util.RandomString;
+import com.dneero.util.Io;
 import com.dneero.pageperformance.PagePerformanceUtil;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
@@ -86,6 +88,7 @@ public class SurveyFlashServlet extends HttpServlet {
                 cache = false;
             }
         }
+        cache = false; //NO CACHE TURNED ON YET... CACHING IS AT XML LEVEL RIGHT NOW... NO CUSTOMIZATION OF SWF IN V2 YET
 
         if (survey!=null && survey.getSurveyid()>0 && !ispreview){
             RecordImpression.record(request);
@@ -101,103 +104,23 @@ public class SurveyFlashServlet extends HttpServlet {
         byte[] bytes = null;
         String nameInCache = "surveyflashservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
-        Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
+        Object fromCache = null;
+        //Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
         if (fromCache!=null && cache){
             logger.debug("returning bytes from cache");
-
-            //String value = (String)fromCache;
-            //logger.debug("value="+value);
-            //bytes = value.getBytes("utf-8");
-
             bytes = (byte[])fromCache;
             logger.debug("bytes.length="+bytes.length);
         } else {
             logger.debug("rebuilding bytes and putting them into cache");
             try{
-                String surveyashtml = "Sorry.  Not found. Surveyid="+request.getParameter("s");
-                if (survey!=null && survey.getSurveyid()>0){
-                    User user = User.get(userid);
-                    surveyashtml = SurveyAsHtml.getHtml(survey, user, false);
-                }
-                StringBuffer surveyasxhtml = new StringBuffer();
-                surveyasxhtml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                surveyasxhtml.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
-                surveyasxhtml.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
-                surveyasxhtml.append("<head>");
-                surveyasxhtml.append("<title>dNeero Conversation</title>");
-                surveyasxhtml.append("<style>");
-                surveyasxhtml.append(".questiontitle{");
-                surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; border: 0px solid #8d8d8d; padding: 0px; text-align: left; background: #e6e6e6;");
-                surveyasxhtml.append("}");
-                surveyasxhtml.append(".answer{");
-                surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; margin: 0px;  padding: 0px; text-align: left;");
-                surveyasxhtml.append("}");
-                surveyasxhtml.append(".answer_highlight{");
-                surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 11px; width: 95%; font-weight: bold; border: 0px solid #c1c1c1; margin: 0px;  padding: 0px; text-align: left; background: #ffffff;");
-                surveyasxhtml.append("}");
-                surveyasxhtml.append("</style>");
-                surveyasxhtml.append("</head>");
-                surveyasxhtml.append("<body>");
-                surveyasxhtml.append(surveyashtml);
-                surveyasxhtml.append("</body>");
-                surveyasxhtml.append("</html>");
-                String surveyashtmlencoded = surveyasxhtml.toString();
-                logger.debug("surveyashtmlencoded="+surveyashtmlencoded);
-                try{surveyashtmlencoded = URLEncoder.encode(surveyasxhtml.toString(), "UTF-8");}catch(Exception ex){logger.error("",ex); surveyashtmlencoded = surveyasxhtml.toString();}
-                if (1==1){
-                    try{
-                        logger.debug("Start TransformSWF");
-                        //Get the movie from the file system
-                        FSMovie movie = new FSMovie(WebAppRootDir.getWebAppRootPath() + "flashviewer/dneeroflashviewer.swf");
-                        //List the allobjects in the movie that are of type DoAction
-                        ArrayList objects = movie.getObjectsOfType(FSMovieObject.DoAction);
-                        for (Iterator it = objects.iterator(); it.hasNext(); ) {
-                            FSDoAction obj = (FSDoAction)it.next();
-                            logger.debug("object found: obj.name()="+obj.name());
-                            logger.debug("object found: obj.toString()="+obj.toString());
-
-                            //Add the var to all DoAction blocks
-                            ArrayList actions = obj.getActions();
-                            actions.add(new FSPush("SURVEY_AS_HTML"));
-                            actions.add(new FSPush(surveyashtmlencoded));
-                            actions.add(FSAction.InitVariable());
-                            obj.setActions(actions);
-                        }
-                        //Get all allobjects
-                        logger.debug("Start Listing All Objects");
-                        ArrayList allobjects = movie.getObjects();
-                        for (Iterator it = allobjects.iterator(); it.hasNext(); ) {
-                            FSMovieObject obj = (FSMovieObject)it.next();
-                            logger.debug("allobject found: obj.name()="+obj.name());
-                            if (obj.getType()==FSMovieObject.DefineTextField){
-                                FSDefineTextField textfield = (FSDefineTextField)obj;
-                                logger.debug("found text field: textfield.getVariableName()="+textfield.getVariableName());
-                                if (textfield.getVariableName().equals("searchenginetext_var")){
-                                    logger.debug("Setting the text of the search engine textbox");
-                                    textfield.setHTML(true);
-                                    //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
-                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">dNeero Conversation</a></h1>.<br/><br/>"+surveyashtml);
-                                }
-                                if (textfield.getVariableName().equals("flashhtmlvar")){
-                                    logger.debug("Setting the text of the html textbox");
-                                    textfield.setHTML(true);
-                                    //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
-                                    textfield.setInitialText(surveyashtmlencoded);
-                                }
-                            }
-                        }
-                        logger.debug("End Listing All Objects");
-                        //Encode the swf and put its bytes into memory
-                        bytes = movie.encode();
-                        //Put bytes into cache
-                        CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, bytes);
-                        logger.debug("End TransformSWF");
-                    } catch (Exception ex){
-                        logger.error("Error with transform in bottom section",ex);
-                    }
-                }
+                //Get Bytes of SWF
+                File swf = new File(WebAppRootDir.getWebAppRootPath() + "flashviewer/v2/ConvoEmbed.swf");
+                bytes = Io.getBytesFromFile(swf);
+                //Put bytes into cache
+                //CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, bytes);
+                logger.debug("End TransformSWF");
             } catch (Exception ex){
-                logger.error("Error getting survey from cache: ex.getMessage()="+ex.getMessage(), ex);
+                logger.error("Error with transform in bottom section",ex);
             }
         }
 
@@ -221,7 +144,7 @@ public class SurveyFlashServlet extends HttpServlet {
         try {
             long timeend = new java.util.Date().getTime();
             long elapsedtime = timeend - timestart;
-            PagePerformanceUtil.add("/dneerosurvey.swf", InstanceProperties.getInstancename(), elapsedtime);
+            PagePerformanceUtil.add("/convo.swf", InstanceProperties.getInstancename(), elapsedtime);
         } catch (Exception ex) {
             logger.error("", ex);
         }
@@ -253,7 +176,9 @@ public class SurveyFlashServlet extends HttpServlet {
         String baseurlencoded = BaseUrl.get(false, plid);
         try{baseurlencoded = URLEncoder.encode(baseurlencoded, "UTF-8");}catch(Exception ex){logger.error("",ex); baseurlencoded = BaseUrl.get(false, plid);}
 
-        String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&hdl="+hdlStr+"&baseurl="+baseurlencoded+randomStr;
+        //String urlofmovie = baseurl+"flashviewer/dneerosurvey.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&hdl="+hdlStr+"&baseurl="+baseurlencoded+randomStr;
+        String urlofmovie = baseurl+"fv2/convo.swf?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&c="+cacheStr+"&r="+responseid+"&hdl="+hdlStr+"&baseurl="+baseurlencoded+randomStr;
+
         return urlofmovie;
     }
 
