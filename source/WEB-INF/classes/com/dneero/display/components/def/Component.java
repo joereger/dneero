@@ -3,6 +3,7 @@ package com.dneero.display.components.def;
 import com.dneero.dao.Questionresponse;
 import com.dneero.dao.Rank;
 import com.dneero.dao.Response;
+import com.dneero.dao.Question;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.rank.RankUnit;
 
@@ -20,6 +21,7 @@ public interface Component {
 
 
     public String getName();
+    public Question getQuestion();
     public int getID();
     public String getHtmlForInput(Response response);
     public String getHtmlForDisplay(Response response);
@@ -32,5 +34,6 @@ public interface Component {
     public boolean supportsRank();
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response);
     public Element getXmlForDisplay(Response response);
+
 
 }

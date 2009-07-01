@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import com.dneero.dao.Question;
 import com.dneero.dao.Survey;
+import com.dneero.dao.Questionconfig;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
@@ -31,6 +32,9 @@ public class ResearcherSurveyDetail02essay implements Serializable {
     private int componenttype;
     private String title;
     private Survey survey;
+    private String image;
+    private String audio;
+    private String video;
 
 
 
@@ -65,6 +69,17 @@ public class ResearcherSurveyDetail02essay implements Serializable {
                 this.question = question.getQuestion();
                 this.isrequired = question.getIsrequired();
                 this.componenttype = question.getComponenttype();
+
+                for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+                    Questionconfig questionconfig = iterator.next();
+                    if (questionconfig.getName().equals("image")){
+                        this.image = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("audio")){
+                        this.audio = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("video")){
+                        this.video = questionconfig.getValue();
+                    }
+                }
             }
         }
         Survey survey = new Survey();
@@ -84,6 +99,13 @@ public class ResearcherSurveyDetail02essay implements Serializable {
             if (this.question!=null  && this.question.length()>1000){
                 throw new ValidationException("The Question is too long.  Please choose a shorter one.");
             }
+
+            //Validate that at most one image/audio/video is set
+            int iavCount = 0;
+            if (image!=null && image.length()>0){iavCount++;}
+            if (audio!=null && audio.length()>0){iavCount++;}
+            if (video!=null && video.length()>0){iavCount++;}
+            if (iavCount>1){ throw new ValidationException("Sorry, you can set at most one Image/Audio/Video URL"); }
 
             Question question = new Question();
             if (questionid>0){
@@ -118,6 +140,43 @@ public class ResearcherSurveyDetail02essay implements Serializable {
                 survey.save();
                 EmbedCacheFlusher.flushCache(survey.getSurveyid());
                 logger.debug("saveSurvey() done saving survey.getSurveyid()=" + survey.getSurveyid());
+            } catch (GeneralException gex){
+                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
+                String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
+                Pagez.getUserSession().setMessage(message);
+                return;
+            }
+
+            for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+                Questionconfig questionconfig = iterator.next();
+                iterator.remove();
+            }
+
+            if (image!=null && image.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("image");
+                qc.setValue(image);
+                question.getQuestionconfigs().add(qc);
+            }
+            if (audio!=null && audio.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("audio");
+                qc.setValue(audio);
+                question.getQuestionconfigs().add(qc);
+            }
+            if (video!=null && video.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("video");
+                qc.setValue(video);
+                question.getQuestionconfigs().add(qc);
+            }
+
+            try{
+                survey.save();
+                EmbedCacheFlusher.flushCache(survey.getSurveyid());
             } catch (GeneralException gex){
                 logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString());
                 String message = "saveSurvey() save failed: " + gex.getErrorsAsSingleString();
@@ -180,5 +239,29 @@ public class ResearcherSurveyDetail02essay implements Serializable {
 
     public void setSurvey(Survey survey) {
         this.survey=survey;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image=image;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio=audio;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video=video;
     }
 }

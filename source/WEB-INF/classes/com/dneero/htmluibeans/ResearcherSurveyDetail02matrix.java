@@ -37,6 +37,9 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
     private int componenttype;
     private String title;
     private Survey survey;
+    private String image;
+    private String audio;
+    private String video;
 
 
 
@@ -78,15 +81,19 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
                     Questionconfig questionconfig = iterator.next();
                     if (questionconfig.getName().equals("rows")){
                         this.rows = questionconfig.getValue();
-                    }
-                    if (questionconfig.getName().equals("cols")){
+                    } else if (questionconfig.getName().equals("cols")){
                         this.cols = questionconfig.getValue();
-                    }
-                    if (questionconfig.getName().equals("respondentcanselectmany")){
+                    } else if (questionconfig.getName().equals("respondentcanselectmany")){
                         this.respondentcanselectmany = false;
                         if (questionconfig.getValue().equals("1")){
                             this.respondentcanselectmany = true;
                         }
+                    } else if (questionconfig.getName().equals("image")){
+                        this.image = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("audio")){
+                        this.audio = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("video")){
+                        this.video = questionconfig.getValue();
                     }
                 }
             }
@@ -108,6 +115,13 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
             if (this.question!=null  && this.question.length()>1000){
                 throw new ValidationException("The Question is too long.  Please choose a shorter one.");
             }
+
+            //Validate that at most one image/audio/video is set
+            int iavCount = 0;
+            if (image!=null && image.length()>0){iavCount++;}
+            if (audio!=null && audio.length()>0){iavCount++;}
+            if (video!=null && video.length()>0){iavCount++;}
+            if (iavCount>1){ throw new ValidationException("Sorry, you can set at most one Image/Audio/Video URL"); }
 
             Question question = new Question();
             if (questionid>0){
@@ -175,6 +189,28 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
                 qc3.setValue("0");
             }
             question.getQuestionconfigs().add(qc3);
+
+            if (image!=null && image.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("image");
+                qc.setValue(image);
+                question.getQuestionconfigs().add(qc);
+            }
+            if (audio!=null && audio.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("audio");
+                qc.setValue(audio);
+                question.getQuestionconfigs().add(qc);
+            }
+            if (video!=null && video.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("video");
+                qc.setValue(video);
+                question.getQuestionconfigs().add(qc);
+            }
 
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -266,5 +302,29 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
 
     public void setSurvey(Survey survey) {
         this.survey=survey;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image=image;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio=audio;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video=video;
     }
 }

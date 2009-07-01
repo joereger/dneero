@@ -18,6 +18,9 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
         try {
             researcherSurveyDetail02textbox.setQuestion(Textbox.getValueFromRequest("question", "Question", true, com.dneero.htmlui.DatatypeString.DATATYPEID));
             researcherSurveyDetail02textbox.setIsrequired(CheckboxBoolean.getValueFromRequest("isrequired"));
+            researcherSurveyDetail02textbox.setImage(Textbox.getValueFromRequest("image", "Image URL", false, com.dneero.htmlui.DatatypeString.DATATYPEID));
+            researcherSurveyDetail02textbox.setAudio(Textbox.getValueFromRequest("audio", "Audio URL", false, com.dneero.htmlui.DatatypeString.DATATYPEID));
+            researcherSurveyDetail02textbox.setVideo(Textbox.getValueFromRequest("video", "Video URL", false, com.dneero.htmlui.DatatypeString.DATATYPEID));
             researcherSurveyDetail02textbox.saveQuestion();
             Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail02textbox.getSurvey().getSurveyid());
         } catch (ValidationException vex) {
@@ -47,7 +50,7 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02textbox.getQuestionid()%>"/>
 
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="5" cellspacing="0" border="0">
 
             <tr>
                 <td valign="top">
@@ -78,6 +81,32 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
                 </td>
             </tr>
 
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Image URL (Optional)</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("image", researcherSurveyDetail02textbox.getImage(), 1000, 30, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Audio URL (Optional)</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("audio", researcherSurveyDetail02textbox.getAudio(), 1000, 30, "", "")%>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Video URL (Optional)</font>
+                </td>
+                <td valign="top">
+                    <%=Textbox.getHtml("video", researcherSurveyDetail02textbox.getVideo(), 1000, 30, "", "")%>
+                </td>
+            </tr>
 
 
             <tr>

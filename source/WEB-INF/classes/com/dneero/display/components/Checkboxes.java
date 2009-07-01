@@ -39,6 +39,10 @@ public class Checkboxes implements Component {
         this.blogger = blogger;
     }
 
+    public Question getQuestion(){
+        return question;
+    }
+
     public String getName() {
         return Checkboxes.NAME;
     }

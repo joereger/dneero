@@ -113,8 +113,8 @@ public class SurveyTemplateProcessorV2 {
         } else {
             logger.debug("templateRootElement == null");
         }
-
         Document out = new Document();
+        //Main question/answers
         out.addContent(getXmlForDisplay(survey, blogger, response, templateRootElement));
         //Add Userquestion stuff for display
         List<Questionresponse> responses = new ArrayList<Questionresponse>();
@@ -278,6 +278,24 @@ public class SurveyTemplateProcessorV2 {
             ComponentTypes ct = new ComponentTypes();
             Component component = ct.getByElement(templateNode, blogger, survey);
             if (component!=null){
+                //Start Image/Video/Audio Stuff for each Question
+                String image = "";
+                String video = "";
+                String audio = "";
+                for (Iterator<Questionconfig> iterator = component.getQuestion().getQuestionconfigs().iterator(); iterator.hasNext();) {
+                    Questionconfig questionconfig = iterator.next();
+                    if (questionconfig.getName().equals("image")){
+                        image = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("audio")){
+                        audio = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("video")){
+                        video = questionconfig.getValue();
+                    }
+                }
+                if (image!=null && image.length()>0){out.append(htmlForImage(image));}
+                if (video!=null && video.length()>0){out.append(htmlForVideo(video));}
+                if (audio!=null && audio.length()>0){out.append(htmlForAudio(audio));}
+                //End Image/Video/Audio Stuff for each Question
                 out.append(component.getHtmlForInput(response) + "<br>");
             }
             //Children
@@ -305,6 +323,25 @@ public class SurveyTemplateProcessorV2 {
             ComponentTypes ct = new ComponentTypes();
             Component component = ct.getByElement(templateNode, blogger, survey);
             if (component!=null){
+                //Start Image/Video/Audio Stuff for each Question
+                String image = "";
+                String video = "";
+                String audio = "";
+                for (Iterator<Questionconfig> iterator = component.getQuestion().getQuestionconfigs().iterator(); iterator.hasNext();) {
+                    Questionconfig questionconfig = iterator.next();
+                    if (questionconfig.getName().equals("image")){
+                        image = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("audio")){
+                        audio = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("video")){
+                        video = questionconfig.getValue();
+                    }
+                }
+                if (image!=null && image.length()>0){out.append(htmlForImage(image));}
+                if (video!=null && video.length()>0){out.append(htmlForVideo(video));}
+                if (audio!=null && audio.length()>0){out.append(htmlForAudio(audio));}
+                //End Image/Video/Audio Stuff for each Question
+                //Main body of component
                 out.append(component.getHtmlForDisplay(response) + "<br>");
             }
             //Children
@@ -349,7 +386,38 @@ public class SurveyTemplateProcessorV2 {
                 Component component = ct.getByElement(templateNode, blogger, survey);
                 if (component!=null){
                     logger.debug("adding content for templateNode "+templateNode.getName());
+                    //Get main Question XML
                     out = component.getXmlForDisplay(response);
+                    //Start Image/Video/Audio Stuff for each Question
+                    String image = "";
+                    String video = "";
+                    String audio = "";
+                    for (Iterator<Questionconfig> iterator = component.getQuestion().getQuestionconfigs().iterator(); iterator.hasNext();) {
+                        Questionconfig questionconfig = iterator.next();
+                        if (questionconfig.getName().equals("image")){
+                            image = questionconfig.getValue();
+                        } else if (questionconfig.getName().equals("audio")){
+                            audio = questionconfig.getValue();
+                        } else if (questionconfig.getName().equals("video")){
+                            video = questionconfig.getValue();
+                        }
+                    }
+                    if (image!=null && image.length()>0){
+                        Element imgEl = new Element("image");
+                        imgEl.setContent(new Text(image));
+                        out.addContent(imgEl);
+                    }
+                    if (video!=null && video.length()>0){
+                        Element vidEl = new Element("video");
+                        vidEl.setContent(new Text(video));
+                        out.addContent(vidEl);
+                    }
+                    if (audio!=null && audio.length()>0){
+                        Element audEl = new Element("audio");
+                        audEl.setContent(new Text(audio));
+                        out.addContent(audEl);
+                    }
+                    //End Image/Video/Audio Stuff for each Question
                 }
             }
             //Children
@@ -374,6 +442,28 @@ public class SurveyTemplateProcessorV2 {
     }
 
 
+    private static String htmlForImage(String image){
+        StringBuffer out = new StringBuffer();
+        out.append("<div style=\"float:right;\">");
+        out.append("<img src=\""+image+"\" width=\"150\" alt=\"\">");
+        out.append("</div>");
+        return out.toString();
+    }
 
+    private static String htmlForVideo(String video){
+        StringBuffer out = new StringBuffer();
+        out.append("<div style=\"float:right;\">");
+        out.append(video);
+        out.append("</div>");
+        return out.toString();
+    }
+
+    private static String htmlForAudio(String audio){
+        StringBuffer out = new StringBuffer();
+        out.append("<div style=\"float:right;\">");
+        out.append(audio);
+        out.append("</div>");
+        return out.toString();
+    }
 
 }

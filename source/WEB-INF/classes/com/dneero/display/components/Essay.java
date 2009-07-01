@@ -37,6 +37,10 @@ public class Essay implements Component {
         this.blogger = blogger;
     }
 
+    public Question getQuestion(){
+        return question;
+    }
+
     public String getName() {
         return Essay.NAME;
     }

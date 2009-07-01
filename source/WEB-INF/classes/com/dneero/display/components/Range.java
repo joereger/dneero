@@ -36,6 +36,10 @@ public class Range implements Component {
         this.blogger = blogger;
     }
 
+    public Question getQuestion(){
+        return question;
+    }
+
     public String getName() {
         return Range.NAME;
     }

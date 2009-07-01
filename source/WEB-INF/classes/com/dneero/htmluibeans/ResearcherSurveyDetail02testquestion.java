@@ -30,6 +30,9 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
     private String title;
     private Survey survey;
     private String answermustcontain;
+    private String image;
+    private String audio;
+    private String video;
 
 
 
@@ -71,6 +74,12 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
                     Questionconfig questionconfig = iterator.next();
                     if (questionconfig.getName().equals("answermustcontain")){
                         this.answermustcontain = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("image")){
+                        this.image = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("audio")){
+                        this.audio = questionconfig.getValue();
+                    } else if (questionconfig.getName().equals("video")){
+                        this.video = questionconfig.getValue();
                     }
                 }
             }
@@ -96,6 +105,13 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             if (this.answermustcontain==null || this.answermustcontain.length()<=0){
                 throw new ValidationException("The Answer is required.");
             }
+
+            //Validate that at most one image/audio/video is set
+            int iavCount = 0;
+            if (image!=null && image.length()>0){iavCount++;}
+            if (audio!=null && audio.length()>0){iavCount++;}
+            if (video!=null && video.length()>0){iavCount++;}
+            if (iavCount>1){ throw new ValidationException("Sorry, you can set at most one Image/Audio/Video URL"); }
 
             Question question = new Question();
             if (questionid>0){
@@ -147,6 +163,28 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             qc1.setName("answermustcontain");
             qc1.setValue(answermustcontain);
             question.getQuestionconfigs().add(qc1);
+
+            if (image!=null && image.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("image");
+                qc.setValue(image);
+                question.getQuestionconfigs().add(qc);
+            }
+            if (audio!=null && audio.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("audio");
+                qc.setValue(audio);
+                question.getQuestionconfigs().add(qc);
+            }
+            if (video!=null && video.length()>0){
+                Questionconfig qc = new Questionconfig();
+                qc.setQuestionid(question.getQuestionid());
+                qc.setName("video");
+                qc.setValue(video);
+                question.getQuestionconfigs().add(qc);
+            }
 
             try{
                 logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -223,5 +261,29 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
 
     public void setAnswermustcontain(String answermustcontain) {
         this.answermustcontain=answermustcontain;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image=image;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio=audio;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video=video;
     }
 }

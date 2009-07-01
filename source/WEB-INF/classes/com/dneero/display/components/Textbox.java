@@ -36,6 +36,10 @@ public class Textbox implements Component {
         this.blogger = blogger;
     }
 
+    public Question getQuestion(){
+        return question;
+    }
+
     public String getName() {
         return NAME;
     }
@@ -150,9 +154,6 @@ public class Textbox implements Component {
             }
         }
 
-        
-
-
         //Display
         int maxtodisplay = 10;
         if (answers.size()<maxtodisplay){
@@ -236,9 +237,6 @@ public class Textbox implements Component {
                 }
             }
         }
-
-
-
 
         //Display
         Iterator keyValuePairs = answers.entrySet().iterator();
