@@ -23,33 +23,59 @@ String acl = "blogger";
         try {
             if (request.getParameter("twitanswerid")!=null && Num.isinteger(request.getParameter("twitanswerid"))){
                 Twitanswer twitanswer = Twitanswer.get(Integer.parseInt(request.getParameter("twitanswerid")));
-                if (twitanswer.getUserid()==Pagez.getUserSession().getUser().getUserid()){
+                if (twitanswer!=null && twitanswer.getTwitaskid()>0 && twitanswer.getUserid()==Pagez.getUserSession().getUser().getUserid()){
+                    //Let's refresh since we're dealing with money
+                    twitanswer.refresh();
                     //Note that this same if statement appears on BloggerCompletedTwitasks.java and bloggercompletedtwitasks.jsp
                     if (twitanswer.getStatus()==Twitanswer.STATUS_APPROVED && !twitanswer.getIspaid() && !twitanswer.getIssysadminrejected() && twitanswer.getIscriteriaxmlqualified()){
-                        //Set the coupon stuff
-                        String charityname = "";
-                        if (request.getParameter("charity-charityname")!=null){
-                            charityname = request.getParameter("charity-charityname");  
+                        //Now let's make sure this user hasn't been paid already for this question
+                        boolean hasAlreadyBeenPaidForThisQuestion = false;
+                        List<Twitanswer> twitanswersAlreadyPaid = HibernateUtil.getSession().createCriteria(Twitanswer.class)
+                                                           .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))
+                                                           .add(Restrictions.eq("twitaskid", twitanswer.getTwitaskid()))
+                                                           .add(Restrictions.eq("ispaid", true))
+                                                           .setCacheable(false)
+                                                           .list();
+                        if (twitanswersAlreadyPaid!=null && twitanswersAlreadyPaid.size()>0){
+                            hasAlreadyBeenPaidForThisQuestion = true;
                         }
-                        twitanswer.setCharityname(charityname);
-                        twitanswer.setIsforcharity(false);
-                        if (request.getParameter("charity-isforcharity")!=null && request.getParameter("charity-isforcharity").equals("1")){
-                            twitanswer.setIsforcharity(true);
+                        //Only pay if they haven't already been paid
+                        if (!hasAlreadyBeenPaidForThisQuestion){
+                            //Set the coupon stuff
+                            String charityname = "";
+                            if (request.getParameter("charity-charityname")!=null){
+                                charityname = request.getParameter("charity-charityname");
+                            }
+                            twitanswer.setCharityname(charityname);
+                            twitanswer.setIsforcharity(false);
+                            if (request.getParameter("charity-isforcharity")!=null && request.getParameter("charity-isforcharity").equals("1")){
+                                twitanswer.setIsforcharity(true);
+                            }
+                            try{twitanswer.save();}catch(Exception ex){logger.error("",ex);}
+                            //Award the incentive
+                            twitanswer.getIncentive().doAwardIncentive(twitanswer);
+                            //Update paid status
+                            twitanswer.setIspaid(true);
+                            try{twitanswer.save();}catch(Exception ex){logger.error("",ex);}
+                            //Refresh the bean
+                            bloggerCompletedTwitasks.initBean();
+                            //Message
+                            Pagez.getUserSession().setMessage("Done!  Thanks!");
+                        } else {
+                            Pagez.getUserSession().setMessage("You've already been paid for this question.");
                         }
-                        try{twitanswer.save();}catch(Exception ex){logger.error("",ex);}
-                        //Award the incentive
-                        twitanswer.getIncentive().doAwardIncentive(twitanswer);
-                        //Update paid status
-                        twitanswer.setIspaid(true);
-                        try{twitanswer.save();}catch(Exception ex){logger.error("",ex);}
-                        //Refresh the bean
-                        bloggerCompletedTwitasks.initBean();
+                    } else {
+                        Pagez.getUserSession().setMessage("Sorry, there's been an error.");       
                     }
+                } else {
+                    Pagez.getUserSession().setMessage("Sorry, there has been an error.");     
                 }
+            } else {
+                Pagez.getUserSession().setMessage("Sorry, there was an error.");
             }
-            Pagez.getUserSession().setMessage("Done!  Thanks!");
+
         } catch (Exception ex) {
-            Pagez.getUserSession().setMessage("Sorry, there was an error.");
+            Pagez.getUserSession().setMessage("Sorry, there was a system error.");
             logger.error("", ex);
         }
     }

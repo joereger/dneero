@@ -103,9 +103,9 @@ CustomercareUserDetailExtended customercareUserDetailExtended= (CustomercareUser
                     cols.add(new GridCol("Response", "<$responseid$>", false, "", "tinyfont"));
                     cols.add(new GridCol("Date", "<$firstseen|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
                     cols.add(new GridCol("Total Impr", "<$impressionstotal$>", false, "", "tinyfont"));
-                    cols.add(new GridCol("Impr To Be Paid", "<$impressionstobepaid$>", false, "", "tinyfont"));
-                    cols.add(new GridCol("Impr Paid", "<$impressionspaid$>", false, "", "tinyfont"));
-                    cols.add(new GridCol("Impr By Day", "<textarea rows=\"1\" cols=\"30\" style=\"font-size: 9px; border 0px solid #cccccc;\"><$impressionsbyday$></textarea>", false, "", "tinyfont"));
+                    //cols.add(new GridCol("Impr To Be Paid", "<$impressionstobepaid$>", false, "", "tinyfont"));
+                    //cols.add(new GridCol("Impr Paid", "<$impressionspaid$>", false, "", "tinyfont"));
+                    //cols.add(new GridCol("Impr By Day", "<textarea rows=\"1\" cols=\"30\" style=\"font-size: 9px; border 0px solid #cccccc;\"><$impressionsbyday$></textarea>", false, "", "tinyfont"));
                     cols.add(new GridCol("Referer", "<textarea rows=\"1\" cols=\"14\" style=\"font-size: 9px; border 0px solid #cccccc;\"><$referer$></textarea>", false, "", "tinyfont"));
                 %>
                 <%=Grid.render(customercareUserDetailExtended.getImpressions(), cols, 50, "/customercare/userdetailextended.jsp?userid="+ customercareUserDetailExtended.getUser().getUserid(), "pageimpressions")%>

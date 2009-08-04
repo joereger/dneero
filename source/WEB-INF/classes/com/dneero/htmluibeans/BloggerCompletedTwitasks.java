@@ -34,49 +34,53 @@ public class BloggerCompletedTwitasks implements Serializable {
             List<Twitanswer> tanss = HibernateUtil.getSession().createQuery("from Twitanswer where userid='"+userSession.getUser().getUserid()+"' order by twitanswerid desc").setMaxResults(maxtodisplay).setCacheable(true).list();
             for (Iterator<Twitanswer> iterator = tanss.iterator(); iterator.hasNext();) {
                 Twitanswer twitanswer = iterator.next();
-                Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
-                BloggerCompletedTwitasksListitem listitem = new BloggerCompletedTwitasksListitem();
-                listitem.setTwitask(twitask);
-                listitem.setTwitanswer(twitanswer);
+                if (twitanswer!=null && twitanswer.getTwitaskid()>0){
+                    Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
+                    if (twitask!=null && twitask.getTwitaskid()>0){
+                        BloggerCompletedTwitasksListitem listitem = new BloggerCompletedTwitasksListitem();
+                        listitem.setTwitask(twitask);
+                        listitem.setTwitanswer(twitanswer);
 
-                //Status
-                if (twitanswer.getStatus()==Twitanswer.STATUS_ALREADYANSWERED){
-                    listitem.setStatusTxt("You've already answered this Twitter Question.");
-                }
-                if (twitanswer.getStatus()==Twitanswer.STATUS_APPROVED){
-                    if (twitanswer.getIspaid()){
-                        listitem.setStatusTxt("Paid");
-                    } else {
-                        listitem.setStatusTxt("Approved, Payment is Pending");
+                        //Status
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_ALREADYANSWERED){
+                            listitem.setStatusTxt("You've already answered this Twitter Question.");
+                        }
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_APPROVED){
+                            if (twitanswer.getIspaid()){
+                                listitem.setStatusTxt("Paid");
+                            } else {
+                                listitem.setStatusTxt("Approved, Payment is Pending");
+                            }
+                        }
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_DOESNTQUALIFY){
+                            listitem.setStatusTxt("Your profile doesn't qualify for this question.  This is just part of the game.  Keep trying... lots more questions.");
+                        }
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_NOBLOGGER){
+                            listitem.setStatusTxt("You need to activate your Social Person profile by clicking the Social People tab.");
+                        }
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_NOTWITASK){
+                            listitem.setStatusTxt("Your reply wasn't associated with a question.  In Twitter you need to click the Reply button and then type your answer.");
+                        }
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_PENDINGREVIEW){
+                            listitem.setStatusTxt("Pending Review");
+                        }
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_REJECTED){
+                            listitem.setStatusTxt("Rejected");
+                        }
+                        if (twitanswer.getStatus()==Twitanswer.STATUS_TOOLATE){
+                            listitem.setStatusTxt("Too late... the Twitter Question had already gotten enough responses... you've got to be quick!");
+                        }
+
+                        //Earnings text
+                        listitem.setEarningsTxt(twitask.getIncentive().getFullSummary());
+
+                        //Html pay form for user to choose award
+                        listitem.setHtmlpayform(getHtmlPayForm(twitask, twitanswer));
+
+                        //Add to list
+                        twitanswers.add(listitem);
                     }
                 }
-                if (twitanswer.getStatus()==Twitanswer.STATUS_DOESNTQUALIFY){
-                    listitem.setStatusTxt("Your profile doesn't qualify for this question.  This is just part of the game.  Keep trying... lots more questions.");
-                }
-                if (twitanswer.getStatus()==Twitanswer.STATUS_NOBLOGGER){
-                    listitem.setStatusTxt("You need to activate your Social Person profile by clicking the Social People tab.");
-                }
-                if (twitanswer.getStatus()==Twitanswer.STATUS_NOTWITASK){
-                    listitem.setStatusTxt("Your reply wasn't associated with a question.  In Twitter you need to click the Reply button and then type your answer.");
-                }
-                if (twitanswer.getStatus()==Twitanswer.STATUS_PENDINGREVIEW){
-                    listitem.setStatusTxt("Pending Review");
-                }
-                if (twitanswer.getStatus()==Twitanswer.STATUS_REJECTED){
-                    listitem.setStatusTxt("Rejected");
-                }
-                if (twitanswer.getStatus()==Twitanswer.STATUS_TOOLATE){
-                    listitem.setStatusTxt("Too late... the Twitter Question had already gotten enough responses... you've got to be quick!");
-                }
-
-                //Earnings text
-                listitem.setEarningsTxt(twitask.getIncentive().getFullSummary());
-
-                //Html pay form for user to choose award
-                listitem.setHtmlpayform(getHtmlPayForm(twitask, twitanswer));
-
-                //Add to list
-                twitanswers.add(listitem);
             }
         }
     }

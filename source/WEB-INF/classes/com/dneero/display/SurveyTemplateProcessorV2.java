@@ -7,6 +7,7 @@ import com.dneero.util.Util;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.helpers.NicknameHelper;
+import com.dneero.systemprops.BaseUrl;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -278,7 +279,14 @@ public class SurveyTemplateProcessorV2 {
             ComponentTypes ct = new ComponentTypes();
             Component component = ct.getByElement(templateNode, blogger, survey);
             if (component!=null){
+                out.append("\n\n<table cellpadding='0' cellspacing='0' border='0'>");
+                out.append("<tr>");
+                //Main body of component
+                out.append("<td valign='top'>");
+                out.append(component.getHtmlForInput(response));
+                out.append("</td>");
                 //Start Image/Video/Audio Stuff for each Question
+                boolean haveMedia = false;
                 String image = "";
                 String video = "";
                 String audio = "";
@@ -286,17 +294,26 @@ public class SurveyTemplateProcessorV2 {
                     Questionconfig questionconfig = iterator.next();
                     if (questionconfig.getName().equals("image")){
                         image = questionconfig.getValue();
+                        haveMedia = true;
                     } else if (questionconfig.getName().equals("audio")){
                         audio = questionconfig.getValue();
+                        haveMedia = true;
                     } else if (questionconfig.getName().equals("video")){
                         video = questionconfig.getValue();
+                        haveMedia = true;
                     }
                 }
-                if (image!=null && image.length()>0){out.append(htmlForImage(image));}
-                if (video!=null && video.length()>0){out.append(htmlForVideo(video));}
-                if (audio!=null && audio.length()>0){out.append(htmlForAudio(audio));}
+                if (haveMedia){
+                    out.append("<td valign='top'>");
+                    if (image!=null && image.length()>0){out.append(htmlForImage(image));}
+                    if (video!=null && video.length()>0){out.append(htmlForVideo(video));}
+                    if (audio!=null && audio.length()>0){out.append(htmlForAudio(audio));}
+                    out.append("</td>");
+                }
                 //End Image/Video/Audio Stuff for each Question
-                out.append(component.getHtmlForInput(response) + "<br>");
+                out.append("</tr>");
+                out.append("</table>");
+                out.append("<br/><br/>");
             }
             //Children
             if (templateNode.getChildren()!=null && templateNode.getChildren().size()>0){
@@ -323,7 +340,14 @@ public class SurveyTemplateProcessorV2 {
             ComponentTypes ct = new ComponentTypes();
             Component component = ct.getByElement(templateNode, blogger, survey);
             if (component!=null){
+                out.append("\n\n<table cellpadding='0' cellspacing='0' border='0'>");
+                out.append("<tr>");
+                //Main body of component
+                out.append("<td valign='top'>");
+                out.append(component.getHtmlForDisplay(response));
+                out.append("</td>");
                 //Start Image/Video/Audio Stuff for each Question
+                boolean haveMedia = false;
                 String image = "";
                 String video = "";
                 String audio = "";
@@ -331,18 +355,26 @@ public class SurveyTemplateProcessorV2 {
                     Questionconfig questionconfig = iterator.next();
                     if (questionconfig.getName().equals("image")){
                         image = questionconfig.getValue();
+                        haveMedia = true;
                     } else if (questionconfig.getName().equals("audio")){
                         audio = questionconfig.getValue();
+                        haveMedia = true;
                     } else if (questionconfig.getName().equals("video")){
                         video = questionconfig.getValue();
+                        haveMedia = true;
                     }
                 }
-                if (image!=null && image.length()>0){out.append(htmlForImage(image));}
-                if (video!=null && video.length()>0){out.append(htmlForVideo(video));}
-                if (audio!=null && audio.length()>0){out.append(htmlForAudio(audio));}
+                if (haveMedia){
+                    out.append("<td valign='top'>");
+                    if (image!=null && image.length()>0){out.append(htmlForImage(image));}
+                    if (video!=null && video.length()>0){out.append(htmlForVideo(video));}
+                    if (audio!=null && audio.length()>0){out.append(htmlForAudio(audio));}
+                    out.append("</td>");
+                }
                 //End Image/Video/Audio Stuff for each Question
-                //Main body of component
-                out.append(component.getHtmlForDisplay(response) + "<br>");
+                out.append("</tr>");
+                out.append("</table>");
+                out.append("<br/><br/>");
             }
             //Children
             if (templateNode.getChildren()!=null && templateNode.getChildren().size()>0){
@@ -441,28 +473,40 @@ public class SurveyTemplateProcessorV2 {
         return out;
     }
 
+ 
+
 
     private static String htmlForImage(String image){
         StringBuffer out = new StringBuffer();
-        out.append("<div style=\"float:right;\">");
-        out.append("<img src=\""+image+"\" width=\"150\" alt=\"\">");
-        out.append("</div>");
+        out.append("<img src=\""+image+"\" width=\"200\" alt=\"\">");
         return out.toString();
     }
 
     private static String htmlForVideo(String video){
         StringBuffer out = new StringBuffer();
-        out.append("<div style=\"float:right;\">");
-        out.append(video);
-        out.append("</div>");
+        out.append("<embed\n" +
+                "src=\""+BaseUrl.get(true)+"jwplayer/player.swf\"\n" +
+                "width=\"200\"\n" +
+                "height=\"150\"\n" +
+                "bgcolor=\"undefined\"\n" +
+                "allowscriptaccess=\"always\"\n" +
+                "allowfullscreen=\"true\"\n" +
+                "flashvars=\"file="+video+"\"\n" +
+                "/>");
         return out.toString();
     }
 
     private static String htmlForAudio(String audio){
         StringBuffer out = new StringBuffer();
-        out.append("<div style=\"float:right;\">");
-        out.append(audio);
-        out.append("</div>");
+        out.append("<embed\n" +
+                "src=\""+BaseUrl.get(true)+"jwplayer/player.swf\"\n" +
+                "width=\"200\"\n" +
+                "height=\"50\"\n" +
+                "bgcolor=\"undefined\"\n" +
+                "allowscriptaccess=\"always\"\n" +
+                "allowfullscreen=\"true\"\n" +
+                "flashvars=\"file="+audio+"\"\n" +
+                "/>");
         return out.toString();
     }
 
