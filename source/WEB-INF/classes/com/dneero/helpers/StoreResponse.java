@@ -251,6 +251,8 @@ public class StoreResponse {
                             question.setScorebyresearcher(0);
                             question.setScorebysysadmin(0);
                         }
+                        //Set order if it's new
+                        question.setQuestionorder(QuestionOrder.calculateNewQuestionOrder(question));
                         //if (!userhadquestionalready){
                             survey.getQuestions().add(question);
                         //}

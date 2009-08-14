@@ -49,6 +49,9 @@ public class ResearcherSurveyDetail02 implements Serializable {
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 surveyForTakers = SurveyTemplateProcessor.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
                 status = survey.getStatus();
+            } else {
+                Pagez.sendRedirect("/researcher/index.jsp");
+                return;
             }
         }
     }
@@ -195,6 +198,10 @@ public class ResearcherSurveyDetail02 implements Serializable {
         }
         if (componenttype==TestQuestion.ID){
             Pagez.sendRedirect("/researcher/researchersurveydetail_02_testquestion.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
+            return;
+        }
+        if (componenttype==Infotext.ID){
+            Pagez.sendRedirect("/researcher/researchersurveydetail_02_infotext.jsp?surveyid="+survey.getSurveyid()+"&questionid="+tmpQuestionid);
             return;
         }
         logger.debug("Couldn't find ComponentType = "+tmpComponenttype);

@@ -8,6 +8,7 @@ import com.dneero.util.GeneralException;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.helpers.QuestionOrder;
 import com.dneero.display.components.TestQuestion;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 
@@ -131,6 +132,7 @@ public class ResearcherSurveyDetail02testquestion implements Serializable {
             question.setIssysadminrejected(false);
             question.setScorebyresearcher(0);
             question.setScorebysysadmin(0);
+            question.setQuestionorder(QuestionOrder.calculateNewQuestionOrder(question));
 
             for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
                 Question question1 = iterator.next();

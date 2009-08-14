@@ -90,14 +90,14 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
                 </td>
             </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Audio URL (Optional)</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("audio", researcherSurveyDetail02matrix.getAudio(), 1000, 30, "", "")%>
-                </td>
-            </tr>
+            <%--<tr>--%>
+                <%--<td valign="top">--%>
+                    <%--<font class="formfieldnamefont">Audio URL (Optional)</font>--%>
+                <%--</td>--%>
+                <%--<td valign="top">--%>
+                    <%--<%=Textbox.getHtml("audio", researcherSurveyDetail02matrix.getAudio(), 1000, 30, "", "")%>--%>
+                <%--</td>--%>
+            <%--</tr>--%>
 
             <tr>
                 <td valign="top">

@@ -29,6 +29,7 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
      private boolean issysadminrejected;
      private int scorebyresearcher;
      private int scorebysysadmin;
+     private int questionorder;
      private Set<Questionconfig> questionconfigs = new HashSet<Questionconfig>();
      private Set<Questionresponse> questionresponses = new HashSet<Questionresponse>();
 
@@ -191,5 +192,13 @@ public class Question extends BasePersistentClass implements java.io.Serializabl
 
     public void setScorebysysadmin(int scorebysysadmin) {
         this.scorebysysadmin=scorebysysadmin;
+    }
+
+    public int getQuestionorder() {
+        return questionorder;
+    }
+
+    public void setQuestionorder(int questionorder) {
+        this.questionorder=questionorder;
     }
 }

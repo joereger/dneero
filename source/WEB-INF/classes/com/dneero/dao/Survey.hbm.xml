@@ -9,7 +9,7 @@
             <column name="surveyid" />
             <generator class="native" />
         </id>
-        <set name="questions" inverse="true" order-by="questionid asc" cascade="all-delete-orphan">
+        <set name="questions" inverse="true" order-by="questionorder asc" cascade="all-delete-orphan">
             <cache usage="transactional"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Question" not-found="ignore"></one-to-many>

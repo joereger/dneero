@@ -89,14 +89,14 @@ String acl="researcher";
                 </td>
             </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Audio URL (Optional)</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("audio", researcherSurveyDetail02testquestion.getAudio(), 1000, 30, "", "")%>
-                </td>
-            </tr>
+            <%--<tr>--%>
+                <%--<td valign="top">--%>
+                    <%--<font class="formfieldnamefont">Audio URL (Optional)</font>--%>
+                <%--</td>--%>
+                <%--<td valign="top">--%>
+                    <%--<%=Textbox.getHtml("audio", researcherSurveyDetail02testquestion.getAudio(), 1000, 30, "", "")%>--%>
+                <%--</td>--%>
+            <%--</tr>--%>
 
             <tr>
                 <td valign="top">

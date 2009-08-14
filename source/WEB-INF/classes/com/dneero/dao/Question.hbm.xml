@@ -55,6 +55,9 @@
         <property name="scorebysysadmin" type="int">
             <column name="scorebysysadmin" not-null="true" />
         </property>
+        <property name="questionorder" type="int">
+            <column name="questionorder" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

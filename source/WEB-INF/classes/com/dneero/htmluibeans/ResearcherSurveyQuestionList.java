@@ -35,7 +35,7 @@ public class ResearcherSurveyQuestionList implements Serializable {
             logger.debug("Found survey in db: survey.getSurveyid()="+survey.getSurveyid()+" survey.getTitle()="+survey.getTitle());
         }
 
-        questions = (ArrayList)HibernateUtil.getSession().createQuery("from Question where surveyid='"+survey.getSurveyid()+"' and isuserquestion=false  order by questionid asc").setCacheable(true).list();
+        questions = (ArrayList)HibernateUtil.getSession().createQuery("from Question where surveyid='"+survey.getSurveyid()+"' and isuserquestion=false  order by questionorder asc").setCacheable(true).list();
 
 //        for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
 //            Question question = iterator.next();

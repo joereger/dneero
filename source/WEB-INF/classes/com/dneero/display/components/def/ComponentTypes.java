@@ -47,6 +47,9 @@ public class ComponentTypes {
         if (typeID== TestQuestion.ID){
             return new TestQuestion(question, blogger);
         }
+        if (typeID== Infotext.ID){
+            return new Infotext(question, blogger);
+        }
         return null;
     }
 
@@ -60,6 +63,7 @@ public class ComponentTypes {
             typesaslinkedhashmap.put(Range.NAME, Range.ID);
             typesaslinkedhashmap.put(Matrix.NAME, Matrix.ID);
             typesaslinkedhashmap.put(TestQuestion.NAME, TestQuestion.ID);
+            typesaslinkedhashmap.put(Infotext.NAME, Infotext.ID);
         }
         return typesaslinkedhashmap;
     }

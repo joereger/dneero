@@ -60,6 +60,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 enddate = survey.getEnddate();
                 status = survey.getStatus();
                 embedversion = survey.getEmbedversion();
+            } else {
+                Pagez.sendRedirect("/researcher/index.jsp");
+                return;
             }
         }
     }

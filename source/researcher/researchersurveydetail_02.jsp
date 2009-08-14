@@ -61,7 +61,8 @@ String acl="researcher";
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
-%><%
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("editquestion")) {
         try {
             researcherSurveyDetail02.beginEdit();
@@ -76,6 +77,26 @@ String acl="researcher";
             researcherSurveyDetail02.deleteQuestion();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("questionorder")) {
+        try {
+            for (Iterator<Question> iterator=researcherSurveyDetail02.getSurvey().getQuestions().iterator(); iterator.hasNext();) {
+                Question question=iterator.next();
+                if(Num.isinteger(request.getParameter("questionorder-"+question.getQuestionid()))){
+                    int questionorder = Integer.parseInt(request.getParameter("questionorder-"+question.getQuestionid()));
+                    question.setQuestionorder(questionorder);
+                    question.save();
+                }
+            }
+            researcherSurveyDetail02.getSurvey().refresh();
+            researcherSurveyQuestionList.initBean();     
+            Pagez.getUserSession().setMessage("Question Orders Saved!");
+        } catch (Exception ex) {
+            logger.error("", ex);
+            Pagez.getUserSession().setMessage("Sorry, there's been an error.");
         }
     }
 %>
@@ -141,8 +162,15 @@ String acl="researcher";
                     if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
                         cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
                     }
+                    if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){
+                        cols.add(new GridCol("Order", "<input type='text' name='questionorder-<$questionid$>' value='<$questionorder$>' size='2' maxlength='4'>", true, "", "smallfont"));
+                    }
                 %>
                 <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "/researcher/researchersurveydetail_02.jsp", "page")%>
+                <%if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){%>
+                    <div style="float:right;"><input type="submit" class="formsubmitbutton" value="Save Question Orders" onclick="document.getElementById('action').value='questionorder';"></div>
+                    <br clear="all"/>
+                <%}%>
             <%}%>
 
 
@@ -179,6 +207,9 @@ String acl="researcher";
                         }
                         if (key.equals(String.valueOf(com.dneero.display.components.TestQuestion.ID))) {
                             url="researchersurveydetail_02_testquestion.jsp";
+                        }
+                        if (key.equals(String.valueOf(com.dneero.display.components.Infotext.ID))) {
+                            url="researchersurveydetail_02_infotext.jsp";
                         }
                         %>
                         <font class="formfieldnamefont"><a href="/researcher/<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><%=value%></a></font><br/>

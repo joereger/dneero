@@ -15,6 +15,7 @@ import com.dneero.util.Num;
 import com.dneero.display.components.Textbox;
 import com.dneero.display.components.Matrix;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.helpers.QuestionOrder;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 
 import java.util.Iterator;
@@ -141,6 +142,7 @@ public class ResearcherSurveyDetail02matrix implements Serializable {
             question.setIssysadminrejected(false);
             question.setScorebyresearcher(0);
             question.setScorebysysadmin(0);
+            question.setQuestionorder(QuestionOrder.calculateNewQuestionOrder(question));
 
             for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {
                 Question question1 = iterator.next();

@@ -90,14 +90,14 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
                 </td>
             </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Audio URL (Optional)</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("audio", researcherSurveyDetail02checkboxes.getAudio(), 1000, 30, "", "")%>
-                </td>
-            </tr>
+            <%--<tr>--%>
+                <%--<td valign="top">--%>
+                    <%--<font class="formfieldnamefont">Audio URL (Optional)</font>--%>
+                <%--</td>--%>
+                <%--<td valign="top">--%>
+                    <%--<%=Textbox.getHtml("audio", researcherSurveyDetail02checkboxes.getAudio(), 1000, 30, "", "")%>--%>
+                <%--</td>--%>
+            <%--</tr>--%>
 
             <tr>
                 <td valign="top">
