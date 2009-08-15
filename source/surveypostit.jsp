@@ -161,7 +161,7 @@ String acl = "public";
                         <div class="rounded" style="background: #ffffff; text-align: center;">
                             <font class="mediumfont">New: Posting Venues!</font>
                             <br/>
-                            <font class="smallfont">You can now specify where you'll post your conversations in <a href="/blogger/bloggerdetails.jsp">your profile</a>. On March 1st, 2009 we'll start to only accept impressions from the posting venues you specify.  We do this to increase the overall quality of the system for those of you already playing by the rules.</font>
+                            <font class="smallfont">You can now specify where you'll post your conversations in <a href="/blogger/bloggerdetails.jsp">your profile</a>. On March 1st, 2009 we started to only accept impressions from the posting venues you specify.  We did this to increase the overall quality of the system for those of you already playing by the rules.</font>
                         </div>
                         <div class="rounded" style="background: #ffffff; text-align: center;">
                             <font class="mediumfont">You've Joined this Conversation!</font>
@@ -220,6 +220,27 @@ String acl = "public";
                     <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
                     Instructions for posting your conversation answers to various blogs and social networks.  Need <a href="/account/inbox.jsp"><font class="smallfont">help</font></a> posting to your blog?
                     </font></div></center>
+
+
+
+                    <!-- START GIGYA -->
+                    <script src="http://cdn.gigya.com/wildfire/js/wfapiv2.js"></script>
+                    <textarea rows="1" cols="1" id="TEXTAREA_ID" style="display: none">
+                    <%=publicSurveyPostit.getHtmltoposttoblogflash()%>
+                    </textarea>
+                    <div id="divWildfirePost"></div>
+                    <script>
+                    var pconf={
+                      useFacebookMystuff: 'false',
+                      defaultContent: 'TEXTAREA_ID',
+                      UIConfig: '<config baseTheme="v2"><display showEmail="false" showBookmark="false"></display></config>'
+                    };
+                    Wildfire.initPost('551572', 'divWildfirePost', 400, 300, pconf);
+                    </script>
+                    <br/><br/>
+                    <!-- END GIGYA -->
+
+
 
                     <br/><br/>
                     <font class="mediumfont">TypePad</font>

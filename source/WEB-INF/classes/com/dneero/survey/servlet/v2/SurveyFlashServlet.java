@@ -43,111 +43,113 @@ public class SurveyFlashServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.error("V2 SurveyFlashServlet doPost() called... shouldn't be... should be pulling file directly from filesystem");
 
-        long timestart = new java.util.Date().getTime();
-        logger.debug("Looking for flash survey via servlet");
-        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
-        logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
-        logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
-        logger.debug("request.getParameter(\"c\")="+request.getParameter("c"));
-        logger.debug("request.getParameter(\"r\")="+request.getParameter("r"));
-
-        Survey survey = null;
-        int surveyid = 0;
-        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
-            survey = Survey.get(Integer.parseInt(request.getParameter("s")));
-            if (survey!=null){
-                surveyid = survey.getSurveyid();
-            }
-        }
-
-        com.dneero.dao.Response resp = null;
-        int responseid = 0;
-        if (request.getParameter("r")!=null && com.dneero.util.Num.isinteger(request.getParameter("r"))){
-            resp = com.dneero.dao.Response.get(Integer.parseInt(request.getParameter("r")));
-            if (resp!=null){
-                responseid = resp.getResponseid();
-            }
-        }
-
-        int userid = 0;
-        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
-            userid = Integer.parseInt(request.getParameter("u"));
-        }
-
-        boolean ispreview = false;
-        if (request.getParameter("p")!=null && com.dneero.util.Num.isinteger(request.getParameter("p"))){
-            if (request.getParameter("p").equals("1")){
-                ispreview = true;
-            }
-        }
-
-        boolean cache = true;
-        if (request.getParameter("c")!=null && com.dneero.util.Num.isinteger(request.getParameter("c"))){
-            if (request.getParameter("c").equals("0")){
-                cache = false;
-            }
-        }
-        cache = false; //NO CACHE TURNED ON YET... CACHING IS AT XML LEVEL RIGHT NOW... NO CUSTOMIZATION OF SWF IN V2 YET
-
-        if (survey!=null && survey.getSurveyid()>0 && !ispreview){
-            RecordImpression.record(request);
-        } else {
-            logger.debug("not recording impression.");
-            if (survey==null){
-                logger.debug("survey is null");
-            } else {
-                logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" ispreview="+ispreview);
-            }
-        }
-
-        byte[] bytes = null;
-        String nameInCache = "surveyflashservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
-        String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
-        Object fromCache = null;
-        //Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
-        if (fromCache!=null && cache){
-            logger.debug("returning bytes from cache");
-            bytes = (byte[])fromCache;
-            logger.debug("bytes.length="+bytes.length);
-        } else {
-            logger.debug("rebuilding bytes and putting them into cache");
-            try{
-                //Get Bytes of SWF
-                File swf = new File(WebAppRootDir.getWebAppRootPath() + "flashviewer/v2/ConvoEmbed.swf");
-                bytes = Io.getBytesFromFile(swf);
-                //Put bytes into cache
-                //CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, bytes);
-                logger.debug("End TransformSWF");
-            } catch (Exception ex){
-                logger.error("Error with transform in bottom section",ex);
-            }
-        }
-
-        //try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error("",ex);}
-
-        try{
-            //Get servlet outputstream, set content type and send swf to browser client
-            ServletOutputStream outStream = response.getOutputStream();
-            response.setContentType("application/x-shockwave-flash");
-            outStream.write(bytes);
-            outStream.close();
-        } catch (ClientAbortException cex){
-            logger.debug("Client aborted", cex);
-        } catch (java.net.SocketException sex){
-            logger.debug("Trouble writing survey to browser", sex);
-        } catch (Exception e){
-            logger.error("Error writing survey to browser", e);
-        }
-
-        //Performance recording
-        try {
-            long timeend = new java.util.Date().getTime();
-            long elapsedtime = timeend - timestart;
-            PagePerformanceUtil.add("/convo.swf", InstanceProperties.getInstancename(), elapsedtime);
-        } catch (Exception ex) {
-            logger.error("", ex);
-        }
+//        long timestart = new java.util.Date().getTime();
+//        logger.debug("Looking for flash survey via servlet");
+//        logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
+//        logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
+//        logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
+//        logger.debug("request.getParameter(\"c\")="+request.getParameter("c"));
+//        logger.debug("request.getParameter(\"r\")="+request.getParameter("r"));
+//
+//        Survey survey = null;
+//        int surveyid = 0;
+//        if (request.getParameter("s")!=null && com.dneero.util.Num.isinteger(request.getParameter("s"))){
+//            survey = Survey.get(Integer.parseInt(request.getParameter("s")));
+//            if (survey!=null){
+//                surveyid = survey.getSurveyid();
+//            }
+//        }
+//
+//        com.dneero.dao.Response resp = null;
+//        int responseid = 0;
+//        if (request.getParameter("r")!=null && com.dneero.util.Num.isinteger(request.getParameter("r"))){
+//            resp = com.dneero.dao.Response.get(Integer.parseInt(request.getParameter("r")));
+//            if (resp!=null){
+//                responseid = resp.getResponseid();
+//            }
+//        }
+//
+//        int userid = 0;
+//        if (request.getParameter("u")!=null && com.dneero.util.Num.isinteger(request.getParameter("u"))){
+//            userid = Integer.parseInt(request.getParameter("u"));
+//        }
+//
+//        boolean ispreview = false;
+//        if (request.getParameter("p")!=null && com.dneero.util.Num.isinteger(request.getParameter("p"))){
+//            if (request.getParameter("p").equals("1")){
+//                ispreview = true;
+//            }
+//        }
+//
+//        boolean cache = true;
+//        if (request.getParameter("c")!=null && com.dneero.util.Num.isinteger(request.getParameter("c"))){
+//            if (request.getParameter("c").equals("0")){
+//                cache = false;
+//            }
+//        }
+//        cache = false; //NO CACHE TURNED ON YET... CACHING IS AT XML LEVEL RIGHT NOW... NO CUSTOMIZATION OF SWF IN V2 YET
+//        //IN FACT, THIS REALLY SHOULDN"T EVEN RUN... I"M JUST PULLING THE FILE OFF THE FILESYSTEM
+//
+//        if (survey!=null && survey.getSurveyid()>0 && !ispreview){
+//            RecordImpression.record(request);
+//        } else {
+//            logger.debug("not recording impression.");
+//            if (survey==null){
+//                logger.debug("survey is null");
+//            } else {
+//                logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" ispreview="+ispreview);
+//            }
+//        }
+//
+//        byte[] bytes = null;
+//        String nameInCache = "surveyflashservlet-v2-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
+//        String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
+//        Object fromCache = null;
+//        //Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
+//        if (fromCache!=null && cache){
+//            logger.debug("returning bytes from cache");
+//            bytes = (byte[])fromCache;
+//            logger.debug("bytes.length="+bytes.length);
+//        } else {
+//            logger.debug("rebuilding bytes and putting them into cache");
+//            try{
+//                //Get Bytes of SWF
+//                File swf = new File(WebAppRootDir.getWebAppRootPath() + "flashviewer/v2/ConvoEmbed.swf");
+//                bytes = Io.getBytesFromFile(swf);
+//                //Put bytes into cache
+//                //CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, bytes);
+//                logger.debug("End TransformSWF");
+//            } catch (Exception ex){
+//                logger.error("Error with transform in bottom section",ex);
+//            }
+//        }
+//
+//        //try{logger.debug("bytes="+bytes.toString());}catch(Exception ex){logger.error("",ex);}
+//
+//        try{
+//            //Get servlet outputstream, set content type and send swf to browser client
+//            ServletOutputStream outStream = response.getOutputStream();
+//            response.setContentType("application/x-shockwave-flash");
+//            outStream.write(bytes);
+//            outStream.close();
+//        } catch (ClientAbortException cex){
+//            logger.debug("Client aborted", cex);
+//        } catch (java.net.SocketException sex){
+//            logger.debug("Trouble writing survey to browser", sex);
+//        } catch (Exception e){
+//            logger.error("Error writing survey to browser", e);
+//        }
+//
+//        //Performance recording
+//        try {
+//            long timeend = new java.util.Date().getTime();
+//            long elapsedtime = timeend - timestart;
+//            PagePerformanceUtil.add("/convo.swf", InstanceProperties.getInstancename(), elapsedtime);
+//        } catch (Exception ex) {
+//            logger.error("", ex);
+//        }
     }
 
 
@@ -187,7 +189,7 @@ public class SurveyFlashServlet extends HttpServlet {
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, int plid, boolean ispreview, boolean cache, boolean appendrandomstringtoforcebrowserrefresh){
         String urlofmovie = getUrlOfMovie(baseurl, surveyid, userid, responseid, plid, ispreview, cache, appendrandomstringtoforcebrowserrefresh);
         String out = ""+
-              "<embed src=\""+urlofmovie+"\" wmode=\"transparent\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
+              "<embed src=\""+urlofmovie+"\" wmode=\"transparent\" allowFullScreen=\"true\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"></embed>" +
               "";
         return out;
     }
@@ -199,7 +201,8 @@ public class SurveyFlashServlet extends HttpServlet {
                      "<param name=\"allowNetworking\" value=\"internal\" />" +
                      "<param name=\"wmode\" value=\"transparent\">" +
                      "<param name=\"movie\" value=\""+urlofmovie+"\" />" +
-                     "<embed src=\""+urlofmovie+"\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" allowScriptAccess=\"never\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\">"+
+                     "<param name=\"allowFullScreen\" value=\"true\" />" +
+                     "<embed src=\""+urlofmovie+"\" wmode=\"transparent\" allowFullScreen=\"true\" quality=\"high\" bgcolor=\"#ffffff\" width=\"425\" height=\"250\" name=\"dneeroflashviewer\" align=\"middle\" allowScriptAccess=\"never\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\">"+
                      "</embed>"+
                      "</object>";
         return out;

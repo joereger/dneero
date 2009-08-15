@@ -87,6 +87,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("image", researcherSurveyDetail02matrix.getImage(), 1000, 30, "", "")%>
+                    <br/><font class="tinyfont">Fully qualified url referencing a GIF, PNG or JPG.</font>
                 </td>
             </tr>
 
@@ -105,6 +106,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("video", researcherSurveyDetail02matrix.getVideo(), 1000, 30, "", "")%>
+                    <br/><font class="tinyfont">Fully qualified url referencing an FLV or MP4 file.</font>
                 </td>
             </tr>
 

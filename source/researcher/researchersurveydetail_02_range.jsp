@@ -91,6 +91,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("image", researcherSurveyDetail02range.getImage(), 1000, 30, "", "")%>
+                    <br/><font class="tinyfont">Fully qualified url referencing a GIF, PNG or JPG.</font>
                 </td>
             </tr>
 
@@ -109,6 +110,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("video", researcherSurveyDetail02range.getVideo(), 1000, 30, "", "")%>
+                    <br/><font class="tinyfont">Fully qualified url referencing an FLV or MP4 file.</font>
                 </td>
             </tr>
 

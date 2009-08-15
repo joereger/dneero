@@ -83,6 +83,7 @@ ResearcherSurveyDetail02infotext researcherSurveyDetail02infotext = (ResearcherS
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("image", researcherSurveyDetail02infotext.getImage(), 1000, 30, "", "")%>
+                    <br/><font class="tinyfont">Fully qualified url referencing a GIF, PNG or JPG.</font>
                 </td>
             </tr>
 
@@ -101,6 +102,7 @@ ResearcherSurveyDetail02infotext researcherSurveyDetail02infotext = (ResearcherS
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("video", researcherSurveyDetail02infotext.getVideo(), 1000, 30, "", "")%>
+                    <br/><font class="tinyfont">Fully qualified url referencing an FLV or MP4 file.</font>
                 </td>
             </tr>
 

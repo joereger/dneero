@@ -15,6 +15,11 @@
         <to last="true">/flashviewer/v2/SkinUnderPlaySeekMute.swf</to>
     </rule>
 
+    <rule>
+        <from>/fv2/convo.swf</from>
+        <to last="true">/flashviewer/v2/ConvoEmbed.swf</to>
+    </rule>
+
     <!--<rule>-->
         <!--<from>/twitter/([a-zA-Z0-9\_]*)/js/celebtweets/</from>-->
         <!--<to last="true">/jscelebmentions.jsp?twitterusername=$1</to>-->

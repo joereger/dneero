@@ -33,7 +33,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private Date startdate;
     private Date enddate;
     private int status;
-    private int embedversion = Survey.EMBEDVERSION_01;
+    private int embedversion = Survey.EMBEDVERSION_02;
     private Survey survey;
 
 
@@ -60,7 +60,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 enddate = survey.getEnddate();
                 status = survey.getStatus();
                 embedversion = survey.getEmbedversion();
-            } else {
+            }
+            if (survey!=null && survey.getSurveyid()>0 && !survey.canEdit(Pagez.getUserSession().getUser())){
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
             }
@@ -91,7 +92,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setImpressionstobepaid(0);
         survey.setPlid(Pagez.getUserSession().getPl().getPlid());
         survey.setIsaggressiveslotreclamationon(false);
-        survey.setEmbedversion(Survey.EMBEDVERSION_01);
+        survey.setEmbedversion(Survey.EMBEDVERSION_02);
     }
 
 
@@ -190,8 +191,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
     public TreeMap<String, String> getEmbedVersions(){
         TreeMap<String, String> out = new TreeMap<String, String>();
-        out.put(String.valueOf(Survey.EMBEDVERSION_01), "EMBEDVERSION_01");
-        out.put(String.valueOf(Survey.EMBEDVERSION_02), "EMBEDVERSION_02");
+        out.put(String.valueOf(Survey.EMBEDVERSION_01), "EMBEDVERSION_01 (Old School)");
+        out.put(String.valueOf(Survey.EMBEDVERSION_02), "EMBEDVERSION_02 (Recommended)");
         return out;
     }
 

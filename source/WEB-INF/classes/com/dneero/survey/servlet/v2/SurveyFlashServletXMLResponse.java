@@ -91,14 +91,28 @@ public class SurveyFlashServletXMLResponse extends HttpServlet {
                 cache = false;
             }
         }
-        cache=false; //Remove before production, yo!
+        //cache=false; //Remove before production, yo!
+
+        //Recordeth Thy Impressions that Bringeth Charitable Donations Henceforth Thusly and Stuff
+        if (survey!=null && survey.getSurveyid()>0 && !ispreview){
+            RecordImpression.record(request);
+        } else {
+            logger.debug("not recording impression.");
+            if (survey==null){
+                logger.debug("survey is null");
+            } else {
+                logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" ispreview="+ispreview);
+            }
+        }
 
 
-
+        //To Cache or Not to Cache, that is the Question
         String responseAsXML = null;
         String nameInCache = "surveyflashservletxmlresponse-v2-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
         Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
+        if (!cache){logger.debug("cache off");} else {logger.debug("cache on");}
+        logger.debug("fromCache="+String.valueOf((String)fromCache));
         if (fromCache!=null && cache){
             logger.debug("returning responseAsXML from cache");
             responseAsXML = (String)fromCache;
@@ -123,6 +137,7 @@ public class SurveyFlashServletXMLResponse extends HttpServlet {
                 if (1==1){
                     try{
                         //Put bytes into cache
+                        logger.debug("putting to cache responseAsXML="+responseAsXML);
                         CacheFactory.getCacheProvider("DbcacheProvider").put(nameInCache, cacheGroup, responseAsXML);
                     } catch (Exception ex){
                         logger.error("Error with transform in bottom section",ex);

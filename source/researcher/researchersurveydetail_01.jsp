@@ -121,7 +121,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                 <%}%>
                             </td>
                         </tr>
-                        <%if (Pagez.getUserSession().getIsSysadmin()){%>
+                        <%if (1==1 || Pagez.getUserSession().getIsSysadmin()){%>
                             <tr>
                                 <td valign="top">
                                     <font class="formfieldnamefont">Embed Version</font>
