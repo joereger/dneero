@@ -404,8 +404,14 @@ public class SurveyTemplateProcessorV2 {
                 elResp.setAttribute("surveyid", String.valueOf(survey.getSurveyid()));
                 elResp.setAttribute("responseid", String.valueOf(response.getResponseid()));
                 elResp.setAttribute("userid", String.valueOf(blogger.getUserid()));
+                String isforcharityStr = "0";
+                if (response.getIsforcharity()){isforcharityStr="1";}
+                elResp.setAttribute("isforcharity", String.valueOf(isforcharityStr));
                 Element srvEl = new Element("survey");
                 srvEl.setAttribute("surveyid", String.valueOf(survey.getSurveyid()));
+                String ischarityonlyStr = "0";
+                if (survey.getIscharityonly()){ischarityonlyStr="1";}
+                srvEl.setAttribute("ischarityonly", String.valueOf(ischarityonlyStr));
                 Element srvTitle = new Element("title");
                 srvTitle.setText(survey.getTitle());
                 srvEl.addContent(srvTitle);
