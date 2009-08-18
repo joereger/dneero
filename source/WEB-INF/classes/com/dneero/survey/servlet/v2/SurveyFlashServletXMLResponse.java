@@ -48,7 +48,7 @@ public class SurveyFlashServletXMLResponse extends HttpServlet {
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         long timestart = new java.util.Date().getTime();
-        logger.debug("Looking for flash survey via servlet");
+        logger.debug("Looking for flash V2 survey via servlet");
         logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
         logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
         logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
@@ -108,7 +108,7 @@ public class SurveyFlashServletXMLResponse extends HttpServlet {
 
         //To Cache or Not to Cache, that is the Question
         String responseAsXML = null;
-        String nameInCache = "surveyflashservletxmlresponse-v2-s"+surveyid+"-u"+userid+"-ispreview"+ispreview;
+        String nameInCache = "surveyflashservletxmlresponse-v2-s"+surveyid+"-u"+userid+"-r"+responseid+"-ispreview"+ispreview;
         String cacheGroup =  "embeddedsurveycache"+"/"+"surveyid-"+surveyid;
         Object fromCache = CacheFactory.getCacheProvider("DbcacheProvider").get(nameInCache, cacheGroup);
         if (!cache){logger.debug("cache off");} else {logger.debug("cache on");}

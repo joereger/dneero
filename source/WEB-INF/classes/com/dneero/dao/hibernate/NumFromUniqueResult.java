@@ -14,7 +14,7 @@ public class NumFromUniqueResult {
         Logger logger = Logger.getLogger(NumFromUniqueResult.class);
         Object obj = HibernateUtil.getSession().createQuery(query).setCacheable(true).uniqueResult();
         try{
-            logger.error("obj="+String.valueOf(obj));
+            //logger.error("obj="+String.valueOf(obj));
             if (Num.isdouble(String.valueOf(obj))){
                 Double dbl = Double.parseDouble(String.valueOf(obj));
                 return dbl.intValue();
@@ -27,7 +27,7 @@ public class NumFromUniqueResult {
         Logger logger = Logger.getLogger(NumFromUniqueResult.class);
         Object obj = HibernateUtil.getSession().createQuery(query).setCacheable(true).uniqueResult();
         try{
-            logger.error("obj="+String.valueOf(obj));
+            //logger.error("obj="+String.valueOf(obj));
             if (Num.isdouble(String.valueOf(obj))){
                 Double dbl = Double.parseDouble(String.valueOf(obj));
                 return dbl;        
