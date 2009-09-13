@@ -94,16 +94,16 @@ public class SurveyFlashServletXMLResponse extends HttpServlet {
         //cache=false; //Remove before production, yo!
 
         //Recordeth Thy Impressions that Bringeth Charitable Donations Henceforth Thusly and Stuff
-        if (survey!=null && survey.getSurveyid()>0 && !ispreview){
-            RecordImpression.record(request);
-        } else {
-            logger.debug("not recording impression.");
-            if (survey==null){
-                logger.debug("survey is null");
-            } else {
-                logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" ispreview="+ispreview);
-            }
-        }
+//        if (survey!=null && survey.getSurveyid()>0 && !ispreview){
+//            RecordImpression.record(request);
+//        } else {
+//            logger.debug("not recording impression.");
+//            if (survey==null){
+//                logger.debug("survey is null");
+//            } else {
+//                logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" ispreview="+ispreview);
+//            }
+//        }
 
 
         //To Cache or Not to Cache, that is the Question
