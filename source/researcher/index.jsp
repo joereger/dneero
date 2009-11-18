@@ -6,7 +6,7 @@
 <%@ page import="com.dneero.review.ReviewableUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/statistic-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Conversation Igniters<br/><br clear=\"all\"/>";
+String pagetitle = "<img src=\"/images/statistic-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Marketers<br/><br clear=\"all\"/>";
 String navtab = "researchers";
 String acl = "public";
 %>

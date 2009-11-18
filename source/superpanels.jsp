@@ -72,7 +72,7 @@ String acl = "public";
                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
                     <font class="mediumfont" style="color: #cccccc;">What are SuperPanels?</font>
                     <br/>
-                    <font class="normalfont" style="font-weight: bold;">SuperPanels are groups of social people who focus on specific things.  These bloggers are the best of the best... the shining stars of social media who generate thoughtful conversation.  Conversation Igniters who work with SuperPanels opt for quality over quantity.  They want to make sure they're reaching high quality social media participants who invest time in their content and provide value every time.</font>
+                    <font class="normalfont" style="font-weight: bold;">SuperPanels are groups of social people who focus on specific things.  These bloggers are the best of the best... the shining stars of social media who generate thoughtful conversation.  Marketers who work with SuperPanels opt for quality over quantity.  They want to make sure they're reaching high quality social media participants who invest time in their content and provide value every time.</font>
                 </div>
                 <br/>
                 <font class="smallfont">

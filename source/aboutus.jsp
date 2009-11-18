@@ -12,7 +12,7 @@ String acl = "public";
     <br/><br/>
     <font class="mediumfont" style="color: #0bae17;"><b>Quick Summary</b></font>
     <br/>
-    We're in Atlanta.  Not funded.  Seeking press.  Seeking conversation igniters.  Seeking social people.
+    We're in Atlanta.  Not funded.  Seeking press.  Seeking marketers.  Seeking social people.
     <br/><br/>
     dNeero was created by <a href="http://www.joereger.com">Joe Reger, Jr.</a> who works on it full-time.  Time is also kindly donated by Joe's father, Joe's sister, Barbara Stafford and Lance Weatherby.
     <br/><br/>

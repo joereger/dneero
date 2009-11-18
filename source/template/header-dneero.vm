@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html;CHARSET=iso-8859-1" />
-  <title>dNeero: True Social Network Currency</title>
+  <title>dNeero: Social Media Does Good</title>
   <link rel="stylesheet" type="text/css" href="/css/basic.css" />
   <link rel="stylesheet" type="text/css" href="/css/dneero.css" />
   <link rel="stylesheet" type="text/css" href="/js/niftycube/niftyCorners.css" />
@@ -36,9 +36,9 @@
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                 <a href="/index.jsp">
                 #if ($navtab  == "home")
-                    <img src="/images/navtabs2/home_on.gif" width="138" height="70" border="0"/>
+                    <img src="/images/navtabs2/home_on.gif" width="60" height="70" border="0"/>
                 #else
-                    <img src="/images/navtabs2/home_off.gif" width="138" height="70" border="0"/>
+                    <img src="/images/navtabs2/home_off.gif" width="60" height="70" border="0"/>
                 #end
                 </a>
             </td>
@@ -54,9 +54,18 @@
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
                 <a href="/researcher/index.jsp">
                 #if ($navtab  == "researchers")
-                    <img src="/images/navtabs2/conversationigniters_on.gif" width="138" height="70" border="0"/>
+                    <img src="/images/navtabs2/researchers_on.gif" width="138" height="70" border="0"/>
                 #else
-                    <img src="/images/navtabs2/conversationigniters_off.gif" width="138" height="70" border="0"/>
+                    <img src="/images/navtabs2/researchers_off.gif" width="138" height="70" border="0"/>
+                #end
+                </a>
+            </td>
+            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+                <a href="/charity/index.jsp">
+                #if ($navtab  == "charities")
+                    <img src="/images/navtabs2/charities_on.gif" width="138" height="70" border="0"/>
+                #else
+                    <img src="/images/navtabs2/charities_off.gif" width="138" height="70" border="0"/>
                 #end
                 </a>
             </td>
@@ -67,9 +76,9 @@
                     <a href="/registration.jsp">
                 #end
                 #if ($navtab == "youraccount")
-                    <img src="/images/navtabs2/youraccount_on.gif" alt="" width="138" height="70" border="0"/>
+                    <img src="/images/navtabs2/youraccount_on.gif" alt="" width="60" height="70" border="0"/>
                 #else
-                    <img src="/images/navtabs2/youraccount_off.gif" alt="" width="138" height="70" border="0"/>
+                    <img src="/images/navtabs2/youraccount_off.gif" alt="" width="60" height="70" border="0"/>
                 #end
                 #if ($userSession.isloggedin)
                     </a>
@@ -81,9 +90,9 @@
                  #if ($userSession.isCustomerCare)
                     <a href="/customercare/index.jsp">
                     #if ($navtab  == "customercare")
-                        <img src="/images/navtabs2/customercare_on.gif" width="138" height="70" border="0"/>
+                        <img src="/images/navtabs2/customercare_on.gif" width="60" height="70" border="0"/>
                     #else
-                        <img src="/images/navtabs2/customercare_off.gif" width="138" height="70" border="0"/>
+                        <img src="/images/navtabs2/customercare_off.gif" width="60" height="70" border="0"/>
                     #end
                     </a>
                  #end
@@ -92,16 +101,16 @@
                  #if ($userSession.isSysadmin)
                     <a href="/sysadmin/index.jsp">
                     #if ($navtab  == "sysadmin")
-                        <img src="/images/navtabs2/sysadmin_on.gif" width="66" height="70" border="0"/>
+                        <img src="/images/navtabs2/sysadmin_on.gif" width="60" height="70" border="0"/>
                     #else
-                        <img src="/images/navtabs2/sysadmin_off.gif" width="66" height="70" border="0"/>
+                        <img src="/images/navtabs2/sysadmin_off.gif" width="60" height="70" border="0"/>
                     #end
                     </a>
                 #end
             </td>
         </tr>
         <tr>
-            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="7" height="25">
+            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="8" height="25">
                 #if ($navtab == "home")
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Conversations</font></a>

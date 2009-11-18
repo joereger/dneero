@@ -1,67 +1,13 @@
-<script language="JavaScript">
-<!--
-if (document.images) {
- body1 = new Image;
- body1.src = "images/hpv2-default-body.gif";
- body2 = new Image;
- body2.src = "images/hpv2-socialpeople-body.gif";
- body3 = new Image;
- body3.src = "images/hpv2-researchers-body.gif";
- spbutton1 = new Image;
- spbutton1.src = "images/hpv2-socialpeople-button-off.gif";
- spbutton2 = new Image;
- spbutton2.src = "images/hpv2-socialpeople-button-on.gif";
- rbutton1 = new Image;
- rbutton1.src = "images/hpv2-researchers-button-off.gif";
- rbutton2 = new Image;
- rbutton2.src = "images/hpv2-researchers-button-on.gif";
-}
-function bodyImgAct(imgname){
- if (document.images){
-  window.onerror = null;
-  document.bodyimg.src=eval(imgname + ".src");
- }
-}
-function bodyImgInact(){
- if (document.images){
-  window.onerror = null;
-  document.bodyimg.src=body1.src;
- }
-}
-function spButtonImgAct(imgname){
- if (document.images){
-  window.onerror = null;
-  document.spbutton.src=eval(imgname + ".src");
- }
-}
-function spButtonImgInact(){
- if (document.images){
-  window.onerror = null;
-  document.spbutton.src=spbutton1.src;
- }
-}
-function rButtonImgAct(imgname){
- if (document.images){
-  window.onerror = null;
-  document.rbutton.src=eval(imgname + ".src");
- }
-}
-function rButtonImgInact(){
- if (document.images){
-  window.onerror = null;
-  document.rbutton.src=rbutton1.src;
- }
-}
-//-->
-</script>
 
-<table cellspacing="0" cellpadding="0" border="0" width="757">
+
+<table cellspacing="0" cellpadding="0" border="0" width="761">
 <tr>
-    <td><a href="/blogger/index.jsp?showmarketingmaterial=1" onmouseover="bodyImgAct('body2'), spButtonImgAct('spbutton2')" onmouseout="bodyImgInact(), spButtonImgInact()"><img src="images/hpv2-socialpeople-button-off.gif" width="227" height="121" border="0" name="spbutton"></a></td>
-    <td rowspan="2"><img src="images/hpv2-default-body.gif" width="530" height="241" name="bodyimg"></td>
+    <td colspan="3"><img src="images/homepage-v4-tagline.gif" width="761" height="44" border="0"></td>
 </tr>
 <tr>
-    <td><a href="/researcher/index.jsp?showmarketingmaterial=1" onmouseover="bodyImgAct('body3'), rButtonImgAct('rbutton2')" onmouseout="bodyImgInact(), rButtonImgInact()"><img src="images/hpv2-researchers-button-off.gif" width="227" height="120" border="0" name="rbutton"></a></td>
+    <td><a href="/blogger/index.jsp"><img src="images/homepage-v4-people.gif" width="321" height="287" border="0"></a></td>
+    <td><a href="/researcher/index.jsp?showmarketingmaterial=1"><img src="images/homepage-v4-marketers.gif" width="211" height="287" border="0"></a></td>
+    <td><a href="/charity/index.jsp"><img src="images/homepage-v4-charities.gif" width="229" height="287" border="0"></a></td>
 </tr>
 </table>
 
@@ -118,7 +64,7 @@ function rButtonImgInact(){
                <br/>
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Recent Charity Donators</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Recent Earners</font><br/>
                     $recentDonations.html
                </div>
 

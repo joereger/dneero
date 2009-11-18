@@ -183,7 +183,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Sometimes I see conversations on the homepage but then when I log in they're not listed.  What's up with that?</font>
     <br/>
     <font class="smallfont">
-    On the homepage we list all conversations... for anybody.  Once you log in we know about you and we can show you only the conversations for which you qualify.  Conversation igniters can target conversations by geographic area, age, etc.
+    On the homepage we list all conversations... for anybody.  Once you log in we know about you and we can show you only the conversations for which you qualify.  Marketers can target conversations by geographic area, age, etc.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

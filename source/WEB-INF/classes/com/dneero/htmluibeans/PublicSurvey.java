@@ -414,7 +414,7 @@ public class PublicSurvey implements Serializable {
         //If the user's logged in and is a blogger make sure they're qualified for this survey
         if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), survey)){
-                vex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they create a conversation.");
+                vex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Marketers determine their intended audience when they create a conversation.");
                 throw vex;
             }
         }

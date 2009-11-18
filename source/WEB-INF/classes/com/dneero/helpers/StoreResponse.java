@@ -56,7 +56,7 @@ public class StoreResponse {
         }
         //Make sure blogger is qualified to take
         if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
-            allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they create a conversation.");
+            allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Marketers determine their intended audience when they create a conversation.");
         }
         //Userquestion validation
         //@todo One problem with user question validation is that there really isn't any requirement to answer... test it... ignore some user questions... it'll let you... this code only kicks in on questions that are answered but fail somehow

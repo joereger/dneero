@@ -8,7 +8,7 @@
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/charity-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Make (Real) Change<br/><font class=\"mediumfont\">Make great content and great contributions -- at the same time!</font>";
-String navtab = "home";
+String navtab = "charities";
 String acl = "public";
 %>
 <%@ include file="/template/auth.jsp" %>

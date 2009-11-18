@@ -94,7 +94,7 @@ String acl = "public";
     <%if (!publicSurvey.getQualifiesforsurvey() && publicSurvey.getSurvey().getStatus()!=Survey.STATUS_CLOSED){%>
         <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Conversation igniters determine their intended audience when they ignite a conversation.</font>
+                <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Marketers determine their intended audience when they ignite a conversation.</font>
             </div>
             <br/>
         <%}%>
@@ -186,7 +186,7 @@ String acl = "public";
                                             <br/>
                                             <font class="formfieldnamefont" style="color: #666666;">Access Code: </font><%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
                                             <br/>
-                                            <font class="tinyfont" style="color: #666666;">Access Codes are used by conversation igniters to limit the pool of respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this conversation isn't for you.</font>
+                                            <font class="tinyfont" style="color: #666666;">Access Codes are used by marketers to limit the pool of respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this conversation isn't for you.</font>
                                         </div><br/>
                                     <%}%>
                                     <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
