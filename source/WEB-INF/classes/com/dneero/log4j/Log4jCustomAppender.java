@@ -1,19 +1,17 @@
 package com.dneero.log4j;
 
-import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.Level;
-import org.apache.log4j.spi.LoggingEvent;
-import org.apache.log4j.spi.ErrorCode;
-
-import java.util.Calendar;
-
 import com.dneero.db.Db;
+import com.dneero.startup.ApplicationStartup;
+import com.dneero.util.Num;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
-import com.dneero.util.Num;
-import com.dneero.startup.ApplicationStartup;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.email.EmailTemplateProcessor;
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
+import org.apache.log4j.spi.ErrorCode;
+import org.apache.log4j.spi.LoggingEvent;
+
+import java.util.Calendar;
 
 /**
  * User: Joe Reger Jr
@@ -90,7 +88,7 @@ public class Log4jCustomAppender extends AppenderSkeleton {
             }
             //Send via email
             if (event.getLevel()==Level.ERROR || event.getLevel()==Level.FATAL){
-                //EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error: "+event.getMessage().toString(), errorMessageAsHtml.toString());
+                //EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "dNeero Error: "+event.getMessage().toString(), errorMessageAsHtml.toString());
             }
         }
     }

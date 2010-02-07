@@ -207,7 +207,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                 debug.append("\n"+"error in main try/catch="+ex.getMessage());
             }
 
-            //EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "NotifyBloggersOfNewOffers Daily Report", debugAll.toString());
+            //EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "NotifyBloggersOfNewOffers Daily Report", debugAll.toString());
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }

@@ -1,19 +1,17 @@
 package com.dneero.email;
 
-import org.apache.log4j.Logger;
-import org.apache.commons.mail.HtmlEmail;
-
-import javax.mail.Address;
-import javax.mail.Header;
-import javax.mail.BodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.activation.DataHandler;
-import java.util.Enumeration;
-import java.io.Serializable;
-
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.threadpool.ThreadPool;
+import org.apache.commons.mail.HtmlEmail;
+import org.apache.log4j.Logger;
+
+import javax.mail.Address;
+import javax.mail.BodyPart;
+import javax.mail.Header;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.Serializable;
+import java.util.Enumeration;
 
 /**
  * Sends automates email subscription emails
@@ -21,7 +19,7 @@ import com.dneero.threadpool.ThreadPool;
 public class EmailSendThread implements Runnable, Serializable {
 
     public HtmlEmail htmlEmail;
-    public static String DEFAULTFROM = "info@dneero.com";
+    public static String DEFAULTFROM = "server@dneero.com";
     private static ThreadPool tp;
 
     Logger logger = Logger.getLogger(this.getClass().getName());

@@ -88,7 +88,7 @@ public class AccountNewInboxMessage implements Serializable {
             Mailtype mt = MailtypeFactory.get(mailchild.getMailtypeid());
             body.append(mt.renderToHtml(mailchild));
             body.append("<br><br>");
-            EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "Message: "+mail.getSubject(), body.toString());
+            EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "Message: "+mail.getSubject(), body.toString());
         } catch (Exception ex){
             logger.error("",ex);
         }

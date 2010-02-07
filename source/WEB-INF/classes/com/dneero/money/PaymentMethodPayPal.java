@@ -1,14 +1,13 @@
 package com.dneero.money;
 
 import com.dneero.dao.User;
+import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.money.paypal.CallerFactory;
+import com.dneero.systemprops.SystemProperty;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
-import com.dneero.util.Num;
-import com.dneero.email.EmailTemplateProcessor;
-import com.dneero.systemprops.SystemProperty;
-import com.paypal.sdk.services.CallerServices;
 import com.paypal.sdk.exceptions.PayPalException;
+import com.paypal.sdk.services.CallerServices;
 import com.paypal.soap.api.*;
 import org.apache.log4j.Logger;
 
@@ -34,7 +33,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             notes =  notes + "PayPal Temporarily Down: "+user.getUserid()+" : amt="+amt;
             issuccessful = false;
             logger.debug("PayPal Temporarily Disabled: would have paid userid="+user.getUserid()+" amt="+amt);
-            EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero PayPal Test Transaction", "PayPal Temporarily Disabled: would have paid userid="+user.getUserid()+"\n"+"email="+user.getEmail()+"\n"+"name="+user.getFirstname()+" "+user.getLastname()+"\n"+" amt="+amt);
+            EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "dNeero PayPal Test Transaction", "PayPal Temporarily Disabled: would have paid userid="+user.getUserid()+"\n"+"email="+user.getEmail()+"\n"+"name="+user.getFirstname()+" "+user.getLastname()+"\n"+" amt="+amt);
             return;
         }
 
@@ -124,7 +123,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             debug.append("ex.getMessage()="+ex.getMessage()+"<br/>\n");
         }
         debug.append("End PayPal run."+"\n");
-        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero PayPal Transaction", debug.toString());
+        EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "dNeero PayPal Transaction", debug.toString());
         logger.debug("---------- PayPal Call End ----------");
     }
 

@@ -77,7 +77,7 @@ public class PublicTshirtConfirm implements Serializable {
                 body.append(address.getPhone());
                 body.append("-");
                 body.append(address.toString());
-                EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "SEND dNEERO SHIRT TO", body.toString());
+                EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "SEND dNEERO SHIRT TO", body.toString());
 
                 correlationid = xcresponse.getCorrelationID();
                 transactionid = "";

@@ -57,7 +57,7 @@ public class PayForSurveyResponsesOncePosted implements Job {
                         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "BIG ERROR IN PayForSurveyResponsesOncePosted:  "+ex.getMessage());
                         xmpp.send();
                         //Send error via email
-                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error paying "+user.getFirstname()+" "+user.getLastname()+" userid="+user.getUserid(), ErrorDissect.dissect(ex));
+                        EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "dNeero Error paying "+user.getFirstname()+" "+user.getLastname()+" userid="+user.getUserid(), ErrorDissect.dissect(ex));
                     } finally {
                         //Update paid status
                         response.setIspaid(true);

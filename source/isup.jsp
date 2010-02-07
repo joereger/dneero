@@ -221,7 +221,7 @@ String reason = "";
     isup=false
     <%System.out.println("ISUP: isup=false");%>
     <%
-        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Isup Fail", reason);
+        EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "dNeero Isup Fail", reason);
     %>
 <%}%>
 </font>
