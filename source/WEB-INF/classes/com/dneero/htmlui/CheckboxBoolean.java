@@ -17,11 +17,16 @@ public class CheckboxBoolean {
         if (style!=null && !style.equals("")){
             style = "style=\""+style+"\"";
         }
+        
+
+        style="";
+        styleclass="";
+
         String checked = "";
         if (value){
-            checked = " checked ";
+            checked = " checked=\"checked\" ";
         }
-        out.append("<input type=\"checkbox\" name=\""+ Str.cleanForHtml(name)+"\" value=\"1\" "+checked+" "+styleclass+" "+style+" />");
+        out.append("<input type=\"checkbox\" name=\""+Str.cleanForHtml(name)+"\" id=\""+Str.cleanForHtml(name)+"\" value=\"1\" "+checked+" "+styleclass+" "+style+"/>");
         return out.toString();
     }
 

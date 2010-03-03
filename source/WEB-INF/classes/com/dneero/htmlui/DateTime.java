@@ -28,6 +28,9 @@ public class DateTime {
             style = "style=\""+style+"\"";
         }
 
+        style="";
+        styleclass="";
+
         //Break cal into components
         String date = Time.dateformatfordb(cal);
         int hh=Integer.parseInt(date.substring(11,13));

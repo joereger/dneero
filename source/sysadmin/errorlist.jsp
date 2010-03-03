@@ -74,7 +74,7 @@ SysadminErrorList sysadminErrorList=(SysadminErrorList) Pagez.getBeanMgr().get("
 %>
 <%@ include file="/template/header.jsp" %>
 
-        <form action="/sysadmin/errorlist.jsp" method="post">
+        <form action="/sysadmin/errorlist.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/sysadmin/errorlist.jsp">
             <input type="hidden" name="action" value="refresh">
             <%=Dropdown.getHtml("minleveltoshow", String.valueOf(sysadminErrorList.getMinleveltoshow()), sysadminErrorList.getLevels(), "", "")%>

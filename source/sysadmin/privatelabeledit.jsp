@@ -177,7 +177,7 @@ String acl = "sysadmin";
 
 
 
-        <form action="/sysadmin/privatelabeledit.jsp" method="post">
+        <form action="/sysadmin/privatelabeledit.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/sysadmin/privatelabeledit.jsp">
             <input type="hidden" name="action" value="save" id="action">
             <input type="hidden" name="plid" value="<%=pl.getPlid()%>">

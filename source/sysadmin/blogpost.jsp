@@ -45,7 +45,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="/sysadmin/blogpost.jsp" method="post">
+    <form action="/sysadmin/blogpost.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/sysadmin/blogpost.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="blogpostid" value="<%=sysadminBlogpost.getBlogpostid()%>">

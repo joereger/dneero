@@ -31,7 +31,7 @@ LostPassword lostPassword = (LostPassword)Pagez.getBeanMgr().get("LostPassword")
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="/lostpassword.jsp" method="post">
+    <form action="/lostpassword.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/lostpassword.jsp">
         <input type="hidden" name="action" value="go">
         <input type="hidden" name="captchaId" value="<%=captchaId%>">

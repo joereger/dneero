@@ -15,9 +15,10 @@ public class GreenRoundedButton {
         mb.append("<img src='/images/clear.gif' height=41 width=1 border=0>");
         mb.append("</td>");
         mb.append("<td valign=\"center\" background='/images/accordion/greenbar-center.gif' align=center>");
-        mb.append("<div style=\"line-height:41px;\">");
+        //mb.append("<div style=\"line-height:41px;\">");
+        mb.append("<img src=\"/images/clear.gif\" width=\"1\" height=\"13\" border=\"0\" /><br/>");
         mb.append(text);
-        mb.append("</div>");
+        //mb.append("</div>");
         mb.append("</td>");
         mb.append("<td valign=center background='/images/accordion/greenbar-rightcap.gif' align=right width=13>");
         mb.append("<img src='/images/clear.gif' height=1 width=1 border=0>");

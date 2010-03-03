@@ -31,9 +31,12 @@ public class CloseSurveysByNumRespondents implements Job {
                                    .list();
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();
-                if (SlotsRemainingInConvo.getSlotsRemaining(survey)<=0){
-                    survey.setStatus(Survey.STATUS_CLOSED);
-                    try{survey.save();} catch (GeneralException ex){logger.error("",ex);}
+                //No need to do anything for free surveys... no limits baby
+                if (!survey.getIsfree()){
+                    if (SlotsRemainingInConvo.getSlotsRemaining(survey)<=0){
+                        survey.setStatus(Survey.STATUS_CLOSED);
+                        try{survey.save();} catch (GeneralException ex){logger.error("",ex);}
+                    }
                 }
             }
         } else {

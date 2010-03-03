@@ -77,7 +77,7 @@ String acl = "customercare";
     <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel4');" onclick="return false;">Requirements</a>
     </div>
     <div class="panel" id="panel1" style="display: block">
-        <form action="/customercare/sysadminsurveydetail.jsp" method="post">
+        <form action="/customercare/sysadminsurveydetail.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/customercare/sysadminsurveydetail.jsp">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="surveyid" value="<%=customercareSurveyDetail.getSurvey().getSurveyid()%>">

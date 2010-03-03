@@ -41,7 +41,7 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
 <%@ include file="/template/header.jsp" %>
 
 
-    <form action="/customercare/userlist.jsp" method="post">
+    <form action="/customercare/userlist.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/userlist.jsp">
         <input type="hidden" name="action" value="search">
         

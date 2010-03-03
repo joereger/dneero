@@ -27,7 +27,7 @@ CustomercarePanelsAddpeopleconfirm customercarePanelsAddpeopleconfirm= (Customer
 <%@ include file="/template/header.jsp" %>
 
 <br/><br/>
-    <form action="/customercare/panels-addpeopleconfirm.jsp" method="post">
+    <form action="/customercare/panels-addpeopleconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/panels-addpeopleconfirm.jsp">
         <input type="hidden" name="action" value="addconfirm">
         <input type="hidden" name="panelid" value="<%=customercarePanelsAddpeopleconfirm.getPanelid()%>">

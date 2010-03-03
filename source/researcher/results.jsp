@@ -107,7 +107,7 @@ String acl = "researcher";
                     <%if (researcherResultsAnswersAdvanced.getRespondentfilters()==null || researcherResultsAnswersAdvanced.getRespondentfilters().size()==0){%>
                         <font class="tinyfont">You haven't <a href="/researcher/results_answers_advanced.jsp?surveyid=<%=researcherResultsAnswersAdvanced.getSurvey().getSurveyid()%>">created</a> any filters yet.</font>
                     <%} else {%>
-                        <form action="/researcher/results_answers_advanced.jsp" method="post" id="rsdform">
+                        <form action="/researcher/results_answers_advanced.jsp" method="post"  class="niceform" id="rsdform">
                         <input type="hidden" name="dpage" value="/researcher/results_answers_advanced.jsp">
                         <input type="hidden" name="action" value="showresults" id="action">
                         <input type="hidden" name="surveyid" value="<%=researcherResultsAnswersAdvanced.getSurvey().getSurveyid()%>"/>

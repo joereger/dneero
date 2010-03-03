@@ -25,7 +25,7 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="/researcher/researchersurveydelete.jsp" method="post">
+    <form action="/researcher/researchersurveydelete.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/researchersurveydelete.jsp">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDelete.getSurvey().getSurveyid()%>">

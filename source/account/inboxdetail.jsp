@@ -56,7 +56,7 @@ AccountInboxDetail accountInboxDetail = (AccountInboxDetail)Pagez.getBeanMgr().g
         }
     %>
 
-    <form action="/account/inboxdetail.jsp" method="post">
+    <form action="/account/inboxdetail.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/account/inboxdetail.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="mailid" value="<%=accountInboxDetail.getMailid()%>">

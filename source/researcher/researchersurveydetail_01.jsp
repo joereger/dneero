@@ -56,13 +56,13 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
 <%@ include file="/template/header.jsp" %>
 
 
-<form action="/researcher/researchersurveydetail_01.jsp" method="post" id="rsdform">
+<form action="/researcher/researchersurveydetail_01.jsp" method="post"  class="niceform" id="rsdform">
     <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_01.jsp">
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail01.getSurvey().getSurveyid()%>"/>
 
 
-        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        <center><div class="rounded" data-corner="20px"><font class="smallfont">
         <img src="/images/lightbulb_on.png" alt="" align="right"/>
         On this page you set the very general parameters for the conversation.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the conversation open long enough to attract bloggers and have them join the conversation... a month is a good starting point.
         </font></div></center>

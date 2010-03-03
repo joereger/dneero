@@ -23,7 +23,7 @@ if (customercarePanelsAddpeople.getPanelid()<=0){
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
     <font class="mediumfont">Add People from Another Panel</font>
     <br/>
-    <form action="/customercare/panels-addpeoplebypanelconfirm.jsp" method="post">
+    <form action="/customercare/panels-addpeoplebypanelconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/panels-addpeoplebypanelconfirm.jsp">
         <input type="hidden" name="action" value="addstartpanel">
 
@@ -80,7 +80,7 @@ if (customercarePanelsAddpeople.getPanelid()<=0){
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
     <font class="mediumfont">Add By Conversation Participants</font>
     <br/>
-    <form action="/customercare/panels-addpeopleconfirm.jsp" method="post">
+    <form action="/customercare/panels-addpeopleconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/panels-addpeopleconfirm.jsp">
         <input type="hidden" name="action" value="addstart">
 
@@ -137,7 +137,7 @@ if (customercarePanelsAddpeople.getPanelid()<=0){
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
     <font class="mediumfont">Add By Ranking Percentage</font>
     <br/>
-    <form action="/customercare/panels-addpeoplebyrankconfirm.jsp" method="post">
+    <form action="/customercare/panels-addpeoplebyrankconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/panels-addpeoplebyrankconfirm.jsp">
         <input type="hidden" name="action" value="addstartrank">
 

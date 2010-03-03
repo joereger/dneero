@@ -31,7 +31,7 @@ LoginAgreeNewEula loginAgreeNewEula = (LoginAgreeNewEula)Pagez.getBeanMgr().get(
 <%@ include file="/template/header.jsp" %>
 
 
-    <form action="/loginagreeneweula.jsp" method="post">
+    <form action="/loginagreeneweula.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/loginagreeneweula.jsp">
         <input type="hidden" name="action" value="agree">
         

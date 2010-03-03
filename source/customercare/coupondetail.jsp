@@ -44,7 +44,7 @@ String acl = "customercare";
 
 
 
-        <form action="/customercare/coupondetail.jsp" method="post">
+        <form action="/customercare/coupondetail.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/customercare/coupondetail.jsp">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="couponid" value="<%=customercareCouponDetail.getCoupon().getCouponid()%>">

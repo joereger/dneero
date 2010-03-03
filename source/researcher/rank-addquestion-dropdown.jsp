@@ -93,7 +93,7 @@ String acl = "researcher";
 </div>
 <br/><br/>
 
-    <form action="/researcher/rank-addquestion-dropdown.jsp" method="post">
+    <form action="/researcher/rank-addquestion-dropdown.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/rank-addquestion-dropdown.jsp">
         <input type="hidden" name="action" value="saveaction">
         <input type="hidden" name="rankid" value="<%=researcherRankAddquestionDropdown.getRank().getRankid()%>">

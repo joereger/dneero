@@ -34,6 +34,9 @@ public class Checkboxes {
             style = "style=\""+style+"\"";
         }
 
+        style="";
+        styleclass="";
+
         Iterator keyValuePairs = options.entrySet().iterator();
         for (int i = 0; i < options.size(); i++){
             Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
@@ -43,7 +46,11 @@ public class Checkboxes {
             if (isSelected(key, values)){
                 selected = " checked='true'";
             }
-            out.append("<input type=\"checkbox\" name=\""+ Str.cleanForHtml(name) +"\" value=\""+Str.cleanForHtml(key.trim())+"\" style "+selected+"><font "+styleclass+" "+style+">" + val.trim() +"</font>");
+
+            //out.append("<input type=\"checkbox\" name=\""+Str.cleanForHtml(name)+"\" id="+Str.cleanForHtml(name)+" value=\""+Str.cleanForHtml(key.trim())+"\" "+style+" "+selected+"><label for=\""+Str.cleanForHtml(name)+"\" class=\"opt\">"+Str.cleanForHtml(key.trim())+"</label>");
+            //out.append("<br/>");
+
+            out.append("<input type=\"checkbox\" name=\""+ Str.cleanForHtml(name) +"\" value=\""+Str.cleanForHtml(key.trim())+"\" "+style+" "+selected+"><font "+styleclass+" "+style+">" + val.trim() +"</font>");
             out.append("<br/>");
 
         }

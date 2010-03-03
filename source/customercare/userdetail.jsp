@@ -178,7 +178,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                     <td valign="top" width="50%">
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="save">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -278,7 +278,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             <a href="/customercare/userlist.jsp?action=search&searchreferredbyuserid=<%=customercareUserDetail.getUserid()%>"><b>Users referred by this userid.</b></a>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="passwordresetemail">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -286,7 +286,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="reactivationemail">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -294,7 +294,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="researcherremainingbalanceoperations">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -310,7 +310,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/><b>Currentbalanceresearcher</b> ($<%=cbc.getCurrentbalanceresearcher()%> / $<%=customercareUserDetail.getUser().getCurrentbalanceresearcher()%>)
                                 <br/>(Realtime/User Table)
                             </font>
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="runcurrentbalanceupdater">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -319,7 +319,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             <font class="tinyfont">This will refresh/update the current balance numbers stored with the User database table.</font>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="togglesysadmin">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -340,7 +340,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="togglecustomercare">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -361,7 +361,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="deleteuser">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -381,7 +381,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                     <td valign="top" width="50%">
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="toggleisenabled">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -457,7 +457,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                         </div>
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="sendmessagetouser">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -478,7 +478,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
 
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="giveusermoney">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -505,7 +505,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
 
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="takeusermoney">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
@@ -527,7 +527,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                         </div>
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
-                            <form action="/customercare/userdetail.jsp" method="post">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="updateresellerpercent">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">

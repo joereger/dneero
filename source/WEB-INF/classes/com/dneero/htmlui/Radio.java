@@ -23,7 +23,7 @@ public class Radio {
         if (value.equals(valueThisButton)){
             checked = " checked ";
         }
-        out.append("<input type=\"radio\" name=\""+Str.cleanForHtml(name)+"\" value=\""+ Str.cleanForHtml(valueThisButton)+"\" "+checked+" "+styleclass+" "+style+" />");
+        out.append("<input type=\"radio\" name=\""+Str.cleanForHtml(name)+"\" id=\""+name+"\" value=\""+ Str.cleanForHtml(valueThisButton)+"\" "+checked+" "+styleclass+" "+style+" />");
         return out.toString();
     }
 

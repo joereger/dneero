@@ -108,7 +108,7 @@ String acl = "public";
     <% if (Pagez.getUserSession().getIsloggedin()){ %>
         <font class="mediumfont">Post a Comment!</font>
         <br/><br/>
-        <form action="/surveydiscuss.jsp" method="post">
+        <form action="/surveydiscuss.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/surveydiscuss.jsp">
             <input type="hidden" name="action" value="postcomment">
             <input type="hidden" name="surveyid" value="<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>">

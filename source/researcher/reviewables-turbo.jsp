@@ -178,7 +178,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
 %>
 
 <%@ include file="/template/header.jsp" %>
-    <form action="/researcher/reviewables-turbo.jsp" method="post">
+    <form action="/researcher/reviewables-turbo.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/researcher/reviewables-turbo.jsp">
             <input type="submit" class="formsubmitbutton" value="Show">
             <select name="onlytypeid">
@@ -212,7 +212,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
     <%} else {
         %>
 
-        <form action="/researcher/reviewables-turbo.jsp" method="post">
+        <form action="/researcher/reviewables-turbo.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/researcher/reviewables-turbo.jsp">
             <input type="hidden" id="action" name="action" value="dostuff">
             <input type="hidden" name="onlytypeid" value="<%=onlytypeid%>">

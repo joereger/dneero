@@ -72,7 +72,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
 <%@ include file="/template/header.jsp" %>
 
 
-<form action="/researcher/researchersurveydetail_03.jsp" method="post" id="rsdform">
+<form action="/researcher/researchersurveydetail_03.jsp" method="post"  class="niceform" id="rsdform">
         <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_03.jsp">
         <input type="hidden" name="action" value="next" id="action">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail03.getSurvey().getSurveyid()%>"/>

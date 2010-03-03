@@ -66,7 +66,7 @@ String acl = "customercare";
 
 
 
-        <form action="/customercare/sysadminsupportissuedetail.jsp" method="post">
+        <form action="/customercare/sysadminsupportissuedetail.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/customercare/sysadminsupportissuedetail.jsp">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="mailid" value="<%=customercareSupportIssueDetail.getMailid()%>">

@@ -75,7 +75,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
 %>
 <%@ include file="/template/header.jsp" %>
 
-<form action="/researcher/researchersurveydetail_04.jsp" method="post" id="rsdform">
+<form action="/researcher/researchersurveydetail_04.jsp" method="post"  class="niceform" id="rsdform">
         <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_04.jsp">
         <input type="hidden" name="action" value="next" id="action">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail04.getSurvey().getSurveyid()%>"/>
@@ -282,16 +282,14 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
                     <font class="tinyfont">Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them.  In this way you can limit and control who joins your conversation.  Great for point-of-sale and real-world ties to the online world.</font>
                 </td>
                 <td valign="top">
-                    <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%><font class="formfieldnamefont">Yes</font>
-                    <br/>
-                    <font class="normalfont">Access Code</font>
-                    <br/>
-                    <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
+                    <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%>
                 </td>
 
                 <td valign="top">
+                    <font class="normalfont">Access Code</font>
                 </td>
                 <td valign="top">
+                    <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
                 </td>
             </tr>
 

@@ -43,7 +43,7 @@ AccountNewInboxMessage accountNewInboxMessage= (AccountNewInboxMessage) Pagez.ge
     <%}%>
 
     <br/>
-    <form action="/account/inbox.jsp" method="post">
+    <form action="/account/inbox.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/account/inbox.jsp">
         <input type="hidden" name="action" value="save">
             <br/>

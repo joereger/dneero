@@ -40,7 +40,7 @@ ResearcherSurveyDetail02infotext researcherSurveyDetail02infotext = (ResearcherS
 
 
     <!-- Start Bottom -->
-    <form action="/researcher/researchersurveydetail_02_infotext.jsp" method="post">
+    <form action="/researcher/researchersurveydetail_02_infotext.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_infotext.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>

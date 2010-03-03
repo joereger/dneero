@@ -81,7 +81,7 @@ String acl = "sysadmin";
 
         <br/><br/>
         <font class="mediumfont">Recent PagePerformance DB Entries</font><br/><br/>
-        <form action="/sysadmin/pageperformance.jsp" method="post">
+        <form action="/sysadmin/pageperformance.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/sysadmin/pageperformance.jsp">
             <input type="hidden" name="action" value="find">
             <%=com.dneero.htmlui.Date.getHtml("startdate", sysadminPagePerformance.getStartDate(), "", "")%>

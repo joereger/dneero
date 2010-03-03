@@ -25,7 +25,7 @@ ResearcherTwitaskDelete researcherTwitaskDelete= (ResearcherTwitaskDelete) Pagez
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="/researcher/researchertwitaskdelete.jsp" method="post">
+    <form action="/researcher/researchertwitaskdelete.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/researchertwitaskdelete.jsp">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDelete.getTwitask().getTwitaskid()%>">

@@ -29,7 +29,7 @@ ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangeP
 
 
     <br/><br/>
-    <form action="/account/changepassword.jsp" method="post">
+    <form action="/account/changepassword.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/account/changepassword.jsp">
         <input type="hidden" name="action" value="save">
             <table cellpadding="0" cellspacing="0" border="0">

@@ -27,7 +27,7 @@ ResearcherPanelsAddpeopleByRankconfirm researcherPanelsAddpeopleconfirm = (Resea
 <%@ include file="/template/header.jsp" %>
 
 <br/><br/>
-    <form action="/researcher/panels-addpeoplebyrankconfirm.jsp" method="post">
+    <form action="/researcher/panels-addpeoplebyrankconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/panels-addpeoplebyrankconfirm.jsp">
         <input type="hidden" name="action" value="addconfirm">
         <input type="hidden" name="panelid" value="<%=researcherPanelsAddpeopleconfirm.getPanelid()%>">

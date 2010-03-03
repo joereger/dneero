@@ -160,7 +160,7 @@ String acl = "public";
                             <%}%>
 
                             <a name="joinconvo"></a>
-                            <form action="/survey.jsp" method="post" name="surveyform" style="margin: 0px; padding: 0px;">
+                            <form action="/survey.jsp" method="post" name="surveyform" style="margin: 0px; padding: 0px;" class="niceform">
                                 <input type="hidden" name="dpage" value="/survey.jsp">
                                 <input type="hidden" name="actionfrompage" value="takesurvey">
                                 <input type="hidden" name="surveyid" value="<%=publicSurvey.getSurvey().getSurveyid()%>">

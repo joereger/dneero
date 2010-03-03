@@ -199,7 +199,7 @@ String acl = "public";
 
 
             <br/><br/>
-            <form action="/profile.jsp" method="post">
+            <form action="/profile.jsp" method="post" class="niceform">
                 <input type="hidden" name="dpage" value="/profile.jsp">
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="userid" value="<%=publicProfile.getUser().getUserid()%>">
@@ -223,7 +223,7 @@ String acl = "public";
                 <%=Grid.render(publicProfile.getSuperpanels(), cols, 20, "/profile.jsp?userid="+publicProfile.getUser().getUserid(), "pagesuperpanels")%>
             <%}%>
             <br/><br/>
-            <form action="/profile.jsp" method="post">
+            <form action="/profile.jsp" method="post" class="niceform">
                 <input type="hidden" name="dpage" value="/profile.jsp">
                 <input type="hidden" name="action" value="addsuperpanel">
                 <input type="hidden" name="userid" value="<%=publicProfile.getUser().getUserid()%>">

@@ -34,23 +34,30 @@ public class ReopenSurveysByNumRespondents implements Job {
                                    .list();
             for (Iterator<Survey> iterator = surveys.iterator(); iterator.hasNext();) {
                 Survey survey = iterator.next();
-                logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
-                logger.debug("survey.getEnddate()="+Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate())));
-                logger.debug("new Date()="+Time.dateformatcompactwithtime(Time.getCalFromDate(new Date())));
-                //If the enddate of the survey is after today (now)
-                if (survey.getEnddate().after(new Date())){
-                    //If there are still slots open
-                    if (SlotsRemainingInConvo.getSlotsRemaining(survey)>0){
-                        survey.setStatus(Survey.STATUS_OPEN);
-                        try{ survey.save(); } catch (GeneralException ex){ logger.error("",ex); }
-                        logger.debug("reopening survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
-                    }
-                } else {
-                    logger.debug("keeping survey closed survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
-                }
+
             }
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
+        }
+    }
+
+    private void processSurvey(Survey survey){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        //If it's a free survey, return... no processing to do
+        if (survey.getIsfree()){return;}
+        logger.debug("survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
+        logger.debug("survey.getEnddate()="+Time.dateformatcompactwithtime(Time.getCalFromDate(survey.getEnddate())));
+        logger.debug("new Date()="+Time.dateformatcompactwithtime(Time.getCalFromDate(new Date())));
+        //If the enddate of the survey is after today (now)
+        if (survey.getEnddate().after(new Date())){
+            //If there are still slots open
+            if (SlotsRemainingInConvo.getSlotsRemaining(survey)>0){
+                survey.setStatus(Survey.STATUS_OPEN);
+                try{ survey.save(); } catch (GeneralException ex){ logger.error("",ex); }
+                logger.debug("reopening survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
+            }
+        } else {
+            logger.debug("keeping survey closed survey.getSurveyid()="+survey.getSurveyid()+" title="+survey.getTitle());
         }
     }
 

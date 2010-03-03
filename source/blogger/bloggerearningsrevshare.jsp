@@ -63,7 +63,7 @@ String acl = "blogger";
                <br/>
                <br/>
                 <%if (!Pagez.getUserSession().getIsfacebookui()){%>
-                    <form action="/blogger/bloggerearningsrevshare.jsp" method="post">
+                    <form action="/blogger/bloggerearningsrevshare.jsp" method="post" class="niceform">
                         <input type="hidden" name="dpage" value="/blogger/bloggerearningsrevshare.jsp">
                         <input type="hidden" name="action" value="invite">
 

@@ -107,7 +107,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
     <table cellpadding="10" cellspacing="0" border="0" width="90%">
         <tr>
             <td valign="top">
-                <form action="/blogger/bloggerdetails.jsp" method="post">
+                <form action="/blogger/bloggerdetails.jsp" method="post" class="niceform">
                     <input type="hidden" name="dpage" value="/blogger/bloggerdetails.jsp">
                     <input type="hidden" name="action" value="save">
 

@@ -38,7 +38,7 @@ String acl = "sysadmin";
 <%@ include file="/template/header.jsp" %>
 
 
-    <form action="/sysadmin/systemprops.jsp" method="post">
+    <form action="/sysadmin/systemprops.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/sysadmin/systemprops.jsp">
         <input type="hidden" name="action" value="save">
 

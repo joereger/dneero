@@ -36,7 +36,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 <%@ include file="/template/header.jsp" %>
 
     <br/><br/>
-    <form action="/account/accountsettings.jsp" method="post">
+    <form action="/account/accountsettings.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/account/accountsettings.jsp">
         <input type="hidden" name="action" value="save">
 

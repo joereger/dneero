@@ -70,7 +70,7 @@ if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost
             <%=Grid.render(Util.setToArrayList(publicBlogPost.getBlogpost().getBlogpostcomments()), cols, 100, "/blogpost.jsp?blogpostid" + publicBlogPost.getBlogpost().getBlogpostid(), "page")%>
         <%}%>
 
-        <form action="/blogpost.jsp" method="post">
+        <form action="/blogpost.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/blogpost.jsp">
             <input type="hidden" name="action" value="addcomment">
             <input type="hidden" name="blogpostid" value="<%=publicBlogPost.getBlogpost().getBlogpostid()%>">

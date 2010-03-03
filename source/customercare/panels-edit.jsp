@@ -27,7 +27,7 @@ CustomercarePanelsEdit customercarePanelsEdit= (CustomercarePanelsEdit)Pagez.get
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <form action="/customercare/panels-edit.jsp" method="post">
+    <form action="/customercare/panels-edit.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/panels-edit.jsp">
         <input type="hidden" name="action" value="edit">
         <input type="hidden" name="panelid" value="<%=customercarePanelsEdit.getPanel().getPanelid()%>">

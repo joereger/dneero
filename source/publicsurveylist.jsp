@@ -181,7 +181,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 
                         <br/><br/>
                         <div class="rounded" style="background: #ffffff; padding: 10px;">
-                            <form action="/publicsurveylist.jsp" method="post">
+                            <form action="/publicsurveylist.jsp" method="post" class="niceform">
                                 <input type="hidden" name="action" value="enteraccesscode">
                                 <font class="normalfont"><b>Got an Access Code?</b></font>
                                 <%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>

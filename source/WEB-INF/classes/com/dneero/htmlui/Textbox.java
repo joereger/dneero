@@ -19,7 +19,7 @@ public class Textbox {
         if (style!=null && !style.equals("")){
             style = "style=\""+style+"\"";
         }
-        out.append("<input type=\"text\" name=\""+Str.cleanForHtml(name)+"\" value=\""+ Str.cleanForHtml(value)+"\" size=\""+size+"\" maxlength=\""+maxlength+"\" "+styleclass+" "+style+" />");
+        out.append("<input type=\"text\" name=\""+Str.cleanForHtml(name)+"\" id=\""+name+"\" value=\""+ Str.cleanForHtml(value)+"\" size=\""+size+"\" maxlength=\""+maxlength+"\" "+styleclass+" "+style+" />");
         return out.toString();
     }
 

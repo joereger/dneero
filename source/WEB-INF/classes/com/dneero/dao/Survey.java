@@ -71,6 +71,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int impressionstobepaid;
      private boolean isaggressiveslotreclamationon = false;
      private int embedversion;
+     private boolean isfree=false;
+     private boolean isopentoanybody=false;
+     private boolean ishighquality=false;
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -490,5 +493,29 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setEmbedversion(int embedversion) {
         this.embedversion=embedversion;
+    }
+
+    public boolean getIsfree() {
+        return isfree;
+    }
+
+    public void setIsfree(boolean isfree) {
+        this.isfree = isfree;
+    }
+
+    public boolean getIsopentoanybody() {
+        return isopentoanybody;
+    }
+
+    public void setIsopentoanybody(boolean isopentoanybody) {
+        this.isopentoanybody = isopentoanybody;
+    }
+
+    public boolean getIshighquality() {
+        return ishighquality;
+    }
+
+    public void setIshighquality(boolean ishighquality) {
+        this.ishighquality = ishighquality;
     }
 }

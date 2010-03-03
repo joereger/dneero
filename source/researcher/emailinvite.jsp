@@ -30,7 +30,7 @@ String acl = "researcher";
 
 
 
-    <form action="/researcher/emailinvite.jsp" method="post">
+    <form action="/researcher/emailinvite.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/emailinvite.jsp">
         <input type="hidden" name="action" value="invite">
 
@@ -41,7 +41,7 @@ String acl = "researcher";
             <br/><br/><br/></font></div></center>
         <%}%>
         <%if (researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>
-            <form action="/researcher/emailinvite.jsp" method="post">
+            <form action="/researcher/emailinvite.jsp" method="post" class="niceform">
                 <input type="hidden" name="dpage" value="/researcher/emailinvite.jsp">
                 <input type="hidden" name="action" value="invite">
                 <table cellpadding="10" cellspacing="0" border="0">

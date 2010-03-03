@@ -27,7 +27,7 @@ CustomercarePanelsAddpeopleByRankconfirm customercarePanelsAddpeopleconfirm= (Cu
 <%@ include file="/template/header.jsp" %>
 
 <br/><br/>
-    <form action="/customercare/panels-addpeoplebyrankconfirm.jsp" method="post">
+    <form action="/customercare/panels-addpeoplebyrankconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/panels-addpeoplebyrankconfirm.jsp">
         <input type="hidden" name="action" value="addconfirm">
         <input type="hidden" name="panelid" value="<%=customercarePanelsAddpeopleconfirm.getPanelid()%>">

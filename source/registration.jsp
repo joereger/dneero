@@ -89,7 +89,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                 </div>
             </div>
         </div>
-        <form action="/registration.jsp" method="post">
+        <form action="/registration.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/registration.jsp">
             <input type="hidden" name="action" value="register">
             <input type="hidden" name="captchaId" value="<%=captchaId%>">
@@ -98,7 +98,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                 <br/>
                 <font class="smallfont">Sign Up is free.  On this page we collect some basic information.  After this you'll start working immediately to ignite and/or join conversations (all accounts can do both functions).  You have three days (during which you can use your account) to activate by clicking a link that we send to your email address.  Your account is completely free to set up and explore.  International users are welcome (of course).</font><br/><br/>
 
-                <table cellpadding="0" cellspacing="0" border="0">
+                <table cellpadding="5" cellspacing="0" border="0">
 
                     <tr>
                         <td valign="top">

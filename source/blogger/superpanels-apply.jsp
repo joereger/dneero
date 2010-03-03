@@ -56,7 +56,7 @@ if (panel==null || panel.getPanelid()<=0 || !panel.getIssystempanel()){
 
 
 <blockquote>
-<form action="/blogger/superpanels-apply.jsp" method="post">
+<form action="/blogger/superpanels-apply.jsp" method="post" class="niceform">
     <input type="hidden" name="dpage" value="/blogger/superpanels-apply.jsp">
     <input type="hidden" name="action" value="apply">
     <input type="hidden" name="panelid" value="<%=panel.getPanelid()%>">

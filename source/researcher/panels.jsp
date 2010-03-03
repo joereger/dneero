@@ -63,7 +63,7 @@ String acl = "researcher";
 
 
         <br/><br/>
-        <form action="/researcher/panels.jsp" method="post">
+        <form action="/researcher/panels.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/researcher/panels.jsp">
             <input type="hidden" name="action" value="newpanel">
             <%=com.dneero.htmlui.Textbox.getHtml("newpanelname", researcherPanels.getNewpanelname(), 255, 35, "", "")%>

@@ -26,7 +26,7 @@ ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailin
 <%@ include file="/template/header.jsp" %>
 
 
-        <form action="/researcher/emailinvite-complete.jsp" method="post">
+        <form action="/researcher/emailinvite-complete.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/researcher/emailinvite-complete.jsp">
             <input type="hidden" name="action" value="invite">
             <font class="formfieldnamefont">Conversation to invite people to: <%=researcherEmailinviteComplete.getSurvey().getTitle()%></font>

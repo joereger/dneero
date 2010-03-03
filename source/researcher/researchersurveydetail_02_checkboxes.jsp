@@ -46,7 +46,7 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
 
 
     <!-- Start Bottom -->
-    <form action="/researcher/researchersurveydetail_02_checkboxes.jsp" method="post">
+    <form action="/researcher/researchersurveydetail_02_checkboxes.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_checkboxes.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>

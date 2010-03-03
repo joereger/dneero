@@ -96,6 +96,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setEmbedflash(true);
         survey.setEmbedjavascript(true);
         survey.setEmbedlink(true);
+        survey.setIsfree(false);
+        survey.setIsopentoanybody(false);
+        survey.setIshighquality(false);
     }
 
 

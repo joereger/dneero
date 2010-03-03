@@ -63,7 +63,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
 <%@ include file="/template/header.jsp" %>
 
     <br/><br/>
-    <form action="/login.jsp" method="post">
+    <form action="/login.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/login.jsp">
         <input type="hidden" name="action" value="login">
 

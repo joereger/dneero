@@ -85,7 +85,7 @@ String acl = "researcher";
             </td>
             <td valign="top" width="33%">
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                    <form action="/researcher/rank-addquestion.jsp" method="post">
+                    <form action="/researcher/rank-addquestion.jsp" method="post" class="niceform">
                         <input type="hidden" name="dpage" value="/researcher/rank-addquestion.jsp">
                         <input type="hidden" name="action" value="addquestion">
                         <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">
@@ -128,7 +128,7 @@ String acl = "researcher";
                 </div>
                 <br/>
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                    <form action="/researcher/rank-detail.jsp" method="post">
+                    <form action="/researcher/rank-detail.jsp" method="post" class="niceform">
                         <input type="hidden" name="dpage" value="/researcher/rank-detail.jsp">
                         <input type="hidden" name="action" value="editranking">
                         <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">

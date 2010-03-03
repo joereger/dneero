@@ -53,7 +53,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
 <%@ include file="/template/header.jsp" %>
 
 
-<form action="/researcher/researchertwitaskdetail_01.jsp" method="post" id="rsdform">
+<form action="/researcher/researchertwitaskdetail_01.jsp" method="post"  class="niceform" id="rsdform">
     <input type="hidden" name="dpage" value="/researcher/researchertwitaskdetail_01.jsp">
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail01.getTwitask().getTwitaskid()%>"/>

@@ -23,7 +23,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
     <font class="mediumfont">Add By Conversation Participants</font>
     <br/>
-    <form action="/researcher/panels-addpeopleconfirm.jsp" method="post">
+    <form action="/researcher/panels-addpeopleconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/panels-addpeopleconfirm.jsp">
         <input type="hidden" name="action" value="addstart">
 
@@ -80,7 +80,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
     <font class="mediumfont">Add By Ranking Percentage</font>
     <br/>
-    <form action="/researcher/panels-addpeoplebyrankconfirm.jsp" method="post">
+    <form action="/researcher/panels-addpeoplebyrankconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/panels-addpeoplebyrankconfirm.jsp">
         <input type="hidden" name="action" value="addstartrank">
 

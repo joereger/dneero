@@ -31,7 +31,7 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
 %>
 <%@ include file="/template/header.jsp" %>
 
-        <form action="/emailactivationresend.jsp" method="post">
+        <form action="/emailactivationresend.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/emailactivationresend.jsp">
             <input type="hidden" name="action" value="send">
             <input type="hidden" name="captchaId" value="<%=captchaId%>">

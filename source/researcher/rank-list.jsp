@@ -47,7 +47,7 @@ String acl = "researcher";
             </td>
             <td valign="top" width="33%">
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                    <form action="/researcher/rank-list.jsp" method="post">
+                    <form action="/researcher/rank-list.jsp" method="post" class="niceform">
                         <input type="hidden" name="dpage" value="/researcher/rank-list.jsp">
                         <input type="hidden" name="action" value="newrank">
 

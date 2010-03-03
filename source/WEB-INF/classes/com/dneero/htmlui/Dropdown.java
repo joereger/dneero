@@ -26,7 +26,10 @@ public class Dropdown {
             style = "style=\""+style+"\"";
         }
 
-        out.append("<select name=\""+Str.cleanForHtml(name)+"\" "+styleclass+" "+style+">");
+        style="";
+        styleclass="";
+
+        out.append("<select name=\""+Str.cleanForHtml(name)+"\" id=\""+name+"\" "+styleclass+" "+style+">");
         out.append("<option value=\"\"></option>");
         Iterator keyValuePairs = options.entrySet().iterator();
         for (int i = 0; i < options.size(); i++){

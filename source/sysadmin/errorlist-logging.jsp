@@ -46,7 +46,7 @@ String acl = "sysadmin";
 %>
 <%@ include file="/template/header.jsp" %>
 
-        <form action="/sysadmin/errorlist-logging.jsp" method="post">
+        <form action="/sysadmin/errorlist-logging.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/sysadmin/errorlist-logging.jsp">
             <input type="hidden" name="action" value="save">
             <%=Textbox.getHtml("classname", request.getParameter("classname"), 250, 50, "", "")%>

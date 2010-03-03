@@ -104,7 +104,7 @@ CustomercareIptrack customercareIptrack = (CustomercareIptrack)Pagez.getBeanMgr(
     %>
 
 
-    <form action="/customercare/iptrack.jsp" method="post">
+    <form action="/customercare/iptrack.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/iptrack.jsp">
         <input type="hidden" name="action" value="search">
         

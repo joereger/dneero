@@ -21,7 +21,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class SurveyMoneyStatus implements Serializable {
 
-    public static double PERSURVEYCREATIONFEE = 5.00;
+    public static double PERSURVEYCREATIONFEE = 0.00;
     public static double DEFAULTDNEEROMARKUPPERCENT = 25;
     public static int DAYSAFTERCLOSEOFSURVEYWECOLLECTFORIMPRESSIONS = 30;
     public static double HIDESURVEYFEEPERCENT = 5;

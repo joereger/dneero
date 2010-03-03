@@ -44,7 +44,7 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
 
 
     <!-- Start Bottom -->
-    <form action="/researcher/researchersurveydetail_02_dropdown.jsp" method="post">
+    <form action="/researcher/researchersurveydetail_02_dropdown.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/researcher/researchersurveydetail_02_dropdown.jsp">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
