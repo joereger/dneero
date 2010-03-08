@@ -7,10 +7,11 @@ import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.incentive.IncentiveCash;
 import com.dneero.incentive.IncentiveCoupon;
+import com.dneero.incentive.IncentiveNone;
 import com.dneero.incentive.IncentiveOptionsUtil;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -43,6 +44,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
     private String couponcodeprefix = "";
     private boolean couponcodeaddrandompostfix = true;
     private double couponestimatedcashvalue = 0.0;
+    private boolean isfree = true;
 
     public ResearcherSurveyDetail05(){
 
@@ -105,6 +107,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 charitycustom = survey.getCharitycustom();
                 charitycustomurl = survey.getCharitycustomurl();
                 charityonlyallowcustom = survey.getCharityonlyallowcustom();
+                isfree = survey.getIsfree();
             }
 
         }
@@ -200,6 +203,7 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 survey.setCharitycustom(charitycustom);
                 survey.setCharitycustomurl(charitycustomurl);
                 survey.setCharityonlyallowcustom(charityonlyallowcustom);
+                survey.setIsfree(isfree);
 
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
@@ -244,6 +248,11 @@ public class ResearcherSurveyDetail05 implements Serializable {
                     }
                     IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONCODEADDRANDOMPOSTFIX, couponcodeaddrandompostfixStr);
                     IncentiveOptionsUtil.saveValue(si, IncentiveCoupon.COUPONESTIMATEDCASHVALUE, String.valueOf(couponestimatedcashvalue));
+                } else {
+                    //It's a free survey
+                    si.setType(IncentiveNone.ID);
+                    si.setSurveyid(survey.getSurveyid());
+                    try{si.save();}catch(Exception ex){logger.error("", ex);}
                 }
 
                 //Refresh the survey
@@ -413,5 +422,13 @@ public class ResearcherSurveyDetail05 implements Serializable {
 
     public void setCouponestimatedcashvalue(double couponestimatedcashvalue) {
         this.couponestimatedcashvalue=couponestimatedcashvalue;
+    }
+
+    public boolean getIsfree() {
+        return isfree;
+    }
+
+    public void setIsfree(boolean isfree) {
+        this.isfree = isfree;
     }
 }

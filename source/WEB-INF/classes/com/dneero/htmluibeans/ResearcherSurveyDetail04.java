@@ -1,24 +1,24 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
-
-import java.util.*;
-import java.io.Serializable;
-
-import com.dneero.dao.*;
+import com.dneero.dao.Panel;
+import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.util.Str;
-
-import com.dneero.util.GeneralException;
-import com.dneero.util.Num;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.helpers.UserInputSafe;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -57,6 +57,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private String superpanelsStr;
     private boolean isaccesscodeonly= false;
     private String accesscode;
+    private boolean isopentoanybody=true;
 
     public ResearcherSurveyDetail04(){
 
@@ -76,6 +77,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
             status = survey.getStatus();
             isaccesscodeonly= survey.getIsaccesscodeonly();
             accesscode = survey.getAccesscode();
+            isopentoanybody = survey.getIsopentoanybody();
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 //Do it with XML
                 SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
@@ -160,6 +162,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
                     logger.debug("saveSurvey() about to save (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
                     survey.setIsaccesscodeonly(isaccesscodeonly);
                     survey.setAccesscode(accesscode);
+                    survey.setIsopentoanybody(isopentoanybody);
                     survey.save();
                     EmbedCacheFlusher.flushCache(survey.getSurveyid());
                     logger.debug("saveSurvey() done saving (for 2nd time) survey.getSurveyid()=" + survey.getSurveyid());
@@ -427,5 +430,13 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public void setSuperpanelsStr(String superpanelsStr) {
         this.superpanelsStr=superpanelsStr;
+    }
+
+    public boolean getIsopentoanybody() {
+        return isopentoanybody;
+    }
+
+    public void setIsopentoanybody(boolean isopentoanybody) {
+        this.isopentoanybody = isopentoanybody;
     }
 }

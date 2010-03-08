@@ -51,6 +51,7 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
             researcherSurveyDetail04.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
             researcherSurveyDetail04.setIsaccesscodeonly(CheckboxBoolean.getValueFromRequest("isaccesscodeonly"));
             researcherSurveyDetail04.setAccesscode(Textbox.getValueFromRequest("accesscode", "Access Code", false, DatatypeString.DATATYPEID));
+            researcherSurveyDetail04.setIsopentoanybody(CheckboxBoolean.getValueFromRequest("isopentoanybody"));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail04.saveSurvey();
@@ -81,220 +82,238 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail04.getSurvey().getSurveyid()%>"/>
 
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Target your conversation to the correct demographic.   Be careful not to cast too narrow a net.  In the final step we'll tell you how many bloggers fulfill your criteria and you'll have the opportunity to widen the search.
-    <br/><br/><br/>
-    </font></div></center>
+        <%
+            String isopenChecked = "";
+            if (researcherSurveyDetail04.getIsopentoanybody()){
+                isopenChecked = "checked=\"checked\"";
+            }
+        %>
+        <input type="checkbox" id="isopentoanybody" name="isopentoanybody" value="1" <%=isopenChecked%> /> Anybody can participate
 
-    <br/><br/>
+        <div id="togglepage">
 
+            <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            Target your conversation to the correct demographic.   Be careful not to cast too narrow a net.  In the final step we'll tell you how many bloggers fulfill your criteria and you'll have the opportunity to widen the search.
+            <br/><br/><br/>
+            </font></div></center>
 
-
-    <%if (researcherSurveyDetail04.getSurvey().getStatus()>Survey.STATUS_DRAFT) {%>
-        <%=researcherSurveyDetail04.getSurveyCriteriaAsHtml()%>
-        <br/>
-        <b>Panels:</b>
-        <%=researcherSurveyDetail04.getPanelsStr()%>
-        <br/>
-        <b>SuperPanels:</b>
-        <%=researcherSurveyDetail04.getSuperpanelsStr()%>
-    <%}%>
-
-    <%if (researcherSurveyDetail04.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-        <table cellpadding="5" cellspacing="0" border="0">
-
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Social Influence Rating (TM)</font>
-                    <br/>
-                    <font class="smallfont">Social Influence Rating takes site traffic, conversation referrals and a number of other metrics into account to give you some measure of this social person's influence with his/her readership.</font>
-                </td>
-                <td valign="top">
-                    <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherSurveyDetail04.getMinsocialinfluencepercentile()), StaticVariables.getPercentiles(), "", "")%>
-                </td>
-
-
-                <td valign="top">
-                    <font class="formfieldnamefont">Usage Method</font>
-                    <br/>
-                    <font class="tinyfont">There are multiple ways that users can access conversations.  This control allows you to target each access method individually.</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherSurveyDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>
-                </td>
-            </tr>
+            <br/><br/>
 
 
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Number of Conversations Joined</font>
-                    <br/>
-                    <font class="smallfont">Reflects the experience level of the respondent.  Enter a minimum and maximum number of conversations that qualified respondents are allowed to have joined.</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("totalsurveystakenatleast", String.valueOf(researcherSurveyDetail04.getTotalsurveystakenatleast()), 5, 4, "", "")%>
-                    -
-                    <%=Textbox.getHtml("totalsurveystakenatmost", String.valueOf(researcherSurveyDetail04.getTotalsurveystakenatmost()), 5, 4, "", "")%>
-                </td>
+            <%if (researcherSurveyDetail04.getSurvey().getStatus()>Survey.STATUS_DRAFT) {%>
+                <%=researcherSurveyDetail04.getSurveyCriteriaAsHtml()%>
+                <br/>
+                <b>Panels:</b>
+                <%=researcherSurveyDetail04.getPanelsStr()%>
+                <br/>
+                <b>SuperPanels:</b>
+                <%=researcherSurveyDetail04.getSuperpanelsStr()%>
+            <%}%>
 
-                <td valign="top">
-                    <font class="formfieldnamefont">Days Since Taking Last Conversation of At Least</font>
-                    <br/>
-                    <font class="smallfont">A qualifying respondent must have not taken another conversation in at least this many days.</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("dayssincelastsurvey", String.valueOf(researcherSurveyDetail04.getDayssincelastsurvey()), 5, 3, "", "")%>
-                </td>
-            </tr>
+            <%if (researcherSurveyDetail04.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                <table cellpadding="5" cellspacing="0" border="0">
 
 
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Age Range</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("agemin", String.valueOf(researcherSurveyDetail04.getAgemin()), 5, 3, "", "")%>
-                    -
-                    <%=Textbox.getHtml("agemax", String.valueOf(researcherSurveyDetail04.getAgemax()), 5, 3, "", "")%>
-                </td>
-
-                <td valign="top">
-                    <font class="formfieldnamefont">Gender</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("gender", Util.stringArrayToArrayList(researcherSurveyDetail04.getGender()), Util.treeSetToTreeMap(Genders.get()), 6, "", "")%>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Ethnicity</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("ethnicity", Util.stringArrayToArrayList(researcherSurveyDetail04.getEthnicity()), Util.treeSetToTreeMap(Ethnicities.get()), 6, "", "")%>
-                </td>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Social Influence Rating (TM)</font>
+                            <br/>
+                            <font class="smallfont">Social Influence Rating takes site traffic, conversation referrals and a number of other metrics into account to give you some measure of this social person's influence with his/her readership.</font>
+                        </td>
+                        <td valign="top">
+                            <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherSurveyDetail04.getMinsocialinfluencepercentile()), StaticVariables.getPercentiles(), "", "")%>
+                        </td>
 
 
-                <td valign="top">
-                    <font class="formfieldnamefont">Marital Status</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("maritalstatus", Util.stringArrayToArrayList(researcherSurveyDetail04.getMaritalstatus()), Util.treeSetToTreeMap(Maritalstatuses.get()), 6, "", "")%>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Income</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("income", Util.stringArrayToArrayList(researcherSurveyDetail04.getIncome()), Util.treeSetToTreeMap(Incomes.get()), 6, "", "")%>
-                </td>
-
-                <td valign="top">
-                    <font class="formfieldnamefont">Education</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("educationlevel", Util.stringArrayToArrayList(researcherSurveyDetail04.getEducationlevel()), Util.treeSetToTreeMap(Educationlevels.get()), 6, "", "")%>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">State</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("states", Util.stringArrayToArrayList(researcherSurveyDetail04.getState()), Util.treeSetToTreeMap(States.get()), 6, "", "")%>
-                </td>
-
-                <td valign="top">
-                    <font class="formfieldnamefont">City</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("cities", Util.stringArrayToArrayList(researcherSurveyDetail04.getCity()), Util.treeSetToTreeMap(Cities.get()), 6, "", "")%>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Country</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("countries", Util.stringArrayToArrayList(researcherSurveyDetail04.getCountry()), Util.treeSetToTreeMap(Countries.get()), 6, "", "")%>
-                </td>
-
-                <td valign="top">
-                    <font class="formfieldnamefont">Politics</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("politics", Util.stringArrayToArrayList(researcherSurveyDetail04.getPolitics()), Util.treeSetToTreeMap(Politics.get()), 6, "", "")%>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Profession</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("professions", Util.stringArrayToArrayList(researcherSurveyDetail04.getProfession()), Util.treeSetToTreeMap(Professions.get()), 6, "", "")%>
-                </td>
-
-
-                <td valign="top">
-                    <font class="formfieldnamefont">Blog Focus</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("blogfocus", Util.stringArrayToArrayList(researcherSurveyDetail04.getBlogfocus()), Util.treeSetToTreeMap(Blogfocuses.get()), 6, "", "")%>
-                </td>
-            </tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Usage Method</font>
+                            <br/>
+                            <font class="tinyfont">There are multiple ways that users can access conversations.  This control allows you to target each access method individually.</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("dneerousagemethods", Util.stringArrayToArrayList(researcherSurveyDetail04.getDneerousagemethods()), Util.treeSetToTreeMap(Dneerousagemethods.get()), 3, "", "")%>
+                        </td>
+                    </tr>
 
 
 
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Number of Conversations Joined</font>
+                            <br/>
+                            <font class="smallfont">Reflects the experience level of the respondent.  Enter a minimum and maximum number of conversations that qualified respondents are allowed to have joined.</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("totalsurveystakenatleast", String.valueOf(researcherSurveyDetail04.getTotalsurveystakenatleast()), 5, 4, "", "")%>
+                            -
+                            <%=Textbox.getHtml("totalsurveystakenatmost", String.valueOf(researcherSurveyDetail04.getTotalsurveystakenatmost()), 5, 4, "", "")%>
+                        </td>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Panel Membership</font>
-                    <br/>
-                    <font class="tinyfont">If you select a panel then this convo will only apply to people in that panel that also fulfill other demographic requirements.</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("panels", Util.stringArrayToArrayList(researcherSurveyDetail04.getPanels()), researcherSurveyDetail04.getPanelsavailable(), 6, "", "")%>
-                </td>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Days Since Taking Last Conversation of At Least</font>
+                            <br/>
+                            <font class="smallfont">A qualifying respondent must have not taken another conversation in at least this many days.</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("dayssincelastsurvey", String.valueOf(researcherSurveyDetail04.getDayssincelastsurvey()), 5, 3, "", "")%>
+                        </td>
+                    </tr>
 
-                <td valign="top">
-                    <font class="formfieldnamefont">SuperPanel Membership</font>
-                    <br/>
-                    <font class="tinyfont">If you select a panel then this convo will only apply to people in that panel that also fulfill other demographic requirements.</font>
-                </td>
-                <td valign="top">
-                    <%=DropdownMultiselect.getHtml("superpanels", Util.stringArrayToArrayList(researcherSurveyDetail04.getSuperpanels()), researcherSurveyDetail04.getSuperpanelsavailable(), 6, "", "")%>
-                </td>
-            </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Access Code Only?</font>
-                    <br/>
-                    <font class="tinyfont">Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them.  In this way you can limit and control who joins your conversation.  Great for point-of-sale and real-world ties to the online world.</font>
-                </td>
-                <td valign="top">
-                    <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%>
-                </td>
 
-                <td valign="top">
-                    <font class="normalfont">Access Code</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
-                </td>
-            </tr>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Age Range</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("agemin", String.valueOf(researcherSurveyDetail04.getAgemin()), 5, 3, "", "")%>
+                            -
+                            <%=Textbox.getHtml("agemax", String.valueOf(researcherSurveyDetail04.getAgemax()), 5, 3, "", "")%>
+                        </td>
 
-        </table>
-    <%}%>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Gender</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("gender", Util.stringArrayToArrayList(researcherSurveyDetail04.getGender()), Util.treeSetToTreeMap(Genders.get()), 6, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Ethnicity</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("ethnicity", Util.stringArrayToArrayList(researcherSurveyDetail04.getEthnicity()), Util.treeSetToTreeMap(Ethnicities.get()), 6, "", "")%>
+                        </td>
+
+
+                        <td valign="top">
+                            <font class="formfieldnamefont">Marital Status</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("maritalstatus", Util.stringArrayToArrayList(researcherSurveyDetail04.getMaritalstatus()), Util.treeSetToTreeMap(Maritalstatuses.get()), 6, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Income</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("income", Util.stringArrayToArrayList(researcherSurveyDetail04.getIncome()), Util.treeSetToTreeMap(Incomes.get()), 6, "", "")%>
+                        </td>
+
+                        <td valign="top">
+                            <font class="formfieldnamefont">Education</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("educationlevel", Util.stringArrayToArrayList(researcherSurveyDetail04.getEducationlevel()), Util.treeSetToTreeMap(Educationlevels.get()), 6, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">State</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("states", Util.stringArrayToArrayList(researcherSurveyDetail04.getState()), Util.treeSetToTreeMap(States.get()), 6, "", "")%>
+                        </td>
+
+                        <td valign="top">
+                            <font class="formfieldnamefont">City</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("cities", Util.stringArrayToArrayList(researcherSurveyDetail04.getCity()), Util.treeSetToTreeMap(Cities.get()), 6, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Country</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("countries", Util.stringArrayToArrayList(researcherSurveyDetail04.getCountry()), Util.treeSetToTreeMap(Countries.get()), 6, "", "")%>
+                        </td>
+
+                        <td valign="top">
+                            <font class="formfieldnamefont">Politics</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("politics", Util.stringArrayToArrayList(researcherSurveyDetail04.getPolitics()), Util.treeSetToTreeMap(Politics.get()), 6, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Profession</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("professions", Util.stringArrayToArrayList(researcherSurveyDetail04.getProfession()), Util.treeSetToTreeMap(Professions.get()), 6, "", "")%>
+                        </td>
+
+
+                        <td valign="top">
+                            <font class="formfieldnamefont">Blog Focus</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("blogfocus", Util.stringArrayToArrayList(researcherSurveyDetail04.getBlogfocus()), Util.treeSetToTreeMap(Blogfocuses.get()), 6, "", "")%>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Panel Membership</font>
+                            <br/>
+                            <font class="tinyfont">If you select a panel then this convo will only apply to people in that panel that also fulfill other demographic requirements.</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("panels", Util.stringArrayToArrayList(researcherSurveyDetail04.getPanels()), researcherSurveyDetail04.getPanelsavailable(), 6, "", "")%>
+                        </td>
+
+                        <td valign="top">
+                            <font class="formfieldnamefont">SuperPanel Membership</font>
+                            <br/>
+                            <font class="tinyfont">If you select a panel then this convo will only apply to people in that panel that also fulfill other demographic requirements.</font>
+                        </td>
+                        <td valign="top">
+                            <%=DropdownMultiselect.getHtml("superpanels", Util.stringArrayToArrayList(researcherSurveyDetail04.getSuperpanels()), researcherSurveyDetail04.getSuperpanelsavailable(), 6, "", "")%>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Access Code Only?</font>
+                            <br/>
+                            <font class="tinyfont">Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them.  In this way you can limit and control who joins your conversation.  Great for point-of-sale and real-world ties to the online world.</font>
+                        </td>
+                        <td valign="top">
+                            <%=CheckboxBoolean.getHtml("isaccesscodeonly", researcherSurveyDetail04.getIsaccesscodeonly(), "", "")%>
+                        </td>
+
+                        <td valign="top">
+                            <font class="normalfont">Access Code</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textbox.getHtml("accesscode", researcherSurveyDetail04.getAccesscode(), 255, 10, "", "")%>
+                        </td>
+                    </tr>
+
+                </table>
+            <%}%>
+    </div>
+    <script>
+        $("#isopentoanybody").change(function() {
+            $("#togglepage").toggle();
+        });
+        <% if (researcherSurveyDetail04.getIsopentoanybody()){%>
+        $("#togglepage").hide();
+        <% }  %>
+    </script>
 
     <br/><br/>
     <!-- Start Bottom Nav -->
