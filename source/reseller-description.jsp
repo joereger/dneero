@@ -48,7 +48,7 @@ As the organization pays bloggers and social people we'll add cash to your accou
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">How do I sell conversations?</font>
 <br/><font class="normalfont" style="color: #666666;">
-Start by reading the <a href="/researcher/index.jsp?showmarketingmaterial=1">Conversation Igniter Basics</a> page.  It describes the benefits of igniting conversations for organizations looking to use them.  Then explain to them what your experience has been with dNeero.
+Start by reading the <a href="/researcher.jsp">Conversation Igniter Basics</a> page.  It describes the benefits of igniting conversations for organizations looking to use them.  Then explain to them what your experience has been with dNeero.
 <br/><br/>
 Next, get in touch with some businesses.  Use the phone book.  Go to networking events.  Talk to your friends and family.
 </font>

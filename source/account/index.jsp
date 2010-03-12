@@ -5,7 +5,7 @@
 <%@ page import="com.dneero.dao.hibernate.NumFromUniqueResult" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Your Account";
+String pagetitle = "";
 String navtab = "youraccount";
 String acl = "account";
 %>

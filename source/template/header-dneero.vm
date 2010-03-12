@@ -28,92 +28,135 @@
                 <img src="/images/clear.gif" width="10" height="1" align="left"/>
                 <a href="/"><img src="/images/dneero-logo.gif" width="200" height="92" border="0"/></a>
             </td>
+            <td valign="bottom">
+                <div style="padding: 0px; text-align: right;">
+                    #if (!$userSession.isloggedin)
+                        <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/registration.jsp">Sign Up</a></font>
+                    #end
+                    #if ($userSession.isloggedin)
+                        <font class="subnavfont">Hi, $userSession.user.firstname | <a href="/account/index.jsp">Account</a> | <a href="/account/inbox.jsp">Help</a>
+                        #if ($userSession.isCustomerCare)
+                            | <a href="/customercare/index.jsp">Customer Care</a>
+                        #end
+                        #if ($userSession.isSysadmin)
+                            | <a href="/sysadmin/index.jsp">SysAdmin</a>
+                        #end
+                        | <a href="/login.jsp?action=logout">Log Out</a></font>
+                    #end
+                </div>
+            </td>
         </tr>
     </table>
     <!-- Start Navbar -->
     <table width="786" cellspacing="0" border="0" cellpadding="0">
         <tr>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif" width="234">
-                <img src="/images/clear.gif" width="1" height="5"/>
-            </td>
             <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                <a href="/index.jsp">
-                #if ($navtab  == "home")
-                    <img src="/images/navtabs2/home_on.gif" width="60" height="70" border="0"/>
-                #else
-                    <img src="/images/navtabs2/home_off.gif" width="60" height="70" border="0"/>
-                #end
-                </a>
-            </td>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                <a href="/blogger/index.jsp">
-                #if ($navtab  == "bloggers")
-                    <img src="/images/navtabs2/socialpeople_on.gif" width="138" height="70" border="0"/>
-                #else
-                    <img src="/images/navtabs2/socialpeople_off.gif" width="138" height="70" border="0"/>
-                #end
-                </a>
-            </td>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                <a href="/researcher/index.jsp">
-                #if ($navtab  == "researchers")
-                    <img src="/images/navtabs2/researchers_on.gif" width="138" height="70" border="0"/>
-                #else
-                    <img src="/images/navtabs2/researchers_off.gif" width="138" height="70" border="0"/>
-                #end
-                </a>
-            </td>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                <a href="/charity/index.jsp">
-                #if ($navtab  == "charities")
-                    <img src="/images/navtabs2/charities_on.gif" width="138" height="70" border="0"/>
-                #else
-                    <img src="/images/navtabs2/charities_off.gif" width="138" height="70" border="0"/>
-                #end
-                </a>
-            </td>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                #if ($userSession.isloggedin)
-                    <a href="/account/index.jsp">
-                #else
-                    <a href="/registration.jsp">
-                #end
-                #if ($navtab == "youraccount")
-                    <img src="/images/navtabs2/youraccount_on.gif" alt="" width="60" height="70" border="0"/>
-                #else
-                    <img src="/images/navtabs2/youraccount_off.gif" alt="" width="60" height="70" border="0"/>
-                #end
-                #if ($userSession.isloggedin)
-                    </a>
-                #else
-                    </a>
-                #end
-            </td>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                 #if ($userSession.isCustomerCare)
-                    <a href="/customercare/index.jsp">
-                    #if ($navtab  == "customercare")
-                        <img src="/images/navtabs2/customercare_on.gif" width="60" height="70" border="0"/>
+                <div style="padding: 0px; text-align: right;">
+                    #if ($userSession.isloggedin)
+                        <a href="/blogger/index.jsp">
                     #else
-                        <img src="/images/navtabs2/customercare_off.gif" width="60" height="70" border="0"/>
+                        <a href="/blogger.jsp">
+                    #end
+                    #if ($navtab  == "bloggers")
+                        <img src="/images/navtabs2/join_on.gif" width="138" height="70" border="0"/>
+                    #else
+                        <img src="/images/navtabs2/join_off.gif" width="138" height="70" border="0"/>
                     #end
                     </a>
-                 #end
-            </td>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                 #if ($userSession.isSysadmin)
-                    <a href="/sysadmin/index.jsp">
-                    #if ($navtab  == "sysadmin")
-                        <img src="/images/navtabs2/sysadmin_on.gif" width="60" height="70" border="0"/>
+                    #if ($userSession.isloggedin)
+                        <a href="/researcher/index.jsp">
                     #else
-                        <img src="/images/navtabs2/sysadmin_off.gif" width="60" height="70" border="0"/>
+                        <a href="/researcher.jsp">
+                    #end
+                    #if ($navtab  == "researchers")
+                        <img src="/images/navtabs2/create_on.gif" width="138" height="70" border="0"/>
+                    #else
+                        <img src="/images/navtabs2/create_off.gif" width="138" height="70" border="0"/>
                     #end
                     </a>
-                #end
+                </div>
             </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif" width="*">
+##                <img src="/images/clear.gif" width="1" height="5"/>
+##            </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+##                <a href="/index.jsp">
+##                #if ($navtab  == "home")
+##                    <img src="/images/navtabs2/home_on.gif" width="60" height="70" border="0"/>
+##                #else
+##                    <img src="/images/navtabs2/home_off.gif" width="60" height="70" border="0"/>
+##                #end
+##                </a>
+##            </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+##                <a href="/blogger/index.jsp">
+##                #if ($navtab  == "bloggers")
+##                    <img src="/images/navtabs2/join_on.gif" width="138" height="70" border="0"/>
+##                #else
+##                    <img src="/images/navtabs2/join_off.gif" width="138" height="70" border="0"/>
+##                #end
+##                </a>
+##            </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+##                <a href="/researcher/index.jsp">
+##                #if ($navtab  == "researchers")
+##                    <img src="/images/navtabs2/create_on.gif" width="138" height="70" border="0"/>
+##                #else
+##                    <img src="/images/navtabs2/create_off.gif" width="138" height="70" border="0"/>
+##                #end
+##                </a>
+##            </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+##                <a href="/charity/index.jsp">
+##                #if ($navtab  == "charities")
+##                    <img src="/images/navtabs2/charities_on.gif" width="138" height="70" border="0"/>
+##                #else
+##                    <img src="/images/navtabs2/charities_off.gif" width="138" height="70" border="0"/>
+##                #end
+##                </a>
+##            </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+##                #if ($userSession.isloggedin)
+##                    <a href="/account/index.jsp">
+##                #else
+##                    <a href="/registration.jsp">
+##                #end
+##                #if ($navtab == "youraccount")
+##                    <img src="/images/navtabs2/youraccount_on.gif" alt="" width="60" height="70" border="0"/>
+##                #else
+##                    <img src="/images/navtabs2/youraccount_off.gif" alt="" width="60" height="70" border="0"/>
+##                #end
+##                #if ($userSession.isloggedin)
+##                    </a>
+##                #else
+##                    </a>
+##                #end
+##            </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+##                 #if ($userSession.isCustomerCare)
+##                    <a href="/customercare/index.jsp">
+##                    #if ($navtab  == "customercare")
+##                        <img src="/images/navtabs2/customercare_on.gif" width="60" height="70" border="0"/>
+##                    #else
+##                        <img src="/images/navtabs2/customercare_off.gif" width="60" height="70" border="0"/>
+##                    #end
+##                    </a>
+##                 #end
+##            </td>
+##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
+##                 #if ($userSession.isSysadmin)
+##                    <a href="/sysadmin/index.jsp">
+##                    #if ($navtab  == "sysadmin")
+##                        <img src="/images/navtabs2/sysadmin_on.gif" width="60" height="70" border="0"/>
+##                    #else
+##                        <img src="/images/navtabs2/sysadmin_off.gif" width="60" height="70" border="0"/>
+##                    #end
+##                    </a>
+##                #end
+##            </td>
         </tr>
         <tr>
-            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="8" height="25">
+            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="1" height="25">
                 #if ($navtab == "home")
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Conversations</font></a>
@@ -150,7 +193,7 @@
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/blogger/bloggerfaq.jsp"><font class="subnavfont" style="color: #000000;">Social People FAQ</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/blogger/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Social People Basics</font></a>
+                    <a href="/blogger.jsp"><font class="subnavfont" style="color: #000000;">Social People Basics</font></a>
                 #end
                 #if ($navtab == "researchers")
                     #if ($userSession.isloggedin && $userSession.user.researcherid>0)
@@ -170,7 +213,7 @@
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
                     <a href="/researcher/researcherfaq.jsp"><font class="subnavfont" style="color: #000000;">Igniter FAQ</font></a>
                     <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="subnavfont" style="color: #000000;">Igniter Basics</font></a>
+                    <a href="/researcher.jsp"><font class="subnavfont" style="color: #000000;">Igniter Basics</font></a>
                 #end
                 #if ($navtab == "youraccount")
                     #if ($userSession.isloggedin)
@@ -245,20 +288,6 @@
                     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="formfieldnamefont">$userSession.message</font></div></center>
                     <br/>
                 #end
-                </div>
-            </td>
-            <td valign="top">
-                <div style="padding: 0px; text-align: right;">
-                    #if (!$userSession.isloggedin)
-                        <font class="subnavfont">Already have an account?<img src="/images/clear.gif" width="20" height="1"/><a href="/login.jsp">Log In</a></font>
-                        <br/>
-                        <font class="subnavfont">Want to get one?<img src="/images/clear.gif" width="20" height="1"/><a href="/registration.jsp">Sign Up</a></font>
-                    #end
-                    #if ($userSession.isloggedin)
-                        <font class="subnavfont">Hi, $userSession.user.firstname $userSession.user.lastname! <a href="/login.jsp?action=logout">Log Out</a></font>
-                        <br/>
-                        <font class="subnavfont">Need <a href="/account/inbox.jsp">Help?</a></font>
-                    #end
                 </div>
             </td>
         </tr>

@@ -26,7 +26,6 @@ public class BloggerIndex implements Serializable {
 
     private boolean userhasresponsependings = false;
     private String responsependingmsg = "";
-    private boolean showmarketingmaterial = false;
     private String msg = "";
 
 
@@ -37,11 +36,7 @@ public class BloggerIndex implements Serializable {
             try{Pagez.sendRedirect("/blogger/bloggerdetails.jsp");return;} catch (Exception ex){logger.error("",ex);}
         }
 
-        if (Pagez.getRequest().getParameter("showmarketingmaterial")!=null && Pagez.getRequest().getParameter("showmarketingmaterial").equals("1")){
-            showmarketingmaterial = true;
-        } else {
-            showmarketingmaterial = false;
-        }
+
         if (Pagez.getUserSession()!=null && Pagez.getUserSession().getUser()!=null){
             int surveyidtoredirectto = 0;
             List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
@@ -177,13 +172,7 @@ public class BloggerIndex implements Serializable {
         this.responsependingmsg = responsependingmsg;
     }
 
-    public boolean getShowmarketingmaterial() {
-        return showmarketingmaterial;
-    }
-
-    public void setShowmarketingmaterial(boolean showmarketingmaterial) {
-        this.showmarketingmaterial = showmarketingmaterial;
-    }
+ 
 
     public String getMsg() {
         return msg;

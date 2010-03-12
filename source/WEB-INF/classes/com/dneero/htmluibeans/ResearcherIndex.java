@@ -1,20 +1,19 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Time;
-import com.dneero.dao.Survey;
 import com.dneero.dao.Question;
 import com.dneero.dao.Questionconfig;
+import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.CopyHibernateObject;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.util.Time;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
-
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -23,7 +22,6 @@ import org.apache.log4j.Logger;
  */
 public class ResearcherIndex implements Serializable {
 
-    private boolean showmarketingmaterial = false;
     private String msg = "";
 
     public ResearcherIndex(){
@@ -33,11 +31,7 @@ public class ResearcherIndex implements Serializable {
 
 
     public void initBean(){
-        if (Pagez.getRequest().getParameter("showmarketingmaterial")!=null && Pagez.getRequest().getParameter("showmarketingmaterial").equals("1")){
-            showmarketingmaterial = true;
-        } else {
-            showmarketingmaterial = false;
-        }
+
     }
 
 
@@ -84,13 +78,7 @@ public class ResearcherIndex implements Serializable {
 
     }
 
-    public boolean getShowmarketingmaterial() {
-        return showmarketingmaterial;
-    }
-
-    public void setShowmarketingmaterial(boolean showmarketingmaterial) {
-        this.showmarketingmaterial = showmarketingmaterial;
-    }
+  
 
 
     public String getMsg() {

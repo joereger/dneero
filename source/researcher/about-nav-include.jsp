@@ -1,5 +1,5 @@
 <div class="rounded" style="background: #eeeeee;">
-    <a href="/researcher/index.jsp?showmarketingmaterial=1"><font class="smallfont" style="font-weight: bold;">Researcher Overview</font></a>
+    <a href="/researcher.jsp"><font class="smallfont" style="font-weight: bold;">Researcher Overview</font></a>
     <br/>
     <a href="/researcher/about-demographics.jsp"><font class="smallfont" style="font-weight: bold;">Network Demographics</font></a>
     <br/>
