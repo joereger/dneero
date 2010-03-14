@@ -3,8 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02matrix) Pagez.getBeanMgr().get("ResearcherSurveyDetail02matrix")).getSurvey().getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02matrix) Pagez.getBeanMgr().get("ResearcherSurveyDetail02matrix")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -32,13 +31,16 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    In a Matrix question type respondents are given a grid of possible answers.   To create this grid enter options for the Rows and the Columns and decide whether respondents can choose many answers per row.
-    <br/><br/>
-    Here's what a Matrix question looks like:
-    <center><img src="/images/questiontypes/matrixselectone.gif" border="0"></img></center>
-    </font></div></center>
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        In a Matrix question type respondents are given a grid of possible answers.   To create this grid enter options for the Rows and the Columns and decide whether respondents can choose many answers per row.
+        <br/><br/>
+        Here's what a Matrix question looks like:
+        <center><img src="/images/questiontypes/matrixselectone.gif" border="0"></img></center>
+        </font></div>
+    </div>
+
 
     <br/><br/>
 
@@ -152,6 +154,11 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
     </form>
     <!-- End Bottom -->
 
-
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 <%@ include file="/template/footer.jsp" %>

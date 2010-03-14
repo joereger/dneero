@@ -1,25 +1,21 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-
-import com.dneero.util.Str;
-import com.dneero.util.Time;
-import com.dneero.util.Num;
-import com.dneero.htmlui.UserSession;
+import com.dneero.dao.Survey;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.Time;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
-
-import java.util.*;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -35,6 +31,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private int status;
     private int embedversion = Survey.EMBEDVERSION_02;
     private Survey survey;
+    private boolean isopentoanybody=true;
+    private boolean isfree=true;
 
 
 
@@ -60,6 +58,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 enddate = survey.getEnddate();
                 status = survey.getStatus();
                 embedversion = survey.getEmbedversion();
+                isfree = survey.getIsfree();
+                isopentoanybody = survey.getIsopentoanybody();
             }
             if (survey!=null && survey.getSurveyid()>0 && !survey.canEdit(Pagez.getUserSession().getUser())){
                 Pagez.sendRedirect("/researcher/index.jsp");
@@ -99,6 +99,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setIsfree(false);
         survey.setIsopentoanybody(false);
         survey.setIshighquality(false);
+        survey.setIsfree(true);
+        survey.setIsopentoanybody(true);
     }
 
 
@@ -136,6 +138,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
             survey.setImpressionstobepaid(0);
             survey.setIsaggressiveslotreclamationon(false);
             survey.setEmbedversion(embedversion);
+            survey.setIsfree(isfree);
+            survey.setIsopentoanybody(isopentoanybody);
+
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
                 logger.debug("saveSurvey() called: going to get Survey.get(surveyid)="+userSession.getCurrentSurveyid());
@@ -261,5 +266,21 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
     public void setEmbedversion(int embedversion) {
         this.embedversion=embedversion;
+    }
+
+    public boolean getIsopentoanybody() {
+        return isopentoanybody;
+    }
+
+    public void setIsopentoanybody(boolean isopentoanybody) {
+        this.isopentoanybody = isopentoanybody;
+    }
+
+    public boolean getIsfree() {
+        return isfree;
+    }
+
+    public void setIsfree(boolean isfree) {
+        this.isfree = isfree;
     }
 }

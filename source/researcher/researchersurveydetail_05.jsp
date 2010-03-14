@@ -4,8 +4,7 @@
 <%@ page import="com.dneero.incentive.IncentiveCoupon" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-05.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail05) Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail05) Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -14,12 +13,21 @@ String acl="researcher";
 <%
 ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pagez.getBeanMgr().get("ResearcherSurveyDetail05");
 %>
+<%if (researcherSurveyDetail05.getSurvey().getIsfree()){
+    logger.error("request.getParameter(\"ispreviousclick\")="+request.getParameter("ispreviousclick"));
+    if (request.getParameter("ispreviousclick")!=null && request.getParameter("ispreviousclick").equals("1")){
+        Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid()+"&ispreviousclick=1");
+        return;
+    }
+    Pagez.sendRedirect("/researcher/researchersurveydetail_06.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid());
+    return;
+}%>
 <%
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             if (researcherSurveyDetail05.getSurvey().getStatus()>Survey.STATUS_DRAFT){
                 if (request.getParameter("action").equals("previous")){
-                    Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid());
+                    Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid()+"&ispreviousclick=1");
                     return;
                 } else {
                     Pagez.sendRedirect("/researcher/researchersurveydetail_06.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid());
@@ -58,7 +66,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
                 researcherSurveyDetail05.saveSurvey();
-                Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid());
+                Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid()+"&ispreviousclick=1");
                 return;
             }
         } catch (ValidationException vex) {
@@ -85,16 +93,19 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
     <div id="togglepage">
 
-        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        <img src="/images/lightbulb_on.png" alt="" align="right"/>
-        In this step you'll choose how much you're willing to pay bloggers. You'll want to craft an incentive that generates the response you're looking for.
-        <br/><br/>
-        Example 1: You have a new product to announce to the blogosphere.  You need to find new bloggers to talk about your product and you then need them to post the conversation to their blogs to tell their friends and families.  Your pricing should be a good balance of Conversation Participation Incentive and Peer Display Incentive.
-        <br/><br/>
-        Example 2: You want to see what bloggers think about a new concept.  Being more concerned about the research side of the equation, you may pay a lot for respondents and almost nothing for them to post the conversation to their blogs.
-        <br/><br/>
-        The possibilities are endless... give it some thought and create a great incentive.  The better the incentive the more activity you'll generate.
-        </font></div></center>
+        <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+        <div id="togglehelp">
+            <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+            In this step you'll choose how much you're willing to pay bloggers. You'll want to craft an incentive that generates the response you're looking for.
+            <br/><br/>
+            Example 1: You have a new product to announce to the blogosphere.  You need to find new bloggers to talk about your product and you then need them to post the conversation to their blogs to tell their friends and families.  Your pricing should be a good balance of Conversation Participation Incentive and Peer Display Incentive.
+            <br/><br/>
+            Example 2: You want to see what bloggers think about a new concept.  Being more concerned about the research side of the equation, you may pay a lot for respondents and almost nothing for them to post the conversation to their blogs.
+            <br/><br/>
+            The possibilities are endless... give it some thought and create a great incentive.  The better the incentive the more activity you'll generate.
+            </font></div>
+        </div>
+
 
         <br/><br/>
 
@@ -418,6 +429,12 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
         <% if (researcherSurveyDetail05.getIsfree()){%>
         $("#togglepage").hide();
         <% }  %>
+    </script>
+    <script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
     </script>
 
     <br/><br/>

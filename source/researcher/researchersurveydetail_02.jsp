@@ -16,8 +16,7 @@
 <%@ page import="com.dneero.htmlui.Textbox" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02) Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02) Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -33,7 +32,7 @@ String acl="researcher";
         try {
             if (researcherSurveyDetail02.getSurvey().getStatus()>Survey.STATUS_DRAFT){
                 if (request.getParameter("action").equals("previous")){
-                    Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid());
+                    Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"&ispreviousclick=1");
                     return;
                 } else {
                     Pagez.sendRedirect("/researcher/researchersurveydetail_03.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid());
@@ -54,7 +53,7 @@ String acl="researcher";
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
                 researcherSurveyDetail02.saveSurvey();
-                Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid());
+                Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"&ispreviousclick=1");
                 return;
             }
         } catch (ValidationException vex) {
@@ -110,13 +109,14 @@ String acl="researcher";
 
 
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Add questions to your conversation on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Conversation to see what these questions look like to somebody joining the conversation.  When you're done, click Next Step.
-    <br/><br/>
-    </font></div></center>
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        Add questions to your conversation on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Conversation to see what these questions look like to somebody joining the conversation.  When you're done, click Next Step.
+        <br/><br/>
+        </font></div>
+    </div>
 
-    <br/><br/>
 
     <script language="JavaScript" type="text/javascript">
       var panels = new Array('panel1', 'panel2', 'panel3');
@@ -260,5 +260,12 @@ String acl="researcher";
     <!-- End Bottom Nav -->
 </form>
 
+
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 <%@ include file="/template/footer.jsp" %>

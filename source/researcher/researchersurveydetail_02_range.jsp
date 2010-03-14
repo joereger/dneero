@@ -3,8 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02range) Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getSurvey().getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02range) Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -35,13 +34,17 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    In a Range question type respondents choose from low to high numbers at some interval.  This is also known as a Lichert Scale.  Choose Min and Max Titles to tell conversation participants what the scale represents.  Then choose the Min and Max values as the lowest and highest possible choices. Finally, choose the Step value which determines the numerical distance between option.  For example, Step of 1 means that the scale will simply step from Min to Max like this: 1, 2, 3, 4, etc.  Step of 2 would give you: 2, 4, 6, 8, etc.
-    <br/><br/>
-    Here's what a Range question looks like:
-    <center><img src="/images/questiontypes/range.gif" border="0"></img></center>
-    </font></div></center>
+
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        In a Range question type respondents choose from low to high numbers at some interval.  This is also known as a Lichert Scale.  Choose Min and Max Titles to tell conversation participants what the scale represents.  Then choose the Min and Max values as the lowest and highest possible choices. Finally, choose the Step value which determines the numerical distance between option.  For example, Step of 1 means that the scale will simply step from Min to Max like this: 1, 2, 3, 4, etc.  Step of 2 would give you: 2, 4, 6, 8, etc.
+        <br/><br/>
+        Here's what a Range question looks like:
+        <center><img src="/images/questiontypes/range.gif" border="0"></img></center>
+        </font></div>
+     </div>
+
 
     <br/><br/>
 
@@ -173,6 +176,11 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
     </form>
     <!-- End Bottom -->
 
-
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 <%@ include file="/template/footer.jsp" %>

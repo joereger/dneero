@@ -1,14 +1,57 @@
-.bodydneero {
+body {
     padding:0px;
     margin:0px;
+    min-width:750px;
     background:#FFFFFF;
-    background-image: url("/images/background-grey.gif");
+    background-color:#FFFFFF;
+    background-image:url('/images/hp-version6/bg.gif');
+    background-attachment:fixed;
+    background-position: top center;
+    background-repeat:no-repeat;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
     font: 12px/14px Verdana, Arial, Helvetica, sans-serif;
     font-weight: normal;
     color: #000000;
-    background-color: #ffffff;
+}
+
+.header{
+    width:985px;
+    height:137px;
+    background:#FFFFFF;
+    background-color:#FFFFFF;
+    background-image:url('/images/hp-version6/header.gif');
+    /*background-attachment:fixed;*/
+    background-position: top center;
+    background-repeat:no-repeat;
+}
+
+.navbar {
+    width:985px;
+    height:52px;
+    background-image:url('/images/hp-version6/navbar.png');
+    /*background-attachment:fixed;*/
+    background-position: top center;
+    background-repeat:no-repeat;
+}
+
+.subnav {
+    width:985px;
+    height:35px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.pagetitle {
+    width: 965px;
+    margin: 20px;
+    text-align: left;    
+}
+
+.mainbody{
+    text-align: left;
+    width: 965px;
+    margin: 25px;
 }
 
 a, a:link, a:visited, a:active {

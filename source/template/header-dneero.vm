@@ -1,300 +1,201 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html  xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-  <title>dNeero: Social Media Does Good</title>
-  <link rel="stylesheet" type="text/css" href="/css/basic.css" />
-  <link rel="stylesheet" type="text/css" href="/css/dneero.css" />
-##  <link rel="stylesheet" type="text/css" href="/js/niftycube/niftyCorners.css" />
-  <link rel="alternate" type="application/rss+xml" title="dNeero Conversations Blog" href="http://www.dneero.com/rss.xml" />
-  <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated bloggers. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
-  <meta name="keywords" content="conversation,market research,survey,blog,web 2.0,startup,money,market intelligence" />
-  <script type="text/javascript" src="/js/jquery-1.4.1.min.js"></script>
-  <script type="text/javascript" src="/js/jquery.corner.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>dNeero: Social Network Currency</title>
+    <link rel="stylesheet" type="text/css" href="/css/basic.css" />
+    <link rel="stylesheet" type="text/css" href="/css/dneero.css" />
+    <link rel="alternate" type="application/rss+xml" title="dNeero Conversations Blog" href="http://www.dneero.com/rss.xml" />
+    <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated social network users. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
+    <meta name="keywords" content="conversation,market research,survey,blog,web 2.0,startup,money,market intelligence" />
+    <script type="text/javascript" src="/js/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.corner.js"></script>
 
-##  <script type="text/javascript" src="/js/niftycube/niftycube.js"></script>
-##  <script type="text/javascript">
-##   NiftyLoad=function(){
-##       Nifty("div.rounded","big");
-##   }
-##  </script>
 </head>
-<body class="bodydneero">
-          
-    <table width="786" cellspacing="0" border="0" cellpadding="0">
-        <tr>
-            <td valign="top">
-                <img src="/images/clear.gif" width="10" height="1" align="left"/>
-                <a href="/"><img src="/images/dneero-logo.gif" width="200" height="92" border="0"/></a>
-            </td>
-            <td valign="bottom">
-                <div style="padding: 0px; text-align: right;">
-                    #if (!$userSession.isloggedin)
-                        <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/registration.jsp">Sign Up</a></font>
-                    #end
-                    #if ($userSession.isloggedin)
-                        <font class="subnavfont">Hi, $userSession.user.firstname | <a href="/account/index.jsp">Account</a> | <a href="/account/inbox.jsp">Help</a>
-                        #if ($userSession.isCustomerCare)
-                            | <a href="/customercare/index.jsp">Customer Care</a>
-                        #end
-                        #if ($userSession.isSysadmin)
-                            | <a href="/sysadmin/index.jsp">SysAdmin</a>
-                        #end
-                        | <a href="/login.jsp?action=logout">Log Out</a></font>
-                    #end
-                </div>
-            </td>
-        </tr>
-    </table>
-    <!-- Start Navbar -->
-    <table width="786" cellspacing="0" border="0" cellpadding="0">
-        <tr>
-            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-                <div style="padding: 0px; text-align: right;">
-                    #if ($userSession.isloggedin)
-                        <a href="/blogger/index.jsp">
-                    #else
-                        <a href="/blogger.jsp">
-                    #end
-                    #if ($navtab  == "bloggers")
-                        <img src="/images/navtabs2/join_on.gif" width="138" height="70" border="0"/>
-                    #else
-                        <img src="/images/navtabs2/join_off.gif" width="138" height="70" border="0"/>
-                    #end
-                    </a>
-                    #if ($userSession.isloggedin)
-                        <a href="/researcher/index.jsp">
-                    #else
-                        <a href="/researcher.jsp">
-                    #end
-                    #if ($navtab  == "researchers")
-                        <img src="/images/navtabs2/create_on.gif" width="138" height="70" border="0"/>
-                    #else
-                        <img src="/images/navtabs2/create_off.gif" width="138" height="70" border="0"/>
-                    #end
-                    </a>
-                </div>
-            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif" width="*">
-##                <img src="/images/clear.gif" width="1" height="5"/>
-##            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-##                <a href="/index.jsp">
-##                #if ($navtab  == "home")
-##                    <img src="/images/navtabs2/home_on.gif" width="60" height="70" border="0"/>
-##                #else
-##                    <img src="/images/navtabs2/home_off.gif" width="60" height="70" border="0"/>
-##                #end
-##                </a>
-##            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-##                <a href="/blogger/index.jsp">
-##                #if ($navtab  == "bloggers")
-##                    <img src="/images/navtabs2/join_on.gif" width="138" height="70" border="0"/>
-##                #else
-##                    <img src="/images/navtabs2/join_off.gif" width="138" height="70" border="0"/>
-##                #end
-##                </a>
-##            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-##                <a href="/researcher/index.jsp">
-##                #if ($navtab  == "researchers")
-##                    <img src="/images/navtabs2/create_on.gif" width="138" height="70" border="0"/>
-##                #else
-##                    <img src="/images/navtabs2/create_off.gif" width="138" height="70" border="0"/>
-##                #end
-##                </a>
-##            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-##                <a href="/charity/index.jsp">
-##                #if ($navtab  == "charities")
-##                    <img src="/images/navtabs2/charities_on.gif" width="138" height="70" border="0"/>
-##                #else
-##                    <img src="/images/navtabs2/charities_off.gif" width="138" height="70" border="0"/>
-##                #end
-##                </a>
-##            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-##                #if ($userSession.isloggedin)
-##                    <a href="/account/index.jsp">
-##                #else
-##                    <a href="/registration.jsp">
-##                #end
-##                #if ($navtab == "youraccount")
-##                    <img src="/images/navtabs2/youraccount_on.gif" alt="" width="60" height="70" border="0"/>
-##                #else
-##                    <img src="/images/navtabs2/youraccount_off.gif" alt="" width="60" height="70" border="0"/>
-##                #end
-##                #if ($userSession.isloggedin)
-##                    </a>
-##                #else
-##                    </a>
-##                #end
-##            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-##                 #if ($userSession.isCustomerCare)
-##                    <a href="/customercare/index.jsp">
-##                    #if ($navtab  == "customercare")
-##                        <img src="/images/navtabs2/customercare_on.gif" width="60" height="70" border="0"/>
-##                    #else
-##                        <img src="/images/navtabs2/customercare_off.gif" width="60" height="70" border="0"/>
-##                    #end
-##                    </a>
-##                 #end
-##            </td>
-##            <td valign="top" background="/images/navtabs2/mainbar_bg.gif">
-##                 #if ($userSession.isSysadmin)
-##                    <a href="/sysadmin/index.jsp">
-##                    #if ($navtab  == "sysadmin")
-##                        <img src="/images/navtabs2/sysadmin_on.gif" width="60" height="70" border="0"/>
-##                    #else
-##                        <img src="/images/navtabs2/sysadmin_off.gif" width="60" height="70" border="0"/>
-##                    #end
-##                    </a>
-##                #end
-##            </td>
-        </tr>
-        <tr>
-            <td bgcolor="#dadada" style="text-align: left; vertical-align: middle;" colspan="1" height="25">
-                #if ($navtab == "home")
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Conversations</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/publicoldsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Old Conversations</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/blog.jsp"><font class="subnavfont" style="color: #000000;">The dNeero Blog</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/charity.jsp"><font class="subnavfont" style="color: #000000;">Charity</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/superpanels.jsp"><font class="subnavfont" style="color: #000000;">SuperPanels</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    #if (!$userSession.isloggedin)
-                        <a href="/registration.jsp"><font class="subnavfont" style="color: #000000;">Sign Up</font></a>
-                    #end
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    #if (!$userSession.isloggedin)
-                        <a href="/login.jsp"><font class="subnavfont" style="color: #000000;">Log In</font></a>
-                    #end
-                #end
-                #if ($navtab == "bloggers")
-                    #if ($userSession.isloggedin && $userSession.user.bloggerid>0)
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Find Conversations</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/superpanels.jsp"><font class="subnavfont" style="color: #000000;">SuperPanels</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Referral Program</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="color: #000000;">Profile</font></a>
-                    #end
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/blogger/bloggerfaq.jsp"><font class="subnavfont" style="color: #000000;">Social People FAQ</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/blogger.jsp"><font class="subnavfont" style="color: #000000;">Social People Basics</font></a>
-                #end
-                #if ($navtab == "researchers")
-                    #if ($userSession.isloggedin && $userSession.user.researcherid>0)
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #000000;">Main</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/panels.jsp"><font class="subnavfont" style="color: #000000;">Panels</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/rank-list.jsp"><font class="subnavfont" style="color: #000000;">Rankings</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Reviewables</font></a>        
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Igniter Details</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/researcher/researcherbilling.jsp"><font class="subnavfont" style="color: #000000;">Billing</font></a>
-                    #end
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/researcher/researcherfaq.jsp"><font class="subnavfont" style="color: #000000;">Igniter FAQ</font></a>
-                    <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                    <a href="/researcher.jsp"><font class="subnavfont" style="color: #000000;">Igniter Basics</font></a>
-                #end
-                #if ($navtab == "youraccount")
-                    #if ($userSession.isloggedin)
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/accountbalance.jsp"><font class="subnavfont" style="color: #000000;">Account Balance</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/accountsettings.jsp"><font class="subnavfont" style="color: #000000;">Account Settings</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/awards.jsp"><font class="subnavfont" style="color: #000000;">Awards</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/changepassword.jsp"><font class="subnavfont" style="color: #000000;">Change Password</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Flagged Content</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
-                        <img src="/images/clear.gif" alt="" width="10" height="1"/>
-                        <a href="/account/inbox.jsp"><font class="subnavfont" style="color: #000000;">Inbox</font></a>
-                    #end
-                #end
-                #if ($navtab == "customercare")
-                    #if ($userSession.isloggedin && $userSession.isCustomerCare)
-                        <a href="/customercare/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support Issues</font></a>
-                        <a href="/customercare/reviewables.jsp"><font class="subnavfont" style=" color: #000000;">Reviewable Items</font></a>
-                        <a href="/customercare/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
-                        <a href="/customercare/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Conversations</font></a>
-                        <a href="/customercare/charityreport.jsp"><font class="subnavfont" style=" color: #000000;">Charity</font></a>
-                        <a href="/customercare/couponlist.jsp"><font class="subnavfont" style=" color: #000000;">Coupons</font></a>
-                        <a href="/customercare/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Real-World Transactions</font></a>
-                        <a href="/customercare/balance.jsp"><font class="subnavfont" style=" color: #000000;">Balance Updates</font></a>
-                        <a href="/customercare/iptrack.jsp"><font class="subnavfont" style=" color: #000000;">Ip Track</font></a>
-                        <a href="/customercare/panels.jsp"><font class="subnavfont" style=" color: #000000;">SuperPanels</font></a>
-                    #end
-                #end
-                #if ($navtab == "sysadmin")
-                    #if ($userSession.isloggedin && $userSession.isSysadmin)
-                        <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style=" color: #000000;">System Log</font></a>
-                        <a href="/sysadmin/errorlist-logging.jsp"><font class="subnavfont" style=" color: #000000;">LogConfig</font></a>        
-                        <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style=" color: #000000;">Eula</font></a>
-                        <a href="/sysadmin/rateblogpost.jsp"><font class="subnavfont" style=" color: #000000;">Rate</font></a>
-                        <a href="/sysadmin/manuallyrunscheduledtask.jsp"><font class="subnavfont" style=" color: #000000;">Scheds</font></a>
-                        <a href="/sysadmin/systemprops.jsp"><font class="subnavfont" style=" color: #000000;">SysProps</font></a>
-                        <a href="/sysadmin/instanceprops.jsp"><font class="subnavfont" style=" color: #000000;">InsProps</font></a>
-                        <a href="/sysadmin/hibernatecache.jsp"><font class="subnavfont" style=" color: #000000;">Cache</font></a>
-                        <a href="/sysadmin/massemaillist.jsp"><font class="subnavfont" style=" color: #000000;">Email</font></a>
-                        <a href="/sysadmin/demographicreport.jsp"><font class="subnavfont" style=" color: #000000;">Demogrs</font></a>
-                        <a href="/sysadmin/pageperformance.jsp"><font class="subnavfont" style=" color: #000000;">Perf</font></a>
-                        <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style=" color: #000000;">Blog</font></a>
-                        <a href="/sysadmin/privatelabels.jsp"><font class="subnavfont" style=" color: #000000;">PrivateLabels</font></a>
-                        <a href="/sysadmin/impressionsbyday.jsp"><font class="subnavfont" style=" color: #000000;">ImpByDay</font></a>
-                        <a href="/sysadmin/usagereport.jsp"><font class="subnavfont" style=" color: #000000;">Usage</font></a>
-                    #end
-                #end
-            </td>
-        </tr>
-        <tr>
-            <td background="/images/navtabs2/linedots.gif" colspan="7"><img src="/images/clear.gif" width="1" height="1"/></td>
-        </tr>
-    </table>
-    <!-- End Navbar -->
+<body LEFTMARGIN="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0"><center><div class="header">
+<table width="985" cellspacing="0" border="0" cellpadding="0">
+    <tr>
+        <td valign="top" width="20">
+            <img src="/images/clear.gif" width="20" height="1" align="left"/>
+        </td>
+        <td valign="top">
+            <img src="/images/clear.gif" width="1" height="30"/><br/>
+            <a href="/"><img src="/images/hp-version6/dneero-logo-small.png" width="200" height="92" border="0"/></a>
+        </td>
+        <td valign="top" width="143">
+            #if ($userSession.isloggedin)
+                <a href="/blogger/index.jsp">
+            #else
+                <a href="/blogger.jsp">
+            #end
+            #if ($navtab  == "bloggers")
+                <img src="/images/hp-version6/toptab_enter_on.gif" width="143" height="63" border="0"/>
+            #else
+                <img src="/images/hp-version6/toptab_enter_off.gif" width="143" height="63" border="0"/>
+            #end
+            </a>
+        </td>
+        <td valign="top" width="143">
+            #if ($userSession.isloggedin)
+                <a href="/researcher/index.jsp">
+            #else
+                <a href="/researcher.jsp">
+            #end
+            #if ($navtab  == "researchers")
+                <img src="/images/hp-version6/toptab_create_on.gif" width="143" height="63" border="0"/>
+            #else
+                <img src="/images/hp-version6/toptab_create_off.gif" width="143" height="63" border="0"/>
+            #end
+            </a>
+        </td>
+        <td valign="top" width="20">
+            <img src="/images/clear.gif" width="20" height="1"/>
+        </td>
+    </tr>
+</table></div>
+<div class="navbar">
+    #if ($navtab == "home")
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Active Conversations</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/publicoldsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Old Conversations</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/blog.jsp"><font class="subnavfont" style="color: #000000;">The dNeero Blog</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/charity.jsp"><font class="subnavfont" style="color: #000000;">Charity</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/superpanels.jsp"><font class="subnavfont" style="color: #000000;">SuperPanels</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        #if (!$userSession.isloggedin)
+            <a href="/registration.jsp"><font class="subnavfont" style="color: #000000;">Sign Up</font></a>
+        #end
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        #if (!$userSession.isloggedin)
+            <a href="/login.jsp"><font class="subnavfont" style="color: #000000;">Log In</font></a>
+        #end
+    #end
+    #if ($navtab == "bloggers")
+        #if ($userSession.isloggedin && $userSession.user.bloggerid>0)
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/publicsurveylist.jsp"><font class="subnavfont" style="color: #000000;">Find Conversations</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/superpanels.jsp"><font class="subnavfont" style="color: #000000;">SuperPanels</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/blogger/bloggerearningsrevshare.jsp"><font class="subnavfont" style="color: #000000;">Referral Program</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="color: #000000;">Profile</font></a>
+        #end
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/blogger/bloggerfaq.jsp"><font class="subnavfont" style="color: #000000;">Social People FAQ</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/blogger.jsp"><font class="subnavfont" style="color: #000000;">Social People Basics</font></a>
+    #end
+    #if ($navtab == "researchers")
+        #if ($userSession.isloggedin && $userSession.user.researcherid>0)
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/researcher/index.jsp"><font class="subnavfont" style="color: #000000;">Main</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/researcher/panels.jsp"><font class="subnavfont" style="color: #000000;">Panels</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/researcher/rank-list.jsp"><font class="subnavfont" style="color: #000000;">Rankings</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/researcher/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Reviewables</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/researcher/researcherdetails.jsp"><font class="subnavfont" style="color: #000000;">Igniter Details</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/researcher/researcherbilling.jsp"><font class="subnavfont" style="color: #000000;">Billing</font></a>
+        #end
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/researcher/researcherfaq.jsp"><font class="subnavfont" style="color: #000000;">Igniter FAQ</font></a>
+        <img src="/images/clear.gif" alt="" width="10" height="1"/>
+        <a href="/researcher.jsp"><font class="subnavfont" style="color: #000000;">Igniter Basics</font></a>
+    #end
+    #if ($navtab == "youraccount")
+        #if ($userSession.isloggedin)
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/account/accountbalance.jsp"><font class="subnavfont" style="color: #000000;">Account Balance</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/account/accountsettings.jsp"><font class="subnavfont" style="color: #000000;">Account Settings</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/account/awards.jsp"><font class="subnavfont" style="color: #000000;">Awards</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/account/changepassword.jsp"><font class="subnavfont" style="color: #000000;">Change Password</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/account/reviewables.jsp"><font class="subnavfont" style="color: #000000;">Flagged Content</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/account/reseller.jsp"><font class="subnavfont" style="color: #000000;">Reseller Program</font></a>
+            <img src="/images/clear.gif" alt="" width="10" height="1"/>
+            <a href="/account/inbox.jsp"><font class="subnavfont" style="color: #000000;">Inbox</font></a>
+        #end
+    #end
+    #if ($navtab == "customercare")
+        #if ($userSession.isloggedin && $userSession.isCustomerCare)
+            <a href="/customercare/sysadminsupportissueslist.jsp"><font class="subnavfont" style=" color: #000000;">Support Issues</font></a>
+            <a href="/customercare/reviewables.jsp"><font class="subnavfont" style=" color: #000000;">Reviewable Items</font></a>
+            <a href="/customercare/userlist.jsp"><font class="subnavfont" style=" color: #000000;">Users</font></a>
+            <a href="/customercare/sysadminsurveylist.jsp"><font class="subnavfont" style=" color: #000000;">Conversations</font></a>
+            <a href="/customercare/charityreport.jsp"><font class="subnavfont" style=" color: #000000;">Charity</font></a>
+            <a href="/customercare/couponlist.jsp"><font class="subnavfont" style=" color: #000000;">Coupons</font></a>
+            <a href="/customercare/transactions.jsp"><font class="subnavfont" style=" color: #000000;">Real-World Transactions</font></a>
+            <a href="/customercare/balance.jsp"><font class="subnavfont" style=" color: #000000;">Balance Updates</font></a>
+            <a href="/customercare/iptrack.jsp"><font class="subnavfont" style=" color: #000000;">Ip Track</font></a>
+            <a href="/customercare/panels.jsp"><font class="subnavfont" style=" color: #000000;">SuperPanels</font></a>
+        #end
+    #end
+    #if ($navtab == "sysadmin")
+        #if ($userSession.isloggedin && $userSession.isSysadmin)
+            <a href="/sysadmin/errorlist.jsp"><font class="subnavfont" style=" color: #000000;">System Log</font></a>
+            <a href="/sysadmin/errorlist-logging.jsp"><font class="subnavfont" style=" color: #000000;">LogConfig</font></a>
+            <a href="/sysadmin/editeula.jsp"><font class="subnavfont" style=" color: #000000;">Eula</font></a>
+            <a href="/sysadmin/rateblogpost.jsp"><font class="subnavfont" style=" color: #000000;">Rate</font></a>
+            <a href="/sysadmin/manuallyrunscheduledtask.jsp"><font class="subnavfont" style=" color: #000000;">Scheds</font></a>
+            <a href="/sysadmin/systemprops.jsp"><font class="subnavfont" style=" color: #000000;">SysProps</font></a>
+            <a href="/sysadmin/instanceprops.jsp"><font class="subnavfont" style=" color: #000000;">InsProps</font></a>
+            <a href="/sysadmin/hibernatecache.jsp"><font class="subnavfont" style=" color: #000000;">Cache</font></a>
+            <a href="/sysadmin/massemaillist.jsp"><font class="subnavfont" style=" color: #000000;">Email</font></a>
+            <a href="/sysadmin/demographicreport.jsp"><font class="subnavfont" style=" color: #000000;">Demogrs</font></a>
+            <a href="/sysadmin/pageperformance.jsp"><font class="subnavfont" style=" color: #000000;">Perf</font></a>
+            <a href="/sysadmin/blogpost.jsp"><font class="subnavfont" style=" color: #000000;">Blog</font></a>
+            <a href="/sysadmin/privatelabels.jsp"><font class="subnavfont" style=" color: #000000;">PrivateLabels</font></a>
+            <a href="/sysadmin/impressionsbyday.jsp"><font class="subnavfont" style=" color: #000000;">ImpByDay</font></a>
+            <a href="/sysadmin/usagereport.jsp"><font class="subnavfont" style=" color: #000000;">Usage</font></a>
+        #end
+    #end
+</div>
+<div class="subnav">
+    #if (!$userSession.isloggedin)
+        <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/registration.jsp">Sign Up</a></font>
+    #end
+    #if ($userSession.isloggedin)
+        <font class="subnavfont">Hi, $userSession.user.firstname | <a href="/account/index.jsp">Account</a> | <a href="/account/inbox.jsp">Help</a>
+        #if ($userSession.isCustomerCare)
+            | <a href="/customercare/index.jsp">Customer Care</a>
+        #end
+        #if ($userSession.isSysadmin)
+            | <a href="/sysadmin/index.jsp">SysAdmin</a>
+        #end
+        | <a href="/login.jsp?action=logout">Log Out</a></font>
+    #end
+</div>
 
 
-    <table width="775" cellspacing="0" border="0" cellpadding="0">
-        <tr>
-            <td valign="top">
-                <div style="padding: 20px; text-align: left;">
-                #if ($pagetitle!="")
-                    <font class="pagetitlefont">$pagetitle</font>
-                    <br/>
-                #end
-                #if ($userSession.message!="")
-                    <br/>
-                    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="formfieldnamefont">$userSession.message</font></div></center>
-                    <br/>
-                #end
-                </div>
-            </td>
-        </tr>
-    </table>
+<div class="pagetitle">
+    #if ($pagetitle!="")
+        <font class="pagetitlefont">$pagetitle</font>
+        <br/>
+    #end
+    #if ($userSession.message!="")
+        <br/>
+        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="formfieldnamefont">$userSession.message</font></div></center>
+        <br/>
+    #end
+</div>
+
+<div class="mainbody">
+<!-- Start Main Body Content -->
 
 
-    <table width="775" cellspacing="0" border="0" cellpadding="10">
-        <tr>
-            <td valign="top">
-            <!-- Begin Body -->
+
+

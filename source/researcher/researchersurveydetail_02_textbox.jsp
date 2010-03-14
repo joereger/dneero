@@ -3,8 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02textbox) Pagez.getBeanMgr().get("ResearcherSurveyDetail02textbox")).getSurvey().getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02textbox) Pagez.getBeanMgr().get("ResearcherSurveyDetail02textbox")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -30,14 +29,15 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
 %>
 <%@ include file="/template/header.jsp" %>
 
-
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Type a question in the Question box.  Respondents will be able to type a short piece of text as an answer to this question.
-    <br/><br/>
-    Here's what a Textbox question looks like:
-    <img src="/images/questiontypes/textbox.gif" border="0" alt=""></img>
-    </font></div></center>
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        Type a question in the Question box.  Respondents will be able to type a short piece of text as an answer to this question.
+        <br/><br/>
+        Here's what a Textbox question looks like:
+        <img src="/images/questiontypes/textbox.gif" border="0" alt=""></img>
+        </font></div>
+    </div>
 
     <br/><br/>
 
@@ -124,6 +124,11 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
     </form>
     <!-- End Bottom -->
 
-
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 <%@ include file="/template/footer.jsp" %>

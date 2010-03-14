@@ -4,8 +4,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02checkboxes) Pagez.getBeanMgr().get("ResearcherSurveyDetail02checkboxes")).getSurvey().getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02checkboxes) Pagez.getBeanMgr().get("ResearcherSurveyDetail02checkboxes")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -33,13 +32,15 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
 
 <%@ include file="/template/header.jsp" %>
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Type a question in the Question box.  Next, give respondents options to choose from.  Because this is a Checkbox question type, they'll be able to choose multiple options as part of their answer.
-    <br/><br/>
-    Here's what a Checkboxes question looks like:
-    <center><img src="/images/questiontypes/selectmultiple.gif" border="0"></img></center>
-    </font></div></center>
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        Type a question in the Question box.  Next, give respondents options to choose from.  Because this is a Checkbox question type, they'll be able to choose multiple options as part of their answer.
+        <br/><br/>
+        Here's what a Checkboxes question looks like:
+        <center><img src="/images/questiontypes/selectmultiple.gif" border="0"></img></center>
+        </font></div>
+    </div>
 
     <br/><br/>
 
@@ -133,6 +134,11 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
     </form>
     <!-- End Bottom -->
 
-
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 <%@ include file="/template/footer.jsp" %>

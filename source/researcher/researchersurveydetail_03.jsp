@@ -6,8 +6,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail03) Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail03) Pagez.getBeanMgr().get("ResearcherSurveyDetail03")).getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
     String navtab="researchers";
     String acl="researcher";
@@ -16,6 +15,14 @@ String pagetitle="<img src=\"/images/process-train-survey-03.gif\" align=\"right
 <%
 ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pagez.getBeanMgr().get("ResearcherSurveyDetail03");
 %>
+<%if (researcherSurveyDetail03.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){
+    if (request.getParameter("ispreviousclick")!=null && request.getParameter("ispreviousclick").equals("1")){
+        Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid()+"&ispreviousclick=1");
+        return;
+    }
+    Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid());
+    return;
+}%>
 <%
     if (request.getParameter("action")!=null && request.getParameter("action").equals("resetformatting")) {
         try {
@@ -32,7 +39,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
         try {
             if (researcherSurveyDetail03.getSurvey().getStatus()>Survey.STATUS_DRAFT){
                 if (request.getParameter("action").equals("previous")){
-                    Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid());
+                    Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid()+"&ispreviousclick=1");
                     return;
                 } else {
                     Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid());
@@ -61,7 +68,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
                 researcherSurveyDetail03.saveSurvey();
-                Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid());
+                Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail03.getSurvey().getSurveyid()+"&ispreviousclick=1");
                 return;
             }
         } catch (ValidationException vex) {
@@ -112,10 +119,13 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
     <div class="panel" id="panel1" style="display: block">
             <img src="/images/clear.gif" width="725" height="1"/><br/>
             <center>
-                <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-                <img src="/images/lightbulb_on.png" alt="" align="right"/>
-                This is how your conversation looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the conversation slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
-                <br/><br/></font></div></center>
+                <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+                <div id="togglehelp">
+                    <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+                    <img src="/images/lightbulb_on.png" alt="" align="right"/>
+                    This is how your conversation looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the conversation slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
+                    <br/><br/></font></div>
+                </div>
                 <table cellpadding="30" cellspacing="0" border="0">
                     <tr>
                         <td>
@@ -300,7 +310,12 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
     <!-- End Bottom Nav -->
 </form>
 
-
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 
 

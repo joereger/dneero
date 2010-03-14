@@ -4,8 +4,7 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02testquestion" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02testquestion) Pagez.getBeanMgr().get("ResearcherSurveyDetail02testquestion")).getSurvey().getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02testquestion) Pagez.getBeanMgr().get("ResearcherSurveyDetail02testquestion")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -32,19 +31,20 @@ String acl="researcher";
 %>
 <%@ include file="/template/header.jsp" %>
 
-
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    <b>A Qualifying Question is a unique type of question that the conversation participant must answer correctly to qualify to join in.</b>  This may come in handy in the following scenarios:
-    <ul>
-        <li><b>You want people to visit your site</b> before joining the conversation.  Include a link to your site in your conversation and then use a Test Question to ask them something like 'On our homepage what color is the button on the far right'.  If they answer 'blue' then they can join in.</li>
-        <li><b>You want people to prove some membership in a group.</b>  Ask a question like 'Who is the president of the East Bay Elk's Club?'</li>
-        <li><b>You want people to prove some skill or knowledge.</b>  Ask a question like 'What set of nerves reside close to the corpus collosum in the brain?'</li>
-    </ul>
-    Type a question in the Question box.  In the 'Respondent's Answer Must Contain' box type a word or phrase that must be included in what the respondent types as their answer.  They'll have to include an <b>exact match</b> of what you type so the answer that you choose should be simple and most anybody who knows the answer should type it.  For example, if you ask 'what color is the sky?' you should enter an answer like 'blue'.  You should not enter an answer like 'the sky is blue' because people will not likely type that exactly.
-    <br/><br/>
-    <b>If a conversation participant can't answer your question correctly they'll be told that they can't join the conversation.</b>  Note that this test question will not be included in the conversation results or in the widget that people embed into their blogs/social networks.
-    </font></div></center>
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        <b>A Qualifying Question is a unique type of question that the conversation participant must answer correctly to qualify to join in.</b>  This may come in handy in the following scenarios:
+        <ul>
+            <li><b>You want people to visit your site</b> before joining the conversation.  Include a link to your site in your conversation and then use a Test Question to ask them something like 'On our homepage what color is the button on the far right'.  If they answer 'blue' then they can join in.</li>
+            <li><b>You want people to prove some membership in a group.</b>  Ask a question like 'Who is the president of the East Bay Elk's Club?'</li>
+            <li><b>You want people to prove some skill or knowledge.</b>  Ask a question like 'What set of nerves reside close to the corpus collosum in the brain?'</li>
+        </ul>
+        Type a question in the Question box.  In the 'Respondent's Answer Must Contain' box type a word or phrase that must be included in what the respondent types as their answer.  They'll have to include an <b>exact match</b> of what you type so the answer that you choose should be simple and most anybody who knows the answer should type it.  For example, if you ask 'what color is the sky?' you should enter an answer like 'blue'.  You should not enter an answer like 'the sky is blue' because people will not likely type that exactly.
+        <br/><br/>
+        <b>If a conversation participant can't answer your question correctly they'll be told that they can't join the conversation.</b>  Note that this test question will not be included in the conversation results or in the widget that people embed into their blogs/social networks.
+        </font></div>
+    </div>
 
     <br/><br/>
 
@@ -135,6 +135,11 @@ String acl="researcher";
     </form>
     <!-- End Bottom -->
 
-
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 <%@ include file="/template/footer.jsp" %>

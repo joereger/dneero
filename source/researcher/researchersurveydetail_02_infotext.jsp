@@ -3,8 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
-String pagetitle="<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-        "        <font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02infotext) Pagez.getBeanMgr().get("ResearcherSurveyDetail02infotext")).getSurvey().getTitle() + "</font>\n" +
+String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02infotext) Pagez.getBeanMgr().get("ResearcherSurveyDetail02infotext")).getSurvey().getTitle() + "</font>\n" +
         "        <br clear=\"all\"/>";
 String navtab="researchers";
 String acl="researcher";
@@ -31,10 +30,12 @@ ResearcherSurveyDetail02infotext researcherSurveyDetail02infotext = (ResearcherS
 %>
 <%@ include file="/template/header.jsp" %>
 
-    <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-    <img src="/images/lightbulb_on.png" alt="" align="right"/>
-    Type a header in the question box and a piece of text below.  This text will simply be displayed with the other questions.  Use it for instructions, etc.
-
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
+        Type a header in the question box and a piece of text below.  This text will simply be displayed with the other questions.  Use it for instructions, etc.
+        </div>
+    </div>
     <br/><br/>
 
 
@@ -128,6 +129,11 @@ ResearcherSurveyDetail02infotext researcherSurveyDetail02infotext = (ResearcherS
     </form>
     <!-- End Bottom -->
 
-
+<script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
 
 <%@ include file="/template/footer.jsp" %>
