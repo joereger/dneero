@@ -1,17 +1,15 @@
 package com.dneero.dao;
 // Generated Apr 17, 2006 3:45:24 PM by Hibernate Tools 3.1.0.beta4
 
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.HibernateUtilDbcache;
 import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.incentive.Incentive;
 import com.dneero.incentive.IncentiveFactory;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.session.AuthControlled;
-import com.dneero.util.GeneralException;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.util.GeneralException;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 
@@ -45,7 +43,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private String description;
      private String criteriaxml;
      private int numberofrespondentsrequested  = 1000;
-     private double willingtopaypercpm = 10;
+     private double willingtopaypercpm = 0;
      private int maxdisplaysperblog = 1000;
      private int maxdisplaystotal = 250000;
      private Date startdate;

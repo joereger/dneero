@@ -1,25 +1,26 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.*;
-import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
-import com.dneero.dao.Response;
 import com.dneero.dao.Pl;
+import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.facebook.FacebookSurveyThatsBeenTaken;
 import com.dneero.facebook.FacebookUser;
-import com.dneero.facebook.FacebookApiWrapper;
+import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.htmlui.Pagez;
-import com.dneero.money.CurrentBalanceCalculator;
-import com.dneero.money.PendingBalanceCalculator;
 import com.dneero.incentive.IncentiveCash;
 import com.dneero.incentive.IncentiveCoupon;
+import com.dneero.money.PendingBalanceCalculator;
 import com.dneero.privatelabel.PlPeers;
+import com.dneero.util.DateDiff;
+import com.dneero.util.RandomString;
+import com.dneero.util.Str;
+import com.dneero.util.Time;
 import org.apache.log4j.Logger;
 
-import java.util.*;
 import java.io.Serializable;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -91,6 +92,16 @@ public class PublicSurveyList implements Serializable {
 
                     StringBuffer earn = new StringBuffer();
                     StringBuffer earncompact = new StringBuffer();
+                    if (survey.getIncentive()==null){
+                        logger.debug("survey.getIncentive()==null");
+                    } else {
+                        logger.debug("survey.getIncentive().getSystemName()="+survey.getIncentive().getSystemName());
+                        if (survey.getIncentive().getSurveyincentive()==null){
+                            logger.debug("survey.getIncentive().getSurveyincentive()==null");
+                        } else {
+                            logger.debug("nothing null");
+                        }
+                    }
                     if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
                         earn.append(survey.getIncentive().getShortSummary());
                         earncompact.append(survey.getIncentive().getShortSummary());

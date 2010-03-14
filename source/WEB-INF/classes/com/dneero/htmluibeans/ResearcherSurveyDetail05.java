@@ -77,7 +77,6 @@ public class ResearcherSurveyDetail05 implements Serializable {
                     coupondescription = "";
                     couponestimatedcashvalue = 0.0;
                     couponinstructions = "";
-
                 } else if (survey.getIncentive().getID()==IncentiveCoupon.ID){
                     incentivetype = IncentiveCoupon.ID;
                     willingtopayperrespondent = 0.0;
@@ -108,6 +107,10 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 charitycustomurl = survey.getCharitycustomurl();
                 charityonlyallowcustom = survey.getCharityonlyallowcustom();
                 isfree = survey.getIsfree();
+                if (isfree){
+                    willingtopaypercpm = 0.0;
+                    willingtopayperrespondent = 0.0;
+                }
             }
 
         }
@@ -204,6 +207,9 @@ public class ResearcherSurveyDetail05 implements Serializable {
                 survey.setCharitycustomurl(charitycustomurl);
                 survey.setCharityonlyallowcustom(charityonlyallowcustom);
                 survey.setIsfree(isfree);
+                if (isfree){
+                    survey.setWillingtopaypercpm(0.0);
+                }
 
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
