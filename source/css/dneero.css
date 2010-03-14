@@ -28,30 +28,53 @@ body {
 
 .navbar {
     width:985px;
-    height:52px;
+    height:48px;
     background-image:url('/images/hp-version6/navbar.png');
     /*background-attachment:fixed;*/
     background-position: top center;
     background-repeat:no-repeat;
 }
 
+.navbarinner {
+    margin-top: 10px;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.navbar a, .navbar a:link, .navbar a:visited, .navbar a:active {
+    font-family: Tahoma, Geneva, sans-serif;
+    font: 10px/12px Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bolder;
+    color: #000000;
+    text-decoration: none;
+    background: #ffffff;
+    padding: 3px;
+}
+
+.navbar a:hover {
+    background: #93c83d;    
+}
+
 .subnav {
     width:985px;
     height:35px;
     text-align: right;
-    padding-right: 20px;
+}
+
+.subnavinner {
+    margin-right: 23px;
+    text-align: right;
 }
 
 .pagetitle {
-    width: 965px;
-    margin: 20px;
+    width: 945px;
     text-align: left;    
 }
 
 .mainbody{
     text-align: left;
-    width: 965px;
-    margin: 25px;
+    width: 945px;
 }
 
 a, a:link, a:visited, a:active {
@@ -95,6 +118,10 @@ a, a:link, a:visited, a:active {
 .largefont {
     font: 34px/36px Impact, Verdana, Arial, Helvetica, sans-serif;
     font-size: 34px;
+}
+
+.hdr {
+    color: #999999;
 }
 
 .pagetitlefont {

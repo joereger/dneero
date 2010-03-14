@@ -8,14 +8,13 @@ import com.dneero.display.components.*;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -29,6 +28,7 @@ public class ResearcherSurveyDetail02 implements Serializable {
     private int status;
     private String title;
     private Survey survey;
+    private String embedflashsyntax;
 
 
     public ResearcherSurveyDetail02(){
@@ -49,6 +49,11 @@ public class ResearcherSurveyDetail02 implements Serializable {
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
                 surveyForTakers = SurveyTemplateProcessor.getHtmlForSurveyTaking(survey, new Blogger(), true, null);
                 status = survey.getStatus();
+                if (survey.getEmbedversion()==Survey.EMBEDVERSION_01){
+                    embedflashsyntax = com.dneero.survey.servlet.v1.SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, survey.getPlid(), true, false, true);
+                } else if (survey.getEmbedversion()==Survey.EMBEDVERSION_02) {
+                    embedflashsyntax = com.dneero.survey.servlet.v2.SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), 0, survey.getPlid(), true, false, true);
+                }
             } else {
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -248,5 +253,11 @@ public class ResearcherSurveyDetail02 implements Serializable {
         this.survey=survey;
     }
 
+    public String getEmbedflashsyntax() {
+        return embedflashsyntax;
+    }
 
+    public void setEmbedflashsyntax(String embedflashsyntax) {
+        this.embedflashsyntax = embedflashsyntax;
+    }
 }

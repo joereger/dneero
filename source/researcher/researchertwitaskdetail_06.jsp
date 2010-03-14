@@ -298,7 +298,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
             <td valign="top" align="right">
                 <%if (researcherTwitaskDetail06.getTwitask().getStatus()==Twitask.STATUS_DRAFT) {%>
                     <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
-                    <input type="submit" class="formsubmitbutton" value="Ignite this Twitter Question!">
+                    <input type="submit" class="formsubmitbutton" value="Create this Twitter Question!">
                 <%} else {%>
                     <input type="submit" class="formsubmitbutton" value="Next Step">
                 <%}%>

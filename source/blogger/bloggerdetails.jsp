@@ -223,7 +223,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                     <br/><br/>
                                     <font class="formfieldnamefont">Posting Venues</font>
                                     <br/>
-                                    <font class="tinyfont">You need a place to post conversations.  Blog, profile page,  Twitter page, website, etc.  You can only accrue impressions from posting venues that you claim here (starting March 1st, 2009.)</font>
+                                    <font class="tinyfont">You need a place to post conversations.  Blog, profile page,  Twitter page, website, etc.  You can only accrue impressions from posting venues that you claim here.</font>
                                     <table cellpadding="3" cellspacing="0" border="0">
                                         <%
                                             Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
@@ -318,7 +318,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                         Of course!  We love you!  Please join the conversation!
 
                         <br/><br/><b>Check the conversation criteria</b><br/>
-                        If a conversation has a sufficiently limited demographic target it's possible that conversation readers can infer demographic data about you.  For example, if somebode ignites a conversation targeted only to individuals with an income of between $30,000 and $40,000 per year and you join the conversation then people can infer what your salary is.  When a conversation is displayed both the criteria and who joined in are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
+                        If a conversation has a sufficiently limited demographic target it's possible that conversation readers can infer demographic data about you.  For example, if somebode creates a conversation targeted only to individuals with an income of between $30,000 and $40,000 per year and you join the conversation then people can infer what your salary is.  When a conversation is displayed both the criteria and who joined in are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
 
 
                     </font>

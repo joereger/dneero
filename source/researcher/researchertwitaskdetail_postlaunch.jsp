@@ -20,7 +20,7 @@ ResearcherTwitaskDetailPostlaunch researcherTwitaskDetailPostlaunch= (Researcher
 <%@ include file="/template/header.jsp" %>
 
 
-    <font class="pagetitlefont" style="color: #333333;">Congratulations!  Your Twitter Question has been ignited!</font>
+    <font class="pagetitlefont" style="color: #333333;">Congratulations!  Your Twitter Question has been created!</font>
     <br/><br/>
     <font class="mediumfont">Here's what to expect next:</font>
     <br/><br/>

@@ -1,18 +1,21 @@
 package com.dneero.money;
 
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.dao.Coupon;
+import com.dneero.dao.Couponredemption;
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
-import com.dneero.util.Time;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.incentive.IncentiveNone;
 import com.dneero.util.DateDiff;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.Iterator;
-import java.io.Serializable;
-
+import com.dneero.util.Time;
+import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -47,9 +50,16 @@ public class SurveyMoneyStatus implements Serializable {
 
 
     public SurveyMoneyStatus(Survey survey){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (survey.getIncentive().getID()==IncentiveNone.ID){
+            return;
+        }
         //Note that coupon is applied below each calculation into the same variable
         maxPossiblePayoutForResponses = (survey.getIncentive().getResearcherCostPerResponse() * survey.getNumberofrespondentsrequested());
+        logger.debug("survey.getIncentive().getSystemName()="+survey.getIncentive().getSystemName());
+        logger.debug("survey.getIncentive().getResearcherCostPerResponse()="+survey.getIncentive().getResearcherCostPerResponse());
         maxPossiblePayoutForImpressions = ((survey.getWillingtopaypercpm()*survey.getMaxdisplaystotal())/1000);
+        logger.debug("survey.getWillingtopaypercpm()="+survey.getWillingtopaypercpm());
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses + maxPossiblePayoutForImpressions;
         couponDiscountAmt = calculateCouponAmt(maxPossiblePayoutToUsers, survey);
         maxPossibledNeeroFee = calculatedNeeroUpcharge(maxPossiblePayoutToUsers, survey);

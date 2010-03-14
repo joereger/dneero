@@ -1,23 +1,23 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
+import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
+import com.dneero.money.CurrentBalanceCalculator;
+import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.money.PaymentMethod;
+import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.util.*;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-
-import java.util.*;
 import java.io.Serializable;
-
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.*;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.money.*;
-import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
-import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
-import com.dneero.finders.FindBloggersForSurvey;
+import java.util.*;
 
 
 /**
@@ -226,93 +226,100 @@ public class ResearcherSurveyDetail06 implements Serializable {
 
                 //See if there's enough in the account
                 boolean enoughinaccountnow = true;
-                if (currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
-                    enoughinaccountnow = false;
+                if (!survey.getIsfree()){
+                    if (currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
+                        enoughinaccountnow = false;
+                    }
                 }
                 //Only worry about the credit card stuff if there's not enough in the account currently
                 boolean ccinfolooksok = true;
-                if(!enoughinaccountnow){
-                    //Validate
-                    if (firstname==null || firstname.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (ccnum==null || ccnum.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (cccity==null || cccity.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (cvv2==null || cvv2.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (lastname==null || lastname.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (postalcode==null || postalcode.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (ccstate==null || ccstate.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (street==null || street.equals("")){
-                        ccinfolooksok = false;
-                    }
-                    if (!ccinfolooksok){
-                        throw new ValidationException("Credit Card information is not complete.");
-                    }
-                    //If the cc info looks ok on initial inspection
-                    if (!ccinfolooksok){
-                        //Save credit card info and set creditcardid for user charge method
-                        Creditcard cc = new Creditcard();
-                        if(userSession.getUser().getChargemethodcreditcardid()>0){
-                            cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
+                if (!survey.getIsfree()){
+                    if(!enoughinaccountnow){
+                        //Validate
+                        if (firstname==null || firstname.equals("")){
+                            ccinfolooksok = false;
                         }
-                        cc.setCcexpmo(ccexpmo);
-                        cc.setCcexpyear(ccexpyear);
-                        cc.setCcnum(ccnum);
-                        cc.setCctype(cctype);
-                        cc.setCity(cccity);
-                        cc.setCvv2(cvv2);
-                        cc.setFirstname(firstname);
-                        cc.setIpaddress(Pagez.getRequest().getRemoteAddr());
-                        cc.setLastname(lastname);
-                        cc.setMerchantsessionid(Pagez.getRequest().getSession().getId());
-                        cc.setPostalcode(postalcode);
-                        cc.setState(ccstate);
-                        cc.setStreet(street);
-                        cc.setUserid(userSession.getUser().getUserid());
-                        try{
-                            cc.save();
-                        } catch (GeneralException gex){
-                            Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
-                            logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                            return;
+                        if (ccnum==null || ccnum.equals("")){
+                            ccinfolooksok = false;
                         }
+                        if (cccity==null || cccity.equals("")){
+                            ccinfolooksok = false;
+                        }
+                        if (cvv2==null || cvv2.equals("")){
+                            ccinfolooksok = false;
+                        }
+                        if (lastname==null || lastname.equals("")){
+                            ccinfolooksok = false;
+                        }
+                        if (postalcode==null || postalcode.equals("")){
+                            ccinfolooksok = false;
+                        }
+                        if (ccstate==null || ccstate.equals("")){
+                            ccinfolooksok = false;
+                        }
+                        if (street==null || street.equals("")){
+                            ccinfolooksok = false;
+                        }
+                        if (!ccinfolooksok){
+                            throw new ValidationException("Credit Card information is not complete.");
+                        }
+                        //If the cc info looks ok on initial inspection
+                        if (!ccinfolooksok){
+                            //Save credit card info and set creditcardid for user charge method
+                            Creditcard cc = new Creditcard();
+                            if(userSession.getUser().getChargemethodcreditcardid()>0){
+                                cc = Creditcard.get(userSession.getUser().getChargemethodcreditcardid());
+                            }
+                            cc.setCcexpmo(ccexpmo);
+                            cc.setCcexpyear(ccexpyear);
+                            cc.setCcnum(ccnum);
+                            cc.setCctype(cctype);
+                            cc.setCity(cccity);
+                            cc.setCvv2(cvv2);
+                            cc.setFirstname(firstname);
+                            cc.setIpaddress(Pagez.getRequest().getRemoteAddr());
+                            cc.setLastname(lastname);
+                            cc.setMerchantsessionid(Pagez.getRequest().getSession().getId());
+                            cc.setPostalcode(postalcode);
+                            cc.setState(ccstate);
+                            cc.setStreet(street);
+                            cc.setUserid(userSession.getUser().getUserid());
+                            try{
+                                cc.save();
+                            } catch (GeneralException gex){
+                                Pagez.getUserSession().setMessage("Error saving record: "+gex.getErrorsAsSingleString());
+                                logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                                return;
+                            }
 
-                        User user = User.get(userSession.getUser().getUserid());
-                        user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
-                        user.setChargemethodcreditcardid(cc.getCreditcardid());
+                            User user = User.get(userSession.getUser().getUserid());
+                            user.setChargemethod(PaymentMethod.PAYMENTMETHODCREDITCARD);
+                            user.setChargemethodcreditcardid(cc.getCreditcardid());
 
-                        try{
-                            user.save();
-                        } catch (GeneralException gex){
-                            vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
-                            logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
-                            throw vex;
+                            try{
+                                user.save();
+                            } catch (GeneralException gex){
+                                vex.addValidationError("Error saving record: "+gex.getErrorsAsSingleString());
+                                logger.debug("saveAction failed: " + gex.getErrorsAsSingleString());
+                                throw vex;
+                            }
+                            userSession.setUser(user);
                         }
-                        userSession.setUser(user);
                     }
                 }
-
                 //Manage the status
+                logger.info("enoughinaccountnow="+enoughinaccountnow);
                 if (enoughinaccountnow){
                     if (startdate.before(now)){
+                        logger.info("startdate.before(now)=true so setting Survey.STATUS_OPEN");
                         survey.setStatus(Survey.STATUS_OPEN);
                         survey.setStartdate(new Date());
                     } else {
+                        logger.info("startdate.before(now)=false so setting Survey.STATUS_WAITINGFORSTARTDATE");
                         survey.setStatus(Survey.STATUS_WAITINGFORSTARTDATE);
                     }
                 } else {
+                    logger.info("setting Survey.STATUS_WAITINGFORFUNDS");
                     survey.setStatus(Survey.STATUS_WAITINGFORFUNDS);
                 }
 
@@ -336,7 +343,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                 //MoveMoneyInAccountBalance.charge(userSession.getUser(), SurveyMoneyStatus.PERSURVEYCREATIONFEE, "Survey creation fee for '"+survey.getTitle()+"'", true, false, false, false);
 
                 //Charge the hide results fee, if applicable
-                if (survey.getIsresultshidden() && sms.getHidesurveyfee()>0){
+                if (!survey.getIsfree() && survey.getIsresultshidden() && sms.getHidesurveyfee()>0){
                     MoveMoneyInAccountBalance.charge(userSession.getUser(), sms.getHidesurveyfee(), "Hide overall aggregate results fee for '"+survey.getTitle()+"'", true, false, false, false);
                 }
 

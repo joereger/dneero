@@ -24,7 +24,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Can I limit my budget?</font>
     <br/>
     <font class="smallfont">
-    You set a maximum spending limit when you ignite a conversation.  You're only accountable for that amount or less.
+    You set a maximum spending limit when you create a conversation.  You're only accountable for that amount or less.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -87,7 +87,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Can I hide the results?</font>
     <br/>
     <font class="smallfont">
-    You can, but you have to pay a 5% premium to do so.  When you ignite your conversation there's a simple check box to do so.  We'll hide the overall aggregate results so that competitors don't get the benefit of your investment.  And per-blog aggregate results will still be available.  It's a balance between your needs as a researcher and the value for bloggers.
+    You can, but you have to pay a 5% premium to do so.  When you create your conversation there's a simple check box to do so.  We'll hide the overall aggregate results so that competitors don't get the benefit of your investment.  And per-blog aggregate results will still be available.  It's a balance between your needs as a researcher and the value for bloggers.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -105,7 +105,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How much does it cost?</font>
     <br/>
     <font class="smallfont">
-    You can ignite a conversation as large or as small as you like and you'll be charged only for the activity that your conversation generates.  <%=Pagez.getUserSession().getPl().getNameforui()%> charges a 25% conversation management fee to use our technology.
+    You can create a conversation as large or as small as you like and you'll be charged only for the activity that your conversation generates.  <%=Pagez.getUserSession().getPl().getNameforui()%> charges a 25% conversation management fee to use our technology.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -114,9 +114,9 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How/when am I charged?</font>
     <br/>
     <font class="smallfont">
-    You're always in control of what's happening with your account.  When you ignite a conversation you cap the maximum amount that you can be charged.  Before you commit to any spend you are shown a clear breakdown of the maximum spending scenario.  Within the bounds that you design, here's what we do:
+    You're always in control of what's happening with your account.  When you create a conversation you cap the maximum amount that you can be charged.  Before you commit to any spend you are shown a clear breakdown of the maximum spending scenario.  Within the bounds that you design, here's what we do:
     <ul>
-    <li>When you ignite your conversation you're charged 20% of the total possible value of the conversation.  This means 20% of the Max Possible Spend if you get as many respondents as you like and as many blog displays as you like.</li>
+    <li>When you create your conversation you're charged 20% of the total possible value of the conversation.  This means 20% of the Max Possible Spend if you get as many respondents as you like and as many blog displays as you like.</li>
     <li>Additional charges will be made in 20% increments whenever your account balance falls below 10% of the sum of Max Possible Spend for all open conversations.  </li>
     <li>If your balance falls below 5% of the sum of Max Possible Spend values for all open conversations, then all conversations will be put on hold until your balance is increased.</li>
     </ul>

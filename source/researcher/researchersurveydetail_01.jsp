@@ -29,8 +29,8 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
             researcherSurveyDetail01.setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             researcherSurveyDetail01.setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
             researcherSurveyDetail01.setEmbedversion(Dropdown.getIntFromRequest("embedversion", "Embed Version", true));
-            researcherSurveyDetail01.setIsfree(CheckboxBoolean.getValueFromRequest("isfree"));
-            researcherSurveyDetail01.setIsopentoanybody(CheckboxBoolean.getValueFromRequest("isopentoanybody"));
+            researcherSurveyDetail01.setIsfree(!CheckboxBoolean.getValueFromRequest("isfree"));
+            researcherSurveyDetail01.setIsopentoanybody(!CheckboxBoolean.getValueFromRequest("isopentoanybody"));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail01.saveSurvey();
@@ -161,7 +161,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                 </td>
                             </tr>
                         <%} else {%>
-                            <input type="hidden" name="embedversion" value="<%=Survey.EMBEDVERSION_01%>">
+                            <input type="hidden" name="embedversion" value="<%=Survey.EMBEDVERSION_02%>">
                         <%}%>
                     </table>
 

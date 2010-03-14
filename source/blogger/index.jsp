@@ -45,11 +45,11 @@ String acl = "public";
 
         <table cellpadding="10" cellspacing="0" border="0" width="100%">
             <tr>
-                <td width="250" valign="top">
+                <td width="33%" valign="top">
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Conversations to Join</font></a>
+                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Conversations<br/>to Enter</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Make money joining conversations and posting your opinions where your peers can join in too.</font>
@@ -107,7 +107,7 @@ String acl = "public";
                 </td>
                 <td valign="top">
                     
-                    <font class="largefont" style="color: #cccccc;">Joined Conversations</font>
+                    <font class="largefont hdr">Conversations You've Entered</font>
 
                     <%
                             StringBuffer template = new StringBuffer();
@@ -131,7 +131,7 @@ String acl = "public";
 
 
                         <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
-                            <font class="normalfont">You haven't yet joined any conversations... <a href="/publicsurveylist.jsp">find some!</a></font>
+                            <br/><font class="normalfont">You haven't yet entered any conversations... <a href="/publicsurveylist.jsp">find some!</a></font>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols = new ArrayList<GridCol>();
@@ -156,7 +156,7 @@ String acl = "public";
                         %>
 
                         <br/><br/><br/>
-                        <font class="largefont" style="color: #cccccc;">Twitter Questions Answered</font>
+                        <font class="largefont hdr">Twitter Questions Answered</font>
                         <%if (bloggerCompletedTwitasks.getTwitanswers()==null || bloggerCompletedTwitasks.getTwitanswers().size()==0){%>
                             <br/><font class="normalfont">You haven't yet responded to any Twitter Questions!  <ol><li>Add your <a href="http://twitter.com">Twitter</a> username to <a href="/account/accountsettings.jsp">your account</a></li><li>follow us at <a href="http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%>">http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%></a></li><li>reply to questions you see us ask</li></ol></font>
                         <%} else {%>
@@ -168,11 +168,7 @@ String acl = "public";
                             <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">See All Twitter Questions You've Answered</font></a>
                         <%}%>
 
-                    <br/><br/><br/>
-                    <font class="tinyfont" style="color: #666666;">Conversation statuses update nightly. Remember, you must leave the conversation on your mini-feed and profile to generate clicks for 5 days in the 10 after you take it to get paid.  Days that qualify are marked green.</font>
-
-
-                    <%if (bloggerCompletedsurveys.getList()!=null && bloggerCompletedsurveys.getList().size()>0){%>
+                    <%if (1==2 && bloggerCompletedsurveys.getList()!=null && bloggerCompletedsurveys.getList().size()>0){%>
                         <br/><br/>
                         <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
                         Note: Earnings calculations are estimated and not final.   Final payment notification and calculation can be found on <a href="/account/accountbalance.jsp">Your Account Balance</a> page. Posting and payment status both update nightly.

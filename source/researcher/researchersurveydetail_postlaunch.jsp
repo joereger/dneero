@@ -5,8 +5,7 @@
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<br clear=\"all\"/>";
 if (((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch"))!=null && !((ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle().equals("")){
-    pagetitle = "<img src=\"/images/process-train-survey-02.gif\" align=\"right\" width=\"350\" height=\"73\" alt=\"\"/>\n" +
-"        <font class=\"pagetitlefont\">"+((ResearcherSurveyDetailPostlaunch) Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle()+"</font>\n" +
+    pagetitle = "<font class=\"pagetitlefont\">"+((ResearcherSurveyDetailPostlaunch) Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch")).getTitle()+"</font>\n" +
 "        <br clear=\"all\"/>";
 }
 
@@ -16,6 +15,13 @@ String acl = "researcher";
 <%@ include file="/template/auth.jsp" %>
 <%
 ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherSurveyDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherSurveyDetailPostlaunch");
+%>
+<%
+if (researcherSurveyDetailPostlaunch.getSurvey().getStatus()==Survey.STATUS_OPEN){
+    Pagez.getUserSession().setMessage("Your conversation is live!");
+    Pagez.sendRedirect("/survey.jsp?surveyid="+researcherSurveyDetailPostlaunch.getSurvey().getSurveyid()+"");
+    return;
+}
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -46,15 +52,15 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
     <%} %>
 
 
-    <br/><br/>
-    <font class="smallfont">Invite people to join your conversation:</font>
-    <br/>
-    <a href="/researcher/emailinvite.jsp?surveyid=<%=Pagez.getUserSession().getCurrentSurveyid()%>"><font class="normalfont">Invite People to Join this Conversation</font></a>
+    <%--<br/><br/>--%>
+    <%--<font class="smallfont">Invite people to join your conversation:</font>--%>
+    <%--<br/>--%>
+    <%--<a href="/researcher/emailinvite.jsp?surveyid=<%=Pagez.getUserSession().getCurrentSurveyid()%>"><font class="normalfont">Invite People to Join this Conversation</font></a>--%>
 
-    <br/><br/>
-    <font class="smallfont">Promote your conversation:</font>
-    <br/>
-    <font class="smallfont"><%=researcherSurveyDetailPostlaunch.getSocialbookmarklinks()%></font>
+    <%--<br/><br/>--%>
+    <%--<font class="smallfont">Promote your conversation:</font>--%>
+    <%--<br/>--%>
+    <%--<font class="smallfont"><%=researcherSurveyDetailPostlaunch.getSocialbookmarklinks()%></font>--%>
 
     <br/><br/>
     <font class="smallfont">Or return to your list of conversations:</font>

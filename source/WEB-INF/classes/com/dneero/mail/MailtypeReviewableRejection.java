@@ -1,6 +1,5 @@
 package com.dneero.mail;
 
-import com.dneero.dao.Mail;
 import com.dneero.dao.Mailchild;
 
 /**
@@ -24,7 +23,7 @@ public class MailtypeReviewableRejection implements Mailtype {
                 "<br/>\n" +
                 "<font style=\"font-size: 12px; color: #000000;\">"+mailchild.getVar1()+"</font>\n" +
                 "<br/><br/>\n" +
-                "<font style=\"font-size: 9px; color: #000000; font-weight: bold;\">The Conversation Igniter said:</font>\n" +
+                "<font style=\"font-size: 9px; color: #000000; font-weight: bold;\">The Conversation Creator said:</font>\n" +
                 "<br/>\n" +
                 "<font style=\"font-size: 8px; color: #000000;\">"+mailchild.getVar2()+"</font>\n" +
                 "<br/><br/>\n" +
@@ -46,7 +45,7 @@ public class MailtypeReviewableRejection implements Mailtype {
                 "The content rejected:\n" +
                 ""+mailchild.getVar1()+"\n" +
                 "\n" +
-                "The Conversation Igniter said:\n" +
+                "The Conversation Creator said:\n" +
                 ""+mailchild.getVar2()+"\n" +
                 "\n" +
                 "The System Administrator said:\n" +

@@ -159,12 +159,7 @@ String acl = "public";
                 <td valign="top">
                     <div class="rounded" style="background: #00ff00;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <font class="mediumfont">New: Posting Venues!</font>
-                            <br/>
-                            <font class="smallfont">You can now specify where you'll post your conversations in <a href="/blogger/bloggerdetails.jsp">your profile</a>. On March 1st, 2009 we started to only accept impressions from the posting venues you specify.  We did this to increase the overall quality of the system for those of you already playing by the rules.</font>
-                        </div>
-                        <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <font class="mediumfont">You've Joined this Conversation!</font>
+                            <font class="mediumfont">You've Entered this Conversation!</font>
                             <br/>
                             <img src="/images/ok-128.png" width="128" height="128"/>
                             <br/>
@@ -180,7 +175,7 @@ String acl = "public";
                                 <br/>
                                 <font class="mediumfont">This is a Charity Only conversation.</font>
                                 <br/>
-                                <font class="tinyfont">The conversation igniter requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                <font class="tinyfont">The conversation creator requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                             </div>
                         <% } %>
 

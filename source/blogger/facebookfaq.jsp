@@ -227,7 +227,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How long do I get paid for conversation displays/impressions?</font>
     <br/>
     <font class="smallfont">
-    You get paid until you reach the limit set by the conversation igniter (shown when you decide whether to join the conversation).  Or until 30 days have elapsed since the end of the conversation.
+    You get paid until you reach the limit set by the conversation creator (shown when you decide whether to join the conversation).  Or until 30 days have elapsed since the end of the conversation.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

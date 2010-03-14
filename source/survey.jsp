@@ -94,7 +94,7 @@ String acl = "public";
     <%if (!publicSurvey.getQualifiesforsurvey() && publicSurvey.getSurvey().getStatus()!=Survey.STATUS_CLOSED){%>
         <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Marketers determine their intended audience when they ignite a conversation.</font>
+                <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  People determine their intended audience when they create a conversation.</font>
             </div>
             <br/>
         <%}%>
@@ -194,7 +194,7 @@ String acl = "public";
                                             <img src="/images/charity-32.png" alt="For Charity" width="32" height="32" align="right"/>
                                             <font class="formfieldnamefont" style="color: #666666;">This is a Charity Only conversation.</font>
                                             <br/>
-                                            <font class="tinyfont" style="color: #666666;">The conversation igniter has decided that all earnings from this conversation must be given to charity.</font>
+                                            <font class="tinyfont" style="color: #666666;">The conversation creator has decided that all earnings from this conversation must be given to charity.</font>
                                         </div><br/>
                                     <% } %>
                                     <%=publicSurvey.getTakesurveyhtml()%>
@@ -507,7 +507,7 @@ String acl = "public";
                                         <br/>
                                         <font class="mediumfont">This is a Charity Only conversation</font>
                                         <br/>
-                                        <font class="tinyfont">The conversation igniter requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                        <font class="tinyfont">The conversation creator requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
                                     </div>
                                 <% } %>
                             </div>

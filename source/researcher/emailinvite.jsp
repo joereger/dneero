@@ -37,7 +37,7 @@ String acl = "researcher";
         <%if (!researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
-            You must have at least one conversation with a status of Live to invite people to.  Check <a href="/researcher/index.jsp">Your List of Conversations</a>.  Ignite a conversation first and then come back to invite people to it.  If you just ignited a conversation, sometimes it takes a few minutes for the financial system to process and mark the conversation as Live... check back soon.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
+            You must have at least one conversation with a status of Live to invite people to.  Check <a href="/researcher/index.jsp">Your List of Conversations</a>.  Create a conversation first and then come back to invite people to it.  If you just created a conversation, sometimes it takes a few minutes for the financial system to process and mark the conversation as Live... check back soon.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
             <br/><br/><br/></font></div></center>
         <%}%>
         <%if (researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>

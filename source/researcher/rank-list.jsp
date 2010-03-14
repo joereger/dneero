@@ -72,7 +72,7 @@ String acl = "researcher";
                     <font class="smallfont">
                         Rankings allow you to choose certain questions as indicators of a quality that you want to track.  For example, you could create an "Environmentally Friendly" Ranking and when people answer the question "Do you care about the environment?" with a "Yes" you assign them 50 points.
                         <br/><br/>You can use Rankings to measure across many conversations.  In this way you get a sense of how a person responds over time to many different things.
-                        <br/><br/>As people score points you can skim those in the top 10% of Ranking score and put them into a Panel which allows you to ignite conversations that only they can see and take.  In this way you're not only targeting but engaging your audience.
+                        <br/><br/>As people score points you can skim those in the top 10% of Ranking score and put them into a Panel which allows you to create conversations that only they can see and take.  In this way you're not only targeting but engaging your audience.
                     </font>
                 </div>
             </td>

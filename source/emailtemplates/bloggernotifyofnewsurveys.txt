@@ -1,4 +1,4 @@
-New conversations have been ignited!
+New conversations have been created!
 
 <$args.2$>
 <$args.4$>

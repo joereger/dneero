@@ -27,7 +27,28 @@ String acl = "public";
 %>
 <%
 if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()==0) ){
-    Pagez.sendRedirect("/researcher/researcherdetails.jsp");
+    try{
+        Researcher researcher = new Researcher();
+        researcher.setUserid(Pagez.getUserSession().getUser().getUserid());
+        researcher.setCompanyname("");
+        researcher.setCompanytype("Other");
+        researcher.setPhone("");
+        researcher.save();
+        Pagez.getUserSession().getUser().setResearcherid(researcher.getResearcherid());
+        Pagez.getUserSession().getUser().save();
+        Userrole role = new Userrole();
+        role.setUserid(Pagez.getUserSession().getUser().getUserid());
+        role.setRoleid(Userrole.RESEARCHER);
+        Pagez.getUserSession().getUser().getUserroles().add(role);
+        role.save();
+        Pagez.getUserSession().getUser().save();
+        Pagez.getUserSession().getUser().refresh();
+    } catch (Exception ex){
+        logger.error("", ex);
+        Pagez.getUserSession().setMessage("There has been some sort of error creating the Researcher object. Please try again.");
+        Pagez.sendRedirect("/researcher/index.jsp");
+        return;
+    }
 }
 %>
 <%@ include file="/template/header.jsp" %>
@@ -48,10 +69,10 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Start a New Conversation</font></a>
+                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Create a New Conversation</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Ignite a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in a matter of minutes.</font>
+                                <font class="smallfont">Create a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in a matter of minutes.</font>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
@@ -122,10 +143,10 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                         </div>
                    <%}%>
 
-                    <font class="largefont" style="color: #cccccc;">Conversations You've Created</font>
+                    <font class="largefont hdr">Conversations You've Created</font>
                     <br/>
                     <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
-                        <font class="normalfont">You haven't yet created any conversations. <a href="/researcher/researchersurveydetail_01.jsp">Ignite a New Conversation</a>.</font>
+                        <font class="normalfont">You haven't yet created any conversations. <a href="/researcher/researchersurveydetail_01.jsp">Create a New Conversation</a>.</font>
                     <%} else {%>
                         <%
                             ArrayList<GridCol> cols=new ArrayList<GridCol>();
@@ -141,7 +162,7 @@ if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().
                     <%}%>
 
                     <br/><br/>
-                    <font class="largefont" style="color: #cccccc;">Twitter Questions You've Asked</font>
+                    <font class="largefont hdr">Twitter Questions You've Asked</font>
                     <br/>
                     <%if (researcherSurveyList.getTwitasks()==null || researcherSurveyList.getTwitasks().size()==0){%>
                         <font class="normalfont">You haven't yet created any Twitter Questions. <a href="/researcher/researchertwitaskdetail_01.jsp">Ask one now!</a></font>

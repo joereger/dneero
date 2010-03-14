@@ -35,7 +35,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Researchers and Marketers: Do Some Good</font>
                         <br/>
-                        When you ignite a conversation you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
+                        When you create a conversation you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
                         <br/>

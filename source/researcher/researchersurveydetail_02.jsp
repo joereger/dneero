@@ -118,127 +118,112 @@ String acl="researcher";
     </div>
 
 
-    <script language="JavaScript" type="text/javascript">
-      var panels = new Array('panel1', 'panel2', 'panel3');
-      var selectedTab = null;
-      function showPanel(tab, name)
-      {
-        if (selectedTab)
-        {
-          selectedTab.style.backgroundColor = '';
-          selectedTab.style.paddingTop = '';
-          selectedTab.style.marginTop = '4px';
-        }
-        selectedTab = tab;
-        selectedTab.style.backgroundColor = 'white';
-        selectedTab.style.paddingTop = '6px';
-        selectedTab.style.marginTop = '0px';
-
-        for(i = 0; i < panels.length; i++){
-          document.getElementById(panels[i]).style.display = (name == panels[i]) ? 'block':'none';
-        }
-        return false;
-      }
-    </script>
+    
     <div id="tabs">
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Questions</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Preview Your Conversation</a>
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" onclick="return false;">Question Type Samples</a>
+        <ul>
+            <li><a href="#tabs-1">Questions</a></li>
+            <li><a href="#tabs-2">Preview Conversation</a></li>
+            <li><a href="#tabs-3">Preview Embed Widget</a></li>
+        </ul>
+        <div id="tabs-1">
+                <table cellpadding="10" cellspacing="0" border="0">
+                    <tr>
+                        <td valign="top" width="25%">
+                            <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                                <font class="mediumfont" style="color: #000000;">Add a Question</font>
+                                <br/>
+                                <%
+                                    Iterator keyValuePairs=componentTypes.getTypes().entrySet().iterator();
+                                    for (int i=0; i<componentTypes.getTypes().size(); i++) {
+                                        Map.Entry mapentry=(Map.Entry) keyValuePairs.next();
+                                        String key=(String) mapentry.getKey();
+                                        String value=(String) mapentry.getValue();
+                                        String url = "";
+                                        if (key.equals(String.valueOf(com.dneero.display.components.Textbox.ID))) {
+                                            url="researchersurveydetail_02_textbox.jsp";
+                                        }
+                                        if (key.equals(String.valueOf(com.dneero.display.components.Essay.ID))) {
+                                            url="researchersurveydetail_02_essay.jsp";
+                                        }
+                                        if (key.equals(String.valueOf(com.dneero.display.components.Dropdown.ID))) {
+                                            url="researchersurveydetail_02_dropdown.jsp";
+                                        }
+                                        if (key.equals(String.valueOf(com.dneero.display.components.Checkboxes.ID))) {
+                                            url="researchersurveydetail_02_checkboxes.jsp";
+                                        }
+                                        if (key.equals(String.valueOf(com.dneero.display.components.Range.ID))) {
+                                            url="researchersurveydetail_02_range.jsp";
+                                        }
+                                        if (key.equals(String.valueOf(com.dneero.display.components.Matrix.ID))) {
+                                            url="researchersurveydetail_02_matrix.jsp";
+                                        }
+                                        if (key.equals(String.valueOf(com.dneero.display.components.TestQuestion.ID))) {
+                                            url="researchersurveydetail_02_testquestion.jsp";
+                                        }
+                                        if (key.equals(String.valueOf(com.dneero.display.components.Infotext.ID))) {
+                                            url="researchersurveydetail_02_infotext.jsp";
+                                        }
+                                        %>
+                                        <font class="formfieldnamefont"><a href="/researcher/<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><%=value%></a></font><br/>
+                                        <%
+                                    }
+                                %>
+                            </div>
+                            <%}%>
+                        </td>
+                        <td valign="top">
+                            <%if (researcherSurveyQuestionList.getQuestions()==null || researcherSurveyQuestionList.getQuestions().size()==0){%>
+                                <font class="normalfont">This conversation contains no questions... you need to add one to continue.</font>
+                            <%} else {%>
+                                <%
+                                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
+                                    cols.add(new GridCol("Question", "<$question$>", false, "", "smallfont"));
+                                    cols.add(new GridCol("Required?", "<$isrequired$>", false, "", "smallfont"));
+                                    if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
+                                        cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=editquestion&questionid=<$questionid$>&componenttype=<$componenttype$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Edit</a>", false, "", "smallfont"));
+                                    }
+                                    if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
+                                        cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
+                                    }
+                                    if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){
+                                        cols.add(new GridCol("Order", "<input type='text' name='questionorder-<$questionid$>' value='<$questionorder$>' size='2' maxlength='4'>", true, "", "smallfont"));
+                                    }
+                                %>
+                                <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "/researcher/researchersurveydetail_02.jsp", "page")%>
+                                <%if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){%>
+                                    <div style="float:right;"><input type="submit" class="formsubmitbutton" value="Refresh" onclick="document.getElementById('action').value='questionorder';" style="padding-right:25px;"></div>
+                                    <br clear="all"/>
+                                <%}%>
+                            <%}%>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <div id="tabs-2">
+                <%=researcherSurveyDetail02.getSurveyForTakers()%>
+        </div>
+        <div id="tabs-3">
+                <%=researcherSurveyDetail02.getEmbedflashsyntax()%>
+        </div>
     </div>
-    <div class="panel" id="panel1" style="display: block">
-            <img src="/images/clear.gif" width="700" height="1"/><br/>
-
-            <%if (researcherSurveyQuestionList.getQuestions()==null || researcherSurveyQuestionList.getQuestions().size()==0){%>
-                <font class="normalfont">This conversation contains no questions... you need to add one to continue.</font>
-            <%} else {%>
-                <%
-                    ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                    cols.add(new GridCol("", "<img src=\"/images/question.png\"/>", true, "", ""));
-                    cols.add(new GridCol("Question", "<$question$>", false, "", "smallfont"));
-                    cols.add(new GridCol("Required?", "<$isrequired$>", false, "", "smallfont"));
-                    if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
-                        cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=editquestion&questionid=<$questionid$>&componenttype=<$componenttype$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Edit</a>", false, "", "smallfont"));
-                    }
-                    if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {
-                        cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
-                    }
-                    if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){
-                        cols.add(new GridCol("Order", "<input type='text' name='questionorder-<$questionid$>' value='<$questionorder$>' size='2' maxlength='4'>", true, "", "smallfont"));
-                    }
-                %>
-                <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "/researcher/researchersurveydetail_02.jsp", "page")%>
-                <%if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){%>
-                    <div style="float:right;"><input type="submit" class="formsubmitbutton" value="Save Question Orders" onclick="document.getElementById('action').value='questionorder';"></div>
-                    <br clear="all"/>
-                <%}%>
-            <%}%>
-
-
-            <%if (researcherSurveyDetail02.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                <br/><br/>
-                <font class="mediumfont" style="color: #000000;">Add a Question of Type</font>
-                <br/>
-                <font class="smallfont" style="color: #000000;">See tab at upper right for Question Type Samples</font>
-                <br/>
-                <%
-                    Iterator keyValuePairs=componentTypes.getTypes().entrySet().iterator();
-                    for (int i=0; i<componentTypes.getTypes().size(); i++) {
-                        Map.Entry mapentry=(Map.Entry) keyValuePairs.next();
-                        String key=(String) mapentry.getKey();
-                        String value=(String) mapentry.getValue();
-                        String url = "";
-                        if (key.equals(String.valueOf(com.dneero.display.components.Textbox.ID))) {
-                            url="researchersurveydetail_02_textbox.jsp";
-                        }
-                        if (key.equals(String.valueOf(com.dneero.display.components.Essay.ID))) {
-                            url="researchersurveydetail_02_essay.jsp";
-                        }
-                        if (key.equals(String.valueOf(com.dneero.display.components.Dropdown.ID))) {
-                            url="researchersurveydetail_02_dropdown.jsp";
-                        }
-                        if (key.equals(String.valueOf(com.dneero.display.components.Checkboxes.ID))) {
-                            url="researchersurveydetail_02_checkboxes.jsp";
-                        }
-                        if (key.equals(String.valueOf(com.dneero.display.components.Range.ID))) {
-                            url="researchersurveydetail_02_range.jsp";
-                        }
-                        if (key.equals(String.valueOf(com.dneero.display.components.Matrix.ID))) {
-                            url="researchersurveydetail_02_matrix.jsp";
-                        }
-                        if (key.equals(String.valueOf(com.dneero.display.components.TestQuestion.ID))) {
-                            url="researchersurveydetail_02_testquestion.jsp";
-                        }
-                        if (key.equals(String.valueOf(com.dneero.display.components.Infotext.ID))) {
-                            url="researchersurveydetail_02_infotext.jsp";
-                        }
-                        %>
-                        <font class="formfieldnamefont"><a href="/researcher/<%=url%>?isnewquestion=1&surveyid=<%=researcherSurveyDetail02.getSurvey().getSurveyid()%>"><%=value%></a></font><br/>
-                        <%
-                    }
-                %>
-            <%}%>
-    </div>
-    <div class="panel" id="panel2" style="display: none">
-            <img src="/images/clear.gif" width="700" height="1"/><br/>
-            <%=researcherSurveyDetail02.getSurveyForTakers()%>
-    </div>
-    <div class="panel" id="panel3" style="display: none">
-            <img src="/images/clear.gif" width="700" height="1"/><br/>
-            <font class="mediumfont">Question Type: Textbox (Short Text)</font><br/>
-            <img src="/images/questiontypes/textbox.gif" border="0" alt=""></img><br/><br/>
-            <font class="mediumfont">Question Type: Essay (Long Text)</font><br/>
-            <img src="/images/questiontypes/essay.gif" border="0" alt=""></img><br/><br/>
-            <font class="mediumfont">Question Type: Dropdown (Choose One) *Rankings-compatible</font><br/>
-            <img src="/images/questiontypes/dropdown.gif" border="0" alt=""></img><br/><br/>
-            <font class="mediumfont">Question Type: Checkboxes (Choose Multiple)</font><br/>
-            <img src="/images/questiontypes/selectmultiple.gif" border="0" alt=""></img><br/><br/>
-            <font class="mediumfont">Question Type: Range (i.e. 1-10)</font><br/><br/>
-            <img src="/images/questiontypes/range.gif" border="0" alt=""></img><br/><br/>
-            <font class="mediumfont">Question Type: Matrix (Choose One Per Row)</font><br/>
-            <img src="/images/questiontypes/matrixselectone.gif" border="0" alt=""></img><br/><br/>
-            <font class="mediumfont">Question Type: Matrix (Choose Many Per Row)</font><br/>
-            <img src="/images/questiontypes/matrixselectmany.gif" border="0" alt=""></img><br/><br/>
-    </div>
+    <%--<div class="panel" id="panel3" style="display: none">--%>
+            <%--<img src="/images/clear.gif" width="700" height="1"/><br/>--%>
+            <%--<font class="mediumfont">Question Type: Textbox (Short Text)</font><br/>--%>
+            <%--<img src="/images/questiontypes/textbox.gif" border="0" alt=""></img><br/><br/>--%>
+            <%--<font class="mediumfont">Question Type: Essay (Long Text)</font><br/>--%>
+            <%--<img src="/images/questiontypes/essay.gif" border="0" alt=""></img><br/><br/>--%>
+            <%--<font class="mediumfont">Question Type: Dropdown (Choose One) *Rankings-compatible</font><br/>--%>
+            <%--<img src="/images/questiontypes/dropdown.gif" border="0" alt=""></img><br/><br/>--%>
+            <%--<font class="mediumfont">Question Type: Checkboxes (Choose Multiple)</font><br/>--%>
+            <%--<img src="/images/questiontypes/selectmultiple.gif" border="0" alt=""></img><br/><br/>--%>
+            <%--<font class="mediumfont">Question Type: Range (i.e. 1-10)</font><br/><br/>--%>
+            <%--<img src="/images/questiontypes/range.gif" border="0" alt=""></img><br/><br/>--%>
+            <%--<font class="mediumfont">Question Type: Matrix (Choose One Per Row)</font><br/>--%>
+            <%--<img src="/images/questiontypes/matrixselectone.gif" border="0" alt=""></img><br/><br/>--%>
+            <%--<font class="mediumfont">Question Type: Matrix (Choose Many Per Row)</font><br/>--%>
+            <%--<img src="/images/questiontypes/matrixselectmany.gif" border="0" alt=""></img><br/><br/>--%>
+    <%--</div>--%>
 
 
 
@@ -267,5 +252,8 @@ String acl="researcher";
         });
         $("#togglehelp").hide();
     </script>
+<script>
+        $('#tabs').tabs();
+</script>
 
 <%@ include file="/template/footer.jsp" %>

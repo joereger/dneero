@@ -1,10 +1,8 @@
 
 
-<center><img src="images/dNeero-hpv5.jpg" width="760" height="360" border="0"></center>
-
 <br clear="all"/><br/>
 
-    <table cellpadding="0" cellspacing="10" border="0" width="757">
+    <table cellpadding="0" cellspacing="10" border="0" width="100%">
 
        <tr>
            <td width="225">
@@ -48,7 +46,7 @@
                    $donationsMiniReport.html
                    <br/>
                    <div class="rounded" style="background: #ffffff; padding: 10px;">
-                        <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  And as a researcher you can ignite conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
+                        <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  You can create conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
                    </div>
                </div>
 

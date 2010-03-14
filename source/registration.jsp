@@ -96,7 +96,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                 <font class="mediumfont" style="color: #333333">Get started igniting and/or joining conversations</font>
                 <br/>
-                <font class="smallfont">Sign Up is free.  On this page we collect some basic information.  After this you'll start working immediately to ignite and/or join conversations (all accounts can do both functions).  You have three days (during which you can use your account) to activate by clicking a link that we send to your email address.  Your account is completely free to set up and explore.  International users are welcome (of course).</font><br/><br/>
+                <font class="smallfont">Sign Up is free.  On this page we collect some basic information.  After this you'll start working immediately to create and/or enter conversations (all accounts can do both functions).  You have three days (during which you can use your account) to activate by clicking a link that we send to your email address.  Your account is completely free to set up and explore.  International users are welcome (of course).</font><br/><br/>
 
                 <table cellpadding="5" cellspacing="0" border="0">
 

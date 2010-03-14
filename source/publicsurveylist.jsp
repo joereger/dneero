@@ -65,7 +65,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
         <tr>
             <td valign="top">
                 <%if (publicSurveyList.getSurveys()==null || publicSurveyList.getSurveys().size()==0){%>
-                    <font class="normalfont">We've got nothin' for ya!  Please check back soon... we're always adding new conversations!</font>
+                    <font class="normalfont">There are currently no active conversations.  Please check back soon.</font>
                 <%} else {%>
                     <%
                         StringBuffer srv = new StringBuffer();
@@ -92,6 +92,8 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         cols.add(new GridCol("", srv.toString(), false, "", "", "background: #ffffff;", ""));
                     %>
                     <%=Grid.render(publicSurveyList.getSurveys(), cols, 100, "/publicsurveylist.jsp", "pagesurveys")%>
+                    <br/><br/>
+                    <a href="/publicoldsurveylist.jsp">See Old Conversations</a>
                 <%}%>
                 
             </td>
@@ -102,7 +104,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         <% if (1==1 || Pagez.getUserSession().getIsloggedin()){ %>
                             <div class="rounded" style="background: #ffffff; padding: 10px;">
                                 <font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
-                                <br/><font class="largefont" style="color: #cccccc;"><%=publicSurveyList.getCurrentbalance()%></font>
+                                <br/><font class="largefont hdr"><%=publicSurveyList.getCurrentbalance()%></font>
                                 <% if (publicSurveyList!=null){ %>
                                     <% if (publicSurveyList.getPendingearningsDbl()>0){ %>
                                         <br/><a href="/blogger/bloggercompletedsurveys.jsp"><font class="formfieldnamefont" style="color: #0000ff;">Pending: <%=publicSurveyList.getPendingearnings()%></font></a>

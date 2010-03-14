@@ -48,7 +48,7 @@ String acl = "account";
     <font class="mediumfont" color="#333333">How long do I get paid for conversation impressions in my blog?</font>
     <br/>
     <font class="smallfont">
-    You get paid until you reach the limit set by the conversation igniter (shown when you decide whether to join the conversation).  Or until 30 days have elapsed since the end of the conversation (also listed on the conversation).
+    Some conversations include a payment incentive for participation. You get paid until you reach the limit set by the conversation creator (shown when you decide whether to join the conversation).  Or until 30 days have elapsed since the end of the conversation (also listed on the conversation).
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -57,7 +57,7 @@ String acl = "account";
     <font class="mediumfont" color="#333333">My balance is lower than I expected.  Why?</font>
     <br/>
     <font class="smallfont">
-    Pay for joining a conversation comes in two ways.  First, you get paid to answer questions, post to your blog or social network and get impressions for five days.  Second, you get paid for impressions.  Each survey has a different ratio of pay between these two, as set up by the conversation igniter.  You can see the breakdown before you join the conversation... it's listed on the right hand side of the screen.  So, to get paid more people generally need to get more impressions.
+    Pay for joining a conversation comes in two ways.  First, you get paid to answer questions, post to your blog or social network and get impressions for five days.  Second, you get paid for impressions.  Each survey has a different ratio of pay between these two, as set up by the conversation creator.  You can see the breakdown before you join the conversation... it's listed on the right hand side of the screen.  So, to get paid more people generally need to get more impressions.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

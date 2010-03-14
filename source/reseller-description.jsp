@@ -1,6 +1,6 @@
 <font class="mediumfont" style="color: #999999;">What is the Reseller Program?</font>
 <br/><font class="normalfont" style="color: #666666;">
-The <%=Pagez.getUserSession().getPl().getNameforui()%> Reseller Program allows you to sell conversations to organizations and earn 5% of whatever they spend to ignite the conversation.  For example, if they join a conversation and pay $1000 to social people through it then you'll earn $100.
+The <%=Pagez.getUserSession().getPl().getNameforui()%> Reseller Program allows you to sell conversations to organizations and earn 5% of whatever they spend to create the conversation.  For example, if they join a conversation and pay $1000 to social people through it then you'll earn $100.
 </font>
 
 <br/><br/>
@@ -9,7 +9,7 @@ The <%=Pagez.getUserSession().getPl().getNameforui()%> Reseller Program allows y
 The program is very simple for you to use.
 <ol>
     <li><b>Tell organizations about dNeero.com</b>. Send them email.  Call them on the phone.  Hand out fliers on the street.  Create a viral video and post it to YouTube.  Think outside the box.</li>
-    <li><b>Convince them to ignite a conversation</b> of their own.  They may want to generate awareness about a product or service.  Or they may want to learn about their market.  You need to convince them to use us to ignite conversations.</li>
+    <li><b>Convince them to create a conversation</b> of their own.  They may want to generate awareness about a product or service.  Or they may want to learn about their market.  You need to convince them to use us to ignite conversations.</li>
     <li><b>Give the business your Reseller Code</b> and tell them to apply it in the last step of conversation creation.  Of course, they'll need a dNeero.com account.</li>
     <li><b>Sit back and relax</b>... any time the organization pays a social person through the conversation you'll earn money.  You'll see the amounts added to your account balance automatically.</li>
 </ol>
@@ -36,7 +36,7 @@ As a user of <%=Pagez.getUserSession().getPl().getNameforui()%> you normally mak
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">What do you mean by 'organization'?</font>
 <br/><font class="normalfont" style="color: #666666;">
-Anybody who wants to ignite a conversation.  Businesses.  Charities.  Associations and groups.  Think about all of your friends and family and you'll be surprised how many people might want to ignite a conversation to learn about their market and generate some buzz.
+Anybody who wants to create a conversation.  Businesses.  Charities.  Associations and groups.  Think about all of your friends and family and you'll be surprised how many people might want to create a conversation to learn about their market and generate some buzz.
 </font>
 
 <br/><br/>
@@ -48,7 +48,7 @@ As the organization pays bloggers and social people we'll add cash to your accou
 <br/><br/>
 <font class="mediumfont" style="color: #999999;">How do I sell conversations?</font>
 <br/><font class="normalfont" style="color: #666666;">
-Start by reading the <a href="/researcher.jsp">Conversation Igniter Basics</a> page.  It describes the benefits of igniting conversations for organizations looking to use them.  Then explain to them what your experience has been with dNeero.
+Start by reading the <a href="/researcher.jsp">Conversation Creation Basics</a> page.  It describes the benefits of igniting conversations for organizations looking to use them.  Then explain to them what your experience has been with dNeero.
 <br/><br/>
 Next, get in touch with some businesses.  Use the phone book.  Go to networking events.  Talk to your friends and family.
 </font>

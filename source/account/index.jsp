@@ -44,7 +44,7 @@ if (accountIndex.getUserhasresponsependings()){
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">See the earnings and charges for your account.</font><br/>
                                 <br/><font class="formfieldnamefont" style="color: #666666;">Current Balance:</font>
-                                <br/><font class="largefont" style="color: #cccccc;"><%=accountIndex.getCurrentbalance()%></font>
+                                <br/><font class="largefont hdr"><%=accountIndex.getCurrentbalance()%></font>
                                 <% if (accountIndex.getPendingearningsDbl()>0){ %>
                                     <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=accountIndex.getPendingearnings()%></font>
                                     <br/><font class="tinyfont" style="color: #666666;">Remember, your conversations must generate impressions for 10 days after you take them to get paid.</font><br/>
@@ -144,7 +144,7 @@ if (accountIndex.getUserhasresponsependings()){
                     <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
                     <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
                     <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
-                        <font class="largefont" style="color: #cccccc;">Conversations for You</font>
+                        <font class="largefont hdr">Conversations for You</font>
                         <br/>
                         <%
                         PublicSurveyList publicSurveyList = new PublicSurveyList();
@@ -177,8 +177,8 @@ if (accountIndex.getUserhasresponsependings()){
                             <br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations for You</font></a>
                         <%}%>
                     <%} else {%>
-                        <font class="largefont" style="color: #cccccc;">Conversations for You</font>
-                        <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Social Person</font></a>
+                        <font class="largefont hdr">Conversations for You</font>
+                        <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">Find Conversations to Enter</font></a>
                     <%}%>
                     <!--</div>-->
                     <!--</div>-->
@@ -187,7 +187,7 @@ if (accountIndex.getUserhasresponsependings()){
                         <br/><br/><br/>
                         <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
                         <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
-                        <font class="largefont" style="color: #cccccc;">Conversations You've Joined</font>
+                        <font class="largefont hdr">Conversations You've Joined</font>
                         <br/>
                         <%
                             BloggerCompletedsurveys bloggerCompletedsurveys = new BloggerCompletedsurveys();
@@ -227,7 +227,7 @@ if (accountIndex.getUserhasresponsependings()){
                         <br/><br/><br/>
                         <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
                         <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
-                        <font class="largefont" style="color: #cccccc;">Twitter Questions</font>
+                        <font class="largefont hdr">Twitter Questions</font>
                         <br/>
                         <%
                             BloggerCompletedTwitasks bloggerCompletedTwitasks = new BloggerCompletedTwitasks();
@@ -270,7 +270,7 @@ if (accountIndex.getUserhasresponsependings()){
                     ResearcherSurveyList researcherSurveyList = null;
                     %>
                     <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
-                        <font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
+                        <font class="largefont hdr">Conversations You've Created</font>
                         <br/>
                         <%
                         researcherSurveyList = new ResearcherSurveyList();
@@ -278,7 +278,7 @@ if (accountIndex.getUserhasresponsependings()){
                         researcherSurveyList.initBean();
                         %>
                         <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
-                            <font class="smallfont">You haven't yet ignited any conversations.</font>
+                            <font class="smallfont">You haven't yet created any conversations.</font>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
@@ -291,11 +291,11 @@ if (accountIndex.getUserhasresponsependings()){
                                 cols.add(new GridCol("", "<$deletelink$>", false, "background: #ffffff;", "smallfont"));
                             %>
                             <%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "/account/index.jsp", "pageresearcherconvos")%>
-                            <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Ignited</font></a><font class="smallfont"> or </font><a href="/researcher/researchersurveydetail_01.jsp"><font class="smallfont" style="font-weight: bold;">Ignite a New One</font></a>
+                            <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Created</font></a><font class="smallfont"> or </font><a href="/researcher/researchersurveydetail_01.jsp"><font class="smallfont" style="font-weight: bold;">Create a New One</font></a>
                         <%}%>
                     <%} else {%>
-                        <font class="largefont" style="color: #cccccc;">Conversations You've Ignited</font>
-                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Conversation Igniter</font></a>
+                        <font class="largefont hdr">Conversations You've Created</font>
+                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started Creating a Conversation</font></a>
                     <%}%>
                     <!--</div>-->
                     <!--</div>-->
@@ -306,7 +306,7 @@ if (accountIndex.getUserhasresponsependings()){
                     <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
                     <br/><br/><br/>
                     <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
-                        <font class="largefont" style="color: #cccccc;">Twitter Questions You've Asked</font>
+                        <font class="largefont hdr">Twitter Questions You've Asked</font>
                         <br/>
                         <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
                             <font class="normalfont">You haven't yet asked any Twitter Questions. <a href="/researcher/researchertwitaskdetail_01.jsp">Ask one now!</a></font>
@@ -322,8 +322,8 @@ if (accountIndex.getUserhasresponsependings()){
                             <%=Grid.render(researcherSurveyList.getTwitasks(), cols, 15, "/account/index.jsp", "pagetwitaskcreated")%>
                         <%}%>
                     <%} else {%>
-                        <font class="largefont" style="color: #cccccc;">Twitter Questions You've Asked</font>
-                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Conversation Igniter</font></a>
+                        <font class="largefont hdr">Twitter Questions You've Asked</font>
+                        <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Conversation Creator</font></a>
                     <%}%>
                     <!--</div>-->
                     <!--</div>-->

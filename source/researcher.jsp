@@ -75,7 +75,7 @@ String acl = "public";
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Get Started Now, Low Commitment</font>
                         <br/>
-                        It's easy to create an account and ignite a conversation.  You won't be charged until you ignite a conversation, at which point it will be obvious that you're about to be charged.  Log in. Explore.  Ask us questions.  It's a new concept and we're excited to see how you apply it!
+                        It's easy to setup an account and create a conversation.
                     </div>
                     <table width="100%">
                         <tr>
