@@ -27,6 +27,8 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
             }
             researcherTwitaskDetail01.setQuestion(Textarea.getValueFromRequest("question", "Question", true));
             researcherTwitaskDetail01.setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
+            researcherTwitaskDetail01.setIsfree(!CheckboxBoolean.getValueFromRequest("isfree"));
+            researcherTwitaskDetail01.setIsopentoanybody(!CheckboxBoolean.getValueFromRequest("isopentoanybody"));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherTwitaskDetail01.save();
@@ -41,7 +43,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
                 researcherTwitaskDetail01.save();
-                Pagez.sendRedirect("/researcher/researchertwitaskdetail_01.jsp?twitaskid="+ researcherTwitaskDetail01.getTwitask().getTwitaskid());
+                Pagez.sendRedirect("/researcher/researchertwitaskdetail_01.jsp?twitaskid="+ researcherTwitaskDetail01.getTwitask().getTwitaskid()+"&ispreviousclick=1");
                 return;
             }
         } catch (ValidationException vex) {
@@ -109,6 +111,30 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                                     <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherTwitaskDetail01.getStartdate()), "", "")%>
                                 <%} else {%>
                                     <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherTwitaskDetail01.getStartdate()))%></font>
+                                <%}%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont"></font>
+                            </td>
+                            <td valign="top">
+                                <%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
+                                    <%=CheckboxBoolean.getHtml("isfree", !researcherTwitaskDetail01.getIsfree(), "", "")%> I want to pay participants via cash, coupon or charitable donation
+                                <%} else {%>
+                                    <font class="normalfont"></font>
+                                <%}%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <font class="formfieldnamefont"></font>
+                            </td>
+                            <td valign="top">
+                                <%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
+                                    <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherTwitaskDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate
+                                <%} else {%>
+                                    <font class="normalfont"></font>
                                 <%}%>
                             </td>
                         </tr>

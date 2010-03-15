@@ -2,6 +2,7 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail05" %>
 <%@ page import="com.dneero.incentive.IncentiveCash" %>
 <%@ page import="com.dneero.incentive.IncentiveCoupon" %>
+<%@ page import="com.dneero.incentivetwit.IncentivetwitNone" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="" +
@@ -14,12 +15,32 @@ String acl="researcher";
 <%
 ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)Pagez.getBeanMgr().get("ResearcherTwitaskDetail05");
 %>
+<%if (researcherTwitaskDetail05.getTwitask().getIsfree()){
+    logger.error("request.getParameter(\"ispreviousclick\")="+request.getParameter("ispreviousclick"));
+    if (request.getParameter("ispreviousclick")!=null && request.getParameter("ispreviousclick").equals("1")){
+        Pagez.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+researcherTwitaskDetail05.getTwitask().getTwitaskid()+"&ispreviousclick=1");
+        return;
+    }
+    //Make sure there's a Surveyincentive for this mofo
+    Twitaskincentive si = researcherTwitaskDetail05.getTwitask().getIncentive().getTwitaskincentive();
+    if (si==null){
+        si = new Twitaskincentive();
+        logger.debug("Had to create a new Twitaskincentive()");
+    }
+    si.setType(IncentivetwitNone.ID);
+    si.setTwitaskid(researcherTwitaskDetail05.getTwitask().getTwitaskid());
+    try{si.save();}catch(Exception ex){logger.error("", ex);}
+    researcherTwitaskDetail05.getTwitask().refresh();
+    //Redir to the next step
+    Pagez.sendRedirect("/researcher/researchertwitaskdetail_06.jsp?twitaskid="+researcherTwitaskDetail05.getTwitask().getTwitaskid());
+    return;
+}%>
 <%
     if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
         try {
             if (researcherTwitaskDetail05.getTwitask().getStatus()>Twitask.STATUS_DRAFT){
                 if (request.getParameter("action").equals("previous")){
-                    Pagez.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+ researcherTwitaskDetail05.getTwitask().getTwitaskid());
+                    Pagez.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+ researcherTwitaskDetail05.getTwitask().getTwitaskid()+"&ispreviousclick=1");
                     return;
                 } else {
                     Pagez.sendRedirect("/researcher/researchertwitaskdetail_06.jsp?twitaskid="+ researcherTwitaskDetail05.getTwitask().getTwitaskid());
@@ -39,7 +60,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
             researcherTwitaskDetail05.setCouponcodeprefix(Textbox.getValueFromRequest("couponcodeprefix", "Coupon Code Prefix", false, DatatypeString.DATATYPEID));
             researcherTwitaskDetail05.setCouponcodeaddrandompostfix(CheckboxBoolean.getValueFromRequest("couponcodeaddrandompostfix"));
             researcherTwitaskDetail05.setCouponestimatedcashvalue(Textbox.getDblFromRequest("couponestimatedcashvalue", "Coupon Estimated Cash Value", false, DatatypeDouble.DATATYPEID));
-
+            researcherTwitaskDetail05.setIsfree(CheckboxBoolean.getValueFromRequest("isfree"));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherTwitaskDetail05.save();
@@ -54,7 +75,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
                 researcherTwitaskDetail05.save();
-                Pagez.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+ researcherTwitaskDetail05.getTwitask().getTwitaskid());
+                Pagez.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+ researcherTwitaskDetail05.getTwitask().getTwitaskid()+"&ispreviousclick=1");
                 return;
             }
         } catch (ValidationException vex) {
@@ -70,6 +91,15 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
         <input type="hidden" name="action" value="next" id="action">
         <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail05.getTwitask().getTwitaskid()%>"/>
 
+    <%
+        String isfreeChecked = "";
+        if (researcherTwitaskDetail05.getIsfree()){
+            isfreeChecked = "checked=\"checked\"";
+        }
+    %>
+    <input type="checkbox" id="isfree" name="isfree" value="1" <%=isfreeChecked%> /> Free conversation, I don't want to pay for a cash incentive or charity donation
+
+    <div id="togglepage">
 
     <%--<center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">--%>
     <%--In this step you'll choose how much you're willing to pay people to answer.--%>
@@ -314,6 +344,22 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
 
     </table>
 
+    </div>
+    <script>
+        $("#isfree").change(function() {
+            $("#togglepage").toggle();
+        });
+        <% if (researcherTwitaskDetail05.getIsfree()){%>
+        $("#togglepage").hide();
+        <% }  %>
+    </script>
+    <script>
+        $("#helplink").click(function() {
+            $("#togglehelp").toggle();
+        });
+        $("#togglehelp").hide();
+    </script>
+
     <br/><br/>
     <!-- Start Bottom Nav -->
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -331,5 +377,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
     </table>
     <!-- End Bottom Nav -->
 </form>
+
+
 
 <%@ include file="/template/footer.jsp" %>

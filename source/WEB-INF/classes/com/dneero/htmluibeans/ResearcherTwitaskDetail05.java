@@ -1,18 +1,15 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.Surveyincentive;
 import com.dneero.dao.Twitask;
 import com.dneero.dao.Twitaskincentive;
 import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.incentivetwit.IncentivetwitCash;
+import com.dneero.incentivetwit.IncentivetwitCoupon;
+import com.dneero.incentivetwit.IncentivetwitNone;
+import com.dneero.incentivetwit.IncentivetwitOptionsUtil;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
-import com.dneero.incentivetwit.IncentivetwitCash;
-import com.dneero.incentivetwit.IncentivetwitOptionsUtil;
-import com.dneero.incentivetwit.IncentivetwitCoupon;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -41,6 +38,7 @@ public class ResearcherTwitaskDetail05 implements Serializable {
     private String couponcodeprefix = "";
     private boolean couponcodeaddrandompostfix = true;
     private double couponestimatedcashvalue = 0.0;
+    private boolean isfree = true;
 
     public ResearcherTwitaskDetail05(){
 
@@ -60,6 +58,7 @@ public class ResearcherTwitaskDetail05 implements Serializable {
             if (Pagez.getUserSession().getUser()!=null && twitask.canEdit(Pagez.getUserSession().getUser())){
                 logger.debug("twitask.canEdit(Pagez.getUserSession().getUser())="+twitask.canEdit(Pagez.getUserSession().getUser()));
                 title = twitask.getQuestion();
+                isfree = twitask.getIsfree();
                 if (twitask.getIncentive().getID()==IncentivetwitCash.ID){
                     incentivetype = IncentivetwitCash.ID;
                     if (Num.isdouble(IncentivetwitOptionsUtil.getValue(twitask.getIncentive().getTwitaskincentive(), IncentivetwitCash.WILLINGTOPAYPERTWIT))){
@@ -101,6 +100,9 @@ public class ResearcherTwitaskDetail05 implements Serializable {
                 charitycustom = twitask.getCharitycustom();
                 charitycustomurl = twitask.getCharitycustomurl();
                 charityonlyallowcustom = twitask.getCharityonlyallowcustom();
+                if (isfree){
+                    willingtopaypertwit = 0.0;
+                }
             }
 
         }
@@ -174,6 +176,7 @@ public class ResearcherTwitaskDetail05 implements Serializable {
                 twitask.setCharitycustom(charitycustom);
                 twitask.setCharitycustomurl(charitycustomurl);
                 twitask.setCharityonlyallowcustom(charityonlyallowcustom);
+                twitask.setIsfree(isfree);
                 try{
                     logger.debug("save() about to save twitask.getTwitaskid()=" + twitask.getTwitaskid());
                     twitask.save();
@@ -216,6 +219,11 @@ public class ResearcherTwitaskDetail05 implements Serializable {
                     }
                     IncentivetwitOptionsUtil.saveValue(si, IncentivetwitCoupon.COUPONCODEADDRANDOMPOSTFIX, couponcodeaddrandompostfixStr);
                     IncentivetwitOptionsUtil.saveValue(si, IncentivetwitCoupon.COUPONESTIMATEDCASHVALUE, String.valueOf(couponestimatedcashvalue));
+                } else if (incentivetype== IncentivetwitNone.ID){
+                    //IncentiveNone
+                    si.setType(IncentivetwitNone.ID);
+                    si.setTwitaskid(twitask.getTwitaskid());
+                    try{si.save();}catch(Exception ex){logger.error("", ex);}
                 }
 
                 //Refresh the survey
@@ -352,5 +360,13 @@ public class ResearcherTwitaskDetail05 implements Serializable {
 
     public void setCouponestimatedcashvalue(double couponestimatedcashvalue) {
         this.couponestimatedcashvalue=couponestimatedcashvalue;
+    }
+
+    public boolean getIsfree() {
+        return isfree;
+    }
+
+    public void setIsfree(boolean isfree) {
+        this.isfree = isfree;
     }
 }

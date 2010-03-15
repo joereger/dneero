@@ -259,10 +259,12 @@ public class ResearcherSurveyDetail05 implements Serializable {
                     si.setType(IncentiveNone.ID);
                     si.setSurveyid(survey.getSurveyid());
                     try{si.save();}catch(Exception ex){logger.error("", ex);}
+                    logger.debug("saved IncentiveNone Surveyincentive where surveyincentiveid="+si.getSurveyincentiveid());
                 }
 
                 //Refresh the survey
                 survey.refresh();
+
                 
             }
         }

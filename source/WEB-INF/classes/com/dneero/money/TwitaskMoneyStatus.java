@@ -1,17 +1,9 @@
 package com.dneero.money;
 
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Time;
-import com.dneero.util.DateDiff;
+import com.dneero.dao.Twitask;
+import com.dneero.dao.User;
 
-import java.util.Calendar;
-import java.util.List;
-import java.util.Iterator;
 import java.io.Serializable;
-
-import org.hibernate.criterion.Restrictions;
 
 /**
  * User: Joe Reger Jr
@@ -20,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class TwitaskMoneyStatus implements Serializable {
 
-    public static double PERTWITASKCREATIONFEE= 5.00;
+    public static double PERTWITASKCREATIONFEE= 0.0;
     public static double DEFAULTDNEEROMARKUPPERCENT = 25;
     public static double RESELLERPERCENTDEFAULT = 5;
 
@@ -40,6 +32,9 @@ public class TwitaskMoneyStatus implements Serializable {
 
     public TwitaskMoneyStatus(Twitask twitask){
         //Note that coupon is applied below each calculation into the same variable
+        if (twitask.getIsfree()){
+            return;
+        }
         maxPossiblePayoutForResponses = (twitask.getIncentive().getResearcherCostPerResponse() * twitask.getNumberofrespondentsrequested());
         maxPossiblePayoutToUsers = maxPossiblePayoutForResponses;
         couponDiscountAmt = calculateCouponAmt(maxPossiblePayoutToUsers, twitask);

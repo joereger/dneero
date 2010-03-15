@@ -81,6 +81,15 @@
         <property name="twitterid" type="java.lang.Long">
             <column name="twitterid" not-null="true" />
         </property>
+        <property name="isfree" type="boolean">
+            <column name="isfree" />
+        </property>
+        <property name="isopentoanybody" type="boolean">
+            <column name="isopentoanybody" />
+        </property>
+        <property name="ishighquality" type="boolean">
+            <column name="ishighquality" />
+        </property>
 
     </class>
 </hibernate-mapping>

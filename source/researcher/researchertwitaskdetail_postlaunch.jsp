@@ -17,6 +17,13 @@ String acl = "researcher";
 <%
 ResearcherTwitaskDetailPostlaunch researcherTwitaskDetailPostlaunch= (ResearcherTwitaskDetailPostlaunch)Pagez.getBeanMgr().get("ResearcherTwitaskDetailPostlaunch");
 %>
+<%
+if (researcherTwitaskDetailPostlaunch.getTwitask().getStatus()==Twitask.STATUS_OPEN){
+    Pagez.getUserSession().setMessage("Your twitter question is live!");
+    Pagez.sendRedirect("/twitask.jsp?twitaskid="+researcherTwitaskDetailPostlaunch.getTwitask().getTwitaskid()+"");
+    return;
+}
+%>
 <%@ include file="/template/header.jsp" %>
 
 

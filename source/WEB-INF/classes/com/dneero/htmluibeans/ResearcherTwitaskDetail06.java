@@ -1,22 +1,27 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.dao.Creditcard;
+import com.dneero.dao.Twitask;
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
+import com.dneero.money.CurrentBalanceCalculator;
+import com.dneero.money.PaymentMethod;
+import com.dneero.money.TwitaskMoneyStatus;
+import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.Str;
+import com.dneero.util.Time;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-
-import java.util.*;
 import java.io.Serializable;
-
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.*;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.money.*;
-import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
-import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TreeMap;
 
 
 /**
@@ -104,7 +109,7 @@ public class ResearcherTwitaskDetail06 implements Serializable {
                 //Only worry about the credit carc stuff if there's not enough in the account currently
                 logger.debug("currentbalance: "+currentbalance);
                 logger.debug("tms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100): "+(tms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100)));
-                if(currentbalance<(tms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
+                if(!twitask.getIsfree() && currentbalance<(tms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
                     logger.debug("currentbalance is < tms.get.....");
                     if (Pagez.getUserSession().getUser().getChargemethod()==PaymentMethod.PAYMENTMETHODCREDITCARD){
                         logger.debug("Pagez.getUserSession().getUser().getChargemethod()== PaymentMethod.PAYMENTMETHODCREDITCARD");
@@ -174,7 +179,7 @@ public class ResearcherTwitaskDetail06 implements Serializable {
 
                 //See if there's enough in the account
                 boolean enoughinaccountnow = true;
-                if (currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
+                if (!twitask.getIsfree() && currentbalance<(sms.getMaxPossibleSpend()*(ResearcherRemainingBalanceOperations.INCREMENTALPERCENTTOCHARGE/100))){
                     enoughinaccountnow = false;
                 }
                 //Only worry about the credit card stuff if there's not enough in the account currently
@@ -286,10 +291,6 @@ public class ResearcherTwitaskDetail06 implements Serializable {
 
                 //Refresh
                 twitask.refresh();
-
-                //InstantNotify
-                InstantNotifyOfNewSurvey inons = new InstantNotifyOfNewSurvey(twitask.getTwitaskid());
-                inons.sendNotifications();
             }
         }
     }

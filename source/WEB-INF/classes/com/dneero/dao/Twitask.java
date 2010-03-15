@@ -1,21 +1,13 @@
 package com.dneero.dao;
 // Generated Apr 17, 2006 3:45:24 PM by Hibernate Tools 3.1.0.beta4
 
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.hibernate.BasePersistentClass;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.HibernateUtilDbcache;
-import com.dneero.dao.hibernate.HibernateUtilImpressions;
-import com.dneero.incentive.Incentive;
-import com.dneero.incentive.IncentiveFactory;
-import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.session.AuthControlled;
-import com.dneero.util.GeneralException;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.incentivetwit.Incentivetwit;
 import com.dneero.incentivetwit.IncentivetwitFactory;
+import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.session.AuthControlled;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -62,6 +54,9 @@ public class Twitask extends BasePersistentClass implements java.io.Serializable
      private Set<Twitaskincentive> twitaskincentives = new HashSet<Twitaskincentive>();
      private Incentivetwit incentivetwit;
      private long twitterid;
+     private boolean isfree=true;
+     private boolean isopentoanybody=true;
+     private boolean ishighquality=false;
 
     public static Twitask get(int id) {
         Logger logger = Logger.getLogger("com.dneero.dao.Twitask");
@@ -315,5 +310,29 @@ public class Twitask extends BasePersistentClass implements java.io.Serializable
 
     public void setTwitterid(long twitterid) {
         this.twitterid=twitterid;
+    }
+
+    public boolean getIsfree() {
+        return isfree;
+    }
+
+    public void setIsfree(boolean isfree) {
+        this.isfree = isfree;
+    }
+
+    public boolean getIsopentoanybody() {
+        return isopentoanybody;
+    }
+
+    public void setIsopentoanybody(boolean isopentoanybody) {
+        this.isopentoanybody = isopentoanybody;
+    }
+
+    public boolean getIshighquality() {
+        return ishighquality;
+    }
+
+    public void setIshighquality(boolean ishighquality) {
+        this.ishighquality = ishighquality;
     }
 }

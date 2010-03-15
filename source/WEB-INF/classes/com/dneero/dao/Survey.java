@@ -69,8 +69,8 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int impressionstobepaid;
      private boolean isaggressiveslotreclamationon = false;
      private int embedversion;
-     private boolean isfree=false;
-     private boolean isopentoanybody=false;
+     private boolean isfree=true;
+     private boolean isopentoanybody=true;
      private boolean ishighquality=false;
 
      private Set<Question> questions = new HashSet<Question>();

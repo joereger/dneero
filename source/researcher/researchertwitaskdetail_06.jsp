@@ -22,7 +22,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
         try {
             if (researcherTwitaskDetail06.getTwitask().getStatus()>Twitask.STATUS_DRAFT){
                 if (request.getParameter("action").equals("previous")){
-                    Pagez.sendRedirect("/researcher/researchertwitaskdetail_05.jsp?twitaskid="+ researcherTwitaskDetail06.getTwitask().getTwitaskid());
+                    Pagez.sendRedirect("/researcher/researchertwitaskdetail_05.jsp?twitaskid="+ researcherTwitaskDetail06.getTwitask().getTwitaskid()+"&ispreviousclick=1");
                     return;
                 } else {
                     Pagez.sendRedirect("/researcher/researchertwitaskdetail_postlaunch.jsp?twitaskid="+ researcherTwitaskDetail06.getTwitask().getTwitaskid());
@@ -52,7 +52,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
                 return;
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
-                Pagez.sendRedirect("/researcher/researchertwitaskdetail_05.jsp?twitaskid="+ researcherTwitaskDetail06.getTwitask().getTwitaskid());
+                Pagez.sendRedirect("/researcher/researchertwitaskdetail_05.jsp?twitaskid="+ researcherTwitaskDetail06.getTwitask().getTwitaskid()+"&ispreviousclick=1");
                 return;
             }
         } catch (ValidationException vex) {
@@ -83,7 +83,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail06.getTwitask().getTwitaskid()%>"/>
 
-
+    <%if (!researcherTwitaskDetail06.getTwitask().getIsfree()){%>
 
     <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
         <font class="mediumfont" style="color: #666666;">Financial Summary</font><br/>
@@ -288,6 +288,9 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
                 </td>
             </tr>
         </table>
+    <% } else { %>
+        We're ready to launch your Twitter Question.
+    <% }  %>
     <br/><br/>
     <!-- Start Bottom Nav -->
     <table cellpadding="0" cellspacing="0" border="0" width="100%">

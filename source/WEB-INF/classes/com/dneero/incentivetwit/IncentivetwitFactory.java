@@ -20,13 +20,15 @@ public class IncentivetwitFactory {
             return new IncentivetwitCash(twitaskincentive);
         } else if (id==IncentivetwitCoupon.ID){
             return new IncentivetwitCoupon(twitaskincentive);
+        } else if (id==IncentivetwitNone.ID){
+            return new IncentivetwitNone(twitaskincentive);
         }
         return null;
     }
 
 
     public static Incentivetwit getDefaultIncentive(){
-        return new IncentivetwitCash(null);
+        return new IncentivetwitNone(null);
     }
 
 }

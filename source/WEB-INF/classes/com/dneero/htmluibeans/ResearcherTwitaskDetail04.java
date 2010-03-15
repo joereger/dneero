@@ -1,20 +1,20 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
-
-import java.util.*;
-import java.io.Serializable;
-
-import com.dneero.dao.*;
+import com.dneero.dao.Panel;
+import com.dneero.dao.Twitask;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Str;
-
-import com.dneero.util.GeneralException;
-import com.dneero.util.Num;
+import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.finders.SurveyCriteriaXML;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -51,6 +51,7 @@ public class ResearcherTwitaskDetail04 implements Serializable {
     private String panelsStr;
     private String[] superpanels;
     private String superpanelsStr;
+    private boolean isopentoanybody=true;
 
     public ResearcherTwitaskDetail04(){
 
@@ -68,6 +69,7 @@ public class ResearcherTwitaskDetail04 implements Serializable {
             logger.debug("Found twitask in db: twitask.getTwitaskid()="+twitask.getTwitaskid()+" twitask.getQuestion()="+twitask.getQuestion());
             title = twitask.getQuestion();
             status = twitask.getStatus();
+            isopentoanybody = twitask.getIsopentoanybody();
             if (Pagez.getUserSession().getUser()!=null && twitask.canEdit(Pagez.getUserSession().getUser())){
                 logger.debug("twitask.canEdit(Pagez.getUserSession().getUser())="+twitask.canEdit(Pagez.getUserSession().getUser()));
                 //Do it with XML
@@ -110,7 +112,7 @@ public class ResearcherTwitaskDetail04 implements Serializable {
 
 
                 //Do it with XML
-                if (true){
+                if (!isopentoanybody){
                     SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(twitask.getCriteriaxml());
                     surveyCriteriaXML.setAgemin(agemin);
                     surveyCriteriaXML.setAgemax(agemax);
@@ -139,6 +141,7 @@ public class ResearcherTwitaskDetail04 implements Serializable {
                //Final save
                 try{
                     logger.debug("save() about to save (for 2nd time) twitask.getTwitaskid()=" + twitask.getTwitaskid());
+                    twitask.setIsopentoanybody(isopentoanybody);
                     twitask.save();
                     logger.debug("save() done saving (for 2nd time) twitask.getTwitaskid()=" + twitask.getTwitaskid());
                 } catch (GeneralException gex){
@@ -391,5 +394,13 @@ public class ResearcherTwitaskDetail04 implements Serializable {
 
     public void setTwitask(Twitask twitask) {
         this.twitask=twitask;
+    }
+
+    public boolean getIsopentoanybody() {
+        return isopentoanybody;
+    }
+
+    public void setIsopentoanybody(boolean isopentoanybody) {
+        this.isopentoanybody = isopentoanybody;
     }
 }

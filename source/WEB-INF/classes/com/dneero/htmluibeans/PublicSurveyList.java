@@ -92,29 +92,35 @@ public class PublicSurveyList implements Serializable {
 
                     StringBuffer earn = new StringBuffer();
                     StringBuffer earncompact = new StringBuffer();
-                    if (survey.getIncentive()==null){
-                        logger.debug("survey.getIncentive()==null");
-                    } else {
-                        logger.debug("survey.getIncentive().getSystemName()="+survey.getIncentive().getSystemName());
-                        if (survey.getIncentive().getSurveyincentive()==null){
-                            logger.debug("survey.getIncentive().getSurveyincentive()==null");
+
+                    if (!survey.getIsfree()){
+                        if (survey.getIncentive()==null){
+                            logger.debug("survey.getIncentive()==null");
                         } else {
-                            logger.debug("nothing null");
+                            logger.debug("survey.getIncentive().getSystemName()="+survey.getIncentive().getSystemName());
+                            if (survey.getIncentive().getSurveyincentive()==null){
+                                logger.debug("survey.getIncentive().getSurveyincentive()==null");
+                            } else {
+                                if(survey.getIncentive().getSurveyincentive().getType()== IncentiveCash.ID){
+                                    earn.append(survey.getIncentive().getShortSummary());
+                                    earncompact.append(survey.getIncentive().getShortSummary());
+                                } else if (survey.getIncentive().getSurveyincentive().getType()== IncentiveCoupon.ID){
+                                    earn.append("Coupon: "+survey.getIncentive().getShortSummary());
+                                    earncompact.append("Coupon");
+                                } else {
+                                    earn.append(survey.getIncentive().getShortSummary());
+                                    earncompact.append("");
+                                }
+                                if (survey.getWillingtopaypercpm()>0){
+                                    earn.append("<br/><font class=\"tinyfont\">plus $"+Str.formatForMoney(survey.getWillingtopaypercpm())+" per 1000 displays,<br/>max "+survey.getMaxdisplaysperblog()+" displays</font>");
+                                }
+                            }
                         }
+                    }  else {
+                        //earn.append("Free");
+                        //earncompact.append("Free");
                     }
-                    if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
-                        earn.append(survey.getIncentive().getShortSummary());
-                        earncompact.append(survey.getIncentive().getShortSummary());
-                    } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
-                        earn.append("Coupon: "+survey.getIncentive().getShortSummary());
-                        earncompact.append("Coupon");
-                    } else {
-                        earn.append(survey.getIncentive().getShortSummary());
-                        earncompact.append("");
-                    }
-                    if (survey.getWillingtopaypercpm()>0){
-                        earn.append("<br/><font class=\"tinyfont\">plus $"+Str.formatForMoney(survey.getWillingtopaypercpm())+" per 1000 displays,<br/>max "+survey.getMaxdisplaysperblog()+" displays</font>");
-                    }
+
                     bsli.setEarn(earn.toString());
                     bsli.setEarncompact(earncompact.toString());
 

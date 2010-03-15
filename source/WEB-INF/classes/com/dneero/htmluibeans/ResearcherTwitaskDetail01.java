@@ -1,25 +1,19 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-
-import com.dneero.util.Str;
-import com.dneero.util.Time;
-import com.dneero.util.Num;
-import com.dneero.htmlui.UserSession;
+import com.dneero.dao.Twitask;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.Time;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 
-
-import java.util.*;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * User: Joe Reger Jr
@@ -32,6 +26,8 @@ public class ResearcherTwitaskDetail01 implements Serializable {
     private Date startdate;
     private int status;
     private Twitask twitask;
+    private boolean isopentoanybody=true;
+    private boolean isfree=true;
 
 
 
@@ -80,6 +76,9 @@ public class ResearcherTwitaskDetail01 implements Serializable {
         twitask.setCharityonlyallowcustom(false);
         twitask.setCriteriaxml("");
         twitask.setScorebysysadmin(0);
+        twitask.setIsfree(true);
+        twitask.setIsopentoanybody(true);
+        twitask.setIshighquality(false);
     }
 
 
@@ -124,6 +123,9 @@ public class ResearcherTwitaskDetail01 implements Serializable {
             twitask.setSenttotwitterdate(Time.xYearsAgoEnd(Calendar.getInstance(), 20).getTime());
             twitask.setClosedintwitterdate(Time.xYearsAgoEnd(Calendar.getInstance(), 20).getTime());
             twitask.setTwitterid(0);
+            twitask.setIsfree(isfree);
+            twitask.setIsopentoanybody(isopentoanybody);
+            twitask.setIshighquality(false);
 
             boolean isnewtwitask = true;
 
@@ -194,5 +196,21 @@ public class ResearcherTwitaskDetail01 implements Serializable {
 
     public void setTwitask(Twitask twitask) {
         this.twitask=twitask;
+    }
+
+    public boolean getIsopentoanybody() {
+        return isopentoanybody;
+    }
+
+    public void setIsopentoanybody(boolean isopentoanybody) {
+        this.isopentoanybody = isopentoanybody;
+    }
+
+    public boolean getIsfree() {
+        return isfree;
+    }
+
+    public void setIsfree(boolean isfree) {
+        this.isfree = isfree;
     }
 }

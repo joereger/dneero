@@ -2,6 +2,7 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail05" %>
 <%@ page import="com.dneero.incentive.IncentiveCash" %>
 <%@ page import="com.dneero.incentive.IncentiveCoupon" %>
+<%@ page import="com.dneero.incentive.IncentiveNone" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail05) Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getTitle() + "</font>\n" +
@@ -19,6 +20,17 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
         Pagez.sendRedirect("/researcher/researchersurveydetail_04.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid()+"&ispreviousclick=1");
         return;
     }
+    //Make sure there's a Surveyincentive for this mofo
+    Surveyincentive si = researcherSurveyDetail05.getSurvey().getIncentive().getSurveyincentive();
+    if (si==null){
+        si = new Surveyincentive();
+        logger.debug("Had to create a new Surveyincentive()");
+    }
+    si.setType(IncentiveNone.ID);
+    si.setSurveyid(researcherSurveyDetail05.getSurvey().getSurveyid());
+    try{si.save();}catch(Exception ex){logger.error("", ex);}
+    researcherSurveyDetail05.getSurvey().refresh();
+    //Redir to the next step
     Pagez.sendRedirect("/researcher/researchersurveydetail_06.jsp?surveyid="+researcherSurveyDetail05.getSurvey().getSurveyid());
     return;
 }%>
