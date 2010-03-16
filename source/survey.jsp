@@ -117,7 +117,7 @@ String acl = "public";
     <%}%>
     <%if (!publicSurvey.getHaveerror()){%>
         <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
-        <table width="100%" cellpadding="2">
+        <table width="600" cellpadding="2">
             <tr>
                 <td valign="top" width="450">
                 <% if (publicSurvey.getUserwhotooksurvey()!=null){ %>

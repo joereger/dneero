@@ -44,153 +44,53 @@ String acl = "public";
     <br/><br/><br/>
 
 
-    <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
-    <table width="100%" cellpadding="5">
-        <tr>
-            <td valign="top" width="450">
-
-                <script language="JavaScript" type="text/javascript">
-                  <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
-                    var panels = new Array('panel1', 'panel1a', 'panel2', 'panel3');
-                  <%} else {%>
-                    var panels = new Array('panel1', 'panel1a', 'panel2');
-                  <%}%>
-                  var selectedTab = null;
-                  function showPanel(tab, name)
-                  {
-                    if (selectedTab)
-                    {
-                      selectedTab.style.backgroundColor = '';
-                      selectedTab.style.paddingTop = '';
-                      selectedTab.style.marginTop = '4px';
-                    }
-                    selectedTab = tab;
-                    selectedTab.style.backgroundColor = 'white';
-                    selectedTab.style.paddingTop = '6px';
-                    selectedTab.style.marginTop = '0px';
-
-                    for(i = 0; i < panels.length; i++){
-                      document.getElementById(panels[i]).style.display = (name == panels[i]) ? 'block':'none';
-                    }
-                    return false;
-                  }
-                </script>
-                <div id="tabs">
-                <%
-                    String onclick = "onclick=\"return false;\"";
-                    if (Pagez.getUserSession().getIsfacebookui()){
-                        onclick = "";
-                    }
-                %>
-                <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel1" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" <%=onclick%>>Main Questions</a>
-                    <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel1a" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1a');" id="tab1a" <%=onclick%>>User Questions</a>
-                <%if (!Pagez.getUserSession().getIsfacebookui()){%>
-                    <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel2" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" <%=onclick%>><%=publicSurveyResults.getResultsfriendstabtext()%></a>
-                <%}%>
-                <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
-                    <a href="/surveyresults.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>&panel=panel3" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel3');" <%=onclick%>>Your Friends</a>
-                <%}%>
-                </div>
-                <%
-                String panel1style = "display: none";
-                if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel1")){
-                    panel1style = "display: block";
-                }
-                if (request.getParameter("panel")==null){
-                    panel1style = "display: block";    
-                }
-                %>
-                <div class="panel" id="panel1" style="<%=panel1style%>">
-                    <img src="/images/clear.gif" width="415" height="1"/><br/>
-                    <font class="mediumfont" style="color: #cccccc;">Main Questions</font><br/>
-                    <%=publicSurveyResults.getResultsHtml()%>
-                </div>
-                <%
-                String panel1astyle = "display: none";
-                if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel1a")){
-                    panel1astyle = "display: block";
-                }
-                %>
-                <div class="panel" id="panel1a" style="<%=panel1astyle%>">
-                    <img src="/images/clear.gif" width="415" height="1"/><br/>
-                    <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/><br/>
-                    <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: left;">
-                        <font class="smallfont" style="font-weight: bold;">All the questions on this page were added by social people involved in the conversation.  Their question appears when somebody visits their blog or social network and then joins in the conversation.</font>
-                    </div>
-                    <br/>
-                    <%=publicSurveyResults.getResultsUserquestionsHtml()%>
-                </div>
-                <%
-                String panel2style = "display: none";
-                if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel2")){
-                    panel2style = "display: block";
-                }
-                %>
-                <%if (!Pagez.getUserSession().getIsfacebookui()){%>
-                    <div class="panel" id="panel2" style="<%=panel2style%>">
-                        <img src="/images/clear.gif" width="415" height="1"/><br/>
-                        <font class="mediumfont" style="color: #cccccc;"><%=publicSurveyResults.getResultsfriendstabtext()%></font><br/>
-                        <table width="100%" cellpadding="10" cellspacing="0" border="0">
-                            <tr>
-                                <td valign="top">
-                                    <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                <%}%>
-                <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
-                    <%
-                    String panel3style = "display: none";
-                    if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel3")){
-                        panel3style = "display: block";
-                    }
-                    %>
-                    <div class="panel" id="panel3" style="<%=panel3style%>">
-                        <img src="/images/clear.gif" width="415" height="1"/><br/>
-                        <font class="mediumfont" style="color: #cccccc;">Your Friends</font><br/>
-                        <%=publicSurveyResults.getResultsYourFriends()%>
-                    </div>
-                <%}%>
-            </td>
-            <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
-                <td valign="top" align="left">
-                    <div class="rounded" style="background: #00ff00;">
-                        <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <center><img src="/images/statistic-128.png" width="128" height="128"/></center>
-                            <br/>
-                            <% if (publicSurveyResults.getSurvey().getStatus()>=Survey.STATUS_CLOSED){ %>
-                                <div class="rounded" style="background: #cccccc; text-align: center;">
-                                    <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
-                                    <br/>
-                                    <font class="mediumfont">This conversation is closed.</font>
-                                </div>
-                                <br/>
-                            <% } %>
-                            <% if (publicSurveyResults.getSurvey().getIscharityonly()){ %>
-                                <br/><br/>
-                                <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                                    <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
-                                    <br/>
-                                    <font class="mediumfont">This is a Charity Only conversation.</font>
-                                    <br/>
-                                    <font class="tinyfont">The conversation creator requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
-                                </div>
-                            <% } %>
-                        </div>
-                        <br/>
-                        <font class="smallfont">
-                            <br/><br/><b>For more info:</b><br/>
-                            Click the Questions tab on this page.
-                        </font>
-                    </div>
-                </td>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Main Questions</a></li>
+            <li><a href="#tabs-2">User Questions</a></li>
+            <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+            <li><a href="#tabs-3"><%=publicSurveyResults.getResultsfriendstabtext()%></a></li>
             <% } %>
-        </tr>
-    </table>
+            <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
+            <li><a href="#tabs-2">Your Friends</a></li>
+            <%}%>
+        </ul>
+        <div id="tabs-1">
+            <font class="mediumfont" style="color: #cccccc;">Main Questions</font><br/>
+            <%=publicSurveyResults.getResultsHtml()%>
+        </div>
+        <div id="tabs-2">
+            <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/><br/>
+            <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: left;">
+                <font class="smallfont" style="font-weight: bold;">All the questions on this page were added by social people involved in the conversation.  Their question appears when somebody visits their blog or social network and then joins in the conversation.</font>
+            </div>
+            <br/>
+            <%=publicSurveyResults.getResultsUserquestionsHtml()%>
+        </div>
+        <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+            <div id="tabs-3">
+                <font class="mediumfont" style="color: #cccccc;"><%=publicSurveyResults.getResultsfriendstabtext()%></font><br/>
+                <table width="100%" cellpadding="10" cellspacing="0" border="0">
+                    <tr>
+                        <td valign="top">
+                            <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        <%}%>
+        <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
+            <div id="tabs-4">
+                <font class="mediumfont" style="color: #cccccc;">Your Friends</font><br/>
+                <%=publicSurveyResults.getResultsYourFriends()%>
+            </div>
+        <%}%>
 
 
 
+<script>
+        $('#tabs').tabs();
+</script>
 
 
 

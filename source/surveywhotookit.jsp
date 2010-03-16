@@ -62,66 +62,24 @@ String acl="public";
     </table>
 
     <br/>
-    <script language="JavaScript" type="text/javascript">
-      var panels = new Array('panel1', 'panel2');
-      var selectedTab = null;
-      function showPanel(tab, name)
-      {
-        if (selectedTab)
-        {
-          selectedTab.style.backgroundColor = '';
-          selectedTab.style.paddingTop = '';
-          selectedTab.style.marginTop = '4px';
-        }
-        selectedTab = tab;
-        selectedTab.style.backgroundColor = 'white';
-        selectedTab.style.paddingTop = '6px';
-        selectedTab.style.marginTop = '0px';
-
-        for(i = 0; i < panels.length; i++){
-          document.getElementById(panels[i]).style.display = (name == panels[i]) ? 'block':'none';
-        }
-        return false;
-      }
-    </script>
     <div id="tabs">
-    <%
-        String onclick = "onclick=\"return false;\"";
-        if (Pagez.getUserSession().getIsfacebookui()){
-            onclick = "";
-        }
-    %>
-    <a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>&panel=panel1" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" <%=onclick%>>Who Took It?</a>
-    <%if (!Pagez.getUserSession().getIsfacebookui()){%>
-        <a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>&panel=panel2" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" <%=onclick%>>Where It's Been Posted</a>
-    <%}%>
-    </div>
-    <%
-    String panel1style = "display: none";
-    if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel1")){
-        panel1style = "display: block";
-    }
-    if (request.getParameter("panel")==null){
-        panel1style = "display: block";
-    }
-    %>
-    <div class="panel" id="panel1" style="<%=panel1style%>">
-            <img src="/images/clear.gif" width="550" height="1"/><br/>
+        <ul>
+            <li><a href="#tabs-1">Who Took It?</a></li>
+            <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+            <li><a href="#tabs-2">Where It's Been Posted</a></li>
+            <% } %>
+        </ul>
+        <div id="tabs-1">
             <%=publicSurveyWhotookit.getWhotookitHtml()%>
-    </div>
-    <%
-    String panel2style = "display: none";
-    if (request.getParameter("panel")!=null && request.getParameter("panel").equals("panel2")){
-        panel2style = "display: block";
-    }
-    %>
-    <div class="panel" id="panel2" style="<%=panel2style%>">
-            <img src="/images/clear.gif" width="550" height="1"/><br/>
+        </div>
+        <div id="tabs-2">
             <%=publicSurveyWhotookit.getImpressionsHtml()%>
     </div>
 
 
-    
+<script>
+        $('#tabs').tabs();
+</script>    
 
 
 

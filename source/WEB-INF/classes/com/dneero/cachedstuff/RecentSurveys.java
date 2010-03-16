@@ -111,12 +111,14 @@ public class RecentSurveys implements CachedStuff, Serializable {
         out.append("</td>");
         out.append("<td nowrap>");
         out.append("<font class='tinyfont'>");
-        if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
-            out.append("<b>"+ survey.getIncentive().getShortSummary()+"</b>");
-        } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
-            out.append("<b>Coupon</b>");
-        } else {
-            out.append("");
+        if (!survey.getIsfree()){
+            if(survey.getIncentive().getSurveyincentive().getType()==IncentiveCash.ID){
+                out.append("<b>"+ survey.getIncentive().getShortSummary()+"</b>");
+            } else if (survey.getIncentive().getSurveyincentive().getType()==IncentiveCoupon.ID){
+                out.append("<b>Coupon</b>");
+            } else {
+                out.append("");
+            }
         }
         out.append("</font>");
         out.append("</td>");

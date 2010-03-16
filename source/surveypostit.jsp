@@ -72,7 +72,7 @@ String acl = "public";
                         <%=publicSurveyPostit.getSurveyOnBlogPreview()%>
                     </td>
                     <td valign="top">
-                        <div class="rounded" style="background: #00ff00;">
+                        <div class="rounded" style="background: #cccccc;">
                             <div class="rounded" style="background: #ffffff; text-align: center;">
                                 <font class="mediumfont">What's this?</font>
                                 <br/>
