@@ -187,12 +187,12 @@ String acl="researcher";
                                         cols.add(new GridCol("", "<a href=\"/researcher/researchersurveydetail_02.jsp?action=deletequestion&questionid=<$questionid$>&surveyid="+researcherSurveyDetail02.getSurvey().getSurveyid()+"\">Del</a>", false, "", "smallfont"));
                                     }
                                     if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){
-                                        cols.add(new GridCol("Order", "<input type='text' name='questionorder-<$questionid$>' value='<$questionorder$>' size='2' maxlength='4'>", true, "", "smallfont"));
+                                        cols.add(new GridCol("Order", "<input type='text' name='questionorder-<$questionid$>' value='<$questionorder$>' size='6' maxlength='4'>", true, "", "smallfont"));
                                     }
                                 %>
                                 <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "/researcher/researchersurveydetail_02.jsp", "page")%>
                                 <%if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){%>
-                                    <div style="float:right;"><input type="submit" class="formsubmitbutton" value="Refresh" onclick="document.getElementById('action').value='questionorder';" style="padding-right:25px;"></div>
+                                    <div style="float:right;"><input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="update" onclick="document.getElementById('action').value='questionorder';"></div>
                                     <br clear="all"/>
                                 <%}%>
                             <%}%>
@@ -232,13 +232,13 @@ String acl="researcher";
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">
+                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Previous Step" onclick="document.getElementById('action').value='previous';">
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail02.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
                 <%}%>
-                <input type="submit" class="formsubmitbutton" value="Next Step">
+                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Next Step">
             </td>
         </tr>
     </table>

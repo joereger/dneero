@@ -31,7 +31,7 @@ ResearcherTwitaskDelete researcherTwitaskDelete= (ResearcherTwitaskDelete) Pagez
         <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDelete.getTwitask().getTwitaskid()%>">
         <font class="mediumfont">Are you sure you want to delete the Twitter Question<br/>"<%=researcherTwitaskDelete.getTwitask().getQuestion()%>"?</font>
         <br/><br/>
-        <input type="submit" class="formsubmitbutton" value="Yes, Delete this Twitter Question">
+        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Yes, Delete this Twitter Question">
         <br/><br/>
         <a href="/researcher/index.jsp"><font class="subnavfont">Nevermind, Don't Delete</font></a>
     </form>

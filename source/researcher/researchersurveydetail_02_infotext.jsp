@@ -120,7 +120,7 @@ ResearcherSurveyDetail02infotext researcherSurveyDetail02infotext = (ResearcherS
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Save Text and Continue">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Text and Continue">
                     <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02infotext.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>

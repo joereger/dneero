@@ -75,7 +75,7 @@ AccountNewInboxMessage accountNewInboxMessage= (AccountNewInboxMessage) Pagez.ge
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Send Message">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Send Message">
                     </td>
                 </tr>
 

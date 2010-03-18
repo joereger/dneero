@@ -288,7 +288,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                             </td>
                             <td valign="top">
                                <br/><br/>
-                               <input type="submit" class="formsubmitbutton" value="Save Profile">
+                               <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Profile">
                             </td>
                         </tr>
 

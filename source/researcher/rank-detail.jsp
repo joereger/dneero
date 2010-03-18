@@ -89,7 +89,7 @@ String acl = "researcher";
                         <input type="hidden" name="dpage" value="/researcher/rank-addquestion.jsp">
                         <input type="hidden" name="action" value="addquestion">
                         <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">
-                        <input type="submit" class="formsubmitbutton" value="Add a Question">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Add a Question">
                     </form>
                     <font class="tinyfont">You build your ranking by defining points for possible answers to questions.  When people answer the questions that constitute the index they score (or lose) points.</font>
                 </div>
@@ -113,7 +113,7 @@ String acl = "researcher";
                         <input type="hidden" name="dpage" value="/researcher/panels-addpeople.jsp">
                         <input type="hidden" name="showonly" value="addbyrankingpercent">
                         <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">
-                        <input type="submit" class="formsubmitbutton" value="Add People to Panel">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Add People to Panel">
                     </form>
                     <font class="tinyfont">Add all or some or these people to Panels of respondents.  On the next screen you can apply filters to only add the top 90%, for example.</font>
                 </div>
@@ -122,7 +122,7 @@ String acl = "researcher";
                     <form action="/researcher/rank-demographics.jsp" method="get">
                         <input type="hidden" name="dpage" value="/researcher/rank-demographics.jsp">
                         <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">
-                        <input type="submit" class="formsubmitbutton" value="Ranking Demographics">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Ranking Demographics">
                     </form>
                     <font class="tinyfont">Age, gender, etc for members of this Ranking.</font>
                 </div>
@@ -134,7 +134,7 @@ String acl = "researcher";
                         <input type="hidden" name="rankid" value="<%=researcherRankDetail.getRank().getRankid()%>">
                         <%=Textbox.getHtml("name", researcherRankDetail.getRank().getName(), 255, 25, "", "")%>
                         <br/>
-                        <input type="submit" class="formsubmitbutton" value="Edit Ranking">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Edit Ranking">
                     </form>
                 </div>
 

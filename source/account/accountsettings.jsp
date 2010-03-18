@@ -185,7 +185,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     </td>
                     <td valign="top">
                         <br/><br/>
-                        <input type="submit" class="formsubmitbutton" value="Save Settings">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Settings">
                     </td>
                 </tr>
 

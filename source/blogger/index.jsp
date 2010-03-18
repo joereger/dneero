@@ -21,6 +21,10 @@ String acl = "public";
     BloggerCompletedsurveys bloggerCompletedsurveys = (BloggerCompletedsurveys) Pagez.getBeanMgr().get("BloggerCompletedsurveys");
     BloggerCompletedTwitasks bloggerCompletedTwitasks = (BloggerCompletedTwitasks) Pagez.getBeanMgr().get("BloggerCompletedTwitasks");
 %>
+<%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){
+    Pagez.sendRedirect("/publicsurveylist.jsp");
+}%>
+
 <%@ include file="/template/header.jsp" %>
 
 
@@ -38,7 +42,7 @@ String acl = "public";
         <%if (bloggerIndex.getResponsependingmsg()!=null && !bloggerIndex.getResponsependingmsg().equals("")){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
                 <img src="/images/alert.png" border="0" align="right"/>
-                <font class="mediumfont"><f:verbatim escape="false"><%=bloggerIndex.getResponsependingmsg()%></f:verbatim></font>
+                <font class="mediumfont"><%=bloggerIndex.getResponsependingmsg()%></font>
             </div>
             <br/><br/>
         <%}%>

@@ -133,7 +133,7 @@ if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Post Comment">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Post Comment">
                     </td>
                 </tr>
 

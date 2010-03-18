@@ -70,7 +70,7 @@ String acl = "customercare";
             <input type="hidden" name="action" value="newpanel">
             <%=com.dneero.htmlui.Textbox.getHtml("newpanelname", customercarePanels.getNewpanelname(), 255, 35, "", "")%>
             <br/><%=com.dneero.htmlui.Textarea.getHtml("newpaneldescription", customercarePanels.getNewpaneldescription(), 5, 45, "", "")%>
-            <br/><input type="submit" class="formsubmitbutton" value="Create a New SuperPanel">
+            <br/><input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Create a New SuperPanel">
         </form>
 
 

@@ -160,8 +160,9 @@ public class UpdateResponsePoststatus implements Job {
                                 "\t</tr>\n" +
                                 "</table>");
 
-            logger.debug("statusHtml="+statusHtml.toString());
+
             //Store it in the database for the response
+            logger.debug("statusHtml="+statusHtml.toString());
             try{
                 if (daysthatqualify>=1){
                     logger.debug("response.setPoststatus(Response.POSTATUS_POSTEDATLEASTONCE)");

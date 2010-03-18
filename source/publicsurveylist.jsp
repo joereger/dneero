@@ -77,13 +77,13 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 "                                    <font class=\"normalfont\"><$description$></font><br/><br/>\n" +
 "                                    <$accessonlyhtml$> <font class=\"tinyfont\"><b><$daysuntilend$></b></font>\n" +
 "                                </td>\n" +
-"                                <td width=\"30%\">\n" +
-"                                    <div class=\"rounded\" style=\"background: #ffffff; padding: 10px;\">\n" +
+"                                <td width=\"30%\">");
+                                 srv.append("<div class=\"rounded\" style=\"background: #ffffff; padding: 10px;\">\n" +
 "                                        <center>\n" +
 "                                            <font class=\"mediumfont\"><$earn$></font><br/>\n" +
 "                                        </center>\n" +
-"                                    </div>\n" +
-"                                </td>\n" +
+"                                    </div>");
+                             srv.append("</td>\n" +
 "                            </tr>\n" +
 "                        </table>\n" +
 "                    </div>");
@@ -186,7 +186,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                 <input type="hidden" name="action" value="enteraccesscode">
                                 <font class="normalfont"><b>Got an Access Code?</b></font>
                                 <%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
-                                <input type="submit" class="formsubmitbutton" value="Go">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Go">
                             </form>
                         </div>
 

@@ -130,20 +130,20 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
                     </td>
                 </tr>
              </table>
-             <input type="submit" class="formsubmitbutton" value="Save and Preview"><br/>
-             <input type="submit" class="formsubmitbutton" value="Send" onclick="document.getElementById('action').value='send';">
+             <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save and Preview"><br/>
+             <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Send" onclick="document.getElementById('action').value='send';">
 
 
             <br/><br/>
             <font class="formfieldnamefont">Test-send to this email address:</font>
             <br/>
             <%=Textbox.getHtml("testsendemailaddress", sysadminMassemailDetail.getTestsendemailaddress(), 255, 35, "", "")%>
-            <input type="submit" class="formsubmitbutton" value="Test Send" onclick="document.getElementById('action').value='testsend';">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Test Send" onclick="document.getElementById('action').value='testsend';">
 
             <br/><br/>
             <font class="formfieldnamefont">Create a copy of this Mass Email:</font>
             <br/>
-            <input type="submit" class="formsubmitbutton" value="Copy" onclick="document.getElementById('action').value='copy';">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Copy" onclick="document.getElementById('action').value='copy';">
 
         </form>
         <br/><br/>

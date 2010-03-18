@@ -178,13 +178,13 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <!--<input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">-->
+                <!--<input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Previous Step" onclick="document.getElementById('action').value='previous';">-->
             </td>
             <td valign="top" align="right">
                 <%if (researcherSurveyDetail01.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
-                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
                 <%}%>
-                <input type="submit" class="formsubmitbutton" value="Next Step">
+                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Next Step">
             </td>
         </tr>
     </table>

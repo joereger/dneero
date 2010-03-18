@@ -60,7 +60,7 @@ String acl = "researcher";
                             </tr>
                             <tr>
                                 <td valign="top">
-                                    <input type="submit" class="formsubmitbutton" value="Create a New Ranking">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Create a New Ranking">
                                 </td>
                             </tr>
                         </table>

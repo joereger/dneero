@@ -73,7 +73,7 @@ LostPassword lostPassword = (LostPassword)Pagez.getBeanMgr().get("LostPassword")
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Recover Password by Email">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Recover Password by Email">
                 </td>
             </tr>
 

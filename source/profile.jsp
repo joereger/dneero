@@ -204,7 +204,7 @@ String acl = "public";
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="userid" value="<%=publicProfile.getUser().getUserid()%>">
                 <%=com.dneero.htmlui.Dropdown.getHtml("panelid", String.valueOf(publicProfile.getPanelid()), publicProfile.getPanelids(), "", "")%>
-                <input type="submit" class="formsubmitbutton" value="Add Blogger To Panel">
+                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Add Blogger To Panel">
             </form>
         <%}%>
 
@@ -228,7 +228,7 @@ String acl = "public";
                 <input type="hidden" name="action" value="addsuperpanel">
                 <input type="hidden" name="userid" value="<%=publicProfile.getUser().getUserid()%>">
                 <%=com.dneero.htmlui.Dropdown.getHtml("superpanelid", String.valueOf(publicProfile.getSuperpanelid()), publicProfile.getSuperPanelids(), "", "")%>
-                <input type="submit" class="formsubmitbutton" value="Add Blogger To SuperPanel">
+                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Add Blogger To SuperPanel">
             </form>
         <%}%>
 

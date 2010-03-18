@@ -103,7 +103,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Save!">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save!">
                     <%if (sysadminBlogpost.getBlogpostid()>0){%>
                         <br/><br/>
                         <a href="/sysadmin/blogpost.jsp?blogpostid=<%=sysadminBlogpost.getBlogpostid()%>&action=delete"><font class="tinyfont">Delete</font></a>

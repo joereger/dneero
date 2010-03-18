@@ -354,7 +354,7 @@ String acl = "sysadmin";
 
 
              </table>
-             <input type="submit" class="formsubmitbutton" value="Save"><br/>
+             <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save"><br/>
 
 
 

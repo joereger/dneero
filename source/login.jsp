@@ -102,7 +102,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Log In">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Log In">
                     </td>
                 </tr>
 

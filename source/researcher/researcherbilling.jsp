@@ -136,7 +136,7 @@ ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get(
 
             <table cellpadding="0" cellspacing="0" border="0">
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Save Billing Details">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Billing Details">
                 </td>
                 <td valign="top">
                 </td>

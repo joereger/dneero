@@ -56,7 +56,7 @@ CustomercarePanelsEdit customercarePanelsEdit= (CustomercarePanelsEdit)Pagez.get
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Edit SuperPanel">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Edit SuperPanel">
                 </td>
             </tr>
 

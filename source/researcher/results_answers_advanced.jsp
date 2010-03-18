@@ -311,7 +311,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                             </td>
                             <td valign="top" colspan="3">
                                 <%=Textbox.getHtml("filtername", String.valueOf(researcherResultsAnswersAdvanced.getFiltername()), 50, 30, "", "")%>
-                                <input type="submit" class="formsubmitbutton" value="Show Results">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Show Results">
                             </td>
 
                         </tr>
@@ -343,7 +343,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                                 cols.add(new GridCol("", "<a href=\"/researcher/results_answers_advanced.jsp?action=deletefilter&respondentfilterid=<$respondentfilterid$>&surveyid="+researcherResultsAnswersAdvanced.getSurvey().getSurveyid()+"\"><img src=\"/images/delete-16.png\" width=\"16\" height=\"16\" border=\"0\" alt=\"Delete this filter\"></a>", false, "", "tinyfont"));
                             %>
                             <%=Grid.render(researcherResultsAnswersAdvanced.getRespondentfilters(), cols, 500, "/researcher/results_answers_advanced.jsp", "page")%>
-                            <!--<input type="submit" class="formsubmitbutton" value="Show Filtered Results">-->
+                            <!--<input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Show Filtered Results">-->
                             <br/>
                             <font class="tinyfont">Choose a filter to see the results from this conversation filtered through it.</font>
                             </form>

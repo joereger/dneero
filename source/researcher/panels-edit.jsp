@@ -46,7 +46,7 @@ ResearcherPanelsEdit researcherPanelsEdit = (ResearcherPanelsEdit)Pagez.getBeanM
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Edit Panel">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Edit Panel">
                 </td>
             </tr>
 

@@ -1,25 +1,22 @@
 package com.dneero.display;
 
-import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.display.components.def.Component;
-import com.dneero.util.Num;
-import com.dneero.util.Util;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.systemprops.BaseUrl;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.io.ByteArrayOutputStream;
-
+import com.dneero.util.Num;
+import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -412,6 +409,10 @@ public class SurveyTemplateProcessorV2 {
                 String ischarityonlyStr = "0";
                 if (survey.getIscharityonly()){ischarityonlyStr="1";}
                 srvEl.setAttribute("ischarityonly", String.valueOf(ischarityonlyStr));
+                String isfreeStr = "0";
+                if (survey.getIsfree()){isfreeStr="1";}
+                srvEl.setAttribute("isfree", String.valueOf(isfreeStr));
+                elResp.setAttribute("isfree", String.valueOf(isfreeStr));
                 Element srvTitle = new Element("title");
                 srvTitle.setText(survey.getTitle());
                 srvEl.addContent(srvTitle);

@@ -73,7 +73,7 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Re-Send Activation Email">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Re-Send Activation Email">
                     </td>
                 </tr>
 

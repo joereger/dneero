@@ -94,7 +94,7 @@ if (panel==null || panel.getPanelid()<=0 || !panel.getIssystempanel()){
     <%=CheckboxBoolean.getHtml("venuessuitable", false, "", "")%><font class="normalfont" style="font-weight: bold;">One or more of my Posting Venues is suitable for this SuperPanel</font>
     <br/>
     <br/>
-    <input type="submit" class="formsubmitbutton" value="Apply to SuperPanel">
+    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Apply to SuperPanel">
 
 </form></blockquote>
 

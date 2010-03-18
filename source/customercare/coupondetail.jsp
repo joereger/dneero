@@ -134,7 +134,7 @@ String acl = "customercare";
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Save Coupon">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Coupon">
                     </td>
                 </tr>
 

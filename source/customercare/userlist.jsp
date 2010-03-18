@@ -100,7 +100,7 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
             </tr>
             <tr>
                 <td valign="top" colspan="5">
-                    <input type="submit" class="formsubmitbutton" value="Search">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Search">
                 </td>
             </tr>
         </table>

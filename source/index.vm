@@ -35,7 +35,7 @@
                         <input type="hidden" name="action" value="enteraccesscode">
                         <font class="mediumfont" style="color: #999999;">Got an Access Code?</font><br/>
                         <input type="text" name="accesscode" size="10" maxlength="250">
-                        <input type="submit" class="formsubmitbutton" value="Use Access Code" style="font-size: 11px;">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Use Access Code" style="font-size: 11px;">
                     </form>
                 </div>
 
@@ -52,10 +52,10 @@
 
                <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Recent Earners</font><br/>
-                    $recentDonations.html
-               </div>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <font class="mediumfont" style="color: #999999;">Recent Earners</font><br/>
+##                    $recentDonations.html
+##               </div>
 
            </td>
            <td>
@@ -67,7 +67,7 @@
 
                 <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                     <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 5 min</font></div>
-                    <font class="mediumfont" style="color: #999999;">Recent Conversation Ignitions</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Recent Conversation Participants</font><br/>
                     $recentConvoJoins.html
                 </div>
 
@@ -79,33 +79,33 @@
                     $twitterAnswers.html
                 </div>
 
-                <br/>
+##                <br/>
+##
+##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <table cellpadding="0" cellspacing="10" border="0" width="100%">
+##                        <tr>
+##                            <td width="50%">
+##                                <div class="rounded" style="background: #ffffff; padding: 10px;">
+##                                    <font class="mediumfont" style="color: #999999;">Recent Money Earners</font><br/>
+##                                    $recentlyPaid.html
+##                                </div>
+##                            </td>
+##                            <td width="50%">
+##                                <div class="rounded" style="background: #ffffff; padding: 10px;">
+##                                    <font class="mediumfont" style="color: #999999;">Newest Users</font><br/>
+##                                    $newestUsers.html
+##                                </div>
+##                            </td>
+##                        </tr>
+##                    </table>
+##                </div>
 
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <table cellpadding="0" cellspacing="10" border="0" width="100%">
-                        <tr>
-                            <td width="50%">
-                                <div class="rounded" style="background: #ffffff; padding: 10px;">
-                                    <font class="mediumfont" style="color: #999999;">Recent Money Earners</font><br/>
-                                    $recentlyPaid.html
-                                </div>
-                            </td>
-                            <td width="50%">
-                                <div class="rounded" style="background: #ffffff; padding: 10px;">
-                                    <font class="mediumfont" style="color: #999999;">Newest Users</font><br/>
-                                    $newestUsers.html
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <br/>
-
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Blog Posts/Latest News/System Status</font><br/>
-                    $blogPosts.html
-                </div>
+##                <br/>
+##
+##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <font class="mediumfont" style="color: #999999;">Blog Posts/Latest News/System Status</font><br/>
+##                    $blogPosts.html
+##                </div>
            </td>
        </tr>
 

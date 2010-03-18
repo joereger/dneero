@@ -133,7 +133,7 @@ String acl = "researcher";
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Save Points">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Points">
                 </td>
             </tr>
 

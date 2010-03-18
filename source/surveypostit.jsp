@@ -126,7 +126,7 @@ String acl = "public";
                             <input type="hidden" name="dpage" value="/surveypostit.jsp">
                             <input type="hidden" name="action" value="updatefacebookprofile">
                             <input type="hidden" name="surveyid" value="<%=publicSurveyPostit.getSurvey().getSurveyid()%>">
-                            <input type="submit" class="formsubmitbutton" value="Update Facebook Profile">
+                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Update Facebook Profile">
                         </form>
                     </div>
                 <% } %>

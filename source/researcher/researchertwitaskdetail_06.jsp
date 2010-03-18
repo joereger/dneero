@@ -258,7 +258,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
                 <td valign="top">
                     <font class="normalfont">
                         <ul>
-                            <li>I understand that by igniting this Twitter Question I am committing to spending up to <%=researcherTwitaskDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
+                            <li>I understand that by creating this Twitter Question I am committing to spending up to <%=researcherTwitaskDetail06.getMaxpossiblespend()%> (Max Possible Spend.)</li>
                             <li>Actual charges will be based only on the activities of Twitter Question completion.</li>
                             <li>I understand that my account balance must be sufficient to support activities:
                                 <ul>
@@ -279,7 +279,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
                             <br/>
                             <%=Textbox.getHtml("resellercode", researcherTwitaskDetail06.getResellercode(), 50, 15, "", "font-size: 10px;")%>
                             <br/>
-                            <input type="submit" class="formsubmitbutton" value="Apply Reseller Code" onclick="document.getElementById('action').value='applyresellercode';" style="font-size: 10px;">
+                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Apply Reseller Code" onclick="document.getElementById('action').value='applyresellercode';" style="font-size: 10px;">
                             <br/>
                             <font class="tinyfont">Enter Reseller Code so that resellers paid for their efforts.  This will not affect your pricing.</font>
                             </center>
@@ -296,14 +296,14 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td valign="top" align="left">
-                <input type="submit" class="formsubmitbutton" value="Previous Step" onclick="document.getElementById('action').value='previous';">
+                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Previous Step" onclick="document.getElementById('action').value='previous';">
             </td>
             <td valign="top" align="right">
                 <%if (researcherTwitaskDetail06.getTwitask().getStatus()==Twitask.STATUS_DRAFT) {%>
-                    <input type="submit" class="formsubmitbutton" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
-                    <input type="submit" class="formsubmitbutton" value="Create this Twitter Question!">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Create this Twitter Question!">
                 <%} else {%>
-                    <input type="submit" class="formsubmitbutton" value="Next Step">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Next Step">
                 <%}%>
             </td>
         </tr>

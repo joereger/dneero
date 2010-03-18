@@ -260,7 +260,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
 
                                         </td>
                                         <td valign="top">
-                                            <input type="submit" class="formsubmitbutton" value="Save User Details">
+                                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save User Details">
                                         </td>
                                     </tr>
                                 </table>
@@ -282,7 +282,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="passwordresetemail">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
-                                <input type="submit" class="formsubmitbutton" value="Send Password Reset Email">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Send Password Reset Email">
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
@@ -290,7 +290,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="reactivationemail">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
-                                <input type="submit" class="formsubmitbutton" value="Force Re-Activation By Email">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Force Re-Activation By Email">
                             </form>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
@@ -298,7 +298,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="researcherremainingbalanceoperations">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
-                                <input type="submit" class="formsubmitbutton" value="ResearcherRemainingBalanceOperations">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="ResearcherRemainingBalanceOperations">
                             </form>
                             <br/>
                             <font class="tinyfont">This will process account balances, remaining impressions, credit card transfers, etc for only this account.  Only does something if this user has a researcher record.</font>
@@ -314,7 +314,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
                                 <input type="hidden" name="action" value="runcurrentbalanceupdater">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
-                                <input type="submit" class="formsubmitbutton" value="Run CurrentBalanceUpdater">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Run CurrentBalanceUpdater">
                             </form>
                             <font class="tinyfont">This will refresh/update the current balance numbers stored with the User database table.</font>
                         </div>
@@ -333,7 +333,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton" value="Toggle Sysadmin Privileges">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Toggle Sysadmin Privileges">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
@@ -354,7 +354,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton" value="Toggle Customer Care Privs">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Toggle Customer Care Privs">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
@@ -370,7 +370,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton" value="Delete User">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Delete User">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
@@ -388,11 +388,11 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <%if (customercareUserDetail.getIsenabled()){%>
                                     <font class="mediumfont">This Account is Currently Enabled</font>
                                     <br/>
-                                    <input type="submit" class="formsubmitbutton" value="Disable Account">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Disable Account">
                                 <%} else {%>
                                     <font class="mediumfont">This Account is Currently Disabled</font>
                                     <br/>
-                                    <input type="submit" class="formsubmitbutton" value="Enable Account">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Enable Account">
                                 <%}%>
                             </form>
                         </div>
@@ -471,7 +471,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textarea.getHtml("messagetouser", customercareUserDetail.getMessagetouser(), 5, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton" value="Send">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Send">
                             </form>
                         </div>
 
@@ -499,7 +499,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton" value="Give User Money">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Give User Money">
                             </form>
                         </div>
 
@@ -522,7 +522,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textbox.getHtml("reason", customercareUserDetail.getReason(), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton" value="Take User Money">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Take User Money">
                             </form>
                         </div>
 
@@ -539,7 +539,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <font class="tinyfont">Leave at 0 to use default value of <%=SurveyMoneyStatus.RESELLERPERCENTDEFAULT%></font>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton" value="Update">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Update">
                             </form>
                         </div>
 

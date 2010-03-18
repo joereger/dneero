@@ -158,7 +158,7 @@ CustomercareIptrack customercareIptrack = (CustomercareIptrack)Pagez.getBeanMgr(
                     <%=Textbox.getHtml("searchoctet4", customercareIptrack.getSearchoctet4(), 255, 3, "", "")%>
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Search">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Search">
                 </td>
             </tr>
         </table>

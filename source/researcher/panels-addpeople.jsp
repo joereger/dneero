@@ -63,7 +63,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Continue">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Continue">
                     <br/>
                     <font class="tinyfont">You'll see how many people this represents and confirm in the next step.</font>
                 </td>
@@ -130,7 +130,7 @@ if (researcherPanelsAddpeople.getPanelid()<=0){
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Continue">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Continue">
                     <br/>
                     <font class="tinyfont">You'll see how many people this represents and confirm in the next step.</font>
                 </td>

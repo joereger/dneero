@@ -74,7 +74,7 @@ Test test = (Test) Pagez.getBeanMgr().get("Test");
     <br/><%=CheckboxBoolean.getHtml("booleantest", test.getBooleantest(), "", "")%> Is True?
     <br/><%=DateTime.getHtml("cal", test.getCal(), "", "")%>
     <br/><%=Date.getHtml("cal2", test.getCal2(), "", "")%>
-    <br/><input type="submit" class="formsubmitbutton" value="go">
+    <br/><input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="go">
 </form>
 <br/><br/>
 <%

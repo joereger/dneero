@@ -401,9 +401,9 @@ String acl = "public";
                             <br/>
                             <center>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
-                                    <input type="submit" class="formsubmitbutton" value="Enter the Conversation">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Enter the Conversation">
                                 <%}else{%>
-                                    <input type="submit" class="formsubmitbutton" value="Edit Your Answers">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Edit Your Answers">
                                 <%}%>
                             </center>
                             </form>

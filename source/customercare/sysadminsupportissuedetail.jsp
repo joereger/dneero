@@ -90,7 +90,7 @@ String acl = "customercare";
 
                 <tr>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Add Comment">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Add Comment">
                     </td>
                 </tr>
 

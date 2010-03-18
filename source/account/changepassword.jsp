@@ -59,7 +59,7 @@ ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangeP
                     </td>
                     <td valign="top">
                         <br/><br/>
-                        <input type="submit" class="formsubmitbutton" value="Save New Password">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save New Password">
                     </td>
                 </tr>
 

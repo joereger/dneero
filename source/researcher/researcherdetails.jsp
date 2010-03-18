@@ -88,7 +88,7 @@ String acl = "account";
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Save Researcher Profile">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Researcher Profile">
                     </td>
                 </tr>
 

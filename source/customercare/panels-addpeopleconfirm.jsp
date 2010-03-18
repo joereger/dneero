@@ -63,7 +63,7 @@ CustomercarePanelsAddpeopleconfirm customercarePanelsAddpeopleconfirm= (Customer
              <tr>
                 <td valign="top">
                     <br/><br/>
-                    <input type="submit" class="formsubmitbutton" value="Yes, Add These People">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Yes, Add These People">
                     <br/>
                     <font class="tinyfont">People will be added to the panel '<%=customercarePanelsAddpeopleconfirm.getPanel().getName()%>'</font>
                     <br/>

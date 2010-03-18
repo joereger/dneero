@@ -31,7 +31,7 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDelete.getSurvey().getSurveyid()%>">
         <font class="mediumfont">Are you sure you want to delete the conversation<br/>"<%=((ResearcherSurveyDelete)Pagez.getBeanMgr().get("ResearcherSurveyDelete")).getTitle()%>"?</font>
         <br/><br/>
-        <input type="submit" class="formsubmitbutton" value="Yes, Delete this Conversation">
+        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Yes, Delete this Conversation">
         <br/><br/>
         <a href="/researcher/index.jsp"><font class="subnavfont">Nevermind, Don't Delete this Conversation</font></a>
     </form>

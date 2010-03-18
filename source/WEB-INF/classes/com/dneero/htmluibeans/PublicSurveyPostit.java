@@ -1,27 +1,22 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.ui.SurveyEnhancer;
-
-
-import com.dneero.util.Num;
-
-import com.dneero.survey.servlet.v1.SurveyFlashServlet;
-import com.dneero.survey.servlet.v1.SurveyImageServlet;
-import com.dneero.survey.servlet.v1.SurveyJavascriptServlet;
-import com.dneero.survey.servlet.v1.SurveyLinkServlet;
-import com.dneero.systemprops.BaseUrl;
-
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-
-import java.io.Serializable;
-import java.util.*;
-
+import com.dneero.systemprops.BaseUrl;
+import com.dneero.ui.SurveyEnhancer;
+import com.dneero.util.Num;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
+
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -178,7 +173,11 @@ public class PublicSurveyPostit implements Serializable {
         if (loggedinuserhasalreadytakensurvey){
             surveyOnBlogPreview = "";
         } else {
-            surveyOnBlogPreview = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, survey.getPlid(), true, true, false);
+            if (survey.getEmbedversion()==Survey.EMBEDVERSION_01){
+                surveyOnBlogPreview = com.dneero.survey.servlet.v1.SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, survey.getPlid(), true, true, false);
+            } else {
+                surveyOnBlogPreview = com.dneero.survey.servlet.v2.SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), 0, 0, survey.getPlid(), true, true, false);   
+            }
         }
 
         //If blogger has taken the survey already

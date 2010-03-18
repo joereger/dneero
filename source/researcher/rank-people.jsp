@@ -64,7 +64,7 @@ if (researcherRankPeople.getRank()==null){
                         <input type="hidden" name="dpage" value="/researcher/panels-addpeople.jsp">
                         <input type="hidden" name="showonly" value="addbyrankingpercent">
                         <input type="hidden" name="rankid" value="<%=researcherRankPeople.getRank().getRankid()%>">
-                        <input type="submit" class="formsubmitbutton" value="Add People to Panel">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Add People to Panel">
                     </form>
                     <font class="tinyfont">Add all or some or these people to Panels of respondents.  On the next screen you can apply filters to only add the top 90%, for example.</font>
                 </div>

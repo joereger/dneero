@@ -61,7 +61,7 @@ String acl = "sysadmin";
             levels.put(String.valueOf("OFF"), "OFF");
             %>
             <%=Dropdown.getHtml("level", request.getParameter("level"), levels, "", "")%>
-            <input type="submit" class="formsubmitbutton" value="Save">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save">
         </form>
 
  <br/>

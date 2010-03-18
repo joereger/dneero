@@ -145,7 +145,7 @@ ResearcherSurveyDetail02matrix researcherSurveyDetail02matrix = (ResearcherSurve
                 <td valign="top">
                 </td>
                 <td valign="top">
-                    <input type="submit" class="formsubmitbutton" value="Save Question and Continue">
+                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Question and Continue">
                     <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02matrix.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
                 </td>
             </tr>

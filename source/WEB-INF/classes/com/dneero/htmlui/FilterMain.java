@@ -64,6 +64,9 @@ public class FilterMain implements Filter {
                 logger.debug("---------------------------START REQUEST: "+httpServletRequest.getRequestURL());
                 logger.debug("httpServletRequest.getSession().getId()="+httpServletRequest.getSession().getId());
 
+                //Set Private Label (Pl)
+                Pl pl = PlFinder.find(httpServletRequest);
+
                 //If the database is ready
                 if (Db.getHaveValidConfig()){
                     try{
@@ -74,12 +77,16 @@ public class FilterMain implements Filter {
                         } else {
                             logger.debug("no userSession in cache");
                             UserSession userSession = new UserSession();
+                            userSession.setPl(pl);
                             Pagez.setUserSessionAndUpdateCache(userSession);
+                            Pagez.getUserSession().setPl(pl);
                         }
                     } catch (Exception ex){
                         logger.error("", ex);
                         UserSession userSession = new UserSession();
+                        userSession.setPl(pl);
                         Pagez.setUserSessionAndUpdateCache(userSession);
+                        Pagez.getUserSession().setPl(pl);
                     }
 
                     //Update the lastaccessdate
@@ -109,8 +116,7 @@ public class FilterMain implements Filter {
                         }
                     }
 
-                    //Set Private Label (Pl)
-                    Pl pl = PlFinder.find(httpServletRequest);
+                    //Set the pl
                     Pagez.getUserSession().setPl(pl);
 
                     //Facebook start
@@ -150,6 +156,7 @@ public class FilterMain implements Filter {
                                                 newUserSession.setPendingSurveyResponseSurveyid(Pagez.getUserSession().getPendingSurveyResponseSurveyid());
                                                 newUserSession.setCurrentSurveyid(Pagez.getUserSession().getCurrentSurveyid());
                                                 newUserSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                                                newUserSession.setPl(pl);
                                                 //Check the eula
                                                 if (!EulaHelper.isUserUsingMostRecentEula(user)){
                                                     newUserSession.setIseulaok(false);
@@ -164,6 +171,7 @@ public class FilterMain implements Filter {
                                                 }
                                                 //Setup the userSession
                                                 Pagez.setUserSessionAndUpdateCache(newUserSession);
+                                                Pagez.getUserSession().setPl(pl);
                                                 wasAutoLoggedIn = true;
                                                 //Save last login date
                                                 user.setLastlogindate(new java.util.Date());

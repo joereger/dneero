@@ -37,11 +37,11 @@ LoginAgreeNewEula loginAgreeNewEula = (LoginAgreeNewEula)Pagez.getBeanMgr().get(
         
             <font class="formfieldnamefont">The End User License Agreement has changed.<br/>You must read and agree to it before you can proceed:</font>
             <br/><br/>
-            <input type="submit" class="formsubmitbutton" value="I Agree to the EULA">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="I Agree to the EULA">
             <br/><br/>
             <%=Textarea.getHtml("eula", loginAgreeNewEula.getEula(), 25, 70, "", "")%>
             <br/><br/>
-            <input type="submit" class="formsubmitbutton" value="I Agree to the EULA">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="I Agree to the EULA">
 
     </form>
 

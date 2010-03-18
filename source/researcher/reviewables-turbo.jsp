@@ -180,7 +180,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
 <%@ include file="/template/header.jsp" %>
     <form action="/researcher/reviewables-turbo.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/researcher/reviewables-turbo.jsp">
-            <input type="submit" class="formsubmitbutton" value="Show">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Show">
             <select name="onlytypeid">
                 <%int onlytypeidsel=0;%>
                 <%if (Num.isinteger(request.getParameter("onlytypeid"))){
@@ -305,7 +305,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
         %>
         </table>
         <br/><br/>
-        <input type="submit" class="formsubmitbutton" value="Save and Continue">
+        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save and Continue">
         <br/><br/>
         <font class="normalfont" style="font-weight: bold;">Number to Display: </font>
         <select name="numOnPage">

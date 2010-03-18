@@ -75,7 +75,7 @@ AccountInboxDetail accountInboxDetail = (AccountInboxDetail)Pagez.getBeanMgr().g
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <input type="submit" class="formsubmitbutton" value="Add Comment">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Add Comment">
                     </td>
                 </tr>
 

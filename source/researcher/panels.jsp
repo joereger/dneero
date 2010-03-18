@@ -67,7 +67,7 @@ String acl = "researcher";
             <input type="hidden" name="dpage" value="/researcher/panels.jsp">
             <input type="hidden" name="action" value="newpanel">
             <%=com.dneero.htmlui.Textbox.getHtml("newpanelname", researcherPanels.getNewpanelname(), 255, 35, "", "")%>
-            <input type="submit" class="formsubmitbutton" value="Create a New Panel">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Create a New Panel">
         </form>
 
 

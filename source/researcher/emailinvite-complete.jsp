@@ -40,7 +40,7 @@ ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailin
             <%=researcherEmailinviteComplete.getEmailaddresslisthtml()%>
 
             <br/><br/>
-            <input type="submit" class="formsubmitbutton" value="Send Invites">
+            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Send Invites">
         </form>
 
 

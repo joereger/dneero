@@ -205,14 +205,14 @@ hr {
     /*text-align: left;*/
 /*}*/
 
-.formsubmitbutton, submit {
-   font-family:'trebuchet ms',helvetica,sans-serif;
-   font-weight:bold;
-   font-size: 16px;
-   height: 60px;
-   cursor: pointer;
-   cursor: hand;
-}
+/*.formsubmitbutton, submit {*/
+   /*font-family:'trebuchet ms',helvetica,sans-serif;*/
+   /*font-weight:bold;*/
+   /*font-size: 16px;*/
+   /*height: 60px;*/
+   /*cursor: pointer;*/
+   /*cursor: hand;*/
+/*}*/
 
 .RED{
    color:#f00;
