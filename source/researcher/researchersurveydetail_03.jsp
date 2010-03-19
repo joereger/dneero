@@ -316,6 +316,9 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
         });
         $("#togglehelp").hide();
     </script>
+<script>
+        $('#tabs').tabs();
+</script>
 
 
 

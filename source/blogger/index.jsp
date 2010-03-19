@@ -23,6 +23,7 @@ String acl = "public";
 %>
 <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){
     Pagez.sendRedirect("/publicsurveylist.jsp");
+    return;
 }%>
 
 <%@ include file="/template/header.jsp" %>

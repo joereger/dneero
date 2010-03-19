@@ -25,7 +25,7 @@ PublicResultsAnswersDetails publicResultsAnswersDetails = (PublicResultsAnswersD
                 <%=publicResultsAnswersDetails.getResults()%>
             </td>
             <td valign="top" align="left">
-                <div class="rounded" style="background: #00ff00; text-align: center;">
+                <div class="rounded" style="background: #e6e6e6; text-align: center;">
                     <div class="rounded" style="background: #ffffff; text-align: center;">
                         <center><img src="/images/undo-128.png" width="128" height="128"/></center>
                         <br/>

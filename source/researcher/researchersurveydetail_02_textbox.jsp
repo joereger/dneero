@@ -50,6 +50,12 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02textbox.getQuestionid()%>"/>
 
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Add Question</a></li>
+        </ul>
+        <div id="tabs-1">
+
         <table cellpadding="5" cellspacing="0" border="0">
 
             <tr>
@@ -121,6 +127,8 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
             </tr>
 
         </table>
+        </div></div>
+
     </form>
     <!-- End Bottom -->
 
@@ -130,5 +138,8 @@ ResearcherSurveyDetail02textbox researcherSurveyDetail02textbox = (ResearcherSur
         });
         $("#togglehelp").hide();
     </script>
+<script>
+        $('#tabs').tabs();
+</script>
 
 <%@ include file="/template/footer.jsp" %>

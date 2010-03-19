@@ -3,6 +3,9 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.systemprops.SystemProperty" %>
 <%@ page import="com.dneero.util.RandomString" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptcha" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Sign Up for an Account";
@@ -17,32 +20,39 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
     if (request.getParameter("action") != null && request.getParameter("action").equals("register")) {
         try {
             registration.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
-            registration.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
-            registration.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
+            //registration.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
+            //registration.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
             registration.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
-            registration.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
-            registration.setCaptchaId(request.getParameter("captchaId"));
+            //registration.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", false, DatatypeString.DATATYPEID));
+            //registration.setCaptchaId(request.getParameter("captchaId"));
             registration.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
             registration.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
-            registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
+            //registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
             registration.setNickname(Textbox.getValueFromRequest("nickname", "Nickname", true, DatatypeString.DATATYPEID));
-            registration.registerAction();
-            //Redir if https is on
-            if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
-                try {
-                    logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp");
-                    Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp");
-                    return;
-                } catch (Exception ex) {
-                    logger.error("", ex);
+
+            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+            ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
+            if (capResp.isValid()) {
+                registration.registerAction();
+                //Redir if https is on
+                if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
+                    try {
+                        logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp");
+                        Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp");
+                        return;
+                    } catch (Exception ex) {
+                        logger.error("", ex);
+                        //@todo setIsfirsttimelogin(true) on AccountIndex bean
+                        Pagez.sendRedirect("/account/index.jsp");
+                        return;
+                    }
+                } else {
                     //@todo setIsfirsttimelogin(true) on AccountIndex bean
                     Pagez.sendRedirect("/account/index.jsp");
                     return;
                 }
             } else {
-                //@todo setIsfirsttimelogin(true) on AccountIndex bean
-                Pagez.sendRedirect("/account/index.jsp");
-                return;
+                Pagez.getUserSession().setMessage("Sorry, you need to type the squiggly letters properly.");
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -55,7 +65,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
 <%@ include file="/template/header.jsp" %>
 
         <%if (registration.getDisplaytempresponsesavedmessage()){%>
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                 <table cellpadding="5">
                     <tr>
                         <td valign="top">
@@ -63,7 +73,6 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                         </td>
                         <td valign="top">
                             <font class="mediumfont">Almost done... we've temporarily saved your response.</font><br/>
-                            <font class="smallfont">We can't pay you until you log in or sign up and qualify by being in the correct demographic for this conversation.  If you do neither of these, we won't be able to use your response.  If you close your browser the response will be discarded too.  Sign up is quick, painless and free.</font><br/>
                             <font class="smallfont"><b>Please log in or sign up below.</b></font>
                         </td>
                     </tr>
@@ -92,45 +101,35 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
         <form action="/registration.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/registration.jsp">
             <input type="hidden" name="action" value="register">
-            <input type="hidden" name="captchaId" value="<%=captchaId%>">
+            <%--<input type="hidden" name="captchaId" value="<%=captchaId%>">--%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                <font class="mediumfont" style="color: #333333">Get started entering and/or creating conversations</font>
-                <br/>
-                <font class="smallfont">Sign Up is free.  On this page we collect some basic information.  After this you'll start working immediately to create and/or enter conversations (all accounts can do both functions).  You have three days (during which you can use your account) to activate by clicking a link that we send to your email address.  Your account is completely free to set up and explore.  International users are welcome (of course).</font><br/><br/>
-
                 <table cellpadding="5" cellspacing="0" border="0">
 
                     <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">First Name</font>
+                        <td valign="top" width="33%" align="right">
+                            <font class="formfieldnamefont">First, Last Name</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("firstname", registration.getFirstname(), 255, 35, "", "")%>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">Last Name</font>
-                        </td>
-                        <td valign="top">
-                            <%=Textbox.getHtml("lastname", registration.getLastname(), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("firstname", registration.getFirstname(), 255, 10, "", "")%> <%=Textbox.getHtml("lastname", registration.getLastname(), 255, 10, "", "")%>
                         </td>
                     </tr>
 
+
                     <tr>
-                        <td valign="top">
+                        <td valign="top" align="right">
                             <font class="formfieldnamefont">Nickname</font>
                             <br/>
-                            <font class="tinyfont">Only letters and numbers, no spaces.  This will be your public name that others can see.</font>
+                            <font class="tinyfont">Will be shared publicly.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("nickname", registration.getNickname(), 255, 35, "", "")%>
+                            <br/>
+                            <font class="tinyfont">Letters and numbers, no spaces.</font>
                         </td>
                     </tr>
 
                     <tr>
-                        <td valign="top">
+                        <td valign="top" align="right">
                             <font class="formfieldnamefont">Email</font>
                         </td>
                         <td valign="top">
@@ -139,7 +138,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                     </tr>
 
                     <tr>
-                        <td valign="top">
+                        <td valign="top" align="right">
                             <font class="formfieldnamefont">Password</font>
                         </td>
                         <td valign="top">
@@ -147,55 +146,45 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                         </td>
                     </tr>
 
+                    <%--<tr>--%>
+                        <%--<td valign="top">--%>
+                            <%--<font class="formfieldnamefont">Password Verify</font>--%>
+                        <%--</td>--%>
+                        <%--<td valign="top">--%>
+                            <%--<%=TextboxSecret.getHtml("passwordverify", registration.getPasswordverify(), 255, 35, "", "")%>--%>
+                        <%--</td>--%>
+                    <%--</tr>--%>
+
+                    <%--<tr>--%>
+                        <%--<td valign="top">--%>
+                            <%--<font class="formfieldnamefont">Twitter User Name (Optional)</font>--%>
+                            <%--<font class="tinyfont">e.x. "joereger" or "timsmith"</font>--%>
+                        <%--</td>--%>
+                        <%--<td valign="top">--%>
+                            <%--<%=Textbox.getHtml("twitterusername", registration.getTwitterusername(), 255, 35, "", "")%>--%>
+                        <%--</td>--%>
+                    <%--</tr>--%>
+
+
                     <tr>
                         <td valign="top">
-                            <font class="formfieldnamefont">Password Verify</font>
+                            <font class="formfieldnamefont"></font>
                         </td>
                         <td valign="top">
-                            <%=TextboxSecret.getHtml("passwordverify", registration.getPasswordverify(), 255, 35, "", "")%>
+                            <%
+                            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+                            String captchaScript = captcha.createRecaptchaHtml(request.getParameter("error"), null);
+                            out.print(captchaScript);
+                            %>
                         </td>
                     </tr>
 
                     <tr>
                         <td valign="top">
-                            <font class="formfieldnamefont">Twitter User Name (Optional)</font>
-                            <font class="tinyfont">e.x. "joereger" or "timsmith"</font>
+                            <font class="formfieldnamefont"></font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("twitterusername", registration.getTwitterusername(), 255, 35, "", "")%>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">Prove You're a Human</font>
-                        </td>
-                        <td valign="top">
-                            <div style="border: 1px solid #ccc; padding: 3px;">
-                            <%=Textbox.getHtml("j_captcha_response", registration.getJ_captcha_response(), 255, 35, "", "")%>
-                            <br/>
-                            <font class="tinyfont">(type the squiggly letters that appear below)</font>
-                            <br/>
-                            <table cellpadding="0" cellspacing="0" border="0">
-                                <tr>
-                                    <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
-                                    <td style="background: url(/images/loading-captcha.gif);">
-                                        <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
-                                        <img src="/jcaptcha?captchaId=<%=captchaId%>" width="200" height="100"/>
-                                    </td>
-                                </tr>
-                            </table>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">End User License Agreement</font>
-                        </td>
-                        <td valign="top">
-                            <%=Textarea.getHtml("eula", registration.getEula(), 3, 40, "", "")%>
+                            <font class="tinyfont">I agree to the terms of the <a href="/eula.jsp" target="_new">End User License Agreement</a></font>
                         </td>
                     </tr>
 

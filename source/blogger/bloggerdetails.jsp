@@ -299,7 +299,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
 
             </td>
             <td valign="top" width="200">
-                <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                     <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                         <center>
                             <img src="/images/lock-64.png" width="64" height="64"/>

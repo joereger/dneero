@@ -102,7 +102,7 @@ String acl = "public";
                     <%}%>
                 </td>
                 <td valign="top" width="270">
-                    <div class="rounded" style="background: #00ff00; text-align: left; padding: 10px;">
+                    <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 10px;">
                         <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
                             <img src="/images/twitterbird.gif" width="250" height="157" alt=""><br/>
                             <font class="mediumfont" style="color: #cccccc;">Twitter Questions</font><br/>

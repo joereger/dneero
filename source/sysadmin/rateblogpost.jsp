@@ -32,7 +32,7 @@ String acl = "sysadmin";
                 <input type="hidden" name="action" value="rate">
                 <input type="hidden" name="impressionid" value="<%=sysadminRateBlogPost.getImpression().getImpressionid()%>">
 
-                <div class="rounded" style="padding: 15px; margin: 5px; background: #00ff00;">
+                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                     <center>
                         <table cellpadding="0" cellspacing="0" border="0">
                             <tr>

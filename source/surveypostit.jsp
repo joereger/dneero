@@ -157,7 +157,7 @@ String acl = "public";
             <table cellpadding="3" cellspacing="15" border="0" width="100%">
             <tr>
                 <td valign="top">
-                    <div class="rounded" style="background: #00ff00;">
+                    <div class="rounded" style="background: #e6e6e6;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
                             <font class="mediumfont">You've Entered this Conversation!</font>
                             <br/>
@@ -207,7 +207,7 @@ String acl = "public";
                 <td valign="top" class="posttoblog_tabs_tablewidth">
 
                     <%if (publicSurveyPostit.getPostresponseinstructions()!=null && !publicSurveyPostit.getPostresponseinstructions().equals("")){%>
-                        <div class="rounded" style="background: #00ff00;">
+                        <div class="rounded" style="background: #e6e6e6;">
                             <font class="mediumfont"><%=publicSurveyPostit.getPostresponseinstructions()%></font>
                         </div>
                     <%}%>

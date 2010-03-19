@@ -1,29 +1,32 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-import org.apache.commons.validator.EmailValidator;
-import com.dneero.dao.*;
+import com.dneero.dao.Responsepending;
+import com.dneero.dao.User;
+import com.dneero.dao.Usereula;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.*;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.session.PersistentLogin;
 import com.dneero.email.EmailActivationSend;
-import com.dneero.money.PaymentMethod;
-import com.dneero.xmpp.SendXMPPMessage;
 import com.dneero.eula.EulaHelper;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
-import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.iptrack.Activitytype;
+import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.money.PaymentMethod;
+import com.dneero.session.PersistentLogin;
 import com.dneero.sir.SocialInfluenceRating;
-import com.dneero.twitter.TwitterUsernameAlreadyInUse;
-
+import com.dneero.util.GeneralException;
+import com.dneero.util.RandomString;
+import com.dneero.util.Str;
+import com.dneero.xmpp.SendXMPPMessage;
+import org.apache.commons.validator.EmailValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.Cookie;
-import java.util.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -38,8 +41,8 @@ public class Registration implements Serializable {
     private String passwordverify;
     private String firstname;
     private String lastname;
-    private String j_captcha_response;
-    private String captchaId;
+    //private String j_captcha_response;
+    //private String captchaId;
     private String eula;
     private boolean displaytempresponsesavedmessage;
     private String nickname;
@@ -79,11 +82,16 @@ public class Registration implements Serializable {
             haveErrors = true;
         }
 
-        if (!password.equals(passwordverify)){
-            vex.addValidationError("Password and Verify Password must match.");
+//        if (!password.equals(passwordverify)){
+//            vex.addValidationError("Password and Verify Password must match.");
+//            haveErrors = true;
+//        }
+        if (email==null){
+            email="";
+            vex.addValidationError("Not a valid email address.");
             haveErrors = true;
         }
-
+        email=email.toLowerCase();
         EmailValidator ev = EmailValidator.getInstance();
         if (!ev.isValid(email)){
             vex.addValidationError("Not a valid email address.");
@@ -112,26 +120,27 @@ public class Registration implements Serializable {
             nickname = "";
         }
 
-        if (twitterusername!=null && !twitterusername.equals("")){
-            if (TwitterUsernameAlreadyInUse.usernameExistsAlready(twitterusername)){
-                vex.addValidationError("Sorry, that Twitter Username is already in use.");
-                haveErrors = true;
-            }
-        } else {
-            twitterusername = "";
-        }
+//        if (twitterusername!=null && !twitterusername.equals("")){
+//            if (TwitterUsernameAlreadyInUse.usernameExistsAlready(twitterusername)){
+//                vex.addValidationError("Sorry, that Twitter Username is already in use.");
+//                haveErrors = true;
+//            }
+//        } else {
+//            twitterusername = "";
+//        }
+        twitterusername="";
 
         //@todo need to check for lcase(firstname), lcase(lastname), email in the database... people are changing caps on name and creating another account.
 
 
-        if (eula==null || !eula.trim().equals(EulaHelper.getMostRecentEula().getEula().trim())){
+        //if (eula==null || !eula.trim().equals(EulaHelper.getMostRecentEula().getEula().trim())){
             //@todo Registration EULA validation
             //logger.debug("eula="+eula);
             //logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
             //vex.addValidationError("The end user license can't be edited.");
             //eula = EulaHelper.getMostRecentEula().getEula();
             //haveErrors = true;
-        }
+        //}
 
 //        boolean isCaptchaCorrect = false;
 //        try {
@@ -316,22 +325,7 @@ public class Registration implements Serializable {
         this.userid = userid;
     }
 
-    public String getJ_captcha_response() {
-        return j_captcha_response;
-    }
 
-    public void setJ_captcha_response(String j_captcha_response) {
-        this.j_captcha_response = j_captcha_response;
-    }
-
-
-    public String getCaptchaId() {
-        return captchaId;
-    }
-
-    public void setCaptchaId(String captchaId) {
-        this.captchaId=captchaId;
-    }
 
     public String getEula() {
         return eula;

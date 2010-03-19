@@ -62,7 +62,7 @@ String acl = "public";
                 </td>
                 <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                     <td valign="top" align="left">
-                        <div class="rounded" style="background: #00ff00;">
+                        <div class="rounded" style="background: #e6e6e6;">
                             <div class="rounded" style="background: #ffffff; text-align: center;">
                                 <center><img src="/images/exclamation-128.png" width="128" height="128"/></center>
                                 <br/>

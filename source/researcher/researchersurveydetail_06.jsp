@@ -96,6 +96,11 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail06.getSurvey().getSurveyid()%>"/>
 
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Confirm</a></li>
+        </ul>
+        <div id="tabs-1">
 
     <%if (!researcherSurveyDetail06.getSurvey().getIsfree()){%>
         <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;">
@@ -408,10 +413,12 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
     <br/><br/>
     <%} else {%>
 
-        <font class="formfieldnamefont">That's it!  Launch your conversation and people will be able to start joining!</font>
-        <br/><br/>
+        <font class="mediumfont">That's it!  Launch your conversation and people will be able to start joining!</font>
+        <br/><br/><br/>
 
     <%} %>
+    </div></div>
+    <br/>
     <!-- Start Bottom Nav -->
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
@@ -431,5 +438,9 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
     <!-- End Bottom Nav -->
 
 </form>
+
+<script>
+        $('#tabs').tabs();
+</script>
 
 <%@ include file="/template/footer.jsp" %>

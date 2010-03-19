@@ -57,122 +57,129 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02range.getQuestionid()%>"/>
 
-        <table cellpadding="5" cellspacing="0" border="0">
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Question Type</font>
-                </td>
-                <td valign="top">
-                    <font class="normalfont">Range</font>
-                </td>
-            </tr>
+        <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Add Question</a></li>
+        </ul>
+        <div id="tabs-1">
+
+            <table cellpadding="5" cellspacing="0" border="0">
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Question Type</font>
+                    </td>
+                    <td valign="top">
+                        <font class="normalfont">Range</font>
+                    </td>
+                </tr>
 
 
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Question</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02range.getQuestion(), 1000, 60, "", "")%>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Question</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("question", researcherSurveyDetail02range.getQuestion(), 1000, 60, "", "")%>
+                    </td>
+                </tr>
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Is Required?</font>
-                </td>
-                <td valign="top">
-                    <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02range.getIsrequired(), "", "")%>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Image URL (Optional)</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("image", researcherSurveyDetail02range.getImage(), 1000, 30, "", "")%>
-                    <br/><font class="tinyfont">Fully qualified url referencing a GIF, PNG or JPG.</font>
-                </td>
-            </tr>
-
-            <%--<tr>--%>
-                <%--<td valign="top">--%>
-                    <%--<font class="formfieldnamefont">Audio URL (Optional)</font>--%>
-                <%--</td>--%>
-                <%--<td valign="top">--%>
-                    <%--<%=Textbox.getHtml("audio", researcherSurveyDetail02range.getAudio(), 1000, 30, "", "")%>--%>
-                <%--</td>--%>
-            <%--</tr>--%>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Video URL (Optional)</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("video", researcherSurveyDetail02range.getVideo(), 1000, 30, "", "")%>
-                    <br/><font class="tinyfont">Fully qualified url referencing an FLV or MP4 file.</font>
-                </td>
-            </tr>
-
-        </table>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Is Required?</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isrequired", researcherSurveyDetail02range.getIsrequired(), "", "")%>
+                    </td>
+                </tr>
 
 
-        <table cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Min Title</font>
-                </td>
-                <td valign="top">
-                    <font class="formfieldnamefont">Min</font>
-                </td>
-                <td valign="top">
-                    <font class="formfieldnamefont">Step</font>
-                </td>
-                <td valign="top">
-                    <font class="formfieldnamefont">Max</font>
-                </td>
-                <td valign="top">
-                    <font class="formfieldnamefont">Max Title</font>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Image URL (Optional)</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("image", researcherSurveyDetail02range.getImage(), 1000, 30, "", "")%>
+                        <br/><font class="tinyfont">Fully qualified url referencing a GIF, PNG or JPG.</font>
+                    </td>
+                </tr>
 
-            <tr>
-                <td valign="top">
-                    <%=Textbox.getHtml("mintitle", researcherSurveyDetail02range.getMintitle(), 20, 7, "", "")%>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("min", String.valueOf(researcherSurveyDetail02range.getMin()), 7, 3, "", "")%>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("step", String.valueOf(researcherSurveyDetail02range.getStep()), 7, 3, "", "")%>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("max", String.valueOf(researcherSurveyDetail02range.getMax()), 7, 3, "", "")%>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("maxtitle", researcherSurveyDetail02range.getMaxtitle(), 20, 7, "", "")%>
-                </td>
-            </tr>
+                <%--<tr>--%>
+                    <%--<td valign="top">--%>
+                        <%--<font class="formfieldnamefont">Audio URL (Optional)</font>--%>
+                    <%--</td>--%>
+                    <%--<td valign="top">--%>
+                        <%--<%=Textbox.getHtml("audio", researcherSurveyDetail02range.getAudio(), 1000, 30, "", "")%>--%>
+                    <%--</td>--%>
+                <%--</tr>--%>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Video URL (Optional)</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("video", researcherSurveyDetail02range.getVideo(), 1000, 30, "", "")%>
+                        <br/><font class="tinyfont">Fully qualified url referencing an FLV or MP4 file.</font>
+                    </td>
+                </tr>
+
+            </table>
 
 
-        </table>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Min Title</font>
+                    </td>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Min</font>
+                    </td>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Step</font>
+                    </td>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Max</font>
+                    </td>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Max Title</font>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <%=Textbox.getHtml("mintitle", researcherSurveyDetail02range.getMintitle(), 20, 7, "", "")%>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("min", String.valueOf(researcherSurveyDetail02range.getMin()), 7, 3, "", "")%>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("step", String.valueOf(researcherSurveyDetail02range.getStep()), 7, 3, "", "")%>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("max", String.valueOf(researcherSurveyDetail02range.getMax()), 7, 3, "", "")%>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("maxtitle", researcherSurveyDetail02range.getMaxtitle(), 20, 7, "", "")%>
+                    </td>
+                </tr>
 
 
-        <table cellpadding="0" cellspacing="0" border="0">
+            </table>
 
-            <tr>
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Question and Continue">
-                    <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02range.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
-                </td>
-            </tr>
 
-        </table>
+            <table cellpadding="0" cellspacing="0" border="0">
+
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Question and Continue">
+                        <br/><br/><a href="/researcher/researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02range.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    </td>
+                </tr>
+
+            </table>
+        </div></div>
     </form>
     <!-- End Bottom -->
 
@@ -182,5 +189,8 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
         });
         $("#togglehelp").hide();
     </script>
+<script>
+        $('#tabs').tabs();
+</script>
 
 <%@ include file="/template/footer.jsp" %>

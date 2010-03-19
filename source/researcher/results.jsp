@@ -38,7 +38,7 @@ String acl = "researcher";
 
         <tr>
             <td width="50%" valign="top">
-                <div class="rounded" style="background: #00ff00; text-align: center; padding: 20px;">
+                <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
                     <%if (researcherResults.getStatus() == Survey.STATUS_DRAFT) {%>
                         <font class="mediumfont">Conversation Status: Draft</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_WAITINGFORFUNDS){%>
@@ -59,7 +59,7 @@ String acl = "researcher";
                     <br/>
                     <a href="/researcher/results_answers.jsp"><font class="normalfont">Response Report</font></a>
                 </div>
-                <div class="rounded" style="background: #00ff00; text-align: left; padding: 20px;">
+                <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
                     <font class="smallfont">Impressions on Blogs Qualifying for Payment</font>
                     <br/>
                     <font class="largefont"><%=researcherResults.getTotalsurveydisplays()%></font>
@@ -73,7 +73,7 @@ String acl = "researcher";
                     <br/>
                     <font class="smallfont">People Have Joined the Conversation</font>
                 </div>
-                <div class="rounded" style="background: #00ff00; text-align: left; padding: 20px;">
+                <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
                     <a href="/researcher/results_financial.jsp"><font class="normalfont">Financial Status</font></a>
                     <br/>
                     <font class="largefont">$<font class="largefont"><%=Str.formatForMoney(researcherResults.getSpenttodate())%></font></font>

@@ -2,13 +2,10 @@ package com.dneero.htmluibeans;
 
 import com.dneero.scheduledjobs.SystemStatsFinancial;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
-import com.dneero.util.Num;
 import com.dneero.util.Str;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * User: Joe Reger Jr

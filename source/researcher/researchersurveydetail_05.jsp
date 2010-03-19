@@ -94,6 +94,11 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail05.getSurvey().getSurveyid()%>"/>
 
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Incentive</a></li>
+        </ul>
+        <div id="tabs-1">
 
     <%
         String isfreeChecked = "";
@@ -448,6 +453,11 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
         });
         $("#togglehelp").hide();
     </script>
+    <script>
+        $('#tabs').tabs();
+</script>
+
+    </div></div>
 
     <br/><br/>
     <!-- Start Bottom Nav -->

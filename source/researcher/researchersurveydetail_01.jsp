@@ -10,6 +10,10 @@
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<font class=\"pagetitlefont\">"+((ResearcherSurveyDetail01) Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getTitle()+"</font>\n" +
 "        <br clear=\"all\"/>";
+if (((ResearcherSurveyDetail01) Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getTitle().equals("")){
+    pagetitle = "<font class=\"pagetitlefont\">Create a Conversation</font>\n" +
+"        <br clear=\"all\"/>";
+}
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -62,116 +66,123 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
     <input type="hidden" name="action" value="next" id="action">
     <input type="hidden" name="surveyid" value="<%=researcherSurveyDetail01.getSurvey().getSurveyid()%>"/>
 
-        <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
-        <div id="togglehelp">
-            <div class="rounded" data-corner="20px"><font class="smallfont">
-                On this page you set the very general parameters for the conversation.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the conversation open long enough to attract bloggers and have them join the conversation... a month is a good starting point.
-            </font></div>
-        </div>
+    <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
+    <div id="togglehelp">
+        <div class="rounded" data-corner="20px"><font class="smallfont">
+            On this page you set the very general parameters for the conversation.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the conversation open long enough to attract bloggers and have them join the conversation... a month is a good starting point.
+        </font></div>
+    </div>
+    <br/><br/>
 
-        <br/><br/>
-        <table cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td valign="top">
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Conversation Basics</a></li>
+        </ul>
+        <div id="tabs-1">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td valign="top">
 
-                    <table cellpadding="5" cellspacing="0" border="0">
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Conversation Title</font>
-                            </td>
-                            <td valign="top">
-                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                    <%=Textbox.getHtml("title", researcherSurveyDetail01.getTitle(), 255, 50, "", "width:350px;")%>
-                                <%} else {%>
-                                    <font class="smallfont"><%=researcherSurveyDetail01.getTitle()%></font>
-                                <%}%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Description</font>
-                            </td>
-                            <td valign="top">
-                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                    <%=Textarea.getHtml("description", researcherSurveyDetail01.getDescription(), 3, 45, "", "width:350px;")%>
-                                <%} else {%>
-                                    <font class="normalfont"><%=researcherSurveyDetail01.getDescription()%></font>
-                                <%}%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Start Date</font>
-                            </td>
-                            <td valign="top">
-                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                    <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherSurveyDetail01.getStartdate()), "", "")%>
-                                <%} else {%>
-                                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getStartdate()))%></font>
-                                <%}%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">End Date</font>
-                            </td>
-                            <td valign="top">
-                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                    <%=DateTime.getHtml("enddate", Time.getCalFromDate(researcherSurveyDetail01.getEnddate()), "", "")%>
-                                <%} else {%>
-                                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getEnddate()))%></font>
-                                <%}%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont"></font>
-                            </td>
-                            <td valign="top">
-                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                    <%=CheckboxBoolean.getHtml("isfree", !researcherSurveyDetail01.getIsfree(), "", "")%> I want to pay participants via cash, coupon or charitable donation
-                                <%} else {%>
-                                    <font class="normalfont"></font>
-                                <%}%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont"></font>
-                            </td>
-                            <td valign="top">
-                                <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                    <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherSurveyDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate
-                                <%} else {%>
-                                    <font class="normalfont"></font>
-                                <%}%>
-                            </td>
-                        </tr>
-                        <%if (1==2 || Pagez.getUserSession().getIsSysadmin()){%>
+                        <table cellpadding="5" cellspacing="0" border="0">
                             <tr>
                                 <td valign="top">
-                                    <font class="formfieldnamefont">Embed Version</font>
+                                    <font class="formfieldnamefont">Conversation Title</font>
                                 </td>
                                 <td valign="top">
                                     <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                        <%=Dropdown.getHtml("embedversion", String.valueOf(researcherSurveyDetail01.getEmbedversion()),researcherSurveyDetail01.getEmbedVersions(), "", "")%>
+                                        <%=Textbox.getHtml("title", researcherSurveyDetail01.getTitle(), 255, 50, "", "width:350px;")%>
                                     <%} else {%>
-                                        <font class="normalfont">Embed Version: <%=researcherSurveyDetail01.getEmbedversion()%></font>
+                                        <font class="smallfont"><%=researcherSurveyDetail01.getTitle()%></font>
                                     <%}%>
                                 </td>
                             </tr>
-                        <%} else {%>
-                            <input type="hidden" name="embedversion" value="<%=Survey.EMBEDVERSION_02%>">
-                        <%}%>
-                    </table>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont">Description</font>
+                                </td>
+                                <td valign="top">
+                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                        <%=Textarea.getHtml("description", researcherSurveyDetail01.getDescription(), 3, 45, "", "width:350px;")%>
+                                    <%} else {%>
+                                        <font class="normalfont"><%=researcherSurveyDetail01.getDescription()%></font>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont">Start Date</font>
+                                </td>
+                                <td valign="top">
+                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                        <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherSurveyDetail01.getStartdate()), "", "")%>
+                                    <%} else {%>
+                                        <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getStartdate()))%></font>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont">End Date</font>
+                                </td>
+                                <td valign="top">
+                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                        <%=DateTime.getHtml("enddate", Time.getCalFromDate(researcherSurveyDetail01.getEnddate()), "", "")%>
+                                    <%} else {%>
+                                        <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherSurveyDetail01.getEnddate()))%></font>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont"></font>
+                                </td>
+                                <td valign="top">
+                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                        <%=CheckboxBoolean.getHtml("isfree", !researcherSurveyDetail01.getIsfree(), "", "")%> I want to pay participants via cash, coupon or charitable donation
+                                    <%} else {%>
+                                        <font class="normalfont"></font>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont"></font>
+                                </td>
+                                <td valign="top">
+                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                        <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherSurveyDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate
+                                    <%} else {%>
+                                        <font class="normalfont"></font>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <%if (1==2 || Pagez.getUserSession().getIsSysadmin()){%>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont">Embed Version</font>
+                                    </td>
+                                    <td valign="top">
+                                        <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                            <%=Dropdown.getHtml("embedversion", String.valueOf(researcherSurveyDetail01.getEmbedversion()),researcherSurveyDetail01.getEmbedVersions(), "", "")%>
+                                        <%} else {%>
+                                            <font class="normalfont">Embed Version: <%=researcherSurveyDetail01.getEmbedversion()%></font>
+                                        <%}%>
+                                    </td>
+                                </tr>
+                            <%} else {%>
+                                <input type="hidden" name="embedversion" value="<%=Survey.EMBEDVERSION_02%>">
+                            <%}%>
+                        </table>
 
-                </td>
-                <td valign="top">
-                    <!-- Right Side placeholder -->
-                </td>
-            </tr>
-        </table>
-        
+                    </td>
+                    <td valign="top">
+                        <!-- Right Side placeholder -->
+                    </td>
+                </tr>
+            </table>
+
+        </div></div>
+
         <br/><br/>
         <!-- Start Bottom Nav -->
         <!-- Start Bottom Nav -->
@@ -198,6 +209,9 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
         $("#togglehelp").hide();
         $(".toggledate").hide();
     </script>
+<script>
+        $('#tabs').tabs();
+</script>
 
 </form>
 

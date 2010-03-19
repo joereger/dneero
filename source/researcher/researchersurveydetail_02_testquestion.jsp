@@ -57,81 +57,88 @@ String acl="researcher";
         <input type="hidden" name="surveyid" value="<%=Pagez.getUserSession().getCurrentSurveyid()%>"/>
         <input type="hidden" name="questionid" value="<%=researcherSurveyDetail02testquestion.getQuestionid()%>"/>
 
-        <table cellpadding="5" cellspacing="0" border="0">
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Question Type</font>
-                </td>
-                <td valign="top">
-                    <font class="normalfont">Qualifying Question</font>
-                </td>
-            </tr>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Add Question</a></li>
+        </ul>
+        <div id="tabs-1">
+            <table cellpadding="5" cellspacing="0" border="0">
 
-
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Question</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("question", researcherSurveyDetail02testquestion.getQuestion(), 1000, 60, "", "")%>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Image URL (Optional)</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("image", researcherSurveyDetail02testquestion.getImage(), 1000, 30, "", "")%>
-                    <br/><font class="tinyfont">Fully qualified url referencing a GIF, PNG or JPG.</font>
-                </td>
-            </tr>
-
-            <%--<tr>--%>
-                <%--<td valign="top">--%>
-                    <%--<font class="formfieldnamefont">Audio URL (Optional)</font>--%>
-                <%--</td>--%>
-                <%--<td valign="top">--%>
-                    <%--<%=Textbox.getHtml("audio", researcherSurveyDetail02testquestion.getAudio(), 1000, 30, "", "")%>--%>
-                <%--</td>--%>
-            <%--</tr>--%>
-
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Video URL (Optional)</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("video", researcherSurveyDetail02testquestion.getVideo(), 1000, 30, "", "")%>
-                    <br/><font class="tinyfont">Fully qualified url referencing an FLV or MP4 file.</font>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Question Type</font>
+                    </td>
+                    <td valign="top">
+                        <font class="normalfont">Qualifying Question</font>
+                    </td>
+                </tr>
 
 
 
-            <tr>
-                <td valign="top">
-                    <font class="formfieldnamefont">Respondent's Answer Must Contain</font>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("answermustcontain", researcherSurveyDetail02testquestion.getAnswermustcontain(), 250, 35, "", "")%>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Question</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("question", researcherSurveyDetail02testquestion.getQuestion(), 1000, 60, "", "")%>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Image URL (Optional)</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("image", researcherSurveyDetail02testquestion.getImage(), 1000, 30, "", "")%>
+                        <br/><font class="tinyfont">Fully qualified url referencing a GIF, PNG or JPG.</font>
+                    </td>
+                </tr>
+
+                <%--<tr>--%>
+                    <%--<td valign="top">--%>
+                        <%--<font class="formfieldnamefont">Audio URL (Optional)</font>--%>
+                    <%--</td>--%>
+                    <%--<td valign="top">--%>
+                        <%--<%=Textbox.getHtml("audio", researcherSurveyDetail02testquestion.getAudio(), 1000, 30, "", "")%>--%>
+                    <%--</td>--%>
+                <%--</tr>--%>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Video URL (Optional)</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("video", researcherSurveyDetail02testquestion.getVideo(), 1000, 30, "", "")%>
+                        <br/><font class="tinyfont">Fully qualified url referencing an FLV or MP4 file.</font>
+                    </td>
+                </tr>
 
 
 
-            <tr>
-                <td valign="top">
-                </td>
-                <td valign="top">
-                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Question and Continue">
-                    <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02testquestion.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
-                </td>
-            </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Respondent's Answer Must Contain</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("answermustcontain", researcherSurveyDetail02testquestion.getAnswermustcontain(), 250, 35, "", "")%>
+                    </td>
+                </tr>
 
-        </table>
+
+
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save Question and Continue">
+                        <br/><br/><a href="researchersurveydetail_02.jsp?surveyid=<%=researcherSurveyDetail02testquestion.getSurvey().getSurveyid()%>"><font class="tinyfont">Nevermind, Take me Back</font></a>
+                    </td>
+                </tr>
+
+            </table>
+        </div></div>
     </form>
     <!-- End Bottom -->
 
@@ -141,5 +148,8 @@ String acl="researcher";
         });
         $("#togglehelp").hide();
     </script>
+<script>
+        $('#tabs').tabs();
+</script>
 
 <%@ include file="/template/footer.jsp" %>

@@ -15,6 +15,10 @@ String acl = "public";
     ResearcherIndex researcherIndex=(ResearcherIndex) Pagez.getBeanMgr().get("ResearcherIndex");
     ResearcherSurveyList researcherSurveyList=(ResearcherSurveyList) Pagez.getBeanMgr().get("ResearcherSurveyList");
 %>
+<%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){
+    Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp");
+    return;
+}%>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("copy")) {
         try {
