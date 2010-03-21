@@ -54,16 +54,19 @@ public class IncentiveNone implements Incentive {
 
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
+        out.append("Free");
         return out.toString();
     }
 
     public String getFullSummary() {
         StringBuffer out = new StringBuffer();
+        out.append("Free");
         return out.toString();
     }
 
     public String getFullSummaryHtml() {
         StringBuffer out = new StringBuffer();
+        out.append("Free");
         return out.toString();
     }
 

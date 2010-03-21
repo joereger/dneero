@@ -5,8 +5,6 @@
 <!--<html>-->
 <!--<head>-->
   <!--<title>dNeero Social Surveys</title>-->
-  <style type="text/css"><%=Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"/css/basic.css").toString()%></style>
-  <!--<link rel="stylesheet" type="text/css" href="/css/basic.css" />-->
   <style type="text/css"><%=Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"/css/dneero-facebook.css").toString()%></style>
   <!--<link rel="stylesheet" type="text/css" href="/css/dneero-facebook.css" />-->
   <!--<style type="text/css"><%//=Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"/js/niftycube/niftyCorners.css").toString()%></style>-->

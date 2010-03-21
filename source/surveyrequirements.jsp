@@ -19,7 +19,7 @@ PublicSurveyRequirements publicSurveyRequirements = (PublicSurveyRequirements)Pa
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyRequirements)Pagez.getBeanMgr().get("PublicSurveyRequirements")).getSurvey().getTitle();
+String pagetitle = "";
 String navtab = "home";
 String acl = "public";
 %>
@@ -27,8 +27,6 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-
-    <font class="smallfont"><%=((PublicSurveyRequirements) Pagez.getBeanMgr().get("PublicSurveyRequirements")).getSurvey().getDescription()%></font><br/><br/><br/>
 
 
     <div id="csstabs">
@@ -43,6 +41,12 @@ String acl = "public";
       </ul>
     </div>
     <br/><br/><br/>
+
+    <a href="/survey.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyRequirements.getSurvey().getTitle()%></font></a>
+    <br/><br/><br/>
+
+    <font class="mediumfont" style="color: #666666;">Requirements</font>
+    <br/><br/>
 
     <% if (!publicSurveyRequirements.getSurvey().getIsopentoanybody()){ %>
         <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>

@@ -22,16 +22,13 @@ PublicSurveyWhotookit publicSurveyWhotookit = (PublicSurveyWhotookit)Pagez.getBe
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyWhotookit) Pagez.getBeanMgr().get("PublicSurveyWhotookit")).getSurvey().getTitle();
+String pagetitle = "";
 String navtab="home";
 String acl="public";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
 
-
-
-    <font class="smallfont"><%=publicSurveyWhotookit.getSurvey().getDescription()%></font><br/><br/><br/>
 
     <div id="csstabs">
       <ul>
@@ -44,6 +41,9 @@ String acl="public";
         <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
+    <br/><br/><br/>
+
+    <a href="/survey.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyWhotookit.getSurvey().getTitle()%></font></a>
     <br/><br/><br/>
 
 

@@ -85,24 +85,21 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                 <font class="mediumfont" style="color: #333333">Existing Users</font><br/>
                 <font class="smallfont">If you've already got an account you can simply log in.</font><br/>
-                <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                    <%=GreenRoundedButton.get("<a href=\"/login.jsp\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">Log In</font></a>")%>
-                </div>
+                    <a class="sexybutton" href="/login.jsp"><span><span>Log In</span></span></a>
             </div>
             <br/>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                <font class="mediumfont" style="color: #333333">Facebook Users</font><br/>
-                <font class="smallfont">We've got a Facebook App for you inside of Facebook.</font><br/>
-                <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
-                    <%=GreenRoundedButton.get("<a href=\"http://apps.facebook.com/dneerosocialsurveys/\"><font class=\"subnavfont\" style=\"color: #ffffff; font-weight: bold;\">The Facebook App</font></a>")%>
-                </div>
+                <font class="mediumfont" style="color: #333333">Facebook??</font><br/>
+                <font class="smallfont">We've got a Facebook App for you.</font><br/>
+                    <a class="sexybutton" href="http://apps.facebook.com/dneerosocialsurveys/"><span><span>Facebook App</span></span></a>
             </div>
         </div>
         <form action="/registration.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/registration.jsp">
             <input type="hidden" name="action" value="register">
             <%--<input type="hidden" name="captchaId" value="<%=captchaId%>">--%>
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
+            <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
+                <br/><br/>
                 <table cellpadding="5" cellspacing="0" border="0">
 
                     <tr>
@@ -110,7 +107,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                             <font class="formfieldnamefont">First, Last Name</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("firstname", registration.getFirstname(), 255, 10, "", "")%> <%=Textbox.getHtml("lastname", registration.getLastname(), 255, 10, "", "")%>
+                            <%=Textbox.getHtml("firstname", registration.getFirstname(), 255, 10, "", "width:151px;")%><%=Textbox.getHtml("lastname", registration.getLastname(), 255, 10, "", "width:151px;")%>
                         </td>
                     </tr>
 
@@ -119,12 +116,12 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                         <td valign="top" align="right">
                             <font class="formfieldnamefont">Nickname</font>
                             <br/>
-                            <font class="tinyfont">Will be shared publicly.</font>
+                            <font class="tinyfont"></font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("nickname", registration.getNickname(), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("nickname", registration.getNickname(), 255, 35, "", "width:308px;")%>
                             <br/>
-                            <font class="tinyfont">Letters and numbers, no spaces.</font>
+                            <font class="tinyfont">Will be shared publicly. Letters, numbers, no spaces.</font>
                         </td>
                     </tr>
 
@@ -133,7 +130,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                             <font class="formfieldnamefont">Email</font>
                         </td>
                         <td valign="top">
-                            <%=Textbox.getHtml("email", registration.getEmail(), 255, 35, "", "")%>
+                            <%=Textbox.getHtml("email", registration.getEmail(), 255, 35, "", "width:308px;")%>
                         </td>
                     </tr>
 
@@ -142,7 +139,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                             <font class="formfieldnamefont">Password</font>
                         </td>
                         <td valign="top">
-                            <%=TextboxSecret.getHtml("password", registration.getPassword(), 255, 35, "", "")%>
+                            <%=TextboxSecret.getHtml("password", registration.getPassword(), 255, 35, "", "width:308px;")%>
                         </td>
                     </tr>
 
@@ -199,7 +196,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                     </tr>
 
                 </table>
-            </div>
+            <%--</div>--%>
         </form>
 
 

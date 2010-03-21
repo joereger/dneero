@@ -22,7 +22,7 @@ PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr(
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyDiscuss) Pagez.getBeanMgr().get("PublicSurveyDiscuss")).getSurvey().getTitle();
+String pagetitle = "";
 String navtab = "home";
 String acl = "public";
 %>
@@ -43,10 +43,6 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-
-    <font class="smallfont"><%=publicSurveyDiscuss.getSurvey().getDescription()%></font><br/><br/><br/>
-
-
     <div id="csstabs">
       <ul>
         <li><a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
@@ -58,6 +54,9 @@ String acl = "public";
         <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
+    <br/><br/><br/>
+
+    <a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyDiscuss.getSurvey().getTitle()%></font></a>
     <br/><br/><br/>
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>

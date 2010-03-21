@@ -19,16 +19,13 @@ PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr(
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults")).getSurvey().getTitle();
+String pagetitle = "";
 String navtab = "home";
 String acl = "public";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
 
-
-
-    <font class="smallfont"><%=publicSurveyResults.getSurvey().getDescription()%></font><br/><br/><br/>
 
     <div id="csstabs">
       <ul>
@@ -41,6 +38,9 @@ String acl = "public";
         <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
       </ul>
     </div>
+    <br/><br/><br/>
+
+    <a href="/survey.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyResults.getSurvey().getTitle()%></font></a>
     <br/><br/><br/>
 
 

@@ -143,6 +143,27 @@ if (accountIndex.getUserhasresponsependings()){
                 <td width="66%" valign="top">
                     <%--<div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">--%>
                     <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
+
+                    <table cellpadding="10" cellspacing="0" border="0">
+                        <tr>
+                            <td valign="top" width="50%">
+                                <div class="rounded" style="background: #e6e6e6;">
+                                    <form action="/blogger/index.jsp" method="get">
+                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Enter Conversations">
+                                    </form>
+                                </div>
+                            </td>
+                            <td valign="top" width="50%">
+                                <div class="rounded" style="background: #e6e6e6;">
+                                    <form action="/researcher/index.jsp" method="get">
+                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Create Conversations">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
                     <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
                         <font class="largefont hdr">Conversations for You</font>
                         <br/>
@@ -152,7 +173,7 @@ if (accountIndex.getUserhasresponsependings()){
                         publicSurveyList.initBean();
                         %>
                         <%if (publicSurveyList.getSurveys()==null || publicSurveyList.getSurveys().size()==0){%>
-                            <font class="smallfont">We've got nothin' for ya!  Please check back soon... we're always adding new conversations!</font>
+                            <font class="smallfont">No conversations right now.  Please check back soon... we're always adding new ones!</font>
                         <%} else {%>
                             <%
                                 StringBuffer srv = new StringBuffer();

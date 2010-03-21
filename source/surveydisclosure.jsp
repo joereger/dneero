@@ -19,7 +19,7 @@ if (publicSurveyDisclosure.getSurvey().getStatus()<Survey.STATUS_OPEN){
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyDisclosure) Pagez.getBeanMgr().get("PublicSurveyDisclosure")).getSurvey().getTitle();
+String pagetitle = "";
 String navtab = "home";
 String acl = "public";
 %>
@@ -27,8 +27,6 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-
-    <font class="smallfont"><%=publicSurveyDisclosure.getSurvey().getDescription()%></font><br/><br/><br/>
 
     <div id="csstabs">
       <ul>
@@ -43,6 +41,9 @@ String acl = "public";
     </div>
     <br/><br/><br/>
 
+    <a href="/survey.jsp?surveyid=<%=publicSurveyDisclosure.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyDisclosure.getSurvey().getTitle()%></font></a>
+    <br/><br/><br/>
+
 
 
     <% if (!publicSurveyDisclosure.getSurvey().getIsfree()){ %>
@@ -50,7 +51,7 @@ String acl = "public";
         <table width="100%" cellpadding="5">
             <tr>
                 <td valign="top" width="450">
-                    <font class="largefont" style="color: #666666;">Sponsored Conversation Disclosure</font>
+                    <font class="mediumfont" style="color: #666666;">Sponsored Conversation Disclosure</font>
                     <br/><br/>
                     <font class="normalfont">
                     This is a sponsored conversation.  The sponsor did not and does not encourage the blogger/social networker to post any particular opinion or answers.  The sponsor encourages the blogger/social networker to simply tell the truth.
@@ -92,7 +93,7 @@ String acl = "public";
         </table>
     <% } else { %>
         <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
-        <font class="largefont" style="color: #666666;">Conversation Disclosure</font>
+        <font class="mediumfont" style="color: #666666;">Conversation Disclosure</font>
         <br/><br/>
         <font class="normalfont">
         This conversation is powered by a third party technology.  It is created by a person or organization which may exert bias through their choice of questions.

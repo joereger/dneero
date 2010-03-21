@@ -26,7 +26,7 @@
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = ((PublicSurveyPostit)Pagez.getBeanMgr().get("PublicSurveyPostit")).getSurvey().getTitle();
+String pagetitle = "";
 String navtab = "home";
 String acl = "public";
 %>
@@ -45,9 +45,6 @@ String acl = "public";
 
 
 
-    <font class="smallfont"><%=publicSurveyPostit.getSurvey().getDescription()%></font><br/><br/><br/>
-
-
     <div id="csstabs">
       <ul>
         <li><a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
@@ -61,26 +58,28 @@ String acl = "public";
     </div>
     <br/><br/><br/>
 
+    <a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyPostit.getSurvey().getTitle()%></font></a>
+    <br/><br/><br/>
+
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
     <% if (!publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
         <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
             <table width="100%" cellpadding="5">
                 <tr>
-                    <td valign="top" width="450">
+                    <td valign="top" width="65%">
                         <br/><br/>
+                        <center>
                         <%=publicSurveyPostit.getSurveyOnBlogPreview()%>
+                        </center>
                     </td>
                     <td valign="top">
-                        <div class="rounded" style="background: #cccccc;">
-                            <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <font class="mediumfont">What's this?</font>
+                        <div class="rounded" style="background: #e6e6e6;">
+                            <div class="rounded" style="background: #ffffff; text-align: left;">
+                                <img src="/images/info-48.png" width="48" height="48" align="right"/>
+                                <font class="mediumfont" style="color: #666666;">This is how your conversation answers appear when embedded into your blog or social network</font>
                                 <br/>
-                                <img src="/images/info-128.png" width="128" height="128"/>
-                                <br/>
-                                <font class="mediumfont">It's how this conversation looks in your blog!</font>
-                                <br/>
-                                <font class="smallfont">(of course, we'll put your actual answers in there)</font>
+                                <font class="smallfont" style="color: #666666;">(we'll put your actual answers in there)</font>
                             </div>
                             <br/>
                             <font class="smallfont">
