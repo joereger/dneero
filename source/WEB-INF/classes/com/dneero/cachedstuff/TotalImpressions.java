@@ -1,12 +1,11 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
 import com.dneero.dao.Pl;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 /**
  * User: Joe Reger Jr
@@ -35,7 +34,7 @@ public class TotalImpressions implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 60;
+        return 60*24;
     }
 
     public String getHtml() {

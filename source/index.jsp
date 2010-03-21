@@ -54,13 +54,13 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
         velocityContext.put("totalConvoEmbeds", (TotalImpressions) GetCachedStuff.get(new TotalImpressions(), Pagez.getUserSession().getPl()));
         velocityContext.put("usersWithMostConvos", (MostActiveUsersByTotalSurveysTaken) GetCachedStuff.get(new MostActiveUsersByTotalSurveysTaken(), Pagez.getUserSession().getPl()));
         velocityContext.put("donationsMiniReport", (DonationsToCharityMiniReport) GetCachedStuff.get(new DonationsToCharityMiniReport(), Pagez.getUserSession().getPl()));
-        velocityContext.put("recentDonations", (MostRecentDonations) GetCachedStuff.get(new MostRecentDonations(), Pagez.getUserSession().getPl()));
+        //velocityContext.put("recentDonations", (MostRecentDonations) GetCachedStuff.get(new MostRecentDonations(), Pagez.getUserSession().getPl()));
         velocityContext.put("recentConvos", (RecentSurveys) GetCachedStuff.get(new RecentSurveys(), Pagez.getUserSession().getPl()));
         velocityContext.put("recentConvoJoins", (RecentSurveyResponses) GetCachedStuff.get(new RecentSurveyResponses(), Pagez.getUserSession().getPl()));
         velocityContext.put("twitterAnswers", (TwitterQuestionAnswers) GetCachedStuff.get(new TwitterQuestionAnswers(), Pagez.getUserSession().getPl()));
-        velocityContext.put("recentlyPaid", (MostRecentPaidInBalance) GetCachedStuff.get(new MostRecentPaidInBalance(), Pagez.getUserSession().getPl()));
-        velocityContext.put("newestUsers", (NewestUsers) GetCachedStuff.get(new NewestUsers(), Pagez.getUserSession().getPl()));
-        velocityContext.put("blogPosts", (BlogPosts) GetCachedStuff.get(new BlogPosts(), Pagez.getUserSession().getPl()));
+        //velocityContext.put("recentlyPaid", (MostRecentPaidInBalance) GetCachedStuff.get(new MostRecentPaidInBalance(), Pagez.getUserSession().getPl()));
+        //velocityContext.put("newestUsers", (NewestUsers) GetCachedStuff.get(new NewestUsers(), Pagez.getUserSession().getPl()));
+        //velocityContext.put("blogPosts", (BlogPosts) GetCachedStuff.get(new BlogPosts(), Pagez.getUserSession().getPl()));
         String homepage = TemplateProcessor.process(templateHomepageName, templateHomepage, velocityContext);
         %>
         <%=homepage%>

@@ -1,18 +1,16 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.*;
-import com.dneero.util.Time;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.privatelabel.PlPeers;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.Iterator;
-import java.io.Serializable;
-
-import org.hibernate.criterion.Restrictions;
+import com.dneero.util.Time;
 import org.hibernate.criterion.Order;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -77,7 +75,7 @@ public class RecentSurveyResponses implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 5;
+        return 90;
     }
 
     public String getHtml() {

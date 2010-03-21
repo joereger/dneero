@@ -21,7 +21,8 @@ public class GetCachedStuff {
         String key = cs.getKey();
         String group = "CachedStuff-plid="+pl.getPlid();
         try{
-            Object obj = DbcacheexpirableCache.get(key, group);
+            //Note third argument which tells cache to return object instead of null even if expired
+            Object obj = DbcacheexpirableCache.get(key, group, false);
             if (obj!=null && (obj instanceof CachedStuff)){
                 CachedStuff cachedCs = (CachedStuff)obj;
                 int minago = DateDiff.dateDiff("minute", Calendar.getInstance(), cachedCs.refreshedTimestamp());

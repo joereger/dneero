@@ -1,19 +1,19 @@
 package com.dneero.cachedstuff;
 
+import com.dneero.dao.Pl;
+import com.dneero.dao.Twitanswer;
+import com.dneero.dao.Twitask;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.*;
-import com.dneero.util.Time;
-import com.dneero.util.Str;
-import com.dneero.helpers.NicknameHelper;
 import com.dneero.privatelabel.PlPeers;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.Iterator;
-import java.io.Serializable;
-
-import org.hibernate.criterion.Restrictions;
+import com.dneero.util.Str;
+import com.dneero.util.Time;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -85,7 +85,7 @@ public class TwitterQuestionAnswers implements CachedStuff, Serializable {
     }
 
     public int maxAgeInMinutes() {
-        return 15;
+        return 90;
     }
 
     public String getHtml() {
