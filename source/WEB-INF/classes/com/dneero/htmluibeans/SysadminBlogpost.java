@@ -1,25 +1,19 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.dao.Betainvite;
+import com.dneero.dao.Blogpost;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.helpers.Pingomatic;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
+import com.dneero.systemprops.BaseUrl;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Date;
-import java.util.Comparator;
 import java.util.Collections;
-
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.Betainvite;
-import com.dneero.dao.Blogpost;
-import com.dneero.dao.Pl;
-
-import com.dneero.email.EmailTemplateProcessor;
-import com.dneero.helpers.Pingomatic;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.cachedstuff.BlogPosts;
-import com.dneero.cachedstuff.GetCachedStuff;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -84,7 +78,7 @@ public class SysadminBlogpost implements Serializable {
         try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
         initBean();
         //Refresh the blog posts on the homepage
-        GetCachedStuff.refresh(new BlogPosts(), Pl.get(1));
+        //GetCachedStuff.refresh(new BlogPosts(), Pl.get(1));
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
                 Pingomatic.ping("dNeero Conversations Blog", BaseUrl.get(false)+"blog.jsp", BaseUrl.get(false)+"rss.xml");

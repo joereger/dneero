@@ -1,16 +1,13 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.cache.html.DbcacheexpirableCache;
-import com.dneero.htmluibeans.PublicIndexCacheitem;
+import com.dneero.dao.Pl;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
-import com.dneero.dao.Pl;
+import org.apache.log4j.Logger;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -29,13 +26,13 @@ public class GetCachedStuff {
                 CachedStuff cachedCs = (CachedStuff)obj;
                 int minago = DateDiff.dateDiff("minute", Calendar.getInstance(), cachedCs.refreshedTimestamp());
                 if (minago>cs.maxAgeInMinutes()){
-                    cs.refresh(pl);
-                    Date expirationdate = Time.xMinutesAgoEnd(Calendar.getInstance(), (-1)*cs.maxAgeInMinutes()).getTime();
-                    DbcacheexpirableCache.put(key, group, cs, expirationdate);
-                    return cs;
-                } else {
-                    return cachedCs;
+                    //Kick off the background thread to refresh
+                    logger.debug("minago>cs.maxAgeInMinutes() so kicking off thread to refresh");
+                    GetCachedStuffRefreshThread gcsrt = new GetCachedStuffRefreshThread(cs, pl, key, group);
+                    gcsrt.startThread();
                 }
+                //Immediately return most recently refreshed
+                return cachedCs;
             } else {
                 cs.refresh(pl);
                 Date expirationdate = Time.xMinutesAgoEnd(Calendar.getInstance(), (-1)*cs.maxAgeInMinutes()).getTime();
@@ -48,21 +45,6 @@ public class GetCachedStuff {
         return cs;
     }
 
-    public static void refresh(CachedStuff cs, Pl pl){
-        Logger logger = Logger.getLogger(CachedStuff.class);
-        String key = cs.getKey()+"-plid="+pl.getPlid();
-        String group = "CachedStuff";
-        try{
-            Object obj = DbcacheexpirableCache.get(key, group);
-            if (obj!=null && (obj instanceof CachedStuff)){
-                CachedStuff cachedCs = (CachedStuff)obj;
-                cs.refresh(pl);
-                Date expirationdate = Time.xMinutesAgoEnd(Calendar.getInstance(), (-1)*cs.maxAgeInMinutes()).getTime();
-                DbcacheexpirableCache.put(key, group, cs, expirationdate);
-            }
-        } catch (Exception ex){
-            logger.error("", ex);
-        }
-    }
+
 
 }
