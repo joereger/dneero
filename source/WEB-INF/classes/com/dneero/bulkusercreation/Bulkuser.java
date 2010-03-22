@@ -153,17 +153,17 @@ public class Bulkuser {
             Blogger blogger = new Blogger();
             blogger.setUserid(Pagez.getUserSession().getUser().getUserid());
             blogger.setBirthdate(Time.xYearsAgoStart(Calendar.getInstance(), 25).getTime());
-            blogger.setEducationlevel("");
-            blogger.setEthnicity("");
-            blogger.setGender("");
-            blogger.setIncomerange("");
-            blogger.setMaritalstatus("");
-            blogger.setState("");
-            blogger.setCity("");
-            blogger.setProfession("");
-            blogger.setPolitics("");
-            blogger.setBlogfocus("");
-            blogger.setCountry("");
+            blogger.setEducationlevel("NA");
+            blogger.setEthnicity("NA");
+            blogger.setGender("NA");
+            blogger.setIncomerange("NA");
+            blogger.setMaritalstatus("NA");
+            blogger.setState("NA");
+            blogger.setCity("NA");
+            blogger.setProfession("NA");
+            blogger.setPolitics("NA");
+            blogger.setBlogfocus("NA");
+            blogger.setCountry("NA");
 
             try{
                 blogger.save();
