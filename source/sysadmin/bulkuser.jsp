@@ -75,7 +75,10 @@ String acl = "sysadmin";
                     bulkusers.add(bulkuser);
                 }
                 if (errorcount==0){
-                    logger.error("Should create the accounts.");
+                    for (Iterator<Bulkuser> bulkuserIterator = bulkusers.iterator(); bulkuserIterator.hasNext();) {
+                        Bulkuser bulkuser = bulkuserIterator.next();
+                        bulkuser.createUser();
+                    }
                 } else {
                     formCenter = HtmlInputForm.getForm(bulkusers);
                     Pagez.getUserSession().setMessage("There are "+errorcount+" errors to correct below. You can make changes... we'll validate again before creating any accounts.");
