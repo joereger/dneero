@@ -135,6 +135,7 @@
             <a href="/sysadmin/pageperformance.jsp">Perf</a>
             <a href="/sysadmin/blogpost.jsp">Blog</a>
             <a href="/sysadmin/privatelabels.jsp">PrivateLabels</a>
+            <a href="/sysadmin/bulkuser.jsp">Bulkuser</a>
             <a href="/sysadmin/impressionsbyday.jsp">ImpByDay</a>
             <a href="/sysadmin/usagereport.jsp">Usage</a>
         #end

@@ -1,23 +1,15 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-import org.apache.commons.validator.EmailValidator;
-
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.util.*;
-
-import au.com.bytecode.opencsv.CSVReader;
-
-import com.dneero.util.Str;
-import com.dneero.dao.Researcher;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.systemprops.BaseUrl;
+import org.apache.commons.validator.EmailValidator;
+import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -27,7 +19,7 @@ import com.dneero.systemprops.BaseUrl;
 public class ResearcherEmailinvite implements Serializable {
 
 
-    private String subject = "You've Been Invited to Join a Sponsored Conversation";
+    private String subject = "You've Been Invited to Join a Conversation";
     private String message;
     private String manuallyenteredemailaddresses;
     private int surveyiduserisinvitedto;
