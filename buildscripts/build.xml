@@ -34,6 +34,7 @@
   <property name="sourcedir" value="${source.root.directory}"/>
 
 
+
   <path id="lib.classpath">
       <fileset dir="${sourcedir}/WEB-INF/lib">
         <include name="**/*.jar" />
@@ -58,6 +59,13 @@
       <copy todir="${lastbuild}">
         <fileset dir="${sourcedir}" excludes="**.*Thumbs.db"/>
       </copy>
+      <echo message="privatelabeltobuild=${privatelabeltobuild}"/>
+      <!-- Start Moving Jbosscache config files  -->
+      <echo message="Copy ${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config.xml to ${lastbuild}/WEB-INF/classes/jbc2-config.xml"/>
+      <copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-config.xml"/>
+      <copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config-nondao.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-config-nondao.xml"/>
+      <copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-stacks.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-stacks.xml"/>
+      <!-- End Moving Jbosscache config files  -->
   </target>
 
   <!-- Compile the app-->
@@ -125,12 +133,12 @@
     <target name="createJavaDoc" description="Creates javadoc" depends="">
         <echo message="Creating javaDoc for ${tomcat.app.name}."/>
         <delete dir="${builddir}/javaDoc"/>
-        <javadoc destdir="${builddir}/javaDoc" author="true" version="true" use="true" windowtitle="Reger.com javaDoc">
+        <javadoc destdir="${builddir}/javaDoc" author="true" version="true" use="true" windowtitle="dNeero.com javaDoc">
             <packageset dir="${sourcedir}/WEB-INF/classes" defaultexcludes="yes">
-                <include name="reger/**" />
+                <include name="com/**" />
             </packageset>
-            <doctitle><![CDATA[<h1>Reger.com</h1>]]></doctitle>
-            <bottom><![CDATA[<i>Copyright &#169; 2006 Reger.com. Confidential and proprietary. All Rights Reserved.</i>]]></bottom>
+            <doctitle><![CDATA[<h1>dNeero.com</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2010 dNeero.com. Confidential and proprietary. All Rights Reserved.</i>]]></bottom>
         </javadoc>
     </target>
 
@@ -232,11 +240,25 @@
 
 
 
-	<target name="buildWar" description="Builds a war file." depends="packagewithsource">
+	<target name="saveWar" description="Builds a war file." depends="packagewithsource">
         <echo message="Creating ROOT.war for ${tomcat.app.name}."/>
-        <copy file="${tomcat.app.name}-(bld${build.number})-${build.time}.war" tofile="${wardir}/ROOT.war" overwrite="true"/>
+        <copy file="${tomcat.app.name}-(bld${build.number})-${build.time}.war" tofile="${wardir}${privatelabeltobuild}/ROOT.war" overwrite="true"/>
 		<delete file="${tomcat.app.name}-(bld${build.number})-${build.time}.war"/>
     </target>
+
+    <target name="buildWarDneero" description="Builds a war file of dNeero.">
+        <!-- privatelabeltobuild is prepended to files like political-jbc2-config.xml  -->
+        <property name="privatelabeltobuild" value=""/>
+        <antcall target="saveWar"/>
+    </target>
+
+    <target name="buildWarPolitical" description="Builds a war file of the Political version of dNeero.">
+        <!-- privatelabeltobuild is prepended to files like political-jbc2-config.xml  -->
+        <property name="privatelabeltobuild" value="political-"/>
+        <antcall target="saveWar"/>
+    </target>
+
+
 
     <target name="buildWarToJbossFarmDir" description="Builds a war file to the Jboss Farm directory." depends="packagewithsource">
         <echo message="Creating ROOT.war for ${tomcat.app.name}."/>

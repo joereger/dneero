@@ -7,7 +7,6 @@ import org.jboss.cache.Cache;
 import org.jboss.cache.DefaultCacheFactory;
 import org.jboss.cache.CacheFactory;
 import org.apache.log4j.Logger;
-import org.hibernate.cache.TreeCache;
 
 import java.util.Iterator;
 import java.util.HashSet;
@@ -34,7 +33,7 @@ public class JbossTreeCacheAOPProvider implements CacheProvider {
         try{
 
             CacheFactory factory = new DefaultCacheFactory();
-            cache = factory.createCache(WebAppRootDir.getWebAppRootPath()+"WEB-INF"+java.io.File.separator+"classes"+java.io.File.separator+"jbc2-cache-configuration-nondao.xml");
+            cache = factory.createCache(WebAppRootDir.getWebAppRootPath()+"WEB-INF"+java.io.File.separator+"classes"+java.io.File.separator+ "jbc2-config-nondao.xml");
 
             logger.debug("JBossCache Cache NonDAO Created");
         } catch (Exception e){

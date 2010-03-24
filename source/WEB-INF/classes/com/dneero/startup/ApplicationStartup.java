@@ -1,25 +1,22 @@
 package com.dneero.startup;
 
+import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateSessionQuartzCloser;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.HibernateUtilDbcache;
 import com.dneero.dao.hibernate.HibernateUtilImpressions;
+import com.dneero.db.Db;
 import com.dneero.pageperformance.PagePerformanceUtil;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.SystemProperty;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.db.Db;
-import com.dneero.cache.providers.CacheFactory;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Level;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
-import org.slf4j.LoggerFactory;
-
 
 import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
@@ -56,9 +53,6 @@ public class ApplicationStartup implements ServletContextListener {
         //Configure some dir stuff
         WebAppRootDir ward = new WebAppRootDir(cse.getServletContext());
         iswabapprooddirdiscovered = true;
-        //Init Ha JDBC
-        //System.out.println("DNEERO: Will call HAJDBCInit.init()");
-        //try{HAJDBCInit.init();} catch (Exception ex){logger.error("", ex);}
         //Run pre-hibernate db upgrades
         System.out.println("DNEERO: Start with DbVersion PreHibernate Check");
         DbVersionCheck dbvcPre = new DbVersionCheck();

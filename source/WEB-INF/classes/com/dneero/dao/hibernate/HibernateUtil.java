@@ -1,21 +1,18 @@
 package com.dneero.dao.hibernate;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.Session;
-import org.hibernate.HibernateException;
-import org.hibernate.tool.hbm2ddl.SchemaUpdate;
-import org.hibernate.cfg.Configuration;
+import com.dneero.db.Db;
+import com.dneero.startup.ApplicationStartup;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.systemprops.WebAppRootDir;
 import org.apache.log4j.Logger;
-
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.tool.hbm2ddl.SchemaUpdate;
 
 import java.io.File;
 import java.io.Serializable;
-
-
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.startup.ApplicationStartup;
-import com.dneero.db.Db;
 
 public class HibernateUtil {
 
@@ -77,12 +74,12 @@ public class HibernateUtil {
                     conf.setProperty("hibernate.cache.use_second_level_cache", "true");
                     conf.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jbc2.MultiplexedJBossCacheRegionFactory");
                     conf.setProperty("hibernate.cache.region_prefix", "main");
-                    conf.setProperty("hibernate.cache.region.jbc2.configs", "jbc2-configs-dneero.xml");
+                    conf.setProperty("hibernate.cache.region.jbc2.configs", "jbc2-config.xml");
                     conf.setProperty("hibernate.cache.region.jbc2.cfg.entity", "optimistic-entity");
                     conf.setProperty("hibernate.cache.region.jbc2.cfg.collection", "optimistic-entity");
                     conf.setProperty("hibernate.cache.region.jbc2.cfg.ts", "timestamps-cache");
                     conf.setProperty("hibernate.cache.region.jbc2.cfg.query", "optimistic-entity");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.multiplexer.stacks", "jgroups-stacks-dneeroXXX.xml");
+                    conf.setProperty("hibernate.cache.region.jbc2.cfg.multiplexer.stacks", "jbc2-stacks.xml");
                     conf.setProperty("hibernate.cache.use_structured_entries", "true");
                     conf.setProperty("hibernate.cache.use_query_cache", "true");
                     conf.setProperty("hibernate.cache.usage", "transactional");
