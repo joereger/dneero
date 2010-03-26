@@ -10,6 +10,7 @@ import com.dneero.htmlui.ValidationException;
 import com.dneero.money.CurrentBalanceCalculator;
 import com.dneero.money.PaymentMethod;
 import com.dneero.money.TwitaskMoneyStatus;
+import com.dneero.scheduledjobs.PendingToOpenTwitasks;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Num;
@@ -102,8 +103,6 @@ public class ResearcherTwitaskDetail06 implements Serializable {
                 //The user's current account balance
                 CurrentBalanceCalculator cbc = new CurrentBalanceCalculator(Pagez.getUserSession().getUser());
                 double currentbalance = cbc.getCurrentbalance();
-
-
 
 
                 //Only worry about the credit carc stuff if there's not enough in the account currently
@@ -265,7 +264,14 @@ public class ResearcherTwitaskDetail06 implements Serializable {
                 //Set the reseller code
                 twitask.setResellercode(resellercode);
 
-                //Save the survey
+                //Auto-approve
+                if (twitask.getIsfree()){
+                    twitask.setStatus(Twitask.STATUS_WAITINGFORSTARTDATE);
+                    twitask.setIssysadminreviewed(false);
+                    twitask.setIssysadminrejected(false);
+                }
+
+                //Save
                 try{
                     logger.debug("save() about to save twitask.getTwitaskid()=" + twitask.getTwitaskid());
                     twitask.save();
@@ -291,6 +297,12 @@ public class ResearcherTwitaskDetail06 implements Serializable {
 
                 //Refresh
                 twitask.refresh();
+
+                //Promote to live if possible
+                if (twitask.getIsfree()){
+                    PendingToOpenTwitasks.processTwitask(twitask);
+                }
+
             }
         }
     }

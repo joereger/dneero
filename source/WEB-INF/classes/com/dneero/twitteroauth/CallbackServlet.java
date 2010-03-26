@@ -1,6 +1,8 @@
 package com.dneero.twitteroauth;
 
+import com.dneero.dao.Twitask;
 import com.dneero.htmlui.Pagez;
+import com.dneero.util.Num;
 import org.apache.log4j.Logger;
 import twitter4j.Twitter;
 import twitter4j.http.AccessToken;
@@ -41,10 +43,20 @@ public class CallbackServlet  extends HttpServlet {
             //request.getSession().removeAttribute("requestToken");
             logger.debug("accessToken.getToken()="+accessToken.getToken());
             logger.debug("accessToken.getTokenSecret()="+accessToken.getTokenSecret());
+            logger.debug("request.getParameter(\"twitaskid\")="+request.getParameter("twitaskid"));
+            if (Num.isinteger(request.getParameter("twitaskid"))){
+                Twitask twitask = Twitask.get(Integer.parseInt(request.getParameter("twitaskid")));
+                if (twitask!=null && twitask.getTwitaskid()>0 && Pagez.getUserSession().getUser()!=null && twitask.canEdit(Pagez.getUserSession().getUser())){
+                    twitask.setTwitteraccesstoken(accessToken.getToken());
+                    twitask.setTwitteraccesstokensecret(accessToken.getTokenSecret());
+                    twitask.save();
+                }
+            }
         } catch (Exception ex) {
             logger.error("", ex);
         }
-        response.sendRedirect(request.getContextPath()+ "/");
+        Pagez.getUserSession().setMessage("You've successfully authorized Twitter!");
+        response.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+request.getParameter("twitaskid"));
     }
 
 

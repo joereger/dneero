@@ -19,7 +19,7 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
 %>
 <%if (researcherTwitaskDetail04.getTwitask().getIsopentoanybody()){
     if (request.getParameter("ispreviousclick")!=null && request.getParameter("ispreviousclick").equals("1")){
-        Pagez.sendRedirect("/researcher/researchertwitaskdetail_01.jsp?twitaskid="+researcherTwitaskDetail04.getTwitask().getTwitaskid()+"&ispreviousclick=1");
+        Pagez.sendRedirect("/researcher/researchertwitaskdetail_02.jsp?twitaskid="+researcherTwitaskDetail04.getTwitask().getTwitaskid()+"&ispreviousclick=1");
         return;
     }
     Pagez.sendRedirect("/researcher/researchertwitaskdetail_05.jsp?twitaskid="+researcherTwitaskDetail04.getTwitask().getTwitaskid());
@@ -30,7 +30,7 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
         try {
             if (researcherTwitaskDetail04.getTwitask().getStatus()>Twitask.STATUS_DRAFT){
                 if (request.getParameter("action").equals("previous")){
-                    Pagez.sendRedirect("/researcher/researchertwitaskdetail_01.jsp?twitaskid="+ researcherTwitaskDetail04.getTwitask().getTwitaskid()+"&ispreviousclick=1");
+                    Pagez.sendRedirect("/researcher/researchertwitaskdetail_02.jsp?twitaskid="+ researcherTwitaskDetail04.getTwitask().getTwitaskid()+"&ispreviousclick=1");
                     return;
                 } else {
                     Pagez.sendRedirect("/researcher/researchertwitaskdetail_05.jsp?twitaskid="+ researcherTwitaskDetail04.getTwitask().getTwitaskid());
@@ -72,7 +72,7 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
             } else if (request.getParameter("action").equals("previous")) {
                 logger.debug("Previous was clicked");
                 researcherTwitaskDetail04.save();
-                Pagez.sendRedirect("/researcher/researchertwitaskdetail_01.jsp?twitaskid="+ researcherTwitaskDetail04.getTwitask().getTwitaskid()+"&ispreviousclick=1");
+                Pagez.sendRedirect("/researcher/researchertwitaskdetail_02.jsp?twitaskid="+ researcherTwitaskDetail04.getTwitask().getTwitaskid()+"&ispreviousclick=1");
                 return;
             }
         } catch (ValidationException vex) {

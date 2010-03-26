@@ -16,6 +16,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import twitter4j.*;
+import twitter4j.http.AccessToken;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,28 +35,28 @@ public class CollectTwitterAnswers implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
-            logger.debug("execute() PendingToOpenSurveys called");
-            List<Pl> pls = HibernateUtil.getSession().createCriteria(Pl.class)
-                                               .addOrder(Order.asc("plid"))
-                                               .setCacheable(true)
-                                               .list();
-            for (Iterator<Pl> plIterator=pls.iterator(); plIterator.hasNext();) {
-                Pl pl=plIterator.next();
-                if (pl.getTwitterusername()!=null && pl.getTwitterusername().length()>0 && pl.getTwitterpassword()!=null && pl.getTwitterpassword().length()>0){
-                    collectReplies(pl);
-                }
+            logger.debug("execute() CollectTwitterAnswers called");
+            List<Twitask> twitasks = HibernateUtil.getSession().createCriteria(Twitask.class)
+                                   .add( Restrictions.eq("status", Twitask.STATUS_OPEN))
+                                   .addOrder(Order.asc("startdate"))
+                                   .list();
+            for (Iterator<Twitask> iterator = twitasks.iterator(); iterator.hasNext();) {
+                Twitask twitask = iterator.next();
+                collectReplies(twitask);
             }
+
         } else {
             logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");
         }
     }
 
-    public static void collectReplies(Pl pl){
+    public static void collectReplies(Twitask twitask){
         Logger logger = Logger.getLogger(CollectTwitterAnswers.class);
         try{
             TwitterFactory twitterFactory = new TwitterFactory();
-            Twitter twitter = twitterFactory.getInstance(pl.getTwitterusername(),pl.getTwitterpassword());
-            //Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
+            Twitter twitter = twitterFactory.getInstance();
+            AccessToken accessToken = new AccessToken(twitask.getTwitteraccesstoken(), twitask.getTwitteraccesstokensecret());
+            twitter.setOAuthAccessToken(accessToken);
             for(int i=1; i<100; i++){
                 logger.debug("i="+i);
                 List<Status> statuses = twitter.getMentions(new Paging(i));
@@ -237,7 +238,7 @@ public class CollectTwitterAnswers implements Job {
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
             String msg = "Thanks for answering: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" It's pending review. Log in to your http://dNeero.com account for status.";
-            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }
 
@@ -248,7 +249,7 @@ public class CollectTwitterAnswers implements Job {
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
             String msg = "Sorry, you didn't qualify for: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
-            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }
 
@@ -259,7 +260,7 @@ public class CollectTwitterAnswers implements Job {
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
             String msg = "Sorry, you've already answered: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
-            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }
 
@@ -270,18 +271,18 @@ public class CollectTwitterAnswers implements Job {
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
             String msg = "Sorry, question closed already: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
-            sendTwitterDM(twitanswer.getTwitterusername(), msg, pl);
+            sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }
     }
 
-    public static void sendTwitterDM(String twitterusername, String msg, Pl pl){
+    private static void sendTwitterDM(String twitterusername, String msg, Twitask twitask){
         Logger logger = Logger.getLogger(CollectTwitterAnswers.class);
         try{
-            if (pl==null || pl.getPlid()==0){
-                pl = Pl.get(1);
-            }
-            Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
+            TwitterFactory twitterFactory = new TwitterFactory();
+            Twitter twitter = twitterFactory.getInstance();
+            AccessToken accessToken = new AccessToken(twitask.getTwitteraccesstoken(), twitask.getTwitteraccesstokensecret());
+            twitter.setOAuthAccessToken(accessToken);
             DirectMessage message = twitter.sendDirectMessage(twitterusername, msg);
         } catch (Exception ex){ logger.error("",ex); }
     }

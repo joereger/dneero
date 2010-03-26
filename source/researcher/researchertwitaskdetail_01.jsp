@@ -32,7 +32,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherTwitaskDetail01.save();
-                Pagez.sendRedirect("/researcher/researchertwitaskdetail_04.jsp?twitaskid="+ researcherTwitaskDetail01.getTwitask().getTwitaskid());
+                Pagez.sendRedirect("/researcher/researchertwitaskdetail_02.jsp?twitaskid="+ researcherTwitaskDetail01.getTwitask().getTwitaskid());
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
@@ -81,12 +81,12 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                         }
                     </script>
 
-                    <a href="/twitterredirector">Authorize Twitter</a><br/>
+                    
 
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td valign="top" colspan="2">
-                                <font class="formfieldnamefont">What do you want to ask Twitter users?</font>
+                                <font class="mediumfont">What do you want to ask your Twitter followers?</font>
                             </td>
                         </tr>
                         <tr>

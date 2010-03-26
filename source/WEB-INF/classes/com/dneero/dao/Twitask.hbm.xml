@@ -90,6 +90,12 @@
         <property name="ishighquality" type="boolean">
             <column name="ishighquality" />
         </property>
+        <property name="twitteraccesstoken" type="text">
+            <column name="twitteraccesstoken" not-null="true" />
+        </property>
+        <property name="twitteraccesstokensecret" type="text">
+            <column name="twitteraccesstokensecret" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

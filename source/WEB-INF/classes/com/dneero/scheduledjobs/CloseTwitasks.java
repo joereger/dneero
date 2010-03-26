@@ -6,6 +6,7 @@ import com.dneero.dao.Twitask;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
@@ -18,6 +19,7 @@ import org.quartz.JobExecutionException;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
+import twitter4j.http.AccessToken;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -64,10 +66,12 @@ public class CloseTwitasks implements Job {
         Pl pl = Pl.get(user.getPlid());
         String dotdotdot = "";
         if (twitask.getQuestion().length()>90){ dotdotdot = "...?"; }
-        String msg = "http://www.dNeero.com/tq/"+twitask.getTwitaskid()+" Results to \""+ Str.truncateString(twitask.getQuestion(), 90)+dotdotdot+"\"";
+        String msg = BaseUrl.get(false, twitask.getPlid())+"tq/"+twitask.getTwitaskid()+" Results to \""+ Str.truncateString(twitask.getQuestion(), 90)+dotdotdot+"\"";
         try{
             TwitterFactory twitterFactory = new TwitterFactory();
-            Twitter twitter = twitterFactory.getInstance(pl.getTwitterusername(),pl.getTwitterpassword());
+            Twitter twitter = twitterFactory.getInstance();
+            AccessToken accessToken = new AccessToken(twitask.getTwitteraccesstoken(), twitask.getTwitteraccesstokensecret());
+            twitter.setOAuthAccessToken(accessToken);
             Status status = twitter.updateStatus(msg);
         } catch (Exception ex){ logger.error("",ex); }
 

@@ -1,6 +1,7 @@
 package com.dneero.twitteroauth;
 
 import com.dneero.htmlui.Pagez;
+import com.dneero.util.Num;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -34,9 +35,11 @@ public class RedirToTwitterServlet extends HttpServlet {
         Pagez.getUserSession().setTwitter(twitter);
         //request.getSession().setAttribute("twitter", twitter);
         try {
+            int twitaskid = 0;
+            if (Num.isinteger(request.getParameter("twitaskid"))){twitaskid=Integer.parseInt(request.getParameter("twitaskid"));}
             StringBuffer callbackURL = request.getRequestURL();
             int index = callbackURL.lastIndexOf("/");
-            callbackURL.replace(index, callbackURL.length(), "").append("/twittercallback");
+            callbackURL.replace(index, callbackURL.length(), "").append("/twittercallback?twitaskid="+twitaskid);
             RequestToken requestToken = twitter.getOAuthRequestToken(callbackURL.toString());
             Pagez.getUserSession().setTwitterRequestToken(requestToken);
             //request.getSession().setAttribute("requestToken", requestToken);

@@ -51,6 +51,19 @@
             #end
             </a>
         </td>
+        <td valign="top" width="143">
+            #if ($userSession.isloggedin)
+                <a href="/researcher/index-twitask.jsp">
+            #else
+                <a href="/ask.jsp">
+            #end
+            #if ($navtab  == "researchers")
+                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
+            #else
+                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
+            #end
+            </a>
+        </td>
         <td valign="top" width="20">
             <img src="/images/clear.gif" width="20" height="1"/>
         </td>

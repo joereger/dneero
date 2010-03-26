@@ -79,6 +79,8 @@ public class ResearcherTwitaskDetail01 implements Serializable {
         twitask.setIsfree(true);
         twitask.setIsopentoanybody(true);
         twitask.setIshighquality(false);
+        twitask.setTwitteraccesstoken("");
+        twitask.setTwitteraccesstokensecret("");
     }
 
 

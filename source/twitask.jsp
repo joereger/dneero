@@ -113,20 +113,20 @@ String acl = "public";
                         </div>
                         <br/><br/>
                         <font class="tinyfont" style="font-color: #000000; font-weight: bold;">Who creates Twitter Questions?</font><br/>
-                        <font class="tinyfont" style="font-color: #000000;">Any company or organization can create and launch a question using their dNeero.com account.  It takes minutes.</font>
+                        <font class="tinyfont" style="font-color: #000000;">Any company or organization can create and launch a question using their account.  It takes seconds.</font>
                         <br/><br/>
                         <font class="tinyfont" style="font-color: #000000; font-weight: bold;">Where is the question announced?</font><br/>
-                        <font class="tinyfont" style="font-color: #000000;">The question is posted to our Twitter account where anybody following us can see it.</font>
+                        <font class="tinyfont" style="font-color: #000000;">The question is posted to your Twitter account where anybody following you can see it.</font>
                         <br/><br/>
                         <font class="tinyfont" style="font-color: #000000; font-weight: bold;">How is the question answered?</font><br/>
                         <font class="tinyfont" style="font-color: #000000;">From within Twitter anybody can simply click reply and type their answer.  That's it.</font>
                         <br/><br/>
-                        <font class="tinyfont" style="font-color: #000000; font-weight: bold;">How is this better than just asking it on Twitter without dNeero?</font><br/>
-                        <font class="tinyfont" style="font-color: #000000;">There are a number of reasons to use dNeero.com's tools:
+                        <font class="tinyfont" style="font-color: #000000; font-weight: bold;">How is this better than just asking it on Twitter without this tool?</font><br/>
+                        <font class="tinyfont" style="font-color: #000000;">There are a number of reasons to use this tool:
                             <ul>
                                 <li>You gain access to an existing universe of Twitter users that we've carefully cultivated.</li>
-                                <li>We have demographic information on people who respond and are awarded an incentive so you can slice and dice responses according to market segment.</li>
-                                <li>You can offer cash, charity or coupon incentives to get people involved.</li>
+                                <li>We can collect demographic information on people who respond and are awarded an incentive so you can slice and dice responses according to market segment.</li>
+                                <li>You can offer cash, charity or coupon incentives to get people involved... or keep it free.</li>
                                 <li>You can limit the number of people who are able to get the award incentive.  After that, it's just too late.</li>
                                 <li>You get an aggregate results page to point people to.  All answers that people provided will be listed.</li>
                                 <li>You can ask multiple questions at once and we'll take care of sorting it out.  With Twitter alone you'd end up with a single list of possibly-confusing answers (in Twitter they're called @replies).</li>

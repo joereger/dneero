@@ -146,17 +146,24 @@ if (accountIndex.getUserhasresponsependings()){
 
                     <table cellpadding="10" cellspacing="0" border="0">
                         <tr>
-                            <td valign="top" width="50%">
+                            <td valign="top" width="33%">
                                 <div class="rounded" style="background: #e6e6e6;">
                                     <form action="/blogger/index.jsp" method="get">
-                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Enter Conversations">
+                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Enter Conversations">
                                     </form>
                                 </div>
                             </td>
-                            <td valign="top" width="50%">
+                            <td valign="top" width="33%">
                                 <div class="rounded" style="background: #e6e6e6;">
                                     <form action="/researcher/index.jsp" method="get">
-                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Create Conversations">
+                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Create Conversations">
+                                    </form>
+                                </div>
+                            </td>
+                            <td valign="top" width="33%">
+                                <div class="rounded" style="background: #e6e6e6;">
+                                    <form action="/researcher/index-twitask.jsp" method="get">
+                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Ask Twitter Questions">
                                     </form>
                                 </div>
                             </td>

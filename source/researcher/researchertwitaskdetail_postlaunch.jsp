@@ -19,7 +19,7 @@ ResearcherTwitaskDetailPostlaunch researcherTwitaskDetailPostlaunch= (Researcher
 %>
 <%
 if (researcherTwitaskDetailPostlaunch.getTwitask().getStatus()==Twitask.STATUS_OPEN){
-    Pagez.getUserSession().setMessage("Your twitter question is live!");
+    Pagez.getUserSession().setMessage("Your twitter question is live!  Check your twitter account to see the question.  When people reply to it you'll see their answers here!");
     Pagez.sendRedirect("/twitask.jsp?twitaskid="+researcherTwitaskDetailPostlaunch.getTwitask().getTwitaskid()+"");
     return;
 }

@@ -290,6 +290,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
         </table>
     <% } else { %>
         We're ready to launch your Twitter Question.
+        <br/><br/>
     <% }  %>
     <br/><br/>
     <!-- Start Bottom Nav -->
