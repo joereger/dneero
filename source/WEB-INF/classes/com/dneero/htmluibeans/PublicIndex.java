@@ -1,6 +1,5 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.twitter.TwitterUpdate;
 import com.dneero.util.Time;
 import com.dneero.util.DateDiff;
 import com.dneero.ui.SurveyEnhancer;

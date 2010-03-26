@@ -1,31 +1,24 @@
 package com.dneero.scheduledjobs;
 
+import com.dneero.dao.Pl;
+import com.dneero.dao.Twitanswer;
+import com.dneero.dao.Twitask;
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.finders.SurveyCriteriaXML;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.util.GeneralException;
-import com.dneero.util.DateDiff;
-import com.dneero.util.Time;
-import com.dneero.util.Str;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
-import com.dneero.finders.SurveyCriteriaXML;
+import twitter4j.*;
 
-import java.util.List;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.Calendar;
-
-import twitter4j.Twitter;
-import twitter4j.Status;
-import twitter4j.DirectMessage;
-import twitter4j.RateLimitStatus;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -60,10 +53,12 @@ public class CollectTwitterAnswers implements Job {
     public static void collectReplies(Pl pl){
         Logger logger = Logger.getLogger(CollectTwitterAnswers.class);
         try{
-            Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
+            TwitterFactory twitterFactory = new TwitterFactory();
+            Twitter twitter = twitterFactory.getInstance(pl.getTwitterusername(),pl.getTwitterpassword());
+            //Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
             for(int i=1; i<100; i++){
                 logger.debug("i="+i);
-                List<Status> statuses = twitter.getRepliesByPage(i);
+                List<Status> statuses = twitter.getMentions(new Paging(i));
                 if (statuses==null || statuses.size()<=0){
                     logger.debug("statuses==null || statuses.size()<=0 so breaking out of i 1->100 loop");
                     //Save api calls
@@ -87,9 +82,6 @@ public class CollectTwitterAnswers implements Job {
                     break;
                 }
             }
-            //Report on RateLimitStatus
-            RateLimitStatus rls = twitter.rateLimitStatus();
-            logger.debug("Twitter RateLimitStatus: hourlylimit="+rls.getHourlyLimit()+" remaininghits="+rls.getRemainingHits()+" resettimeinseconds="+rls.getResetTimeInSeconds()+" datetime="+Time.dateformatcompactwithtime(Time.getCalFromDate(rls.getDateTime())));
         } catch (Exception ex) {
             logger.error("", ex);
         }
@@ -290,8 +282,6 @@ public class CollectTwitterAnswers implements Job {
                 pl = Pl.get(1);
             }
             Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
-            RateLimitStatus rls = twitter.rateLimitStatus();
-            logger.debug("Twitter RateLimitStatus: hourlylimit="+rls.getHourlyLimit()+" remaininghits="+rls.getRemainingHits()+" resettimeinseconds="+rls.getResetTimeInSeconds()+" datetime="+Time.dateformatcompactwithtime(Time.getCalFromDate(rls.getDateTime())));
             DirectMessage message = twitter.sendDirectMessage(twitterusername, msg);
         } catch (Exception ex){ logger.error("",ex); }
     }

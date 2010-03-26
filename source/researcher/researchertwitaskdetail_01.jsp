@@ -81,6 +81,8 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                         }
                     </script>
 
+                    <a href="/twitterredirector">Authorize Twitter</a><br/>
+
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td valign="top" colspan="2">

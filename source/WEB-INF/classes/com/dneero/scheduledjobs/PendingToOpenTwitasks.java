@@ -1,27 +1,27 @@
 package com.dneero.scheduledjobs;
 
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
-import com.dneero.dao.*;
+import com.dneero.dao.Pl;
+import com.dneero.dao.Twitask;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Time;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
 import com.dneero.incentivetwit.Incentivetwit;
 import com.dneero.incentivetwit.IncentivetwitCash;
 import com.dneero.incentivetwit.IncentivetwitCoupon;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import twitter4j.Status;
+import twitter4j.Twitter;
 
-import java.util.List;
 import java.util.Date;
 import java.util.Iterator;
-
-import twitter4j.Twitter;
-import twitter4j.Status;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -83,8 +83,7 @@ public class PendingToOpenTwitasks implements Job {
             statusTxt.append(twitask.getQuestion());
             //Send update
             Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
-            twitter.setSource("dNeero.com");
-            Status status = twitter.update(statusTxt.toString());
+            Status status = twitter.updateStatus(statusTxt.toString());
             twitask.setTwitterid(status.getId());
             twitask.setStatus(Twitask.STATUS_OPEN);
             twitask.setSenttotwitterdate(new Date());

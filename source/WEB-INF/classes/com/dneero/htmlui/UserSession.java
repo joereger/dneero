@@ -5,6 +5,8 @@ import com.dneero.dao.User;
 import com.dneero.dao.Userrole;
 import com.dneero.facebook.FacebookUser;
 import org.apache.log4j.Logger;
+import twitter4j.Twitter;
+import twitter4j.http.RequestToken;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,6 +50,9 @@ public class UserSession implements Serializable {
     private Calendar createdate = Calendar.getInstance();
     private Calendar lastaccesseddate = Calendar.getInstance();
     private int plid = 1;
+    private Twitter twitter;
+    private RequestToken twitterRequestToken;
+
 
     public UserSession(){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -326,5 +331,21 @@ public class UserSession implements Serializable {
 
     public void setIsbloggerprofileok(boolean isbloggerprofileok) {
         this.isbloggerprofileok=isbloggerprofileok;
+    }
+
+    public Twitter getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(Twitter twitter) {
+        this.twitter = twitter;
+    }
+
+    public RequestToken getTwitterRequestToken() {
+        return twitterRequestToken;
+    }
+
+    public void setTwitterRequestToken(RequestToken twitterRequestToken) {
+        this.twitterRequestToken = twitterRequestToken;
     }
 }

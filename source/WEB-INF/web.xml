@@ -100,6 +100,26 @@
 
 
 
+    <servlet>
+        <servlet-name>TwitterCallbackServlet</servlet-name>
+        <servlet-class>com.dneero.twitteroauth.CallbackServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TwitterCallbackServlet</servlet-name>
+        <url-pattern>/twittercallback</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RedirToTwitterServlet</servlet-name>
+        <servlet-class>com.dneero.twitteroauth.RedirToTwitterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RedirToTwitterServlet</servlet-name>
+        <url-pattern>/twitterredirector</url-pattern>
+    </servlet-mapping>
+
+
+
 
 
     <servlet>

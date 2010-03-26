@@ -1,28 +1,27 @@
 package com.dneero.scheduledjobs;
 
+import com.dneero.dao.Pl;
+import com.dneero.dao.Twitanswer;
+import com.dneero.dao.Twitask;
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.util.GeneralException;
-import com.dneero.util.DateDiff;
-import com.dneero.util.Time;
-import com.dneero.util.Str;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.instantnotify.InstantNotifyOfNewSurvey;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
 
-import java.util.List;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Calendar;
-
-import twitter4j.Twitter;
-import twitter4j.Status;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -67,9 +66,9 @@ public class CloseTwitasks implements Job {
         if (twitask.getQuestion().length()>90){ dotdotdot = "...?"; }
         String msg = "http://www.dNeero.com/tq/"+twitask.getTwitaskid()+" Results to \""+ Str.truncateString(twitask.getQuestion(), 90)+dotdotdot+"\"";
         try{
-            Twitter twitter = new Twitter(pl.getTwitterusername(),pl.getTwitterpassword());
-            twitter.setSource("dNeero.com");
-            Status status = twitter.update(msg);
+            TwitterFactory twitterFactory = new TwitterFactory();
+            Twitter twitter = twitterFactory.getInstance(pl.getTwitterusername(),pl.getTwitterpassword());
+            Status status = twitter.updateStatus(msg);
         } catch (Exception ex){ logger.error("",ex); }
 
     }

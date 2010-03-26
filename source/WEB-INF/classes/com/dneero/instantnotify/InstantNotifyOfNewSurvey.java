@@ -1,21 +1,21 @@
 package com.dneero.instantnotify;
 
-import com.dneero.dao.Survey;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Survey;
 import com.dneero.dao.User;
+import com.dneero.email.EmailTemplateProcessor;
+import com.dneero.finders.FindBloggersForSurvey;
+import com.dneero.helpers.NicknameHelper;
+import com.dneero.systemprops.BaseUrl;
 import com.dneero.threadpool.ThreadPool;
 import com.dneero.twitter.TwitterNewDirectMessage;
-import com.dneero.util.Str;
-import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.ui.SurveyEnhancer;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.email.EmailTemplateProcessor;
+import com.dneero.util.Str;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
