@@ -95,7 +95,7 @@ String acl = "public";
             co.append("<br/><br/>");
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
             cols.add(new GridCol("", "<img src=\"/images/user-48.png\" width=\"48\" height=\"48\"/>", false, "", ""));
-            cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "normalfont", "", "font-weight: bold;"));
+            cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", false, "", "normalfont", "", "font-weight: bold;"));
             cols.add(new GridCol("", co.toString(), false, "", ""));
         %>
         <%=Grid.render(publicSurveyDiscuss.getSurveydiscusses(), cols, 50, "/surveydiscuss.jsp", "page")%>

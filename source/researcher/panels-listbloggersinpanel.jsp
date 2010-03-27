@@ -32,7 +32,7 @@ ResearcherPanelsListBloggers researcherPanelsListBloggers = (ResearcherPanelsLis
         <%} else {%>
             <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", true, "", "smallfont"));
+            cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", true, "", "smallfont"));
             cols.add(new GridCol("Name", "<a href=\"/researcher/panels-listbloggersinpanel.jsp?panelmembershipid=<$panelmembership.panelmembershipid$>&action=remove\">Remove</a>", true, "", "smallfont"));
             %>
             <%=Grid.render(researcherPanelsListBloggers.getListitems(), cols, 50, "/researcher/panels-listbloggersinpanel.jsp", "page")%>

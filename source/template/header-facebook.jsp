@@ -44,7 +44,7 @@
             <tr>
                 <td bgcolor="#ffffff" style="text-align: right; vertical-align: top;" colspan="5" height="15">
                     <div style="padding: 0px; text-align: right;">
-                        <font class="subnavfont">Hi, <%=Pagez.getUserSession().getUser().getFirstname()%> <%=Pagez.getUserSession().getUser().getLastname()%>! <%if (Pagez.getUserSession().getUser().getPaymethodpaypaladdress().equals("")){%><img src="/images/clear.gif" width="5" height="1"/>We <a href="/account/accountsettings.jsp">need</a> a PayPal address before we can pay you.<%}%><img src="/images/clear.gif" width="15" height="1"/></font>
+                        <font class="subnavfont">Hi, <%=Pagez.getUserSession().getUser().getNickname()%>! <%if (Pagez.getUserSession().getUser().getPaymethodpaypaladdress().equals("")){%><img src="/images/clear.gif" width="5" height="1"/>We <a href="/account/accountsettings.jsp">need</a> a PayPal address before we can pay you.<%}%><img src="/images/clear.gif" width="15" height="1"/></font>
                     </div>
                 </td>
             </tr>

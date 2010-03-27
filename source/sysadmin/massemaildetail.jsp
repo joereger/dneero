@@ -149,8 +149,8 @@ SysadminMassemailDetail sysadminMassemailDetail = (SysadminMassemailDetail)Pagez
         <br/><br/>
         <font class="smallfont">
              <br/>&lt;$user.email$>
-             <br/>&lt;$user.firstname$>
-             <br/>&lt;$user.lastname$>
+             <br/>&lt;$user.nickname$>
+             <br/>&lt;$user.name$>
              <br/>&lt;$user.userid$>
              <br/>&lt;$baseUrl.includinghttp$>
         </font>

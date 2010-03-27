@@ -1,17 +1,16 @@
 package com.dneero.review;
 
-import com.dneero.dao.*;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.Panelmembership;
+import com.dneero.dao.User;
+import com.dneero.dao.Venue;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
-import com.dneero.survey.servlet.SurveyAsHtml;
-import com.dneero.util.Str;
 import com.dneero.util.RandomString;
-import com.dneero.helpers.NicknameHelper;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Disjunction;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,7 +70,7 @@ public class ReviewableSuperPanelmembership implements Reviewable {
         StringBuffer out = new StringBuffer();
         Blogger blogger = Blogger.get(panelmembership.getBloggerid());
         User user = User.get(blogger.getUserid());
-        out.append("SuperPanel Membership: "+Str.truncateString(Str.cleanForHtml(NicknameHelper.getNameOrNickname(user)), 50));
+        out.append("SuperPanel Membership: "+Str.truncateString(Str.cleanForHtml(user.getNickname()), 50));
         return out.toString();
     }
 
@@ -85,7 +84,7 @@ public class ReviewableSuperPanelmembership implements Reviewable {
         out.append("<br/><br/>");
 
         out.append("<font class=\"smallfont\">");
-        out.append("User: <a href=\"/profile.jsp?userid="+user.getUserid()+"\" target=\"newwindow"+ RandomString.randomAlphabetic(5) +"\">"+user.getFirstname()+" "+user.getLastname()+"</a>");
+        out.append("User: <a href=\"/profile.jsp?userid="+user.getUserid()+"\" target=\"newwindow"+ RandomString.randomAlphabetic(5) +"\">"+user.getNickname()+"</a>");
         out.append("</font>");
         out.append("<br/>");
 

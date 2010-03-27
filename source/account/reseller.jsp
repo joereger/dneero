@@ -51,7 +51,7 @@ String acl = "account";
                 <center>
                 <div class="rounded" style="background: #ffffff; text-align: left; padding: 15px;">
                     <center>
-                        <font class="smallfont" style="color: #666666;"><b><%=Pagez.getUserSession().getUser().getFirstname()%> <%=Pagez.getUserSession().getUser().getLastname()%>'s</b></font>
+                        <font class="smallfont" style="color: #666666;"><b><%=Pagez.getUserSession().getUser().getNickname()%>'s</b></font>
                         <br/>
                         <font class="mediumfont" style="color: #000000;"><b>Reseller Code</b></font>
                         <br/>

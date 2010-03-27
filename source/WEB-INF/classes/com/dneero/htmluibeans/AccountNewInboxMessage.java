@@ -2,24 +2,19 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.Mail;
 import com.dneero.dao.Mailchild;
-
-import com.dneero.util.GeneralException;
-import com.dneero.util.ErrorDissect;
-import com.dneero.util.Time;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.mail.Mailtype;
 import com.dneero.mail.MailtypeFactory;
 import com.dneero.mail.MailtypeSimple;
-
-import java.util.Date;
-import java.util.Iterator;
-import java.io.Serializable;
-
+import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * User: Joe Reger Jr
@@ -81,7 +76,7 @@ public class AccountNewInboxMessage implements Serializable {
         //Send email to sysadmin
         try{
             StringBuffer body = new StringBuffer();
-            body.append("<b>From "+Pagez.getUserSession().getUser().getFirstname()+" "+Pagez.getUserSession().getUser().getLastname()+"</b>");
+            body.append("<b>From "+Pagez.getUserSession().getUser().getNickname()+"</b>");
             body.append("<br>");
             body.append(Time.dateformatfordb(Time.getCalFromDate(mailchild.getDate())));
             body.append("<br>");

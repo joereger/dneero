@@ -1,19 +1,17 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Time;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.Revshare;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Revshare;
 import com.dneero.dao.User;
-import com.dneero.helpers.NicknameHelper;
-
-import java.util.*;
-import java.io.Serializable;
-
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.util.Time;
 import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.*;
 
 
 /**
@@ -42,10 +40,10 @@ public class BloggerEarningsRevshareTreeHandler implements Serializable {
         ArrayList<BloggerEarningsRevshareTreeNode> out = new ArrayList<BloggerEarningsRevshareTreeNode>();
         //logger.debug("=======LEVEL"+level+"=======");
         List children = HibernateUtil.getSession().createQuery("FROM User where referredbyuserid='"+user.getUserid()+"'").list();
-        logger.debug("user.userid="+user.getUserid()+" name="+ user.getFirstname() + " " + user.getLastname() + " children.size()="+children.size());
+        logger.debug("user.userid="+user.getUserid()+" name="+ user.getNickname() + " children.size()="+children.size());
         for (Iterator iterator = children.iterator(); iterator.hasNext();) {
             User child = (User) iterator.next();
-            //logger.debug("level="+level+" child.userid="+child.getUserid()+" name="+child.getFirstname()+" "+child.getLastname());
+            //logger.debug("level="+level+" child.userid="+child.getUserid()+" name="+child.getNickname());
             //Calculate earnings from this user
             Date ninetydaysago = Time.xDaysAgoStart(Calendar.getInstance(), -90).getTime();
             double amtEarnedFromThisBloggerAllTime = 0;
@@ -64,7 +62,7 @@ public class BloggerEarningsRevshareTreeHandler implements Serializable {
             }
             //Create the node
             //if (amtEarnedFromThisBloggerAllTime>0){
-                BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode(NicknameHelper.getNameOrNickname(child), String.valueOf(child.getUserid()), level, amtEarnedFromThisBloggerAllTime, amtEarnedFromThisBlogger90Days);
+                BloggerEarningsRevshareTreeNode newnode = new BloggerEarningsRevshareTreeNode(child.getNickname(), String.valueOf(child.getUserid()), level, amtEarnedFromThisBloggerAllTime, amtEarnedFromThisBlogger90Days);
                 out.add(newnode);
                 //logger.debug("adding newnode: "+newnode.getDescription()+" level="+level);
             //}

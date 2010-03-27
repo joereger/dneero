@@ -16,7 +16,7 @@ if (publicProfileImpressions==null || publicProfileImpressions.getUser()==null |
 %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+ NicknameHelper.getNameOrNickname(publicProfileImpressions.getUser())+"'s Impressions<br/><br clear=\"all\"/>";
+String pagetitle = "<img src=\"/images/user.png\" align=\"right\" alt=\"\" border=\"0\"/>"+ publicProfileImpressions.getUser().getNickname()+"'s Impressions<br/><br clear=\"all\"/>";
 String navtab = "home";
 String acl = "public";
 %>

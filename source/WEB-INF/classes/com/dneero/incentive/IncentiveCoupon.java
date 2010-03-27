@@ -78,7 +78,7 @@ public class IncentiveCoupon implements Incentive {
         //Affect balance for blogger
         //MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for responding to: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+survey.getTitle()+"'", true, false, false, false);
+        MoveMoneyInAccountBalance.charge(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), survey)), "User "+user.getNickname()+" responds to '"+survey.getTitle()+"'", true, false, false, false);
         //Affect balance for reseller
         if (survey.getResellercode()!=null && !survey.getResellercode().equals("")){
             //Find the user with this resellercode
@@ -135,7 +135,7 @@ public class IncentiveCoupon implements Incentive {
         args[3] = getFullSummary();
         args[4] = survey.getTitle();
         //Send the email
-        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Coupon Award for "+user.getFirstname(), "incentiveaward-coupon", user, args);
+        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Coupon Award for "+user.getNickname(), "incentiveaward-coupon", user, args);
     }
 
     public void doRemoveIncentive(Response response) {
@@ -146,7 +146,7 @@ public class IncentiveCoupon implements Incentive {
         //Affect balance for blogger
         //MoveMoneyInAccountBalance.charge(user, getBloggerEarningsPerResponse(), "Charge for award to: '"+survey.getTitle()+"' being removed", false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.pay(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), survey)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+survey.getTitle()+"' had award removed", false, false, "", true, false, false, false);
+        MoveMoneyInAccountBalance.pay(User.get(Researcher.get(survey.getResearcherid()).getUserid()), (SurveyMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), survey)), "User "+user.getNickname()+" responds to '"+survey.getTitle()+"' had award removed", false, false, "", true, false, false, false);
         //Affect balance for reseller
         if (survey.getResellercode()!=null && !survey.getResellercode().equals("")){
             //Find the user with this resellercode

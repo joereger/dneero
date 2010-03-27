@@ -4,7 +4,6 @@ import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.helpers.NicknameHelper;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.util.Num;
 import com.dneero.util.Util;
@@ -72,7 +71,7 @@ public class SurveyTemplateProcessorV2 {
                         Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
                         User userwhocreatedquestion = User.get(question.getUserid());
                         out.append("<p>");
-                        out.append(NicknameHelper.getNameOrNickname(userwhocreatedquestion)+" asked:");
+                        out.append(userwhocreatedquestion.getNickname()+" asked:");
                         out.append("</p>");
                         out.append("<p>");
                         out.append(component.getHtmlForDisplay(response));
@@ -129,7 +128,7 @@ public class SurveyTemplateProcessorV2 {
                         User userwhocreatedquestion = User.get(question.getUserid());
                         Element q = component.getXmlForDisplay(response);
                         q.setAttribute("isuserquestion", "true");
-                        q.setAttribute("userwhocreatedquestion", NicknameHelper.getNameOrNickname(userwhocreatedquestion));
+                        q.setAttribute("userwhocreatedquestion", userwhocreatedquestion.getNickname());
                         q.setAttribute("useridwhocreatedquestion", String.valueOf(userwhocreatedquestion.getUserid()));
                         out.getRootElement().addContent(q);
                     }

@@ -1,32 +1,25 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-
-import java.util.List;
-import java.util.Iterator;
-import java.io.Serializable;
-
-import com.dneero.dao.User;
 import com.dneero.dao.Responsepending;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-
-import com.dneero.util.Str;
-import com.dneero.util.Num;
-import com.dneero.htmlui.UserSession;
+import com.dneero.eula.EulaHelper;
+import com.dneero.finders.UserProfileCompletenessChecker;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.iptrack.Activitytype;
+import com.dneero.iptrack.RecordIptrackUtil;
 import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
+import com.dneero.util.Str;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.eula.EulaHelper;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.iptrack.RecordIptrackUtil;
-import com.dneero.iptrack.Activitytype;
-import com.dneero.finders.UserProfileCompletenessChecker;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.Cookie;
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -135,7 +128,7 @@ public class Login implements Serializable {
                 }
 
                 //Notify via XMPP
-                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "User Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+")");
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "User Login: "+ user.getNickname() + " ("+user.getEmail()+")");
                 xmpp.send();
 
                 //This is where the new UserSession is actually bound to Pagez.getUserSession()

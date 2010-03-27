@@ -1,21 +1,20 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
+import au.com.bytecode.opencsv.CSVWriter;
 import com.dneero.dao.*;
-
-import com.dneero.util.Time;
-import com.dneero.util.Util;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.htmlui.Pagez;
-import com.dneero.helpers.NicknameHelper;
-
-import java.util.Iterator;
-import java.io.*;
-
-import au.com.bytecode.opencsv.CSVWriter;
+import com.dneero.util.Time;
+import com.dneero.util.Util;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -50,7 +49,7 @@ public class ResearcherResultsAnswersCsv implements Serializable {
                     //Choose how many cols this will have... later on this will get more complex and i'll have to call each component to get the sizing
                     String[] row = new String[survey.getQuestions().size() + 2];
                     //Start out with the basic info for each response
-                    row[0]= NicknameHelper.getNameOrNickname(User.get(Blogger.get(response.getBloggerid()).getUserid()));
+                    row[0]= User.get(Blogger.get(response.getBloggerid()).getUserid()).getNickname();
                     row[1]= Time.dateformatcompactwithtime(Time.getCalFromDate(response.getResponsedate()));
                     for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
                         Question question = iterator1.next();

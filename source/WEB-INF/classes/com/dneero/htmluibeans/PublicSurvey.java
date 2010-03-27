@@ -13,6 +13,7 @@ import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.facebook.FacebookPendingReferrals;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.helpers.NicknameHelper;
 import com.dneero.helpers.StoreResponse;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
@@ -545,8 +546,7 @@ public class PublicSurvey implements Serializable {
                     user.setEmail("");
                     user.setPlid(Pagez.getUserSession().getPl().getPlid());
                     user.setPassword("");
-                    user.setFirstname(Pagez.getUserSession().getFacebookUser().getFirst_name());
-                    user.setLastname(Pagez.getUserSession().getFacebookUser().getLast_name());
+                    user.setName(Pagez.getUserSession().getFacebookUser().getFirst_name()+" "+Pagez.getUserSession().getFacebookUser().getLast_name());
                     user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
                     user.setIsqualifiedforrevshare(true);
                     user.setReferredbyuserid(FacebookPendingReferrals.getReferredbyUserid(facebookuserid));
@@ -578,7 +578,7 @@ public class PublicSurvey implements Serializable {
                     user.setCurrentbalanceblogger(0.0);
                     user.setCurrentbalanceresearcher(0.0);
                     user.setLastlogindate(new java.util.Date());
-                    user.setNickname("");
+                    user.setNickname(NicknameHelper.generateUniqueNickname(Pagez.getUserSession().getFacebookUser().getFirst_name()+Pagez.getUserSession().getFacebookUser().getLast_name(), user));
                     user.setSiralgorithm(SocialInfluenceRating.ALGORITHM);
                     user.setSirdate(new Date());
                     user.setSirdebug("");
@@ -592,7 +592,7 @@ public class PublicSurvey implements Serializable {
                     }
 
                     //Notify customer care group
-                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New User via Facebook: "+ user.getFirstname() + " " + user.getLastname());
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New User via Facebook: "+ user.getNickname() + " ");
                     xmpp.send();
                 }
 
@@ -678,13 +678,13 @@ public class PublicSurvey implements Serializable {
 
     private ArrayList<Question> findUserQuestionsFor(User user){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("findUserQuestionsFor(userid="+user.getUserid()+" name="+user.getFirstname()+" "+user.getLastname()+")");
+        logger.debug("findUserQuestionsFor(userid="+user.getUserid()+" name="+user.getNickname()+")");
         ArrayList<Question> userquestionsthatmustbeanswered = new ArrayList<Question>();
         for (Iterator<Question> iterator=survey.getQuestions().iterator(); iterator.hasNext();) {
             Question question=iterator.next();
             if (question.getIsuserquestion()){
                 if (user.getUserid()==question.getUserid()){
-                    logger.debug("adding questionid="+question.getQuestionid()+" from userid="+user.getUserid()+" name="+user.getFirstname()+" "+user.getLastname()+"");
+                    logger.debug("adding questionid="+question.getQuestionid()+" from userid="+user.getUserid()+" name="+user.getNickname());
                     userquestionsthatmustbeanswered.add(question);
                     //Go up the chain
                     List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)

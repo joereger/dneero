@@ -37,7 +37,7 @@ public class MoveMoneyAround implements Job {
                 for (Iterator iterator = users.iterator(); iterator.hasNext();) {
                     User user = (User) iterator.next();
                     logger.debug("===");
-                    logger.debug("Start User "+user.getUserid()+" "+user.getFirstname()+" "+user.getLastname());
+                    logger.debug("Start User "+user.getUserid()+" "+user.getNickname());
 
                     //Handle Blogger Balances, only check User obj for performance
                     if (user.getCurrentbalanceblogger()>0){
@@ -47,7 +47,7 @@ public class MoveMoneyAround implements Job {
                             if (cbc.getCurrentbalanceblogger()>0){
                                 if (cbc.getCurrentbalanceblogger()>=20){
                                     logger.debug("dopay=true so calling MoveMoneyInRealWorld for user");
-                                    debug.append("<br/>$"+cbc.getCurrentbalanceblogger()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
+                                    debug.append("<br/>$"+cbc.getCurrentbalanceblogger()+" to "+user.getNickname()+" ("+user.getEmail()+")"+"\n\n");
                                     MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceblogger(), false, true, false, false);
                                     mmirw.move();
                                 }
@@ -84,7 +84,7 @@ public class MoveMoneyAround implements Job {
                                 }
                                 if (dopayresearcher){
                                     logger.debug("dopayresearcher=true so calling MoveMoneyInRealWorld for user");
-                                    debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" to "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
+                                    debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" to "+user.getNickname()+" ("+user.getEmail()+")"+"\n\n");
                                     MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false, false, false);
                                     mmirw.move();
                                 }
@@ -96,13 +96,13 @@ public class MoveMoneyAround implements Job {
                             if (cbc.getCurrentbalanceresearcher()<0){
                                 //Need to collect from a researcher
                                 logger.debug("currentbalance<0 so calling MoveMoneyInRealWorld for user");
-                                debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" from "+user.getFirstname()+" "+user.getLastname()+" ("+user.getEmail()+")"+"\n\n");
+                                debug.append("<br/>$"+cbc.getCurrentbalanceresearcher()+" from "+user.getNickname()+" ("+user.getEmail()+")"+"\n\n");
                                 MoveMoneyInRealWorld mmirw = new MoveMoneyInRealWorld(user, cbc.getCurrentbalanceresearcher(), true, false, false, false);
                                 mmirw.move();
                             }
                     }
 
-                    logger.debug("End User "+user.getUserid()+" "+user.getFirstname()+" "+user.getLastname());
+                    logger.debug("End User "+user.getUserid()+" "+user.getNickname());
                     logger.debug("===");
                 }
             } catch (Exception ex){

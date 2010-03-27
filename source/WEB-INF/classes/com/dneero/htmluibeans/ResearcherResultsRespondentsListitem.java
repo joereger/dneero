@@ -15,20 +15,14 @@ public class ResearcherResultsRespondentsListitem implements Serializable {
     private int responseid;
     private int bloggerid;
     private Date responsedate;
-    private String firstname;
-    private String lastname;
+    private String nickname;
+    private String name;
     private User user;
 
     public ResearcherResultsRespondentsListitem(){}
 
 
-    public String getLastname() {
-        return lastname;
-    }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
     public int getResponseid() {
         return responseid;
@@ -54,12 +48,20 @@ public class ResearcherResultsRespondentsListitem implements Serializable {
         this.responsedate = responsedate;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getUser() {

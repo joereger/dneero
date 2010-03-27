@@ -13,6 +13,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.db.Db" %>
 <%@ page import="com.dneero.sir.SocialInfluenceRating" %>
+<%@ page import="com.dneero.helpers.NicknameHelper" %>
 <%
     //Only do this page if we have an invalid database connection.
     //Otherwise, anybody's going to be able to reset the database
@@ -83,8 +84,7 @@
                         user.setPlid(1);
                         user.setEmail(request.getParameter("email"));
                         user.setPassword(request.getParameter("password"));
-                        user.setFirstname(request.getParameter("firstname"));
-                        user.setLastname(request.getParameter("lastname"));
+                        user.setName(request.getParameter("name"));
                         user.setIsactivatedbyemail(true);
                         user.setIsqualifiedforrevshare(true);
                         user.setReferredbyuserid(0);
@@ -115,7 +115,7 @@
                         user.setCurrentbalanceblogger(0.0);
                         user.setCurrentbalanceresearcher(0.0);
                         user.setLastlogindate(new java.util.Date());
-                        user.setNickname("");
+                        user.setNickname(NicknameHelper.generateUniqueNickname(request.getParameter("name"), null));
                         user.setSiralgorithm(SocialInfluenceRating.ALGORITHM);
                         user.setSirdate(new Date());
                         user.setSirdebug("");
@@ -374,45 +374,25 @@ if (!errortext.equals("")){
         <tr>
         <td valign=top align=left colspan=2>
         <font face=arial size=+2 color=#cccccc>
-        Your First Name
+        Your Name
         </font>
         </td>
         </tr>
         <tr>
         <td valign=top align=left>
         <font face=arial size=-1>
-        <input type=text name=firstname value="John" size=45 maxlength=255>
+        <input type=text name=name value="John" size=45 maxlength=255>
         </font>
         </td>
         <td valign=top align=left>
         <font face=arial size=-1>
-        The first name for your account.
+        The name for your account.
         </font>
         </td>
         </tr>
         <!-- End Prop -->
 
-        <!-- Begin Prop -->
-        <tr>
-        <td valign=top align=left colspan=2>
-        <font face=arial size=+2 color=#cccccc>
-        Your Last Name
-        </font>
-        </td>
-        </tr>
-        <tr>
-        <td valign=top align=left>
-        <font face=arial size=-1>
-        <input type=text name=lastname value="Doe" size=45 maxlength=255>
-        </font>
-        </td>
-        <td valign=top align=left>
-        <font face=arial size=-1>
-        The last name for your account.
-        </font>
-        </td>
-        </tr>
-        <!-- End Prop -->
+
 
         <!-- Begin Prop -->
         <!--

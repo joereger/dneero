@@ -6,7 +6,6 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.finders.FindResponses;
 import com.dneero.finders.SurveyCriteriaXML;
-import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -93,7 +92,7 @@ public class SurveyResultsDisplay {
                     User user = User.get(question.getUserid());
                     //out.append("<tr>");
                     //out.append("<td valign=top bgcolor=#e9e9e9>");
-                    out.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid="+user.getUserid()+"\">"+ NicknameHelper.getNameOrNickname(user)+"</a> wanted to know:</b></font>");
+                    out.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid="+user.getUserid()+"\">"+ user.getNickname()+"</a> wanted to know:</b></font>");
                     out.append("<br/>");
                     //out.append("</td>");
                     //out.append("</tr>");

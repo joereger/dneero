@@ -1,18 +1,17 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
+import com.dneero.dao.Rank;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.util.Num;
-import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -51,7 +50,7 @@ public class ResearcherRankPeople implements Serializable {
                 ResearcherRankPeopleListitem rrpli = new ResearcherRankPeopleListitem();
                 rrpli.setAvgnormalizedpoints(avgnormalizedpointsMult);
                 rrpli.setAvgnormalizedpointsStr(avgnormalizedpointsMult.intValue()+"/100 Ranking Strength");
-                rrpli.setName(NicknameHelper.getNameOrNickname(user));
+                rrpli.setName(user.getNickname());
                 rrpli.setPoints(Integer.parseInt(String.valueOf(points)));
                 rrpli.setUserid(user.getUserid());
                 rrplis.add(rrpli);

@@ -1,27 +1,26 @@
 package com.dneero.facebook;
 
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import com.dneero.util.Num;
-import com.dneero.util.Time;
-import com.dneero.util.DateDiff;
-import com.dneero.systemprops.SystemProperty;
+import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.session.SurveysTakenToday;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.survey.servlet.RecordImpression;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.UserSession;
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.eula.EulaHelper;
 import com.dneero.finders.UserProfileCompletenessChecker;
-import com.facebook.api.FacebookRestClient;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.session.SurveysTakenToday;
+import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.systemprops.SystemProperty;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Num;
+import com.dneero.xmpp.SendXMPPMessage;
 import com.facebook.api.FacebookException;
+import com.facebook.api.FacebookRestClient;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.List;
-import java.util.Iterator;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -179,7 +178,7 @@ public class FacebookAuthorizationJsp {
                         } else {
                             Pagez.getUserSession().setIsbloggerprofileok(true);
                         }
-                        logger.debug("dNeero Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
+                        logger.debug("dNeero Facebook Login: "+ user.getNickname() + " ("+user.getEmail()+") (Facebook.userid="+user.getFacebookuserid()+")");
                         //If their account is marked as having removed the app but facebook says they've got it added, update the User object
                         if (Pagez.getUserSession().getFacebookUser().getHas_added_app() && user.getIsfacebookappremoved()){
                             user.setIsfacebookappremoved(false);
@@ -189,7 +188,7 @@ public class FacebookAuthorizationJsp {
                         user.setLastlogindate(new java.util.Date());
                         try {user.save();} catch (Exception ex) {logger.error("",ex);}
                         //Notify via XMPP
-                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Login: "+ user.getFirstname() + " " + user.getLastname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
+                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Login: "+ user.getNickname() + " (email="+user.getEmail()+") (facebook.uid="+user.getFacebookuserid()+")");
                         xmpp.send();
                     } else {
                         //Is not a dNeero user yet... make sure there's no user in the session

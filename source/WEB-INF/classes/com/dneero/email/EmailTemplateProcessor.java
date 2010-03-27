@@ -119,15 +119,15 @@ public class EmailTemplateProcessor {
             } else {
                 return "";
             }
-        } else if (tag.equals("<$user.firstname$>")){
+        } else if (tag.equals("<$user.nickname$>")){
             if (user!=null){
-                return user.getFirstname();
+                return user.getNickname();
             } else {
                 return "";
             }
-        } else if (tag.equals("<$user.lastname$>")){
+        } else if (tag.equals("<$user.name$>")){
             if (user!=null){
-                return user.getLastname();
+                return user.getName();
             } else {
                 return "";
             }

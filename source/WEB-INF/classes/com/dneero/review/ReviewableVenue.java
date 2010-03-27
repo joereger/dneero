@@ -1,16 +1,15 @@
 package com.dneero.review;
 
-import com.dneero.dao.*;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.User;
+import com.dneero.dao.Venue;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
-import com.dneero.survey.servlet.SurveyAsHtml;
-import com.dneero.util.Str;
 import com.dneero.util.RandomString;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Disjunction;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,7 +90,7 @@ public class ReviewableVenue implements Reviewable {
         out.append("</font>");
         out.append("<br/><br/>");
         out.append("<font class=\"smallfont\">");
-        out.append("Added by: "+user.getFirstname()+" "+user.getLastname());
+        out.append("Added by: "+user.getNickname());
         out.append("</font>");
         return out.toString();
     }

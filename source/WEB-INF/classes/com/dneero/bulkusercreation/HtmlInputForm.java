@@ -25,10 +25,7 @@ public class HtmlInputForm {
             if (!bulkuser.getIsvalid()){ color = "#00ff00"; }
             out.append("<tr>");
             out.append("<td valign='top'>");
-            out.append("<input type=\"text\" name=\"first"+counter+"\" value=\""+ Str.cleanForHtml(bulkuser.getFirst())+"\" size=\"15\" maxlength=\"255\">");
-            out.append("</td>");
-            out.append("<td valign='top'>");
-            out.append("<input type=\"text\" name=\"last"+counter+"\" value=\""+ Str.cleanForHtml(bulkuser.getLast())+"\" size=\"15\" maxlength=\"255\">");
+            out.append("<input type=\"text\" name=\"name"+counter+"\" value=\""+ Str.cleanForHtml(bulkuser.getName())+"\" size=\"15\" maxlength=\"255\">");
             out.append("</td>");
             out.append("<td valign='top'>");
             out.append("<input type=\"text\" name=\"nickname"+counter+"\" value=\""+ Str.cleanForHtml(bulkuser.getNickname())+"\" size=\"15\" maxlength=\"255\">");

@@ -89,7 +89,7 @@ String acl = "customercare";
                 <br/><br/>
                 <font class="mediumfont">Survey ID: <%=customercareSurveyDetail.getSurvey().getSurveyid()%></font>
                 <br/><br/>
-                <a href="/customercare/userdetail.jsp?userid=<%=customercareSurveyDetail.getUser().getUserid()%>"><font class="mediumfont"><%=customercareSurveyDetail.getUser().getFirstname()%> <%=customercareSurveyDetail.getUser().getLastname()%> <%=customercareSurveyDetail.getUser().getEmail()%></font></a>
+                <a href="/customercare/userdetail.jsp?userid=<%=customercareSurveyDetail.getUser().getUserid()%>"><font class="mediumfont"><%=customercareSurveyDetail.getUser().getNickname()%> <%=customercareSurveyDetail.getUser().getEmail()%></font></a>
                 <br/><br/>
                 <a href="/customercare/sysadminsurveydetail.jsp?action=clearembedcache&surveyid=<%=customercareSurveyDetail.getSurvey().getSurveyid()%>"><font class="tinyfont">Clear Embed Cache (Expensive)</font></a>
                 <br/><br/>

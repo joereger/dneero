@@ -1,21 +1,16 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Str;
-import com.dneero.dao.User;
 import com.dneero.dao.Pl;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.email.EmailSendThread;
-import com.dneero.email.EmailSend;
 import com.dneero.email.EmailTemplateProcessor;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import org.apache.commons.mail.HtmlEmail;
-import org.apache.log4j.Logger;
+import com.dneero.util.Str;
 
-import java.util.List;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -50,7 +45,7 @@ public class BloggerEarningsRevshareInvite implements Serializable {
                     Pl pl = Pl.get(user.getPlid());
                     String[] args = new String[10];
                     args[0]= message;
-                    EmailTemplateProcessor.sendMail(pl.getNameforui()+" Invitation from "+user.getFirstname()+" "+user.getLastname()+" - Make Money with your Blog!", "inviteblogger", user, args, individualemail, user.getEmail());
+                    EmailTemplateProcessor.sendMail(pl.getNameforui()+" Invitation from "+user.getNickname()+"", "inviteblogger", user, args, individualemail, user.getEmail());
                 } else {
                     //err.append("A user with the email address '"+individualemail+"' already exists. ");
                 }

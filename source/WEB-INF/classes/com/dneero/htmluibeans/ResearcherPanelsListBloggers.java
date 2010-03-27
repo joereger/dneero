@@ -1,19 +1,16 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
-import java.util.*;
-import java.io.Serializable;
-
-
-import com.dneero.util.SortableList;
-import com.dneero.util.Num;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.Panelmembership;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Panelmembership;
 import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.util.Num;
+import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -72,7 +69,7 @@ public class ResearcherPanelsListBloggers implements Serializable {
     public List getListitems() {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("getListitems");
-        sort("userlastname", true);
+        sort("name", true);
         return listitems;
     }
 
@@ -98,8 +95,8 @@ public class ResearcherPanelsListBloggers implements Serializable {
                 }
                 if (obj1!=null && obj2!=null && column.equals("bloggerid")){
                     return ascending ? obj2.getBlogger().getBloggerid()-obj1.getBlogger().getBloggerid() : obj1.getBlogger().getBloggerid()-obj2.getBlogger().getBloggerid() ;
-                } else if (obj1!=null && obj2!=null && column.equals("userlastname")){
-                    return ascending ? obj1.getUser().getLastname().compareTo(obj2.getUser().getLastname()) : obj2.getUser().getLastname().compareTo(obj1.getUser().getLastname());
+                } else if (obj1!=null && obj2!=null && column.equals("name")){
+                    return ascending ? obj1.getUser().getName().compareTo(obj2.getUser().getName()) : obj2.getUser().getName().compareTo(obj1.getUser().getName());
                 } else {
                     return 0;
                 }

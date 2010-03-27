@@ -21,8 +21,7 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
         try {
             customercareUserListList.setSearchemail(Textbox.getValueFromRequest("searchemail", "Email", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchfacebookers(CheckboxBoolean.getValueFromRequest("searchfacebookers"));
-            customercareUserListList.setSearchfirstname(Textbox.getValueFromRequest("searchfirstname", "Firstname", false, DatatypeString.DATATYPEID));
-            customercareUserListList.setSearchlastname(Textbox.getValueFromRequest("searchlastname", "Lastname", false, DatatypeString.DATATYPEID));
+            customercareUserListList.setSearchname(Textbox.getValueFromRequest("searchname", "Name", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchuserid(Textbox.getValueFromRequest("searchuserid", "Userid", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchreferredbyuserid(Textbox.getValueFromRequest("searchreferredbyuserid", "Referred By Userid", false, DatatypeString.DATATYPEID));
             customercareUserListList.setSearchsignedupafter(Date.getValueFromRequest("searchsignedupafter", "Signed Up After", false).getTime());
@@ -54,9 +53,6 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                     <font class="tinyfont">First Name</font>
                 </td>
                 <td valign="top">
-                    <font class="tinyfont">Last Name</font>
-                </td>
-                <td valign="top">
                     <font class="tinyfont">Email</font>
                 </td>
                 <td valign="top">
@@ -77,10 +73,7 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                     <%=Textbox.getHtml("searchuserid", customercareUserListList.getSearchuserid(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
-                    <%=Textbox.getHtml("searchfirstname", customercareUserListList.getSearchfirstname(), 255, 5, "", "")%>
-                </td>
-                <td valign="top">
-                    <%=Textbox.getHtml("searchlastname", customercareUserListList.getSearchlastname(), 255, 5, "", "")%>
+                    <%=Textbox.getHtml("searchname", customercareUserListList.getSearchname(), 255, 5, "", "")%>
                 </td>
                 <td valign="top">
                     <%=Textbox.getHtml("searchemail", customercareUserListList.getSearchemail(), 255, 5, "", "")%>
@@ -115,7 +108,8 @@ CustomercareUserList customercareUserListList= (CustomercareUserList)Pagez.getBe
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 cols.add(new GridCol("Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$user.userid$>\"><$user.userid$></a>", false, "", "tinyfont"));
                 cols.add(new GridCol("Facebookuid", "<$user.facebookuserid$>", false, "", "tinyfont"));
-                cols.add(new GridCol("Name", "<$user.firstname$> <$user.lastname$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Name", "<$user.name$>", false, "", "tinyfont"));
+                cols.add(new GridCol("Nickname", "<$user.nickname$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Email", "<$user.email$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Signup Date", "<$user.createdate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "tinyfont"));
                 cols.add(new GridCol("Referred By Userid", "<a href=\"/customercare/userdetail.jsp?userid=<$user.referredbyuserid$>\"><$user.referredbyuserid$></a>", false, "", "tinyfont"));

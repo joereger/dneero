@@ -14,8 +14,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
     try {
-        accountSettings.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
-        accountSettings.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
+        accountSettings.setName(Textbox.getValueFromRequest("name", "Name", false, DatatypeString.DATATYPEID));
         accountSettings.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
         accountSettings.setNotifyofnewsurveysbyemaileveryexdays(Dropdown.getIntFromRequest("notifyofnewsurveysbyemaileveryexdays", "Notify Every X Days", true));
         accountSettings.setAllownoncriticalemails(CheckboxBoolean.getValueFromRequest("allownoncriticalemails"));
@@ -44,21 +43,13 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 
                 <tr>
                     <td valign="top" width="35%">
-                        <font class="formfieldnamefont">First Name</font>
+                        <font class="formfieldnamefont">Name</font>
                     </td>
                     <td valign="top">
-                        <%=Textbox.getHtml("firstname", accountSettings.getFirstname(), 255, 20, "", "")%>
+                        <%=Textbox.getHtml("name", accountSettings.getName(), 255, 40, "", "")%>
                     </td>
                 </tr>
 
-                <tr>
-                    <td valign="top">
-                        <font class="formfieldnamefont">Last Name</font>
-                    </td>
-                    <td valign="top">
-                        <%=Textbox.getHtml("lastname", accountSettings.getLastname(), 255, 20, "", "")%>
-                    </td>
-                </tr>
 
                 <tr>
                         <td valign="top">

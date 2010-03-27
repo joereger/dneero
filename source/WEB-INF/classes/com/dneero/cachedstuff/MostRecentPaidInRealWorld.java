@@ -1,21 +1,18 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.dao.User;
-import com.dneero.dao.Balance;
 import com.dneero.dao.Balancetransaction;
 import com.dneero.dao.Pl;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Str;
-import com.dneero.helpers.NicknameHelper;
 import com.dneero.privatelabel.PlPeers;
+import com.dneero.util.Str;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Iterator;
-
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -53,7 +50,7 @@ public class MostRecentPaidInRealWorld implements CachedStuff, Serializable {
                     out.append("<td>");
                     out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
                     out.append("<font class='tinyfont'>");
-                    out.append(NicknameHelper.getNameOrNickname(user));
+                    out.append(user.getNickname());
                     out.append("</font>");
                     out.append("</a>");
                     out.append("</td>");

@@ -74,7 +74,7 @@ ResearcherResults researcherResults = (ResearcherResults) Pagez.getBeanMgr().get
         ArrayList<GridCol> cols=new ArrayList<GridCol>();
         cols.add(new GridCol("Detail", "<a href=\"/researcher/results_awards_detail.jsp?incentiveawardid=<$incentiveaward.incentiveawardid$>\">Details</a>", true, "", "tinyfont"));
         cols.add(new GridCol("Date", "<$incentiveaward.date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
-        cols.add(new GridCol("User", "<a href=\"/profile.jsp?userid=<$incentiveaward.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "tinyfont"));
+        cols.add(new GridCol("User", "<a href=\"/profile.jsp?userid=<$incentiveaward.userid$>\"><$user.nickname$></a>", false, "", "tinyfont"));
         cols.add(new GridCol("", "<$incentiveaward.misc1$>", false, "", "tinyfont"));
         cols.add(new GridCol("", "<$incentiveaward.misc2$>", false, "", "tinyfont"));
         cols.add(new GridCol("", "<$incentiveaward.misc3$>", false, "", "tinyfont"));
@@ -121,7 +121,7 @@ ResearcherResults researcherResults = (ResearcherResults) Pagez.getBeanMgr().get
         ArrayList<GridCol> cols=new ArrayList<GridCol>();
         cols.add(new GridCol("Detail", "<a href=\"/researcher/results_awardstwit_detail.jsp?incentivetwitawardid=<$incentivetwitaward.incentivetwitawardid$>\">Details</a>", true, "", "tinyfont"));
         cols.add(new GridCol("Date", "<$incentivetwitaward.date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
-        cols.add(new GridCol("User", "<a href=\"/profile.jsp?userid=<$incentivetwitaward.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "tinyfont"));
+        cols.add(new GridCol("User", "<a href=\"/profile.jsp?userid=<$incentivetwitaward.userid$>\"><$user.nickname$></a>", false, "", "tinyfont"));
         cols.add(new GridCol("", "<$incentiveaward.misc1$>", false, "", "tinyfont"));
         cols.add(new GridCol("", "<$incentiveaward.misc2$>", false, "", "tinyfont"));
         cols.add(new GridCol("", "<$incentiveaward.misc3$>", false, "", "tinyfont"));

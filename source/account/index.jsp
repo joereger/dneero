@@ -21,7 +21,9 @@ if (accountIndex.getUserhasresponsependings()){
 %>
 <%
 if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.getUserSession().getWhereToRedirectToAfterSignup().equals("")){
-    Pagez.sendRedirect(Pagez.getUserSession().getWhereToRedirectToAfterSignup());
+    String whereToRedirectToAfterSignup = Pagez.getUserSession().getWhereToRedirectToAfterSignup();
+    Pagez.getUserSession().setWhereToRedirectToAfterSignup("");
+    Pagez.sendRedirect(whereToRedirectToAfterSignup);
     return;
 }
 %>

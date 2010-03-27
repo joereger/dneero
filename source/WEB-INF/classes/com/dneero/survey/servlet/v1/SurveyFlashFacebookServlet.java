@@ -1,30 +1,29 @@
 package com.dneero.survey.servlet.v1;
 
-import org.apache.log4j.Logger;
+import com.dneero.cache.providers.CacheFactory;
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
+import com.dneero.pageperformance.PagePerformanceUtil;
+import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.survey.servlet.SurveyAsHtml;
+import com.dneero.systemprops.BaseUrl;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.util.RandomString;
+import com.dneero.xmpp.SendXMPPMessage;
+import com.flagstone.transform.*;
 import org.apache.catalina.connector.ClientAbortException;
+import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
-import com.dneero.cache.providers.CacheFactory;
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.util.RandomString;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.pageperformance.PagePerformanceUtil;
-import com.dneero.survey.servlet.RecordImpression;
-import com.dneero.survey.servlet.SurveyAsHtml;
-import com.flagstone.transform.*;
 
 /**
  * User: Joe Reger Jr
@@ -196,7 +195,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
         
         //Notify debug group
         if (survey!=null && user!=null){
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") from "+user.getFirstname()+" "+user.getLastname()+"'s profile");
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") from "+user.getNickname()+"'s profile");
             xmpp.send();
         } else if (survey!=null) {
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");

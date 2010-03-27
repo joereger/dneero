@@ -44,7 +44,7 @@ public class SysadminBlogpost implements Serializable {
 
         date = new Date();                   
         blogpostid=0;
-        author= Pagez.getUserSession().getUser().getFirstname() + " " + Pagez.getUserSession().getUser().getLastname();
+        author= Pagez.getUserSession().getUser().getNickname();
         title="";
         body="";
         categories="";

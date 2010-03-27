@@ -155,7 +155,7 @@ String acl = "public";
         <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
             <table cellpadding="3" cellspacing="15" border="0" width="100%">
             <tr>
-                <td valign="top">
+                <td valign="top" width="35%">
                     <div class="rounded" style="background: #e6e6e6;">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
                             <font class="mediumfont">You've Entered this Conversation!</font>

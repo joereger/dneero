@@ -3,15 +3,11 @@ package com.dneero.review;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
-import com.dneero.survey.servlet.SurveyAsHtml;
-import com.dneero.util.Str;
 import com.dneero.util.RandomString;
-import com.dneero.helpers.NicknameHelper;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Disjunction;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,7 +69,7 @@ public class ReviewablePanelapplication implements Reviewable {
         StringBuffer out = new StringBuffer();
         User user = User.get(panelapplication.getUserid());
         Panel panel = Panel.get(panelapplication.getPanelid());
-        out.append(panel.getName()+" SuperPanel Application: "+Str.truncateString(Str.cleanForHtml(NicknameHelper.getNameOrNickname(user)), 50));
+        out.append(panel.getName()+" SuperPanel Application: "+Str.truncateString(Str.cleanForHtml(user.getNickname()), 50));
         return out.toString();
     }
 
@@ -88,7 +84,7 @@ public class ReviewablePanelapplication implements Reviewable {
         out.append("<br/><br/>");
 
         out.append("<font class=\"smallfont\">");
-        out.append("User: <a href=\"/profile.jsp?userid="+user.getUserid()+"\" target=\"newwindow"+ RandomString.randomAlphabetic(5) +"\">"+user.getFirstname()+" "+user.getLastname()+"</a>");
+        out.append("User: <a href=\"/profile.jsp?userid="+user.getUserid()+"\" target=\"newwindow"+ RandomString.randomAlphabetic(5) +"\">"+user.getNickname()+"</a>");
         out.append("</font>");
         out.append("<br/>");
         out.append("<br/>");

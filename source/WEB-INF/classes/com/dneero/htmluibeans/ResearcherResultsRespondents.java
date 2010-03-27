@@ -1,20 +1,17 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
-import com.dneero.dao.Survey;
-import com.dneero.dao.Response;
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-
-import com.dneero.util.SortableList;
 import com.dneero.htmlui.Pagez;
-import com.dneero.helpers.NicknameHelper;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.*;
 import java.io.Serializable;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -54,8 +51,8 @@ public class ResearcherResultsRespondents implements Serializable {
                     User user = User.get(blogger.getUserid());
                     ResearcherResultsRespondentsListitem li = new ResearcherResultsRespondentsListitem();
                     li.setBloggerid(blogger.getBloggerid());
-                    li.setFirstname(NicknameHelper.getNameOrNickname(user));
-                    li.setLastname(NicknameHelper.getNameOrNickname(user));
+                    li.setNickname(user.getNickname());
+                    li.setName(user.getName());
                     li.setResponsedate(response.getResponsedate());
                     li.setResponseid(response.getResponseid());
                     li.setUser(user);

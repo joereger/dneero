@@ -1,26 +1,21 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
-import com.dneero.util.GeneralException;
-import com.dneero.util.Str;
 import com.dneero.dao.User;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Panel;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
 import com.dneero.email.EmailActivationSend;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
 import com.dneero.twitter.TwitterUsernameAlreadyInUse;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -31,8 +26,7 @@ public class AccountSettings implements Serializable {
 
     //Form props
     private String email;
-    private String firstname;
-    private String lastname;
+    private String name;
     private int notifyofnewsurveysbyemaileveryexdays = 1;
     private boolean allownoncriticalemails = true;
     private boolean instantnotifybyemailison = false;
@@ -55,8 +49,7 @@ public class AccountSettings implements Serializable {
         if (userSession.getUser()!=null){
             User user = userSession.getUser();
             email = user.getEmail();
-            firstname = user.getFirstname();
-            lastname = user.getLastname();
+            name = user.getName();
             notifyofnewsurveysbyemaileveryexdays = user.getNotifyofnewsurveysbyemaileveryexdays();
             allownoncriticalemails = user.getAllownoncriticalemails();
             instantnotifybyemailison = user.getInstantnotifybyemailison();
@@ -115,8 +108,7 @@ public class AccountSettings implements Serializable {
                 throw vex;
             }
             //Set rest of vars
-            user.setFirstname(firstname);
-            user.setLastname(lastname);
+            user.setName(name);
             user.setNotifyofnewsurveysbyemaileveryexdays(notifyofnewsurveysbyemaileveryexdays);
             user.setAllownoncriticalemails(allownoncriticalemails);
             user.setInstantnotifybyemailison(instantnotifybyemailison);
@@ -126,7 +118,7 @@ public class AccountSettings implements Serializable {
             user.setInstantnotifyxmppusername(instantnotifyxmppusername);
             user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
             user.setPaymethodpaypaladdress(paymethodpaypaladdress);
-            user.setNickname(nickname);
+            user.setNickname(NicknameHelper.generateUniqueNickname(nickname, user));
             try{
                 user.save();
                 userid = user.getUserid();
@@ -162,20 +154,12 @@ public class AccountSettings implements Serializable {
         this.email = email;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getUserid() {

@@ -29,8 +29,7 @@ import java.util.List;
  */
 public class Bulkuser {
 
-    private String first;
-    private String last;
+    private String name;
     private String nickname;
     private String email;
     private String password;
@@ -39,9 +38,8 @@ public class Bulkuser {
     private String errors = "";
     private User user;
 
-    public Bulkuser(String first, String last, String nickname, String email, String password) {
-        this.first = first;
-        this.last = last;
+    public Bulkuser(String name, String nickname, String email, String password) {
+        this.name = name;
         this.nickname = nickname;
         this.email = email;
         this.password = password;
@@ -53,11 +51,8 @@ public class Bulkuser {
         isvalid = true;
         errors = "";
         //Basic required checks
-        if (first==null || first.length()<=0){
-            errors = errors + "First Name is required. ";
-        }
-        if (last==null || last.length()<=0){
-            errors = errors + "Last Name is required. ";
+        if (name==null || name.length()<=0){
+            errors = errors + "Name is required. ";
         }
         if (nickname==null || nickname.length()<=0){
             errors = errors + "Nick Name is required. ";
@@ -92,8 +87,7 @@ public class Bulkuser {
             user.setPlid(Pagez.getUserSession().getPl().getPlid());
             user.setEmail(email);
             user.setPassword(password);
-            user.setFirstname(first);
-            user.setLastname(last);
+            user.setName(name);
             user.setIsactivatedbyemail(false);
             user.setIsqualifiedforrevshare(true);
             user.setReferredbyuserid(Pagez.getUserSession().getReferredbyOnlyUsedForSignup());
@@ -124,7 +118,7 @@ public class Bulkuser {
             user.setCurrentbalanceblogger(0.0);
             user.setCurrentbalanceresearcher(0.0);
             user.setLastlogindate(new java.util.Date());
-            user.setNickname(nickname);
+            user.setNickname(NicknameHelper.generateUniqueNickname(nickname, null));
             user.setSiralgorithm(SocialInfluenceRating.ALGORITHM);
             user.setSirdate(new Date());
             user.setSirdebug("");
@@ -207,12 +201,12 @@ public class Bulkuser {
         return errors;
     }
 
-    public String getFirst() {
-        return first;
+    public String getName() {
+        return name;
     }
 
-    public String getLast() {
-        return last;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNickname() {

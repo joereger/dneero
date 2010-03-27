@@ -1,19 +1,16 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Num;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.dao.User;
 import com.dneero.dao.Survey;
+import com.dneero.dao.User;
 import com.dneero.facebook.FacebookPendingReferrals;
-import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.htmlui.Pagez;
-import com.dneero.helpers.NicknameHelper;
+import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.util.Num;
+import com.dneero.xmpp.SendXMPPMessage;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -83,7 +80,7 @@ public class PublicFacebookLandingPage implements Serializable {
                     String referredbyname = "";
                     if (split[2]!=null && Num.isinteger(split[2])){
                         User userReferer = User.get(Integer.parseInt(split[2]));
-                        referredbyname = NicknameHelper.getNameOrNickname(userReferer);
+                        referredbyname = userReferer.getNickname();
                     }
                     String surveytitle = "";
                     if (split[1]!=null && Num.isinteger(split[1])){

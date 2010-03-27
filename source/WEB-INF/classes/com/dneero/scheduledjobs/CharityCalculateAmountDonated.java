@@ -1,21 +1,16 @@
 package com.dneero.scheduledjobs;
 
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.util.Time;
-import com.dneero.util.GeneralException;
+import com.dneero.systemprops.InstanceProperties;
+import org.apache.log4j.Logger;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
-import java.util.List;
 import java.util.Iterator;
-import java.util.Date;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -48,7 +43,7 @@ public class CharityCalculateAmountDonated implements Job {
         try{
             double charityamtdonatedOriginal = user.getCharityamtdonated();
             double sum = NumFromUniqueResult.getDouble("select sum(amt) from Charitydonation where userid='"+user.getUserid()+"'");
-            logger.debug("user name="+user.getFirstname()+" "+user.getLastname());
+            logger.debug("user name="+user.getNickname());
             logger.debug("charityamtdonatedOriginal="+charityamtdonatedOriginal);
             logger.debug("sum="+sum);
             if (charityamtdonatedOriginal<sum || charityamtdonatedOriginal>sum){

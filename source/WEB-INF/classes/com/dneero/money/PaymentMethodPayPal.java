@@ -33,7 +33,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
             notes =  notes + "PayPal Temporarily Down: "+user.getUserid()+" : amt="+amt;
             issuccessful = false;
             logger.debug("PayPal Temporarily Disabled: would have paid userid="+user.getUserid()+" amt="+amt);
-            EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "dNeero PayPal Test Transaction", "PayPal Temporarily Disabled: would have paid userid="+user.getUserid()+"\n"+"email="+user.getEmail()+"\n"+"name="+user.getFirstname()+" "+user.getLastname()+"\n"+" amt="+amt);
+            EmailTemplateProcessor.sendGenericEmail("regerj@gmail.com", "dNeero PayPal Test Transaction", "PayPal Temporarily Disabled: would have paid userid="+user.getUserid()+"\n"+"email="+user.getEmail()+"\n"+"name="+user.getNickname()+"\n"+" amt="+amt);
             return;
         }
 
@@ -45,7 +45,7 @@ public class PaymentMethodPayPal extends PaymentMethodBase implements PaymentMet
         StringBuffer debug = new StringBuffer();
         debug.append("PaymentMethodPayPal run at: "+Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST"))+"<br/>\n\n");
         debug.append("user.getUserid()="+user.getUserid()+"<br/>\n");
-        debug.append("user.getFirstname()="+user.getFirstname()+" "+user.getLastname()+"<br/>\n");
+        debug.append("user.getFirstname()="+user.getNickname()+"<br/>\n");
         debug.append("user.getEmail()="+user.getEmail()+"<br/>\n");
         try{
             CallerFactory callerFactory = new CallerFactory();

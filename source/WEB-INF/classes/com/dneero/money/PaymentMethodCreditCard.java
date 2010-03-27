@@ -138,7 +138,7 @@ public class PaymentMethodCreditCard extends PaymentMethodBase implements Paymen
                     issuccessful = false;
                 }
             } else {
-                notes = user.getFirstname() + " "+user.getLastname()+" (userid="+user.getUserid()+") can't be paid because no credit card is tied to the account.";
+                notes = user.getNickname() + " (userid="+user.getUserid()+") can't be paid because no credit card is tied to the account.";
                 issuccessful = false;
             }
         } catch (Exception ex){

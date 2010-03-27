@@ -1,22 +1,19 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.cache.html.DbcacheexpirableCache;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.HibernateUtilImpressions;
-
-
-import com.dneero.util.Num;
-import com.dneero.htmlui.Pagez;
 import com.dneero.dbgrid.Grid;
 import com.dneero.dbgrid.GridCol;
-import com.dneero.cache.html.DbcacheexpirableCache;
-import com.dneero.display.SurveyResultsDisplay;
-import com.dneero.helpers.NicknameHelper;
+import com.dneero.htmlui.Pagez;
+import com.dneero.util.Num;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.*;
-
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -110,7 +107,7 @@ public class PublicSurveyWhotookit implements Serializable {
                 PublicSurveyRespondentsListitem psrli = new PublicSurveyRespondentsListitem();
                 psrli.setResponse(response);
                 psrli.setUser(user);
-                psrli.setNameornickname(NicknameHelper.getNameOrNickname(user));
+                psrli.setNameornickname(user.getNickname());
                 respondents.add(psrli);
             }
         }

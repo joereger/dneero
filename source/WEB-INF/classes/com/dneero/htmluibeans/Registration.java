@@ -39,8 +39,6 @@ public class Registration implements Serializable {
     private String email;
     private String password;
     private String passwordverify;
-    private String firstname;
-    private String lastname;
     //private String j_captcha_response;
     //private String captchaId;
     private String eula;
@@ -72,7 +70,7 @@ public class Registration implements Serializable {
     public void registerAction() throws ValidationException {
         ValidationException vex = new ValidationException();
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("registerAction called:  email="+email+" password="+password+" firstname="+firstname+" lastname="+lastname);
+        logger.debug("registerAction called:  email="+email+" password="+password+" nickname="+nickname);
 
         //Validation
         boolean haveErrors = false;
@@ -98,15 +96,6 @@ public class Registration implements Serializable {
             haveErrors = true;
         }
 
-        if (firstname==null || firstname.equals("")){
-            vex.addValidationError("First Name can't be blank.");
-            haveErrors = true;
-        }
-
-        if (lastname==null || lastname.equals("")){
-            vex.addValidationError("Last Name can't be blank.");
-            haveErrors = true;
-        }
 
 
         if (nickname!=null && !nickname.equals("")){
@@ -169,8 +158,7 @@ public class Registration implements Serializable {
         user.setPlid(Pagez.getUserSession().getPl().getPlid());
         user.setEmail(email);
         user.setPassword(password);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
+        user.setName("");
         user.setIsactivatedbyemail(false);
         user.setIsqualifiedforrevshare(true);
         user.setReferredbyuserid(Pagez.getUserSession().getReferredbyOnlyUsedForSignup());
@@ -201,7 +189,7 @@ public class Registration implements Serializable {
         user.setCurrentbalanceblogger(0.0);
         user.setCurrentbalanceresearcher(0.0);
         user.setLastlogindate(new java.util.Date());
-        user.setNickname(nickname);
+        user.setNickname(NicknameHelper.generateUniqueNickname(nickname, user));
         user.setSiralgorithm(SocialInfluenceRating.ALGORITHM);
         user.setSirdate(new Date());
         user.setSirdebug("");
@@ -249,7 +237,7 @@ public class Registration implements Serializable {
         EmailActivationSend.sendActivationEmail(user);
 
         //Notify customer care group
-        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+")");
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New User: "+ user.getNickname() +  " ("+user.getEmail()+")");
         xmpp.send();
 
         //Log user in
@@ -302,21 +290,6 @@ public class Registration implements Serializable {
         this.passwordverify = passwordverify;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
     public int getUserid() {
         return userid;

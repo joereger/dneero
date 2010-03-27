@@ -1,11 +1,9 @@
 package com.dneero.htmluibeans;
 
 
-import com.dneero.util.Util;
-import com.dneero.util.Num;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
 import com.dneero.dao.User;
+import com.dneero.htmlui.Pagez;
+import com.dneero.util.Num;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -33,7 +31,7 @@ public class InviteLandingPage implements Serializable {
             User user = User.get(Integer.parseInt(Pagez.getRequest().getParameter("referredby")));
             if (user!=null && user.getUserid()>0){
                 Pagez.getUserSession().setReferredbyOnlyUsedForSignup(Integer.parseInt(Pagez.getRequest().getParameter("referredby")));
-                referredby = user.getFirstname() + " " + user.getLastname();
+                referredby = user.getNickname();
             } else {
                 Pagez.getUserSession().setReferredbyOnlyUsedForSignup(0);
             }

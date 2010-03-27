@@ -89,7 +89,7 @@ public class MoveMoneyInAccountBalance {
                             try{revshare.save();} catch (Exception ex){logger.error("",ex);}
                             //Transfer the actual revshare
                             //Very important: note that qualifiesforrevsharedistribution=false on revshare distributions
-                            MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Referral share from "+userToPayRevshareTo.getFirstname()+" "+userToPayRevshareTo.getLastname()+"("+userToPayRevshareTo.getEmail()+")", false, false, "", isresearchermoney, isbloggermoney, true, false);
+                            MoveMoneyInAccountBalance.pay(userToPayRevshareTo, amttoshare, "Referral share from "+userToPayRevshareTo.getNickname()+" ("+userToPayRevshareTo.getEmail()+")", false, false, "", isresearchermoney, isbloggermoney, true, false);
                             //@todo Email the recipient of the revshare to tell them that their peeps are making them money!
                         }
                     }

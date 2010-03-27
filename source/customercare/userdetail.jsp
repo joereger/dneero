@@ -38,8 +38,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-            customercareUserDetail.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
-            customercareUserDetail.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
+            customercareUserDetail.setName(Textbox.getValueFromRequest("name", "Name", false, DatatypeString.DATATYPEID));
             customercareUserDetail.setEmail(Textbox.getValueFromRequest("email", "Email", false, DatatypeString.DATATYPEID));
             customercareUserDetail.setPaypaladdress(Textbox.getValueFromRequest("paypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
             customercareUserDetail.setReferredbyuserid(Textbox.getIntFromRequest("referredbyuserid", "Referredbyuserid", false, DatatypeString.DATATYPEID));
@@ -185,18 +184,10 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <tr>
                                         <td valign="top">
-                                            <font class="formfieldnamefont">First Name</font>
+                                            <font class="formfieldnamefont">Name</font>
                                         </td>
                                         <td valign="top">
-                                            <%=Textbox.getHtml("firstname", customercareUserDetail.getFirstname(), 255, 35, "", "")%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top">
-                                            <font class="formfieldnamefont">Last Name</font>
-                                        </td>
-                                        <td valign="top">
-                                            <%=Textbox.getHtml("lastname", customercareUserDetail.getLastname(), 255, 35, "", "")%>
+                                            <%=Textbox.getHtml("name", customercareUserDetail.getName(), 255, 35, "", "")%>
                                         </td>
                                     </tr>
                                     <tr>

@@ -1,19 +1,17 @@
 package com.dneero.display;
 
-import com.dneero.display.components.def.ComponentTypes;
-import com.dneero.display.components.def.Component;
-import com.dneero.util.Str;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.helpers.NicknameHelper;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentTypes;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import org.apache.log4j.Logger;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User: Joe Reger Jr
@@ -99,7 +97,7 @@ public class SurveyTemplateProcessorV1 {
                         Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
                         User userwhocreatedquestion = User.get(question.getUserid());
                         out.append("<p>");
-                        out.append(NicknameHelper.getNameOrNickname(userwhocreatedquestion)+" asked:");
+                        out.append(userwhocreatedquestion.getNickname()+" asked:");
                         out.append("</p>");
                         out.append("<p>");
                         out.append(component.getHtmlForDisplay(response));

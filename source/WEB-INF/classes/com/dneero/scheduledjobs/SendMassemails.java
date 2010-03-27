@@ -66,8 +66,8 @@ public class SendMassemails implements Job {
         args[0] = String.valueOf(user.getUserid());
         args[1] = String.valueOf(user.getBloggerid());
         args[2] = String.valueOf(user.getResearcherid());
-        args[3] = user.getFirstname();
-        args[4] = user.getLastname();
+        args[3] = user.getNickname();
+        args[4] = user.getName();
         return args;
     }
 

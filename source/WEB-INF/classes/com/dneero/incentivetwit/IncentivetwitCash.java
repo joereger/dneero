@@ -2,19 +2,18 @@ package com.dneero.incentivetwit;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.money.TwitaskMoneyStatus;
 import com.dneero.util.Num;
-import com.dneero.util.RandomString;
 import com.dneero.util.Str;
-import com.dneero.email.EmailTemplateProcessor;
-import org.hibernate.criterion.Restrictions;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -75,7 +74,7 @@ public class IncentivetwitCash implements Incentivetwit {
         //Affect balance for blogger
         MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for Twitter Answer: '"+twitask.getQuestion()+"'", true, twitanswer.getIsforcharity(), twitanswer.getCharityname(), 0, false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.charge(User.get(twitask.getUserid()), (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"'", true, false, false, false);
+        MoveMoneyInAccountBalance.charge(User.get(twitask.getUserid()), (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getNickname()+" responds to '"+twitask.getQuestion()+"'", true, false, false, false);
         //Affect balance for reseller
         if (twitask.getResellercode()!=null && !twitask.getResellercode().equals("")){
             //Find the user with this resellercode
@@ -115,7 +114,7 @@ public class IncentivetwitCash implements Incentivetwit {
         args[0] = "$"+Str.formatForMoney(getBloggerEarningsPerResponse());
         args[1] = twitask.getQuestion();
         //Send the email
-        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Cash Award for "+user.getFirstname(), "incentiveaward-cash", user, args);
+        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Cash Award for "+user.getNickname(), "incentiveaward-cash", user, args);
     }
 
     public void doRemoveIncentive(Twitanswer twitanswer) {
@@ -126,7 +125,7 @@ public class IncentivetwitCash implements Incentivetwit {
         //Affect balance for blogger
         MoveMoneyInAccountBalance.charge(user, getBloggerEarningsPerResponse(), "Charge for award to: '"+twitask.getQuestion()+"' being removed", false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.pay(User.get(twitask.getUserid()), (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"' had award removed", false, false, "", true, false, false, false);
+        MoveMoneyInAccountBalance.pay(User.get(twitask.getUserid()), (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getNickname()+" responds to '"+twitask.getQuestion()+"' had award removed", false, false, "", true, false, false, false);
         //Affect balance for reseller
         if (twitask.getResellercode()!=null && !twitask.getResellercode().equals("")){
             //Find the user with this resellercode

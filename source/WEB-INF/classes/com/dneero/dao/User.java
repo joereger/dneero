@@ -28,8 +28,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private boolean isqualifiedforrevshare;
      private String email;
      private String password;
-     private String firstname;
-     private String lastname;
+     private String name;
      private boolean isactivatedbyemail;
      private String emailactivationkey;
      private Date emailactivationlastsent;
@@ -106,15 +105,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
         return canRead(user);
     }
 
-    
-    /** full constructor */
-    public User(int userid, String email, String password, String firstname, String lastname) {
-        this.userid = userid;
-        this.email = email;
-        this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
+
     
 
    
@@ -176,20 +167,12 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
         this.password = password;
     }
 
-    public String getFirstname() {
-        return this.firstname;
-    }
-    
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public String getName() {
+        return name;
     }
 
-    public String getLastname() {
-        return this.lastname;
-    }
-    
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean getIsactivatedbyemail() {

@@ -89,7 +89,7 @@ CustomercareIptrack customercareIptrack = (CustomercareIptrack)Pagez.getBeanMgr(
         if (userEx!=null && userEx.getUserid()>0){
             %>
             <div class="rounded" style="padding: 15px; margin: 8px; background: #e6e6e6;">
-                <font class="normalfont" style="font-weight:bold;"><%=userEx.getFirstname()%> <%=userEx.getLastname()%></font>
+                <font class="normalfont" style="font-weight:bold;"><%=userEx.getNickname()%></font>
                 <br/>
                 <font class="tinyfont">
                 <%=userEx.getEmail()%>

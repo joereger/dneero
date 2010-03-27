@@ -44,7 +44,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                                cols.add(new GridCol("Donator", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
+                                cols.add(new GridCol("Donator", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", false, "", "smallfont"));
                                 //cols.add(new GridCol("What was donated.", "<$charitydonation.description$>", false, "", "smallfont"));
                                 //cols.add(new GridCol("Amount", "<$amtForScreen$>", false, "", "smallfont"));
                                 cols.add(new GridCol("Donated To", "<$charitydonation.charityname$>", false, "", "smallfont"));
@@ -62,7 +62,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                             <%} else {%>
                                 <%
                                     ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                                    cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", false, "", "smallfont"));
+                                    cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", false, "", "smallfont"));
                                     cols.add(new GridCol("Donations", "<$amtforscreen$>", false, "", "smallfont"));
                                 %>
                                 <%=Grid.render(publicCharity.getTopdonatingUsers(), cols, 100, "/charity.jsp", "pagecharity")%>

@@ -1,18 +1,13 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.dao.User;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Pl;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.helpers.NicknameHelper;
 import com.dneero.privatelabel.PlPeers;
 
 import java.io.Serializable;
 import java.util.*;
-
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
-import org.hibernate.Query;
 
 /**
  * User: Joe Reger Jr
@@ -71,7 +66,7 @@ public class MostActiveUsersByTotalSurveysTaken implements CachedStuff, Serializ
                         out.append("<td>");
                         out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
                         out.append("<font class='tinyfont'>");
-                        out.append(NicknameHelper.getNameOrNickname(user));
+                        out.append(user.getNickname());
                         out.append("</font>");
                         out.append("</a>");
                         out.append("</td>");

@@ -1,16 +1,14 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
+import com.dneero.cache.html.DbcacheexpirableCache;
 import com.dneero.dao.Survey;
-
-import com.dneero.display.SurveyResultsDisplay;
-import com.dneero.display.SurveyResultsUserQuestionsListitem;
+import com.dneero.dbgrid.Grid;
+import com.dneero.dbgrid.GridCol;
 import com.dneero.display.SurveyResultsUserQuestions;
+import com.dneero.display.SurveyResultsUserQuestionsListitem;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Num;
-import com.dneero.dbgrid.GridCol;
-import com.dneero.dbgrid.Grid;
-import com.dneero.cache.html.DbcacheexpirableCache;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -54,7 +52,7 @@ public class ResearcherResultsAnswersUserquestions implements Serializable {
                 ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
                 //Create a template for the display
                 StringBuffer template = new StringBuffer();
-                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a> wanted to know:</b></font>");
+                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a> wanted to know:</b></font>");
                 template.append("<br/>");
                 template.append("<b><$question.question$></b>");
                 template.append("<br/>");

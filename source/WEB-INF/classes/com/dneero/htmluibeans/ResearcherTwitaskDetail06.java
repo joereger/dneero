@@ -333,7 +333,7 @@ public class ResearcherTwitaskDetail06 implements Serializable {
                     }
                     //We have a reseller, save
                     resellerfound = true;
-                    resellername = userReseller.getFirstname()+" "+userReseller.getLastname();
+                    resellername = userReseller.getNickname();
                     twitask.setResellercode(resellercode);
                     try{
                         twitask.save();

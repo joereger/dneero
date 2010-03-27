@@ -34,8 +34,7 @@ public class CustomercareUserDetailExtended implements Serializable {
 
 
     private int userid;
-    private String firstname;
-    private String lastname;
+    private String name;
     private String email;
     private List balances;
     private List transactions;
@@ -63,8 +62,7 @@ public class CustomercareUserDetailExtended implements Serializable {
         if (user!=null && user.getUserid()>0){
             this.userid = user.getUserid();
             this.user = user;
-            firstname = user.getFirstname();
-            lastname = user.getLastname();
+            name = user.getName();
             email = user.getEmail();
 
             if (user.getResearcherid()>0){
@@ -161,25 +159,12 @@ public class CustomercareUserDetailExtended implements Serializable {
     }
 
 
-
-
-
-
-
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

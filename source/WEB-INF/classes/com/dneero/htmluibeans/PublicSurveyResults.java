@@ -14,7 +14,6 @@ import com.dneero.display.SurveyResultsUserQuestions;
 import com.dneero.display.SurveyResultsUserQuestionsListitem;
 import com.dneero.facebook.FacebookUser;
 import com.dneero.helpers.UserInputSafe;
-import com.dneero.helpers.NicknameHelper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Num;
 import com.dneero.util.Str;
@@ -141,7 +140,7 @@ public class PublicSurveyResults implements Serializable {
                 ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
                 //Create a template for the display
                 StringBuffer template = new StringBuffer();
-                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a> wanted to know:</b></font>");
+                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a> wanted to know:</b></font>");
                 template.append("<br/>");
                 template.append("<b><$question.question$></b>");
                 template.append("<br/>");
@@ -160,7 +159,7 @@ public class PublicSurveyResults implements Serializable {
 //                ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
 //                //Create a template for the display
 //                StringBuffer template = new StringBuffer();
-//                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a> wanted to know:</b></font>");
+//                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a> wanted to know:</b></font>");
 //                template.append("<br/>");
 //                template.append("<b><$question.question$></b>");
 //                template.append("<br/>");
@@ -211,7 +210,7 @@ public class PublicSurveyResults implements Serializable {
 
         //Set results friends tab text
         if (userwhotooksurvey!=null){
-            resultsfriendstabtext = Str.truncateString(NicknameHelper.getNameOrNickname(userwhotooksurvey), 15)+"'s Friends";
+            resultsfriendstabtext = Str.truncateString(userwhotooksurvey.getNickname(), 15)+"'s Friends";
         }
 
 

@@ -6,7 +6,6 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.util.Num;
 import com.dneero.util.Str;
-import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -74,7 +73,7 @@ public class CustomercarePanelsAddpeople implements Serializable {
             Survey survey = surveyIterator.next();
             Researcher researcher = Researcher.get(survey.getResearcherid());
             User user = User.get(researcher.getUserid());
-            out.put(String.valueOf(survey.getSurveyid()), Str.truncateString(NicknameHelper.getNameOrNickname(user), 20)+":"+Str.truncateString(survey.getTitle(), 80));
+            out.put(String.valueOf(survey.getSurveyid()), Str.truncateString(user.getNickname(), 20)+":"+Str.truncateString(survey.getTitle(), 80));
         }
         return out;
     }
@@ -105,7 +104,7 @@ public class CustomercarePanelsAddpeople implements Serializable {
             Panel panel = panelIterator.next();
             Researcher researcher = Researcher.get(panel.getResearcherid());
             User user = User.get(researcher.getUserid());
-            out.put(String.valueOf(panel.getPanelid()), Str.truncateString(NicknameHelper.getNameOrNickname(user), 10)+":"+Str.truncateString(panel.getName(), 70));
+            out.put(String.valueOf(panel.getPanelid()), Str.truncateString(user.getNickname(), 10)+":"+Str.truncateString(panel.getName(), 70));
         }
         return out;
     }
@@ -120,7 +119,7 @@ public class CustomercarePanelsAddpeople implements Serializable {
         for (Iterator<Rank> panelIterator = ranks.iterator(); panelIterator.hasNext();) {
             Rank rank = panelIterator.next();
             User user = User.get(rank.getUserid());
-            out.put(String.valueOf(rank.getRankid()), Str.truncateString(NicknameHelper.getNameOrNickname(user), 20)+":"+Str.truncateString(rank.getName(), 70));
+            out.put(String.valueOf(rank.getRankid()), Str.truncateString(user.getNickname(), 20)+":"+Str.truncateString(rank.getName(), 70));
         }
         return out;
     }
@@ -147,7 +146,7 @@ public class CustomercarePanelsAddpeople implements Serializable {
         for (Iterator<Respondentfilter> filterIterator = respondentfilters.iterator(); filterIterator.hasNext();) {
             Respondentfilter filter = filterIterator.next();
             User user = User.get(filter.getUserid());
-            out.put(String.valueOf(filter.getRespondentfilterid()), Str.truncateString(NicknameHelper.getNameOrNickname(user), 20)+":"+Str.truncateString(filter.getName(), 70));
+            out.put(String.valueOf(filter.getRespondentfilterid()), Str.truncateString(user.getNickname(), 20)+":"+Str.truncateString(filter.getName(), 70));
         }
         return out;
     }

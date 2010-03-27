@@ -1,26 +1,24 @@
 package com.dneero.facebook;
 
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
+import com.dneero.htmlui.Pagez;
+import com.dneero.survey.servlet.RecordImpression;
+import com.dneero.systemprops.SystemProperty;
+import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.util.Num;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.systemprops.SystemProperty;
-import com.dneero.survey.servlet.RecordImpression;
-import com.dneero.htmlui.Pagez;
-import com.dneero.util.Num;
-import com.dneero.dao.User;
-import com.dneero.dao.Survey;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.helpers.NicknameHelper;
 
 /**
  * User: Joe Reger Jr
@@ -86,7 +84,7 @@ public class FbCallbackServlet extends HttpServlet {
                     String referredbyname = "";
                     if (split[2]!=null && Num.isinteger(split[2])){
                         User userReferer = User.get(Integer.parseInt(split[2]));
-                        referredbyname = NicknameHelper.getNameOrNickname(userReferer);
+                        referredbyname = userReferer.getNickname();
                     }
                     String surveytitle = "";
                     if (split[1]!=null && Num.isinteger(split[1])){

@@ -2,7 +2,6 @@ package com.dneero.cachedstuff;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.helpers.NicknameHelper;
 import com.dneero.privatelabel.PlPeers;
 import com.dneero.util.Time;
 import org.hibernate.criterion.Order;
@@ -51,7 +50,7 @@ public class RecentSurveyResponses implements CachedStuff, Serializable {
                     out.append("<td>");
                     out.append("<font class='tinyfont'>");
                     out.append("<a href=\"/profile.jsp?userid="+user.getUserid()+"\">");
-                    out.append(NicknameHelper.getNameOrNickname(user));
+                    out.append(user.getNickname());
                     out.append("</a>");
                     out.append(" responded to ");
                     out.append("<a href=\"/survey.jsp?surveyid="+survey.getSurveyid()+"&userid="+user.getUserid()+"\">");

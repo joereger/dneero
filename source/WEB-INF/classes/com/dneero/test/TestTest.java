@@ -13,7 +13,7 @@ public class TestTest {
 
     @Test public void test(){
         User user = User.get(1);
-        Assert.assertTrue(user.getFirstname().equals("Bobjhfkjhg"));
+        Assert.assertTrue(user.getNickname().equals("Bobjhfkjhg"));
     }
 
     @Test public void testNum1(){

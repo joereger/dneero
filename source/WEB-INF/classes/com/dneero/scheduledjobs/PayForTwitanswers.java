@@ -1,19 +1,10 @@
 package com.dneero.scheduledjobs;
 
+import com.dneero.systemprops.InstanceProperties;
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.ErrorDissect;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.email.EmailTemplateProcessor;
-
-import java.util.List;
-import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -73,7 +64,7 @@ public class PayForTwitanswers implements Job {
 //                        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SYSADMINS, "BIG ERROR IN PayForSurveyResponsesOncePosted:  "+ex.getMessage());
 //                        xmpp.send();
 //                        //Send error via email
-//                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error paying "+user.getFirstname()+" "+user.getLastname()+" userid="+user.getUserid(), ErrorDissect.dissect(ex));
+//                        EmailTemplateProcessor.sendGenericEmail("joe@joereger.com", "dNeero Error paying "+user.getNickname()+" userid="+user.getUserid(), ErrorDissect.dissect(ex));
 //                    }
 //                } catch (Exception ex){
 //                    logger.error("",ex);

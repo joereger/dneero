@@ -27,10 +27,10 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
             registration.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
             //registration.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
             //registration.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
-            registration.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
+            //registration.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
             //registration.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", false, DatatypeString.DATATYPEID));
             //registration.setCaptchaId(request.getParameter("captchaId"));
-            registration.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
+            //registration.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
             registration.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             //registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
             registration.setNickname(Textbox.getValueFromRequest("nickname", "Nickname", true, DatatypeString.DATATYPEID));
@@ -109,14 +109,14 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
                 <br/><br/>
                 <table cellpadding="5" cellspacing="0" border="0">
 
-                    <tr>
-                        <td valign="top" width="33%" align="right">
-                            <font class="formfieldnamefont">First, Last Name</font>
-                        </td>
-                        <td valign="top">
-                            <%=Textbox.getHtml("firstname", registration.getFirstname(), 255, 10, "", "width:151px;")%><%=Textbox.getHtml("lastname", registration.getLastname(), 255, 10, "", "width:151px;")%>
-                        </td>
-                    </tr>
+                    <%--<tr>--%>
+                        <%--<td valign="top" width="33%" align="right">--%>
+                            <%--<font class="formfieldnamefont">First, Last Name</font>--%>
+                        <%--</td>--%>
+                        <%--<td valign="top">--%>
+                            <%--<%=Textbox.getHtml("firstname", registration.getFirstname(), 255, 10, "", "width:151px;")%><%=Textbox.getHtml("lastname", registration.getLastname(), 255, 10, "", "width:151px;")%>--%>
+                        <%--</td>--%>
+                    <%--</tr>--%>
 
 
                     <tr>
@@ -128,7 +128,7 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
                         <td valign="top">
                             <%=Textbox.getHtml("nickname", registration.getNickname(), 255, 35, "", "width:308px;")%>
                             <br/>
-                            <font class="tinyfont">Will be shared publicly. Letters, numbers, no spaces.</font>
+                            <font class="tinyfont">Will be shared publicly. Letters & numbers only. No spaces or other characters.</font>
                         </td>
                     </tr>
 

@@ -30,8 +30,7 @@ public class CustomercareUserDetail implements Serializable {
 
     private static String CORRECTPWD = "pupper";
     private int userid;
-    private String firstname;
-    private String lastname;
+    private String name;
     private String email;
     private String paypaladdress="";
     private int referredbyuserid=0;
@@ -69,8 +68,7 @@ public class CustomercareUserDetail implements Serializable {
         if (user!=null && user.getUserid()>0){
             this.userid = user.getUserid();
             this.user = user;
-            firstname = user.getFirstname();
-            lastname = user.getLastname();
+            name = user.getName();
             email = user.getEmail();
             referredbyuserid = user.getReferredbyuserid();
             paypaladdress = user.getPaymethodpaypaladdress();
@@ -102,13 +100,11 @@ public class CustomercareUserDetail implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("save() called");
         logger.debug("userid="+userid);
-        logger.debug("firstname="+firstname);
-        logger.debug("lastname="+lastname);
+        logger.debug("name="+name);
         logger.debug("email="+email);
         User user = User.get(userid);
         if (user!=null && user.getUserid()>0){
-            user.setFirstname(firstname);
-            user.setLastname(lastname);
+            user.setName(name);
             user.setEmail(email);
             user.setReferredbyuserid(referredbyuserid);
             user.setPaymethodpaypaladdress(paypaladdress);
@@ -429,20 +425,12 @@ public class CustomercareUserDetail implements Serializable {
     }
 
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

@@ -13,7 +13,6 @@ import com.dneero.util.DateDiff;
 import com.dneero.util.Io;
 import com.dneero.util.Str;
 import com.dneero.util.Time;
-import com.dneero.helpers.NicknameHelper;
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -47,8 +46,8 @@ public class NotifyBloggersOfNewOffers implements Job {
                     Blogger blogger = iterator.next();
                     try{
                         User user = User.get(blogger.getUserid());
-                        debug.append("\n"+"\n"+"userid="+user.getUserid()+" bloggerid="+blogger.getBloggerid()+" name="+user.getFirstname()+" "+user.getLastname());
-                        logger.debug("userid="+user.getUserid()+" bloggerid="+blogger.getBloggerid()+" name="+user.getFirstname()+" "+user.getLastname());
+                        debug.append("\n"+"\n"+"userid="+user.getUserid()+" bloggerid="+blogger.getBloggerid()+" name="+user.getNickname());
+                        logger.debug("userid="+user.getUserid()+" bloggerid="+blogger.getBloggerid()+" name="+user.getNickname());
 
                         if (user.getIsenabled()){
                             boolean shouldSendUserNotifications = false;
@@ -176,8 +175,8 @@ public class NotifyBloggersOfNewOffers implements Job {
                                         args[3] = userquestionsansweredHtml.toString();
                                         args[4] = userquestionsansweredTxt.toString();
                                         //Send the email
-                                        EmailTemplateProcessor.sendMail("New "+pl.getNameforui()+" Conversations for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
-                                        debug.append("\n"+"email sent to "+user.getFirstname()+" "+user.getLastname());
+                                        EmailTemplateProcessor.sendMail("New "+pl.getNameforui()+" Conversations for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
+                                        debug.append("\n"+"email sent to "+user.getNickname());
                                         //Update blogger last sent date
                                         user.setNotifyofnewsurveyslastsent(new Date());
                                         try{user.save();}catch(Exception ex){logger.error("",ex);}

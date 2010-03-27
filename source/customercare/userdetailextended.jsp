@@ -41,7 +41,7 @@ CustomercareUserDetailExtended customercareUserDetailExtended= (CustomercareUser
 %>
 <%@ include file="/template/header.jsp" %>
 
-        <a href="/customercare/userdetail.jsp?userid=<%=customercareUserDetailExtended.getUser().getUserid()%>"><font class="mediumfont">Back to <%=customercareUserDetailExtended.getFirstname()%> <%=customercareUserDetailExtended.getLastname()%>'s Main User Screen</font></a>
+        <a href="/customercare/userdetail.jsp?userid=<%=customercareUserDetailExtended.getUser().getUserid()%>"><font class="mediumfont">Back to <%=customercareUserDetailExtended.getUser().getNickname()%>'s Main User Screen</font></a>
         <br/><br/>
 
 

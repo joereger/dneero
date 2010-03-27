@@ -1,14 +1,11 @@
 package com.dneero.helpers;
 
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.util.Str;
 import org.hibernate.criterion.Restrictions;
-import org.apache.log4j.Logger;
 
 import java.util.List;
-
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.User;
-import com.dneero.util.Util;
-import com.dneero.util.Str;
 
 /**
  * User: Joe Reger Jr
@@ -29,6 +26,9 @@ public class NicknameHelper {
     }
 
     public static boolean nicknameExistsAlreadyForSomebodyElse(String nickname, User user){
+        if (user==null || user.getUserid()==0){
+            return nicknameExistsAlready(nickname);
+        }
         List<User> users = HibernateUtil.getSession().createCriteria(User.class)
                                            .add(Restrictions.eq("nickname", nickname.trim().toLowerCase()))
                                            .add(Restrictions.ne("userid", user.getUserid()))
@@ -40,20 +40,18 @@ public class NicknameHelper {
         return false;
     }
 
-    public static String getNameOrNickname(User user){
-        if (user!=null && user.getUserid()>0){
-            if (user.getNickname()!=null && !user.getNickname().equals("")){
-                return user.getNickname();
-            } else {
-                return user.getFirstname()+" "+user.getLastname();
-            }
+    public static String generateUniqueNickname(String nickname, User user){
+        nickname = Str.onlyKeepLettersAndDigits(nickname.trim());
+        if (!nicknameExistsAlreadyForSomebodyElse(nickname, user)){
+            return nickname;
         }
-        return "";
+        int appendtoend = 1;
+        while (nicknameExistsAlreadyForSomebodyElse(nickname+appendtoend, user) && appendtoend<25){
+            appendtoend++;
+        }
+        nickname = nickname + appendtoend;
+        return nickname;
     }
-
-
-
-
 
 
 }

@@ -60,7 +60,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
             List surveys = HibernateUtil.getSession().createQuery("from Survey where researcherid='"+researcher.getResearcherid()+"' and status<>'"+Survey.STATUS_DRAFT+"'").setCacheable(true).list();
             double totalremainingpossiblespendforallsurveys = 0;
             double totalmaxpossiblespendforallsurveys = 0;
-            logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
+            logger.debug("userid="+user.getUserid()+ " ("+user.getNickname() + ")");
             logger.debug("researcherid="+researcher.getResearcherid());
             logger.debug("surveys.size()="+surveys.size());
             logger.debug("start iterating surveys for researcherid="+researcher.getResearcherid());
@@ -89,7 +89,7 @@ public class ResearcherRemainingBalanceOperations implements Job {
             List twitasks = HibernateUtil.getSession().createQuery("from Twitask where userid='"+researcher.getUserid()+"' and status<>'"+Twitask.STATUS_DRAFT+"'").setCacheable(true).list();
             double totalremainingpossiblespendforalltwitasks = 0;
             double totalmaxpossiblespendforalltwitasks = 0;
-            logger.debug("userid="+user.getUserid()+ " ("+user.getFirstname() + " "+user.getLastname()+")");
+            logger.debug("userid="+user.getUserid()+ " ("+user.getNickname() + ")");
             logger.debug("researcherid="+researcher.getResearcherid());
             logger.debug("twitasks.size()="+twitasks.size());
             logger.debug("start iterating twitasks for researcherid="+researcher.getResearcherid());
@@ -173,12 +173,12 @@ public class ResearcherRemainingBalanceOperations implements Job {
                         //Notify
                         if (shutDownASurvey){
                             logger.debug("Setting survey status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All surveys are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+") due to a lack of funds.");
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All surveys are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getNickname() + " ("+user.getEmail()+") due to a lack of funds.");
                             xmpp.send();
                         }
                         if (shutDownATwitask){
                             logger.debug("Setting twitask status=STATUS_WAITINGFORFUNDS for researcherid="+researcher.getResearcherid());
-                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All twitasks are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getFirstname() + " " + user.getLastname() + "("+user.getEmail()+") due to a lack of funds.");
+                            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "All twitasks are being put into STATUS_WAITINGFORFUNDS for Researcher.researcherid="+researcher.getResearcherid()+" User: "+ user.getNickname() + " ("+user.getEmail()+") due to a lack of funds.");
                             xmpp.send();
                         }
                     }

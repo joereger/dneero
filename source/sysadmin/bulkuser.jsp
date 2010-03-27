@@ -45,9 +45,9 @@ String acl = "sysadmin";
                     int counter = 0;
                     while ((nextLine = reader.readNext()) != null) {
                         counter++;
-                        System.out.println("First: [" + nextLine[0] + "] Last: [" + nextLine[1] + "] Nick: [" + nextLine[2] + "]"+ " Email: [" + nextLine[3] + "]"+ " Pass: [" + nextLine[4] + "]");
-                        if (nextLine[0]!=null && !nextLine[0].equals("FIRST NAME")){
-                            Bulkuser bulkuser = new Bulkuser(nextLine[0], nextLine[1], nextLine[2], nextLine[3], nextLine[4]);
+                        System.out.println("First: [" + nextLine[0] + "] Nick: [" + nextLine[1] + "]"+ " Email: [" + nextLine[2] + "]"+ " Pass: [" + nextLine[3] + "]");
+                        if (nextLine[0]!=null && !nextLine[0].equals("NAME")){
+                            Bulkuser bulkuser = new Bulkuser(nextLine[0], nextLine[1], nextLine[2], nextLine[3]);
                             if (!bulkuser.getIsvalid()){errorcount++;}
                             bulkusers.add(bulkuser);
                         }
@@ -70,7 +70,7 @@ String acl = "sysadmin";
                 }
                 int errorcount = 0;
                 for(int i=1; i<=numberofbulkusers; i++){
-                    Bulkuser bulkuser = new Bulkuser(request.getParameter("first"+i), request.getParameter("last"+i), request.getParameter("nickname"+i), request.getParameter("email"+i), request.getParameter("password"+i));
+                    Bulkuser bulkuser = new Bulkuser(request.getParameter("name"+i), request.getParameter("nickname"+i), request.getParameter("email"+i), request.getParameter("password"+i));
                     if (!bulkuser.getIsvalid()){errorcount++;}
                     bulkusers.add(bulkuser);
                 }

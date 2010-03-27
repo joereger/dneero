@@ -1,20 +1,19 @@
 package com.dneero.cache.providers.jboss;
 
+import com.dneero.htmlui.UserSession;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
-import org.jboss.cache.Node;
 import org.jboss.cache.Fqn;
+import org.jboss.cache.Node;
 import org.jgroups.Address;
 import org.jgroups.protocols.JMS;
 import org.jgroups.stack.IpAddress;
 
-import java.util.Iterator;
-import java.util.Set;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
-
-import com.dneero.htmlui.UserSession;
-import com.dneero.util.Str;
-import com.dneero.util.DateDiff;
+import java.util.Set;
 
 /**
  * Dumps a class to html
@@ -105,7 +104,7 @@ public class CacheDumper {
                                         }
                                         if (userSession.getIsloggedin()){
                                             if (userSession.getUser()!=null){
-                                                out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\"><a href=\"userdetail.jsp?userid="+userSession.getUser().getUserid()+"\">"+userSession.getUser().getFirstname()+" "+userSession.getUser().getLastname()+"</a> (email="+userSession.getUser().getEmail()+")</font>");
+                                                out.append("<br/>"+nestStr+nestStr+"<font style=\"font-size: 9px;\"><a href=\"userdetail.jsp?userid="+userSession.getUser().getUserid()+"\">"+userSession.getUser().getNickname()+"</a> (email="+userSession.getUser().getEmail()+")</font>");
                                             }
                                         }
                                         int secondsOld=DateDiff.dateDiff("second", Calendar.getInstance(), userSession.getCreatedate());

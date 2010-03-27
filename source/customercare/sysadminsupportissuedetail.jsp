@@ -49,7 +49,7 @@ String acl = "customercare";
                         <font class="smallfont" style="font-weight: bold;"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(mailchild.getDate()))%></font>
                         <br/>
                         <%if (!mailchild.getIsfromcustomercare()){%>
-                            <a href="/customercare/userdetail.jsp?userid=<%=customercareSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=customercareSupportIssueDetail.getFromuser().getFirstname()%> <%=customercareSupportIssueDetail.getFromuser().getLastname()%></font></a>
+                            <a href="/customercare/userdetail.jsp?userid=<%=customercareSupportIssueDetail.getFromuser().getUserid()%>"><font class="smallfont" style="font-weight: bold;">From: <%=customercareSupportIssueDetail.getFromuser().getNickname()%></font></a>
                         <%} else {%>
                             <font class="smallfont" style="font-weight: bold;">System Admin</font>
                         <%}%>

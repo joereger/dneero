@@ -79,7 +79,7 @@ public class IncentivetwitCoupon implements Incentivetwit {
         //Affect balance for blogger
         //MoveMoneyInAccountBalance.pay(user, getBloggerEarningsPerResponse(), "Pay for responding to: '"+survey.getTitle()+"'", true, response.getIsforcharity(), response.getCharityname(), response.getResponseid(), false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.charge(user, (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"'", true, false, false, false);
+        MoveMoneyInAccountBalance.charge(user, (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getNickname()+" responds to '"+twitask.getQuestion()+"'", true, false, false, false);
         //Affect balance for reseller
         if (twitask.getResellercode()!=null && !twitask.getResellercode().equals("")){
             //Find the user with this resellercode
@@ -136,7 +136,7 @@ public class IncentivetwitCoupon implements Incentivetwit {
         args[3] = getFullSummary();
         args[4] = twitask.getQuestion();
         //Send the email
-        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Coupon Award for "+user.getFirstname(), "incentiveaward-coupon", user, args);
+        EmailTemplateProcessor.sendMail(pl.getNameforui()+" Coupon Award for "+user.getNickname(), "incentiveaward-coupon", user, args);
     }
 
     public void doRemoveIncentive(Twitanswer twitanswer) {
@@ -147,7 +147,7 @@ public class IncentivetwitCoupon implements Incentivetwit {
         //Affect balance for blogger
         //MoveMoneyInAccountBalance.charge(user, getBloggerEarningsPerResponse(), "Charge for award to: '"+survey.getTitle()+"' being removed", false, true, false, false);
         //Affect balance for researcher
-        MoveMoneyInAccountBalance.pay(user, (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getFirstname()+" "+user.getLastname()+" responds to '"+twitask.getQuestion()+"' had award removed", false, false, "", true, false, false, false);
+        MoveMoneyInAccountBalance.pay(user, (TwitaskMoneyStatus.calculateAmtToChargeResearcher(getResearcherCostPerResponse(), twitask)), "User "+user.getNickname()+" responds to '"+twitask.getQuestion()+"' had award removed", false, false, "", true, false, false, false);
         //Affect balance for reseller
         if (twitask.getResellercode()!=null && !twitask.getResellercode().equals("")){
             //Find the user with this resellercode

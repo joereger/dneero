@@ -404,7 +404,7 @@ public class ResearcherSurveyDetail06 implements Serializable {
                     }
                     //We have a reseller, save
                     resellerfound = true;
-                    resellername = userReseller.getFirstname()+" "+userReseller.getLastname();
+                    resellername = userReseller.getNickname();
                     survey.setResellercode(resellercode);
                     try{
                         survey.save();

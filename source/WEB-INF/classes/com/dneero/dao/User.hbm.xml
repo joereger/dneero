@@ -65,11 +65,8 @@
         <property name="password" type="string">
             <column name="password" not-null="true" />
         </property>
-        <property name="firstname" type="string">
-            <column name="firstname" not-null="true" />
-        </property>
-        <property name="lastname" type="string">
-            <column name="lastname" not-null="true" />
+        <property name="name" type="string">
+            <column name="name" not-null="true" />
         </property>
         <property name="isactivatedbyemail" type="boolean">
             <column name="isactivatedbyemail" />

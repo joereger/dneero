@@ -1,4 +1,4 @@
-<$user.firstname$> <$user.lastname$> has invited you to earn money with your blog.
+<$user.nickname$> has invited you to earn money with your blog.
 
 <$args.0$>
 

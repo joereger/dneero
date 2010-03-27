@@ -1,20 +1,18 @@
 package com.dneero.sir;
 
-import com.dneero.dao.*;
+import com.dneero.dao.Panel;
+import com.dneero.dao.Panelmembership;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.dao.hibernate.NumFromUniqueResultImpressions;
-import com.dneero.util.Time;
-import com.dneero.util.Str;
-import com.dneero.util.Num;
 import com.dneero.mail.MailtypeReviewableRejection;
 import com.dneero.mail.MailtypeReviewableWarning;
-import com.dneero.helpers.NicknameHelper;
+import com.dneero.util.Str;
+import com.dneero.util.Time;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
-
-import org.hibernate.criterion.Restrictions;
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -125,7 +123,7 @@ public class SocialInfluenceRating {
         //Debug
         StringBuffer debug = new StringBuffer();
         debug.append("\n\n");
-        debug.append("====SocialInfluenceRating Start "+ NicknameHelper.getNameOrNickname(user)+" userid="+user.getUserid()+"====\n");
+        debug.append("====SocialInfluenceRating Start "+ user.getNickname()+" userid="+user.getUserid()+"====\n");
         debug.append("convostotal: "+f(convostotal)+"/"+f(convostotalNrml)+"/"+f(convostotalPts)+"pts/"+f(percent(convostotalPts, totalpoints))+"%"+"\n");
         debug.append("impressionstotal: "+f(impressionstotal)+"/"+f(impressionstotalNrml)+"/"+f(impressionstotalPts)+"pts/"+f(percent(impressionstotalPts, totalpoints))+"%"+"\n");
         debug.append("responsereferrals: "+f(responsereferrals)+"/"+f(responsereferralsNrml)+"/"+f(responsereferralsPts)+"pts/"+f(percent(responsereferralsPts, totalpoints))+"%"+"\n");

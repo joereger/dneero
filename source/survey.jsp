@@ -128,7 +128,7 @@ String acl = "public";
                             <center>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                 <center>
-                                    <font class="mediumfont"><%=NicknameHelper.getNameOrNickname(publicSurvey.getUserwhotooksurvey())%>'s answers.</font><br/>
+                                    <font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getNickname()%>'s answers.</font><br/>
                                     <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                                         <a href="#joinconvo"><font class="tinyfont">How would you answer?</font></a>
                                     <% } %>
@@ -201,7 +201,7 @@ String acl = "public";
                                         <%
                                             for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getUserquestionlistitems().iterator(); iterator.hasNext();){
                                                 PublicSurveyUserquestionListitem psli=iterator.next();
-                                                %><font class="smallfont" style="font-weight: bold;"><%=NicknameHelper.getNameOrNickname(psli.getUser())%> wants to know:</font><br/><%
+                                                %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getNickname()%> wants to know:</font><br/><%
                                                 %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
                                                 if (iterator.hasNext()){
                                                     %><br/><br/><%
@@ -245,7 +245,7 @@ String acl = "public";
                                                     PublicSurveyUserquestionListitem psli=iterator.next();
                                                     indexCurrentlyShowing = indexCurrentlyShowing + 1;
                                                     if (indexCurrentlyShowing>minIndexToDisplay && indexCurrentlyShowing<maxIndexToDisplay){
-                                                        %><font class="smallfont" style="font-weight: bold;"><%=NicknameHelper.getNameOrNickname(psli.getUser())%> wants to know:</font><br/><%
+                                                        %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getNickname()%> wants to know:</font><br/><%
                                                         %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
                                                         if (iterator.hasNext()){
                                                             %><br/><br/><%
@@ -416,7 +416,7 @@ String acl = "public";
                             <%if (publicSurvey.getUserwhotooksurvey()!=null && publicSurvey.getUserwhotooksurvey().getUserid()>0 && publicSurvey.getSurveytakergavetocharity()){%>
                                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                     <center>
-                                        <font class="tinyfont" style="font-weight: bold;"><%=NicknameHelper.getNameOrNickname(publicSurvey.getUserwhotooksurvey())%> had us donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
+                                        <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getNickname()%> had us donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
                                     </center>
                                 </div>
                             <%}%>

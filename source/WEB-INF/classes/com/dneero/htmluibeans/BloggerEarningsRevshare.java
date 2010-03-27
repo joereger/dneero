@@ -57,7 +57,7 @@ public class BloggerEarningsRevshare implements Serializable {
                 User sourceuser = User.get(sourceblogger.getUserid());
                 BloggerEarningsRevshareListRevshares listitem = new BloggerEarningsRevshareListRevshares();
                 listitem.setAmt(revshare.getAmt());
-                listitem.setUsername(NicknameHelper.getNameOrNickname(sourceuser));
+                listitem.setUsername(sourceuser.getNickname());
                 list.add(listitem);
             }
 

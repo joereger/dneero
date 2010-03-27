@@ -1,17 +1,16 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.money.CurrentBalanceCalculator;
-import com.dneero.util.Str;
-import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.Balance;
 import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.util.Str;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -45,7 +44,7 @@ public class CustomercareBalance implements Serializable {
                 abli.setDescription(balance.getDescription());
                 abli.setUserid(balance.getUserid());
                 User user = User.get(balance.getUserid());
-                abli.setUsername(user.getFirstname()+" "+user.getLastname());
+                abli.setUsername(user.getNickname());
                 StringBuffer fundstype = new StringBuffer();
                 if (balance.getIsbloggermoney()){
                     fundstype.append("Blogger");

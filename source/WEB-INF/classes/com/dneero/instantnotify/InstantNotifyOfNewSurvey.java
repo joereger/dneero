@@ -5,7 +5,6 @@ import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.finders.FindBloggersForSurvey;
-import com.dneero.helpers.NicknameHelper;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.threadpool.ThreadPool;
 import com.dneero.twitter.TwitterNewDirectMessage;
@@ -82,7 +81,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
             if (user.getIsenabled()){
                 if (user.getInstantnotifybyemailison()){
                     //Send email
-                    EmailTemplateProcessor.sendMail("Instant Notification: New Conversation for "+ NicknameHelper.getNameOrNickname(user), "bloggernotifyofnewsurveys", user, args);
+                    EmailTemplateProcessor.sendMail("Instant Notification: New Conversation for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
                 }
                 if (user.getInstantnotifybytwitterison() && !user.getInstantnotifytwitterusername().equals("")){
                     //Send Twitter

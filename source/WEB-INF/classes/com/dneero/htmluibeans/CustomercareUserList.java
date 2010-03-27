@@ -1,20 +1,17 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.util.SortableList;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.User;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Num;
 import com.dneero.util.Time;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.User;
-import com.dneero.dao.Blogger;
-import com.dneero.htmlui.Pagez;
-
-import java.util.*;
-import java.io.Serializable;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Order;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -25,8 +22,7 @@ public class CustomercareUserList implements Serializable {
 
     private List<CustomercareUserListItem> users;
     private String searchuserid="";
-    private String searchfirstname="";
-    private String searchlastname="";
+    private String searchname="";
     private String searchemail="";
     private boolean searchfacebookers=false;
     private String searchreferredbyuserid="";
@@ -44,8 +40,7 @@ public class CustomercareUserList implements Serializable {
     public void search(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("load()");
-        logger.debug("searchfirstname="+searchfirstname);
-        logger.debug("searchlastname="+searchlastname);
+        logger.debug("searchname="+searchname);
         logger.debug("searchemail="+searchemail);
         //if (Pagez.getRequest().getParameter("action")!=null && !Pagez.getRequest().getParameter("action").equals("")){
 
@@ -55,11 +50,8 @@ public class CustomercareUserList implements Serializable {
             } else {
                 crit.add(Restrictions.gt("userid", 0));
             }
-            if (searchfirstname!=null && !searchfirstname.equals("")){
-                crit.add(Restrictions.like("firstname", "%"+searchfirstname+"%"));
-            }
-            if (searchlastname!=null && !searchlastname.equals("")){
-                crit.add(Restrictions.like("lastname", "%"+searchlastname+"%"));
+            if (searchname!=null && !searchname.equals("")){
+                crit.add(Restrictions.like("name", "%"+searchname+"%"));
             }
             if (searchemail!=null && !searchemail.equals("")){
                 crit.add(Restrictions.like("email", "%"+searchemail+"%"));
@@ -114,20 +106,12 @@ public class CustomercareUserList implements Serializable {
         return true;
     }
 
-    public String getSearchfirstname() {
-        return searchfirstname;
+    public String getSearchname() {
+        return searchname;
     }
 
-    public void setSearchfirstname(String searchfirstname) {
-        this.searchfirstname = searchfirstname;
-    }
-
-    public String getSearchlastname() {
-        return searchlastname;
-    }
-
-    public void setSearchlastname(String searchlastname) {
-        this.searchlastname = searchlastname;
+    public void setSearchname(String searchname) {
+        this.searchname = searchname;
     }
 
     public String getSearchemail() {

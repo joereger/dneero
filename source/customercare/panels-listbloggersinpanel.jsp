@@ -32,7 +32,7 @@ CustomercarePanelsListBloggers customercarePanelsListBloggers= (CustomercarePane
         <%} else {%>
             <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.firstname$> <$user.lastname$></a>", true, "", "smallfont"));
+            cols.add(new GridCol("Name", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", true, "", "smallfont"));
             cols.add(new GridCol("IsRejected?", "<$panelmembership.issysadminrejected$>", true, "", "smallfont"));
             cols.add(new GridCol("Name", "<a href=\"/customercare/panels-listbloggersinpanel.jsp?panelmembershipid=<$panelmembership.panelmembershipid$>&panelid=<$panelmembership.panelid$>&action=remove\">Remove</a>", true, "", "smallfont"));
             %>
