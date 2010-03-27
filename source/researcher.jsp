@@ -31,7 +31,7 @@ String acl = "public";
 
 
                         <br/><br/>
-                        <a class="sexybutton" href="/registration.jsp"><span><span>Get Started Now!</span></span></a>
+                        <a class="sexybutton" href="/registration.jsp?whereToRedirectToAfterSignup=/researcher/index.jsp"><span><span>Get Started Now!</span></span></a>
                     </div>
                </td>
                <td valign="top" width="30%">

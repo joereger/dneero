@@ -65,7 +65,7 @@ public class ResearcherTwitaskDetail01 implements Serializable {
         question = "";
         twitask.setQuestion(question);
         startdate = Calendar.getInstance().getTime();
-        twitask.setStartdate(startdate);
+        twitask.setStartdate(new Date());
         twitask.setSenttotwitterdate(Time.xYearsAgoEnd(Calendar.getInstance(), 20).getTime());
         twitask.setClosedintwitterdate(Time.xYearsAgoEnd(Calendar.getInstance(), 20).getTime());
         twitask.setDneeromarkuppercent(SurveyMoneyStatus.DEFAULTDNEEROMARKUPPERCENT);
@@ -98,11 +98,11 @@ public class ResearcherTwitaskDetail01 implements Serializable {
             vex.addValidationError("Please log in first.");
             throw vex;
         }
-        if (startdate==null){
-            logger.debug("startdate is null");
-        } else {
-            logger.debug("startdate="+Time.dateformatcompactwithtime(Time.getCalFromDate(startdate)));
-        }
+//        if (startdate==null){
+//            logger.debug("startdate is null");
+//        } else {
+//            logger.debug("startdate="+Time.dateformatcompactwithtime(Time.getCalFromDate(startdate)));
+//        }
         if (status<=Twitask.STATUS_DRAFT){
 
             UserSession userSession = Pagez.getUserSession();
@@ -138,7 +138,7 @@ public class ResearcherTwitaskDetail01 implements Serializable {
 
                 twitask.setUserid(userSession.getUser().getUserid());
                 twitask.setQuestion(question);
-                twitask.setStartdate(startdate);
+                twitask.setStartdate(new Date());
                 try{
                     logger.debug("save() about to save twitask.getTwitaskid()=" + twitask.getTwitaskid());
                     twitask.save();

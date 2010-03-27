@@ -19,7 +19,7 @@ ResearcherTwitaskDetailPostlaunch researcherTwitaskDetailPostlaunch= (Researcher
 %>
 <%
 if (researcherTwitaskDetailPostlaunch.getTwitask().getStatus()==Twitask.STATUS_OPEN){
-    Pagez.getUserSession().setMessage("Your twitter question is live!  Check your twitter account to see the question.  When people reply to it you'll see their answers here!");
+    Pagez.getUserSession().setMessage("Your Twitter Question has been posted to your Twitter account!  We'll collect answers from your followers for 3 days and put them on this page... tell them to answer by replying!");
     Pagez.sendRedirect("/twitask.jsp?twitaskid="+researcherTwitaskDetailPostlaunch.getTwitask().getTwitaskid()+"");
     return;
 }

@@ -26,7 +26,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                 return;
             }
             researcherTwitaskDetail01.setQuestion(Textarea.getValueFromRequest("question", "Question", true));
-            researcherTwitaskDetail01.setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
+            //researcherTwitaskDetail01.setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             researcherTwitaskDetail01.setIsfree(!CheckboxBoolean.getValueFromRequest("isfree"));
             researcherTwitaskDetail01.setIsopentoanybody(!CheckboxBoolean.getValueFromRequest("isopentoanybody"));
             if (request.getParameter("action").equals("next")) {
@@ -107,15 +107,15 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                                 <font class="formfieldnamefont">About when should your question be asked?</font>
                             </td>
                         </tr>
-                        <tr>
-                            <td valign="top" colspan="2">
-                                <%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
-                                    <%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherTwitaskDetail01.getStartdate()), "", "")%>
-                                <%} else {%>
-                                    <font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherTwitaskDetail01.getStartdate()))%></font>
-                                <%}%>
-                            </td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td valign="top" colspan="2">--%>
+                                <%--<%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>--%>
+                                    <%--<%=DateTime.getHtml("startdate", Time.getCalFromDate(researcherTwitaskDetail01.getStartdate()), "", "")%>--%>
+                                <%--<%} else {%>--%>
+                                    <%--<font class="normalfont"><%=Time.dateformatcompactwithtime(Time.getCalFromDate(researcherTwitaskDetail01.getStartdate()))%></font>--%>
+                                <%--<%}%>--%>
+                            <%--</td>--%>
+                        <%--</tr>--%>
                         <tr>
                             <td valign="top">
                                 <font class="formfieldnamefont"></font>

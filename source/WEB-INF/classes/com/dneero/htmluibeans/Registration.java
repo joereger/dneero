@@ -260,6 +260,7 @@ public class Registration implements Serializable {
         userSession.setIseulaok(true);
         userSession.setIsfacebookui(Pagez.getUserSession().getIsfacebookui());
         userSession.setFacebookSessionKey(Pagez.getUserSession().getFacebookSessionKey());
+        userSession.setWhereToRedirectToAfterSignup(Pagez.getUserSession().getWhereToRedirectToAfterSignup());
         //Set persistent login cookie
         Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Pagez.getRequest());
         //Add a cookies to the response

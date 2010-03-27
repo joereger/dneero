@@ -52,6 +52,7 @@ public class UserSession implements Serializable {
     private int plid = 1;
     private Twitter twitter;
     private RequestToken twitterRequestToken;
+    private String whereToRedirectToAfterSignup = "";
 
 
     public UserSession(){
@@ -347,5 +348,13 @@ public class UserSession implements Serializable {
 
     public void setTwitterRequestToken(RequestToken twitterRequestToken) {
         this.twitterRequestToken = twitterRequestToken;
+    }
+
+    public String getWhereToRedirectToAfterSignup() {
+        return whereToRedirectToAfterSignup;
+    }
+
+    public void setWhereToRedirectToAfterSignup(String whereToRedirectToAfterSignup) {
+        this.whereToRedirectToAfterSignup = whereToRedirectToAfterSignup;
     }
 }

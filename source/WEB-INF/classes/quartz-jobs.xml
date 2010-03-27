@@ -322,6 +322,27 @@
         </trigger>
     </job>
 
+    <job>
+        <job-detail>
+          <name>closeTwitasksByDate</name>
+          <group>surveyJobs</group>
+          <job-class>com.dneero.scheduledjobs.CloseTwitasksByDate</job-class>
+          <volatility>false</volatility>
+          <durability>false</durability>
+          <recover>false</recover>
+        </job-detail>
+        <trigger>
+          <cron>
+            <name>closeTwitasksByDateTrigger</name>
+            <group>surveyTriggers</group>
+            <job-name>closeTwitasksByDate</job-name>
+            <job-group>surveyJobs</job-group>
+            <!-- every x minutes-->
+            <cron-expression>0 21 * * * ?</cron-expression>
+          </cron>
+        </trigger>
+    </job>
+
 
     <job>
         <job-detail>

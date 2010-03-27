@@ -45,43 +45,35 @@ ResearcherTwitaskDetail02 researcherTwitaskDetail02 = (ResearcherTwitaskDetail02
 
 
 
-        <%--<a href="/twitterredirector?twitaskid=<%=researcherTwitaskDetail02.getTwitask().getTwitaskid()%>">Please Click Here to Authorize Twitter</a><br/>--%>
-        <center>
-        <br/><br/>
-        <div style="width: 350px;">
-            <form action="/twitterredirector" method="get">
-                <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail02.getTwitask().getTwitaskid()%>">
-                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Authorize Twitter">
-            </form>
-            <br/>
-            Before you can continue you must tell Twitter that you authorize this application to post to your account.  Choose the account that you want us to post questions to and collect answers from.
-        </div>
-        </center>
-
-
-<form action="/researcher/researchertwitaskdetail_02.jsp" method="post"  class="niceform" id="rsdform">
-        <input type="hidden" name="dpage" value="/researcher/researchertwitaskdetail_02.jsp">
-        <input type="hidden" name="action" value="next" id="action">
-        <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail02.getTwitask().getTwitaskid()%>"/>
-
-
-            <br/><br/><br/><br/>
+            <br/><br/><br/>
+            <center>
+            <div style="width: 300px; text-align: left;">
+                You need to tell Twitter that you authorize this application to write your question to your account and read followers' replies.
+            </div>
+            </center>
+            <br/><br/>
             <!-- Start Bottom Nav -->
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                     <td valign="top" align="left">
-                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Previous Step" onclick="document.getElementById('action').value='previous';">
+                        <form action="/researcher/researchertwitaskdetail_02.jsp" method="post"  class="niceform" id="rsdform">
+                            <input type="hidden" name="dpage" value="/researcher/researchertwitaskdetail_02.jsp">
+                            <input type="hidden" name="action" value="next" id="action">
+                            <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail02.getTwitask().getTwitaskid()%>"/>
+                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Previous Step" onclick="document.getElementById('action').value='previous';">
+                        </form>
                     </td>
                     <td valign="top" align="right">
-                        <%if (researcherTwitaskDetail02.getTwitask().getStatus()==Twitask.STATUS_DRAFT) {%>
-                            <%--<input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">--%>
-                        <%}%>
-                        <%--<input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Next Step">--%>
+                        <form action="/twitterredirector" method="get">
+                            <input type="hidden" name="twitaskid" value="<%=researcherTwitaskDetail02.getTwitask().getTwitaskid()%>">
+                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl sexyblue" value="Authorize Twitter">
+                        </form>
+                        <br/><br/>
                     </td>
                 </tr>
             </table>
             <!-- End Bottom Nav -->
-    </form>
+
 
 
 

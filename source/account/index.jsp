@@ -14,7 +14,14 @@ AccountIndex accountIndex = (AccountIndex) Pagez.getBeanMgr().get("AccountIndex"
 %>
 <%
 if (accountIndex.getUserhasresponsependings()){
+    Pagez.getUserSession().setWhereToRedirectToAfterSignup("");
     Pagez.sendRedirect("/blogger/index.jsp");
+    return;
+}
+%>
+<%
+if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.getUserSession().getWhereToRedirectToAfterSignup().equals("")){
+    Pagez.sendRedirect(Pagez.getUserSession().getWhereToRedirectToAfterSignup());
     return;
 }
 %>

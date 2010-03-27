@@ -8,13 +8,18 @@
 <%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Sign Up for an Account";
+String pagetitle = "Create an Account";
 String navtab = "youraccount";
 String acl = "public";
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
 Registration registration = (Registration)Pagez.getBeanMgr().get("Registration");
+%>
+<%
+if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
+    Pagez.getUserSession().setWhereToRedirectToAfterSignup(request.getParameter("whereToRedirectToAfterSignup"));
+}
 %>
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("register")) {
@@ -34,6 +39,8 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
             if (capResp.isValid()) {
                 registration.registerAction();
+                Pagez.getUserSession().setMessage("Welcome!  Your account is created.  We've sent you a confirmation email.");
+                //Note that Pagez.getUserSession().getWhereToRedirectToAfterSignup() is handled in /account/index.jsp because survey processing must supercede
                 //Redir if https is on
                 if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
                     try {
@@ -81,19 +88,19 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
             <br/>
         <%}%>
 
-        <div style="width: 250px; float: right; padding-left: 20px;">
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                <font class="mediumfont" style="color: #333333">Existing Users</font><br/>
-                <font class="smallfont">If you've already got an account you can simply log in.</font><br/>
-                    <a class="sexybutton" href="/login.jsp"><span><span>Log In</span></span></a>
-            </div>
-            <br/>
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                <font class="mediumfont" style="color: #333333">Facebook??</font><br/>
-                <font class="smallfont">We've got a Facebook App for you.</font><br/>
-                    <a class="sexybutton" href="http://apps.facebook.com/dneerosocialsurveys/"><span><span>Facebook App</span></span></a>
-            </div>
-        </div>
+        <%--<div style="width: 250px; float: right; padding-left: 20px;">--%>
+            <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">--%>
+                <%--<font class="mediumfont" style="color: #333333">Existing Users</font><br/>--%>
+                <%--<font class="smallfont">If you've already got an account you can simply log in.</font><br/>--%>
+                    <%--<a class="sexybutton" href="/login.jsp"><span><span>Log In</span></span></a>--%>
+            <%--</div>--%>
+            <%--<br/>--%>
+            <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">--%>
+                <%--<font class="mediumfont" style="color: #333333">Facebook??</font><br/>--%>
+                <%--<font class="smallfont">We've got a Facebook App for you.</font><br/>--%>
+                    <%--<a class="sexybutton" href="http://apps.facebook.com/dneerosocialsurveys/"><span><span>Facebook App</span></span></a>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <form action="/registration.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/registration.jsp">
             <input type="hidden" name="action" value="register">
@@ -192,6 +199,7 @@ Registration registration = (Registration)Pagez.getBeanMgr().get("Registration")
                         <td valign="top">
                             <br/><br/>
                             <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Sign Up">
+                            <br/><br/><font class="tinyfont"><a href="/login.jsp" target="_new">already have an account?</a></font>
                         </td>
                     </tr>
 
