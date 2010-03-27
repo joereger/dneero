@@ -49,6 +49,8 @@ public class CallbackServlet  extends HttpServlet {
                 if (twitask!=null && twitask.getTwitaskid()>0 && Pagez.getUserSession().getUser()!=null && twitask.canEdit(Pagez.getUserSession().getUser())){
                     twitask.setTwitteraccesstoken(accessToken.getToken());
                     twitask.setTwitteraccesstokensecret(accessToken.getTokenSecret());
+                    twitter4j.User twitterUser = twitter.verifyCredentials();
+                    twitask.setTwitterusername(twitterUser.getScreenName());
                     twitask.save();
                 }
             }

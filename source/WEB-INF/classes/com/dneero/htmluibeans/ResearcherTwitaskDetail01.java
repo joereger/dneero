@@ -51,6 +51,13 @@ public class ResearcherTwitaskDetail01 implements Serializable {
                 status = twitask.getStatus();
             }
         }
+        //Pull title/description from home page
+        if (twitask!=null && twitask.getTwitaskid()==0){
+            if (Pagez.getUserSession().getTwitaskQuestionFromHomepage()!=null){
+                question = Pagez.getUserSession().getTwitaskQuestionFromHomepage();
+                Pagez.getUserSession().setTwitaskQuestionFromHomepage("");
+            }
+        }
     }
 
 

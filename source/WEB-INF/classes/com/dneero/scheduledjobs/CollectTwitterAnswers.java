@@ -7,6 +7,7 @@ import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.finders.SurveyCriteriaXML;
+import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
@@ -113,7 +114,7 @@ public class CollectTwitterAnswers implements Job {
             }
             //See if it's too late
             boolean istoolate = false;
-            if (twitask!=null){
+            if (twitask!=null && !twitask.getIsfree()){
                 int respondentssofar = NumFromUniqueResult.getInt("select count(*) from Twitanswer where twitaskid='"+twitask.getTwitaskid()+"' and status='"+Twitanswer.STATUS_APPROVED+"'");
                 if (respondentssofar>=twitask.getNumberofrespondentsrequested()){
                     istoolate = true;
@@ -158,6 +159,9 @@ public class CollectTwitterAnswers implements Job {
             }
             if (twitaskid==0){
                 twitanswer.setStatus(Twitanswer.STATUS_NOTWITASK);
+            }
+            if (twitask.getIsfree()){
+                twitanswer.setStatus(Twitanswer.STATUS_APPROVED);
             }
             twitanswer.setTwitaskid(twitaskid);
             twitanswer.setTwittercreatedate(status.getCreatedAt());
@@ -237,7 +241,7 @@ public class CollectTwitterAnswers implements Job {
             Pl pl = Pl.get(user.getPlid());
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
-            String msg = "Thanks for answering: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" It's pending review. Log in to your http://dNeero.com account for status.";
+            String msg = "Thanks for answering: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" It's pending review. Log in to your "+ BaseUrl.get(false, twitask.getPlid())+" account for status.";
             sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }
@@ -248,7 +252,7 @@ public class CollectTwitterAnswers implements Job {
             Pl pl = Pl.get(user.getPlid());
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
-            String msg = "Sorry, you didn't qualify for: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
+            String msg = "Sorry, you didn't qualify for: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check "+BaseUrl.get(false, twitask.getPlid())+" for status.";
             sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }
@@ -259,7 +263,7 @@ public class CollectTwitterAnswers implements Job {
             Pl pl = Pl.get(user.getPlid());
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
-            String msg = "Sorry, you've already answered: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
+            String msg = "Sorry, you've already answered: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check "+BaseUrl.get(false, twitask.getPlid())+" for status.";
             sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }
@@ -270,7 +274,7 @@ public class CollectTwitterAnswers implements Job {
             Pl pl = Pl.get(user.getPlid());
             String dotdotdot = "";
             if (twitask.getQuestion().length()>50){ dotdotdot = "..."; }
-            String msg = "Sorry, question closed already: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check http://dNeero.com for status.";
+            String msg = "Sorry, question closed already: \""+ Str.truncateString(twitask.getQuestion(), 50)+dotdotdot+"\" Check "+BaseUrl.get(false, twitask.getPlid())+" for status.";
             sendTwitterDM(twitanswer.getTwitterusername(), msg, twitask);
             return;
         }

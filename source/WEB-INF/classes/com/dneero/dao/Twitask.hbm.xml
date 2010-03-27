@@ -96,6 +96,9 @@
         <property name="twitteraccesstokensecret" type="text">
             <column name="twitteraccesstokensecret" not-null="true" />
         </property>
+        <property name="twitterusername" type="text">
+            <column name="twitterusername" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

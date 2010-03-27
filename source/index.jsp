@@ -32,6 +32,43 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
         }
     }
 %>
+<%
+    if (request.getParameter("action")!=null && request.getParameter("action").equals("newtwitask")) {
+        try {
+            Pagez.getUserSession().setTwitaskQuestionFromHomepage(request.getParameter("twitterquestionfromhomepage"));
+            if (Pagez.getUserSession().getIsloggedin()){
+                Pagez.sendRedirect("/researcher/researchertwitaskdetail_01.jsp");
+                return;
+            }  else {
+                Pagez.getUserSession().setWhereToRedirectToAfterSignup("/researcher/researchertwitaskdetail_01.jsp");
+                Pagez.sendRedirect("/registration.jsp");
+                return;
+            }
+        } catch (Exception ex) {
+            logger.error(ex);
+            Pagez.getUserSession().setMessage("There has been some sort of error... please try again.");
+        }
+    }
+%>
+<%
+    if (request.getParameter("action")!=null && request.getParameter("action").equals("newsurvey")) {
+        try {
+            Pagez.getUserSession().setSurveyTitleFromHomepage(request.getParameter("surveytitlefromhomepage"));
+            Pagez.getUserSession().setSurveyDescriptionFromHomepage(request.getParameter("surveydescriptionfromhomepage"));
+            if (Pagez.getUserSession().getIsloggedin()){
+                Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp");
+                return;
+            }  else {
+                Pagez.getUserSession().setWhereToRedirectToAfterSignup("/researcher/researchersurveydetail_01.jsp");
+                Pagez.sendRedirect("/registration.jsp");
+                return;   
+            }
+        } catch (Exception ex) {
+            logger.error(ex);
+            Pagez.getUserSession().setMessage("There has been some sort of error... please try again.");
+        }
+    }
+%>
 <%@ include file="/template/header.jsp" %>
 
 

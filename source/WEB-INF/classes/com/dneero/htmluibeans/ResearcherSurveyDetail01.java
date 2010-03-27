@@ -60,10 +60,22 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 embedversion = survey.getEmbedversion();
                 isfree = survey.getIsfree();
                 isopentoanybody = survey.getIsopentoanybody();
+
             }
             if (survey!=null && survey.getSurveyid()>0 && !survey.canEdit(Pagez.getUserSession().getUser())){
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
+            }
+        }
+        //Pull title/description from home page
+        if (survey!=null && survey.getSurveyid()==0){
+            if (Pagez.getUserSession().getSurveyTitleFromHomepage()!=null){
+                title = Pagez.getUserSession().getSurveyTitleFromHomepage();
+                Pagez.getUserSession().setSurveyTitleFromHomepage("");
+            }
+            if (Pagez.getUserSession().getSurveyDescriptionFromHomepage()!=null){
+                description = Pagez.getUserSession().getSurveyDescriptionFromHomepage();
+                Pagez.getUserSession().setSurveyDescriptionFromHomepage("");
             }
         }
     }

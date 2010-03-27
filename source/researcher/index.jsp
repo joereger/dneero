@@ -1,8 +1,5 @@
-<%@ page import="com.dneero.cache.providers.CacheFactory" %>
-<%@ page import="com.dneero.privatelabel.PlFinder" %>
-<%@ page import="com.dneero.privatelabel.PlVerification" %>
+<%@ page import="com.dneero.helpers.ResearcherCreateIfNeeded" %>
 <%@ page import="com.dneero.review.Reviewable" %>
-<%@ page import="com.dneero.review.ReviewableFactory" %>
 <%@ page import="com.dneero.review.ReviewableUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
@@ -10,36 +7,13 @@ String pagetitle = "";
 String navtab = "researchers";
 String acl = "public";
 %>
+<%
+    ResearcherCreateIfNeeded.createIfNecessary();
+%>
 <%@ include file="/template/auth.jsp" %>
 <%
     ResearcherIndex researcherIndex=(ResearcherIndex) Pagez.getBeanMgr().get("ResearcherIndex");
     ResearcherSurveyList researcherSurveyList=(ResearcherSurveyList) Pagez.getBeanMgr().get("ResearcherSurveyList");
-%>
-<%
-if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getResearcherid()==0) ){
-    try{
-        Researcher researcher = new Researcher();
-        researcher.setUserid(Pagez.getUserSession().getUser().getUserid());
-        researcher.setCompanyname("");
-        researcher.setCompanytype("Other");
-        researcher.setPhone("");
-        researcher.save();
-        Pagez.getUserSession().getUser().setResearcherid(researcher.getResearcherid());
-        Pagez.getUserSession().getUser().save();
-        Userrole role = new Userrole();
-        role.setUserid(Pagez.getUserSession().getUser().getUserid());
-        role.setRoleid(Userrole.RESEARCHER);
-        Pagez.getUserSession().getUser().getUserroles().add(role);
-        role.save();
-        Pagez.getUserSession().getUser().save();
-        Pagez.getUserSession().getUser().refresh();
-    } catch (Exception ex){
-        logger.error("", ex);
-        Pagez.getUserSession().setMessage("There has been some sort of error creating the Researcher object. Please try again.");
-        Pagez.sendRedirect("/researcher/index.jsp");
-        return;
-    }
-}
 %>
 <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){
     Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp");

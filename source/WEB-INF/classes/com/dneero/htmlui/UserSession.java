@@ -53,6 +53,9 @@ public class UserSession implements Serializable {
     private Twitter twitter;
     private RequestToken twitterRequestToken;
     private String whereToRedirectToAfterSignup = "";
+    private String twitaskQuestionFromHomepage = "";
+    private String surveyTitleFromHomepage = "";
+    private String surveyDescriptionFromHomepage = "";
 
 
     public UserSession(){
@@ -356,5 +359,29 @@ public class UserSession implements Serializable {
 
     public void setWhereToRedirectToAfterSignup(String whereToRedirectToAfterSignup) {
         this.whereToRedirectToAfterSignup = whereToRedirectToAfterSignup;
+    }
+
+    public String getSurveyDescriptionFromHomepage() {
+        return surveyDescriptionFromHomepage;
+    }
+
+    public void setSurveyDescriptionFromHomepage(String surveyDescriptionFromHomepage) {
+        this.surveyDescriptionFromHomepage = surveyDescriptionFromHomepage;
+    }
+
+    public String getSurveyTitleFromHomepage() {
+        return surveyTitleFromHomepage;
+    }
+
+    public void setSurveyTitleFromHomepage(String surveyTitleFromHomepage) {
+        this.surveyTitleFromHomepage = surveyTitleFromHomepage;
+    }
+
+    public String getTwitaskQuestionFromHomepage() {
+        return twitaskQuestionFromHomepage;
+    }
+
+    public void setTwitaskQuestionFromHomepage(String twitaskQuestionFromHomepage) {
+        this.twitaskQuestionFromHomepage = twitaskQuestionFromHomepage;
     }
 }

@@ -59,6 +59,7 @@ public class Twitask extends BasePersistentClass implements java.io.Serializable
      private boolean ishighquality=false;
      private String twitteraccesstoken="";
      private String twitteraccesstokensecret="";
+     private String twitterusername="";
 
     public static Twitask get(int id) {
         Logger logger = Logger.getLogger("com.dneero.dao.Twitask");
@@ -352,5 +353,13 @@ public class Twitask extends BasePersistentClass implements java.io.Serializable
 
     public void setTwitteraccesstokensecret(String twitteraccesstokensecret) {
         this.twitteraccesstokensecret = twitteraccesstokensecret;
+    }
+
+    public String getTwitterusername() {
+        return twitterusername;
+    }
+
+    public void setTwitterusername(String twitterusername) {
+        this.twitterusername = twitterusername;
     }
 }

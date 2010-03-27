@@ -249,6 +249,9 @@ public class Registration implements Serializable {
         userSession.setIsfacebookui(Pagez.getUserSession().getIsfacebookui());
         userSession.setFacebookSessionKey(Pagez.getUserSession().getFacebookSessionKey());
         userSession.setWhereToRedirectToAfterSignup(Pagez.getUserSession().getWhereToRedirectToAfterSignup());
+        userSession.setTwitaskQuestionFromHomepage(Pagez.getUserSession().getTwitaskQuestionFromHomepage());
+        userSession.setSurveyTitleFromHomepage(Pagez.getUserSession().getSurveyTitleFromHomepage());
+        userSession.setSurveyDescriptionFromHomepage(Pagez.getUserSession().getSurveyDescriptionFromHomepage());
         //Set persistent login cookie
         Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Pagez.getRequest());
         //Add a cookies to the response

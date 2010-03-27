@@ -1,11 +1,8 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail01" %>
-<%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.util.Time" %>
-<%@ page import="com.dneero.dao.Survey" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.helpers.ResearcherCreateIfNeeded" %>
+<%@ page import="com.dneero.htmlui.CheckboxBoolean" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmlui.Textarea" %>
+<%@ page import="com.dneero.htmlui.ValidationException" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "" +
@@ -13,6 +10,9 @@ String pagetitle = "" +
 "        <br clear=\"all\"/>";
 String navtab = "researchers";
 String acl = "researcher";
+%>
+<%
+    ResearcherCreateIfNeeded.createIfNecessary();
 %>
 <%@ include file="/template/auth.jsp" %>
 <%

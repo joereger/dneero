@@ -1,11 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail01" %>
-<%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.util.Time" %>
 <%@ page import="com.dneero.dao.Survey" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.helpers.ResearcherCreateIfNeeded" %>
+<%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail01" %>
+<%@ page import="com.dneero.util.Time" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<font class=\"pagetitlefont\">"+((ResearcherSurveyDetail01) Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getTitle()+"</font>\n" +
@@ -16,6 +12,9 @@ if (((ResearcherSurveyDetail01) Pagez.getBeanMgr().get("ResearcherSurveyDetail01
 }
 String navtab = "researchers";
 String acl = "researcher";
+%>
+<%
+    ResearcherCreateIfNeeded.createIfNecessary();
 %>
 <%@ include file="/template/auth.jsp" %>
 <%
