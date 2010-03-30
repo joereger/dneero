@@ -102,11 +102,11 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                                 <%}%>
                             </td>
                         </tr>
-                        <tr>
-                            <td valign="top" colspan="2">
-                                <font class="formfieldnamefont">About when should your question be asked?</font>
-                            </td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td valign="top" colspan="2">--%>
+                                <%--<font class="formfieldnamefont">About when should your question be asked?</font>--%>
+                            <%--</td>--%>
+                        <%--</tr>--%>
                         <%--<tr>--%>
                             <%--<td valign="top" colspan="2">--%>
                                 <%--<%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>--%>
@@ -122,7 +122,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                             </td>
                             <td valign="top">
                                 <%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
-                                    <%=CheckboxBoolean.getHtml("isfree", !researcherTwitaskDetail01.getIsfree(), "", "")%> I want to pay participants via cash, coupon or charitable donation
+                                    <%=CheckboxBoolean.getHtml("isfree", !researcherTwitaskDetail01.getIsfree(), "", "")%> I want to pay participants via cash, coupon or charitable donation (recommendation: keep unchecked)
                                 <%} else {%>
                                     <font class="normalfont"></font>
                                 <%}%>
@@ -134,7 +134,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                             </td>
                             <td valign="top">
                                 <%if (researcherTwitaskDetail01.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
-                                    <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherTwitaskDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate
+                                    <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherTwitaskDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate (recommendation: keep unchecked)
                                 <%} else {%>
                                     <font class="normalfont"></font>
                                 <%}%>

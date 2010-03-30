@@ -137,7 +137,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                 </td>
                                 <td valign="top">
                                     <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                        <%=CheckboxBoolean.getHtml("isfree", !researcherSurveyDetail01.getIsfree(), "", "")%> I want to pay participants via cash, coupon or charitable donation
+                                        <%=CheckboxBoolean.getHtml("isfree", !researcherSurveyDetail01.getIsfree(), "", "")%> I want to pay participants via cash, coupon or charitable donation (recommendation: keep unchecked)
                                     <%} else {%>
                                         <font class="normalfont"></font>
                                     <%}%>
@@ -149,7 +149,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                 </td>
                                 <td valign="top">
                                     <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                        <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherSurveyDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate
+                                        <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherSurveyDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate (recommendation: keep unchecked)
                                     <%} else {%>
                                         <font class="normalfont"></font>
                                     <%}%>
