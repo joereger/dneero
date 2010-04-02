@@ -23,6 +23,104 @@
         return;
     }
 %>
+
+
+<%
+
+    //This is the SQL call to create a user
+
+//    INSERT INTO databasename.user
+//	(isenabled,
+//	bloggerid,
+//	researcherid,
+//	plid,
+//	referredbyuserid,
+//	isqualifiedforrevshare,
+//	email,
+//	PASSWORD,
+//	NAME,
+//	isactivatedbyemail,
+//	emailactivationkey,
+//	emailactivationlastsent,
+//	createdate,
+//	paymethod,
+//	paymethodcreditcardid,
+//	paymethodpaypaladdress,
+//	chargemethod,
+//	chargemethodcreditcardid,
+//	notifyofnewsurveysbyemaileveryexdays,
+//	notifyofnewsurveyslastsent,
+//	allownoncriticalemails,
+//	instantnotifybyemailison,
+//	instantnotifybytwitterison,
+//	instantnotifytwitterusername,
+//	instantnotifyxmppison,
+//	instantnotifyxmppusername,
+//	charityamtdonated,
+//	facebookuserid,
+//	isfacebookappremoved,
+//	facebookappremoveddate,
+//	resellercode,
+//	resellerpercent,
+//	currentbalance,
+//	currentbalanceblogger,
+//	currentbalanceresearcher,
+//	lastlogindate,
+//	nickname,
+//	sirpoints,
+//	sirrank,
+//	siralgorithm,
+//	sirdate,
+//	sirdebug
+//	)
+//	VALUES
+//	(TRUE,
+//	'0',
+//	'0',
+//	'1',
+//	'0',
+//	TRUE,
+//	'joe@joereger.com',
+//	'password',
+//	'Joe Reger, Jr.',
+//	TRUE,
+//	'emailactivationkey',
+//	'2010-04-02 06:45:19',
+//	'2010-04-02 06:45:19',
+//	'2',
+//	'0',
+//	'',
+//	'2',
+//	'0',
+//	'1',
+//	'2010-04-02 06:45:19',
+//	TRUE,
+//	TRUE,
+//	FALSE,
+//	'',
+//	FALSE,
+//	'',
+//	'0.0',
+//	'',
+//	FALSE,
+//	'2010-04-02 06:45:19',
+//	'resellercode',
+//	'0.0',
+//	'0.0',
+//	'0.0',
+//	'0.0',
+//	'2010-04-02 06:45:19',
+//	'joereger',
+//	'0.0',
+//	'0',
+//	'1',
+//	'2010-04-02 06:45:19',
+//	''
+//	);
+
+%>
+
+
 <%
     //Save the properties, test them
     String errortext = "";
