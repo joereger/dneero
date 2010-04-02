@@ -74,6 +74,28 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
     }
 %>
 <%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("togglecreatesurveys")) {
+        try {
+            customercareUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
+            customercareUserDetail.setPwd(Textbox.getValueFromRequest("pwd", "Password", true, DatatypeString.DATATYPEID));
+            customercareUserDetail.togglecreatesurveys();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("togglecreatetwitasks")) {
+        try {
+            customercareUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
+            customercareUserDetail.setPwd(Textbox.getValueFromRequest("pwd", "Password", true, DatatypeString.DATATYPEID));
+            customercareUserDetail.togglecreatetwitasks();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("updateresellerpercent")) {
         try {
             customercareUserDetail.setResellerpercent(Textbox.getDblFromRequest("resellerpercent", "Reseller Percent", true, DatatypeDouble.DATATYPEID));
@@ -324,7 +346,7 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Toggle Sysadmin Privileges">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Toggle Sysadmin Privileges">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
@@ -345,7 +367,49 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <br/>
                                 <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
-                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Toggle Customer Care Privs">
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Toggle Customer Care Privs">
+                                <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
+                                <br/>
+                                <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
+                            </form>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
+                                <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
+                                <input type="hidden" name="action" value="togglecreatesurveys">
+                                <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
+                                <%if (customercareUserDetail.getIscreatesurveys()){%>
+                                    <font class="mediumfont">User can create surveys.</font>
+                                <%} else {%>
+                                    <font class="mediumfont">User can not create surveys.</font>
+                                <%}%>
+                                <br/>
+                                <font class="formfieldnamefont">Password:</font>
+                                <br/>
+                                <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
+                                <br/>
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Toggle Create Surveys">
+                                <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
+                                <br/>
+                                <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
+                            </form>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
+                                <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
+                                <input type="hidden" name="action" value="togglecreatetwitasks">
+                                <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
+                                <%if (customercareUserDetail.getIscreatetwitasks()){%>
+                                    <font class="mediumfont">User can create twitasks.</font>
+                                <%} else {%>
+                                    <font class="mediumfont">User can not create twitasks.</font>
+                                <%}%>
+                                <br/>
+                                <font class="formfieldnamefont">Password:</font>
+                                <br/>
+                                <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
+                                <br/>
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Toggle Create Twitasks">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>

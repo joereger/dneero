@@ -2,24 +2,24 @@ package com.dneero.htmluibeans;
 
 
 import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.email.LostPasswordSend;
 import com.dneero.helpers.DeleteUser;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.mail.MailNotify;
+import com.dneero.mail.MailtypeSimple;
 import com.dneero.money.MoveMoneyInAccountBalance;
 import com.dneero.scheduledjobs.CurrentBalanceUpdater;
 import com.dneero.scheduledjobs.ResearcherRemainingBalanceOperations;
-import com.dneero.scheduledjobs.UpdateResponsePoststatus;
-import com.dneero.util.*;
-import com.dneero.mail.MailNotify;
-import com.dneero.mail.MailtypeSimple;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -37,6 +37,8 @@ public class CustomercareUserDetail implements Serializable {
     private String facebookuid="";
     private boolean issysadmin = false;
     private boolean iscustomercare = false;
+    private boolean iscreatesurveys = false;
+    private boolean iscreatetwitasks = false;
     private String activitypin="";
     private double amt;
     private String reason;
@@ -51,6 +53,7 @@ public class CustomercareUserDetail implements Serializable {
     private String messagetousersubject="";
     private String messagetouser="";
     private String twitterusername = "";
+
 
 
 
@@ -197,49 +200,10 @@ public class CustomercareUserDetail implements Serializable {
     public String togglesysadminprivs() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("togglesysadminprivs()");
-        if (pwd!=null && pwd.equals(CORRECTPWD)){
-            if (activitypin.equals("yes, i want to do this")){
-                activitypin = "";
-                User user = User.get(userid);
-                if (user!=null && user.getUserid()>0){
-                    issysadmin = false;
-                    for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
-                        Userrole userrole = iterator.next();
-                        if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
-                            issysadmin = true;
-                        }
-                    }
-                    if (issysadmin){
-                        logger.debug("is a sysadmin");
-                        //@todo revoke sysadmin privs doesn't work
-                        //int userroleidtodelete=0;
-                        for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
-                            Userrole userrole = iterator.next();
-                            logger.debug("found roleid="+userrole.getRoleid());
-                            if (userrole.getRoleid()==Userrole.SYSTEMADMIN){
-                                logger.debug("removing it from iterator");
-                                iterator.remove();
-                            }
-                        }
-                        try{user.save();} catch (Exception ex){logger.error("",ex);}
-                        issysadmin = false;
-                        Pagez.getUserSession().setMessage("User is no longer a sysadmin");
-                    } else {
-                        Userrole role = new Userrole();
-                        role.setUserid(user.getUserid());
-                        role.setRoleid(Userrole.SYSTEMADMIN);
-                        user.getUserroles().add(role);
-                        try{role.save();} catch (Exception ex){logger.error("",ex);}
-                        issysadmin = true;
-                        Pagez.getUserSession().setMessage("User is now a sysadmin");
-                    }
-                    initBean();
-                }
-            } else {
-                Pagez.getUserSession().setMessage("Activity Pin Not Correct.");
-            }
+        if (toggleroleprivs(Userrole.SYSTEMADMIN)){
+            issysadmin = true;
         } else {
-            Pagez.getUserSession().setMessage("Fail. Password not valid.");
+            issysadmin = false;
         }
         return "sysadminuserdetail";
     }
@@ -247,41 +211,75 @@ public class CustomercareUserDetail implements Serializable {
     public String togglecustomercareprivs() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("togglecustomercareprivs()");
+        if (toggleroleprivs(Userrole.CUSTOMERCARE)){
+            iscustomercare = true;
+        } else {
+            iscustomercare = false;
+        }
+        return "sysadminuserdetail";
+    }
+
+    public String togglecreatesurveys() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("togglecreatesurveys()");
+        if (toggleroleprivs(Userrole.CREATESURVEYS)){
+            iscreatesurveys = true;
+        } else {
+            iscreatesurveys = false;
+        }
+        return "sysadminuserdetail";
+    }
+
+    public String togglecreatetwitasks() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("togglecreatetwitasks()");
+        if (toggleroleprivs(Userrole.CREATESURVEYS)){
+            iscreatetwitasks = true;
+        } else {
+            iscreatetwitasks = false;
+        }
+        return "sysadminuserdetail";
+    }
+
+    public boolean toggleroleprivs(int roleid) throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("toggleroleprivs()");
+        boolean out = false;
         if (pwd!=null && pwd.equals(CORRECTPWD)){
             if (activitypin.equals("yes, i want to do this")){
                 activitypin = "";
                 User user = User.get(userid);
                 if (user!=null && user.getUserid()>0){
-                    iscustomercare = false;
+                    out = false;
                     for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                         Userrole userrole = iterator.next();
-                        if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
-                            iscustomercare = true;
+                        if (userrole.getRoleid()==roleid){
+                            out = true;
                         }
                     }
-                    if (iscustomercare){
+                    if (out){
                         logger.debug("is a sysadmin");
                         //@todo revoke customercare privs doesn't work
                         //int userroleidtodelete=0;
                         for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                             Userrole userrole = iterator.next();
                             logger.debug("found roleid="+userrole.getRoleid());
-                            if (userrole.getRoleid()==Userrole.CUSTOMERCARE){
+                            if (userrole.getRoleid()==roleid){
                                 logger.debug("removing it from iterator");
                                 iterator.remove();
                             }
                         }
                         try{user.save();} catch (Exception ex){logger.error("",ex);}
-                        iscustomercare = false;
-                        Pagez.getUserSession().setMessage("User is no longer a customer care rep");
+                        out = false;
+                        Pagez.getUserSession().setMessage("User no longer has permission.");
                     } else {
                         Userrole role = new Userrole();
                         role.setUserid(user.getUserid());
-                        role.setRoleid(Userrole.CUSTOMERCARE);
+                        role.setRoleid(roleid);
                         user.getUserroles().add(role);
                         try{role.save();} catch (Exception ex){logger.error("",ex);}
-                        iscustomercare = true;
-                        Pagez.getUserSession().setMessage("User is now a customer care rep");
+                        out = true;
+                        Pagez.getUserSession().setMessage("User now has permission.");
                     }
                     initBean();
                 }
@@ -291,7 +289,7 @@ public class CustomercareUserDetail implements Serializable {
         } else {
             Pagez.getUserSession().setMessage("Fail. Password not valid.");
         }
-        return "sysadminuserdetail";
+        return out;
     }
 
     public void deleteuser() throws ValidationException {
@@ -607,5 +605,21 @@ public class CustomercareUserDetail implements Serializable {
 
     public void setTwitterusername(String twitterusername) {
         this.twitterusername=twitterusername;
+    }
+
+    public boolean getIscreatesurveys() {
+        return iscreatesurveys;
+    }
+
+    public void setIscreatesurveys(boolean iscreatesurveys) {
+        this.iscreatesurveys = iscreatesurveys;
+    }
+
+    public boolean getIscreatetwitasks() {
+        return iscreatetwitasks;
+    }
+
+    public void setIscreatetwitasks(boolean iscreatetwitasks) {
+        this.iscreatetwitasks = iscreatetwitasks;
     }
 }

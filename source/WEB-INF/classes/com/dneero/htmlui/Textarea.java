@@ -20,7 +20,7 @@ public class Textarea {
         if (value==null){
             value="";
         }
-        out.append("<textarea name=\""+Str.cleanForHtml(name)+"\" id=\""+name+"\" "+styleclass+" "+style+" rows=\""+rows+"\" cols=\""+cols+"\" wrap=\"soft\">"+ value+"</textarea>");
+        out.append("<textarea name=\""+Str.cleanForHtml(name)+"\" id=\""+name+"\" "+styleclass+" "+style+" rows=\""+rows+"\" cols=\""+cols+"\" wrap=\"soft\">"+Str.cleanForHtml(value)+"</textarea>");
 
         return out.toString();
     }

@@ -31,6 +31,12 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private String twitterpassword;
     private String homepagetemplate;
     private String peers;
+    private boolean isanybodyallowedtocreatesurveys=true;
+    private boolean isanybodyallowedtocreatetwitasks=true;
+    private boolean isbloggerdemographicrequired=true;
+    private boolean isemailactivationrequired=true;
+    private boolean isemailon=true;
+    private boolean ispaidallowed=true;
 
 
 
@@ -217,5 +223,53 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setPeers(String peers) {
         this.peers=peers;
+    }
+
+    public boolean getIsanybodyallowedtocreatesurveys() {
+        return isanybodyallowedtocreatesurveys;
+    }
+
+    public void setIsanybodyallowedtocreatesurveys(boolean isanybodyallowedtocreatesurveys) {
+        this.isanybodyallowedtocreatesurveys = isanybodyallowedtocreatesurveys;
+    }
+
+    public boolean getIsanybodyallowedtocreatetwitasks() {
+        return isanybodyallowedtocreatetwitasks;
+    }
+
+    public void setIsanybodyallowedtocreatetwitasks(boolean isanybodyallowedtocreatetwitasks) {
+        this.isanybodyallowedtocreatetwitasks = isanybodyallowedtocreatetwitasks;
+    }
+
+    public boolean getIsbloggerdemographicrequired() {
+        return isbloggerdemographicrequired;
+    }
+
+    public void setIsbloggerdemographicrequired(boolean isbloggerdemographicrequired) {
+        this.isbloggerdemographicrequired = isbloggerdemographicrequired;
+    }
+
+    public boolean getIsemailactivationrequired() {
+        return isemailactivationrequired;
+    }
+
+    public void setIsemailactivationrequired(boolean isemailactivationrequired) {
+        this.isemailactivationrequired = isemailactivationrequired;
+    }
+
+    public boolean getIsemailon() {
+        return isemailon;
+    }
+
+    public void setIsemailon(boolean isemailon) {
+        this.isemailon = isemailon;
+    }
+
+    public boolean getIspaidallowed() {
+        return ispaidallowed;
+    }
+
+    public void setIspaidallowed(boolean ispaidallowed) {
+        this.ispaidallowed = ispaidallowed;
     }
 }

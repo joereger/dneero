@@ -54,5 +54,25 @@
         <property name="peers" type="text">
             <column name="peers" not-null="true" />
         </property>
+        <property name="isanybodyallowedtocreatesurveys" type="boolean">
+            <column name="isanybodyallowedtocreatesurveys" />
+        </property>
+        <property name="isanybodyallowedtocreatetwitasks" type="boolean">
+            <column name="isanybodyallowedtocreatetwitasks" />
+        </property>
+        <property name="isbloggerdemographicrequired" type="boolean">
+            <column name="isbloggerdemographicrequired" />
+        </property>
+        <property name="isemailactivationrequired" type="boolean">
+            <column name="isemailactivationrequired" />
+        </property>
+        <property name="isemailon" type="boolean">
+            <column name="isemailon" />
+        </property>
+        <property name="ispaidallowed" type="boolean">
+            <column name="ispaidallowed" />
+        </property>
+
+
     </class>
 </hibernate-mapping>

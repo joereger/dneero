@@ -304,6 +304,12 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setTwitterpassword("");
             pl.setHomepagetemplate("");
             pl.setPeers("0");
+            pl.setIsanybodyallowedtocreatesurveys(true);
+            pl.setIsanybodyallowedtocreatetwitasks(true);
+            pl.setIsbloggerdemographicrequired(true);
+            pl.setIsemailactivationrequired(true);
+            pl.setIsemailon(false);
+            pl.setIspaidallowed(true);
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }

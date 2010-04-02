@@ -28,6 +28,12 @@ String acl = "sysadmin";
     pl.setTwitterpassword("");
     pl.setHomepagetemplate("");
     pl.setPeers("0");
+    pl.setIsanybodyallowedtocreatesurveys(true);
+    pl.setIsanybodyallowedtocreatetwitasks(true);
+    pl.setIsbloggerdemographicrequired(true);
+    pl.setIsemailactivationrequired(true);
+    pl.setIsemailon(false);
+    pl.setIspaidallowed(true);
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -62,6 +68,12 @@ String acl = "sysadmin";
                 pl.setIshttpson(CheckboxBoolean.getValueFromRequest("ishttpson"));
                 pl.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
                 pl.setTwitterpassword(Textbox.getValueFromRequest("twitterpassword", "Twitter Password", false, DatatypeString.DATATYPEID));
+                pl.setIsanybodyallowedtocreatesurveys(CheckboxBoolean.getValueFromRequest("isanybodyallowedtocreatesurveys"));
+                pl.setIsanybodyallowedtocreatetwitasks(CheckboxBoolean.getValueFromRequest("isanybodyallowedtocreatetwitasks"));
+                pl.setIsbloggerdemographicrequired(CheckboxBoolean.getValueFromRequest("isbloggerdemographicrequired"));
+                pl.setIsemailactivationrequired(CheckboxBoolean.getValueFromRequest("isemailactivationrequired"));
+                pl.setIsemailon(CheckboxBoolean.getValueFromRequest("isemailon"));
+                pl.setIspaidallowed(CheckboxBoolean.getValueFromRequest("ispaidallowed"));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -285,37 +297,82 @@ String acl = "sysadmin";
                 </tr>
                 <tr>
                     <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isanybodyallowedtocreatesurveys", pl.getIsanybodyallowedtocreatesurveys(), "", "")%>
+                        <font class="formfieldnamefont">Anybody Can Create Surveys</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isanybodyallowedtocreatetwitasks", pl.getIsanybodyallowedtocreatetwitasks(), "", "")%>
+                        <font class="formfieldnamefont">Anybody Can Create Twitasks</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isbloggerdemographicrequired", pl.getIsbloggerdemographicrequired(), "", "")%>
+                        <font class="formfieldnamefont">Blogger Demographic Required</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isemailactivationrequired", pl.getIsemailactivationrequired(), "", "")%>
+                        <font class="formfieldnamefont">Email Activation is Required</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isemailon", pl.getIsemailon(), "", "")%>
+                        <font class="formfieldnamefont">Email Is On</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("ispaidallowed", pl.getIspaidallowed(), "", "")%>
+                        <font class="formfieldnamefont">Paid Incentives Allowed</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Web Html Header</font>
                         <br/><font class="tinyfont">Uses <a href="http://velocity.apache.org/engine/releases/velocity-1.5/vtl-reference-guide.html">VTL</a></font>
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlheadertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
-                    </td>
-                    <td valign="top">
-                        <%=Textarea.getHtml("webhtmlheader", pl.getWebhtmlheader(), 8, 80, "", "width: 100%;")%>
+                        <br/>
+                        <%=Textarea.getHtml("webhtmlheader", pl.getWebhtmlheader(), 16, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
+                    <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Web Html Footer</font>
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlfootertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
-                    </td>
-                    <td valign="top">
-                        <%=Textarea.getHtml("webhtmlfooter", pl.getWebhtmlfooter(), 8, 80, "", "width: 100%;")%>
+                        <br/>
+                        <%=Textarea.getHtml("webhtmlfooter", pl.getWebhtmlfooter(), 16, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
+                    <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Homepage Html Template</font>
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=sethomepagetemplatetodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
-                    </td>
-                    <td valign="top">
-                        <%=Textarea.getHtml("homepagetemplate", pl.getHomepagetemplate(), 8, 80, "", "width: 100%;")%>
+                        <br/>
+                        <%=Textarea.getHtml("homepagetemplate", pl.getHomepagetemplate(), 16, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
+                    <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Email Html Header</font>
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlheadertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
@@ -332,8 +389,7 @@ String acl = "sysadmin";
                             newestUsers,
                             blogPosts
                         </font>
-                    </td>
-                    <td valign="top">
+                        <br/>
                         <%=Textarea.getHtml("emailhtmlheader", pl.getEmailhtmlheader(), 8, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
