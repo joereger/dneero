@@ -70,14 +70,6 @@ String acl = "public";
                             </td></tr></table>
                             <%}%>
 
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/bloggerdetails.jsp"><font class="mediumfont" style="color: #596697;">Your Profile</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Your profile helps us find conversations that fit your interests.  Keep it up to date.</font>
-                            </td></tr></table>
-
 
                         </div>
                     </div>

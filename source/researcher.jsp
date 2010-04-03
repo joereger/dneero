@@ -35,7 +35,7 @@ String acl = "public";
                     </div>
                </td>
                <td valign="top" width="30%">
-                   <%@ include file="/researcher/about-nav-include.jsp" %>
+                   <%//@ include file="/researcher/about-nav-include.jsp" %>
                    <br/>
                </td>
            </tr>

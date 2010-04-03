@@ -127,7 +127,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 <a href="/account/awards.jsp"><font class="mediumfont" style="color: #596697;">Awards</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">See the things you've been awarded.</font>
+                                <font class="smallfont">Sometimes conversations include an incentive like a coupon or charitable donation.</font>
                             </td></tr></table>
 
                             <br/><br/>
@@ -165,13 +165,10 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                     <table cellpadding="10" cellspacing="0" border="0">
                         <tr>
                             <td valign="top" width="33%">
-                                <div class="rounded" style="background: #e6e6e6; height: 100px;">
+                                <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
                                     <form action="/publicsurveylist.jsp" method="get">
                                         <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Enter Conversations">
                                     </form>
-                                    <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
-                                        <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">Update Your Profile</font></a>
-                                    <%}%>
                                     <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
                                         <%
                                         BloggerCompletedsurveys bloggerCompletedsurveys = new BloggerCompletedsurveys();
@@ -185,7 +182,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 </div>
                             </td>
                             <td valign="top" width="33%">
-                                <div class="rounded" style="background: #e6e6e6; height: 100px;">
+                                <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
                                     <form action="/researcher/researchersurveydetail_01.jsp" method="get">
                                         <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Create a Conversation">
                                     </form>
@@ -203,7 +200,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 </div>
                             </td>
                             <td valign="top" width="33%">
-                                <div class="rounded" style="background: #e6e6e6; height: 100px;">
+                                <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
                                     <form action="/researcher/researchertwitaskdetail_01.jsp" method="get">
                                         <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Ask a Twitter Question">
                                     </form>
@@ -214,10 +211,10 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                         bloggerCompletedTwitasks.initBean();
                                         %>
                                         <%if (bloggerCompletedTwitasks.getTwitanswers()!=null && bloggerCompletedTwitasks.getTwitanswers().size()>0){%>
-                                            <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">You've Answered</font></a>
+                                            <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Answered</font></a>
                                         <%}%>
                                         <%if (researcherSurveyList.getSurveys()!=null && researcherSurveyList.getSurveys().size()>0){%>
-                                            <br/><a href="/researcher/index-twitask.jsp"><font class="smallfont" style="font-weight: bold;">You've Asked</font></a>
+                                            <br/><a href="/researcher/index-twitask.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Asked</font></a>
                                         <%}%>
                                     <%}%>
                                 </div>

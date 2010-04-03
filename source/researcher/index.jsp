@@ -82,7 +82,7 @@ String acl = "public";
                                 <a href="/researcher/researcherbilling.jsp"><font class="mediumfont" style="color: #596697;">Billing Info</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Update your billing information on this screen.</font>
+                                <font class="smallfont">If you're doing conversations with incentives update your billing information on this screen.</font>
                             </td></tr></table>
 
 
