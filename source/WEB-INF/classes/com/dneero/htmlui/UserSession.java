@@ -30,6 +30,8 @@ public class UserSession implements Serializable {
     private int referredbyOnlyUsedForSignup = 0;
     private boolean isSysadmin = false;
     private boolean isCustomerCare = false;
+    private boolean isCreateSurveys = false;
+    private boolean isCreateTwitasks = false;
     private boolean isLoggedInToBeta = false;
     private int pendingSurveyResponseSurveyid = 0;
     private String pendingSurveyResponseAsString = "";
@@ -110,6 +112,12 @@ public class UserSession implements Serializable {
                 }
                 if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
                     isCustomerCare = true;
+                }
+                if (userrole.getRoleid()== Userrole.CREATESURVEYS){
+                    isCreateSurveys = true;
+                }
+                if (userrole.getRoleid()== Userrole.CREATETWITASKS){
+                    isCreateTwitasks = true;
                 }
             }
         } else {
@@ -384,4 +392,18 @@ public class UserSession implements Serializable {
     public void setTwitaskQuestionFromHomepage(String twitaskQuestionFromHomepage) {
         this.twitaskQuestionFromHomepage = twitaskQuestionFromHomepage;
     }
+
+    public boolean getIsCreateTwitasks() {
+        return isCreateTwitasks;
+    }
+
+
+
+    public boolean getIsCreateSurveys() {
+        return isCreateSurveys;
+    }
+
+
+
+
 }

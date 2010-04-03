@@ -1,11 +1,10 @@
 package com.dneero.helpers;
 
-import com.dneero.dao.Survey;
 import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
+import org.apache.log4j.Logger;
 
 import java.util.Iterator;
-
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -16,6 +15,10 @@ public class SlotsRemainingInConvo {
 
     public static int getSlotsRemaining(Survey survey){
         Logger logger = Logger.getLogger(SlotsRemainingInConvo.class);
+        //If it's free no need to get fancy
+        if (survey.getIsfree()){
+            return survey.getNumberofrespondentsrequested();
+        }
         //@todo Cache this number
         int slotsremaining = 0;
         int numberofrespondentsrequested = survey.getNumberofrespondentsrequested();

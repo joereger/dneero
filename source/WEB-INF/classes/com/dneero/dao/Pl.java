@@ -27,16 +27,17 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private String emailhtmlheader;
     private String emailhtmlfooter;
     private boolean ishttpson;
-    private String twitterusername;
-    private String twitterpassword;
     private String homepagetemplate;
     private String peers;
     private boolean isanybodyallowedtocreatesurveys=true;
     private boolean isanybodyallowedtocreatetwitasks=true;
     private boolean isbloggerdemographicrequired=true;
     private boolean isemailactivationrequired=true;
-    private boolean isemailon=true;
-    private boolean ispaidallowed=true;
+    private boolean isresellerprogramon=false;
+    private boolean isreferralprogramon=false;
+    private boolean isvenuerequired=false;
+  
+
 
 
 
@@ -193,21 +194,7 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
         this.ishttpson=ishttpson;
     }
 
-    public String getTwitterusername() {
-        return twitterusername;
-    }
 
-    public void setTwitterusername(String twitterusername) {
-        this.twitterusername=twitterusername;
-    }
-
-    public String getTwitterpassword() {
-        return twitterpassword;
-    }
-
-    public void setTwitterpassword(String twitterpassword) {
-        this.twitterpassword=twitterpassword;
-    }
 
     public String getHomepagetemplate() {
         return homepagetemplate;
@@ -257,19 +244,27 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
         this.isemailactivationrequired = isemailactivationrequired;
     }
 
-    public boolean getIsemailon() {
-        return isemailon;
+    public boolean getIsresellerprogramon() {
+        return isresellerprogramon;
     }
 
-    public void setIsemailon(boolean isemailon) {
-        this.isemailon = isemailon;
+    public void setIsresellerprogramon(boolean isresellerprogramon) {
+        this.isresellerprogramon = isresellerprogramon;
     }
 
-    public boolean getIspaidallowed() {
-        return ispaidallowed;
+    public boolean getIsreferralprogramon() {
+        return isreferralprogramon;
     }
 
-    public void setIspaidallowed(boolean ispaidallowed) {
-        this.ispaidallowed = ispaidallowed;
+    public void setIsreferralprogramon(boolean isreferralprogramon) {
+        this.isreferralprogramon = isreferralprogramon;
+    }
+
+    public boolean getIsvenuerequired() {
+        return isvenuerequired;
+    }
+
+    public void setIsvenuerequired(boolean isvenuerequired) {
+        this.isvenuerequired = isvenuerequired;
     }
 }

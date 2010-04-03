@@ -28,25 +28,25 @@ String acl = "customercare";
 %>
 
 
-<div class="rounded" style="padding: 0px; margin: 10px; background: #33FF00;">
+<div class="rounded" style="padding: 0px; margin: 10px; background: #cccccc;">
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
            <tr>
                <td valign="top" width="33%">
-                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                <div class="rounded" style="padding: 15px; margin: 8px; background: #e6e6e6;">
                     <font class="largefont"><%=openSupportIssues%></font>
                     <br/>
                     <font class="mediumfont">open <a href="/customercare/sysadminsupportissueslist.jsp">support issues</a></font>
                 </div>
                </td>
                <td valign="top" width="33%">
-                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                <div class="rounded" style="padding: 15px; margin: 8px; background: #e6e6e6;">
                     <font class="largefont">~lots of</font>
                     <br/>
                     <font class="mediumfont">items for <a href="/customercare/reviewables-turbo.jsp">review</a></font>
                 </div>
                </td>
                <td valign="top" width="33%">
-                <div class="rounded" style="padding: 15px; margin: 8px; background: #BFFFBF;">
+                <div class="rounded" style="padding: 15px; margin: 8px; background: #e6e6e6;">
                     <font class="largefont">??</font>
                     <br/>
                     <font class="mediumfont">questionable <a href="/customercare/iptrack.jsp">ips</a></font>

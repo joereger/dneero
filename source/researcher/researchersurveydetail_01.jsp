@@ -16,6 +16,15 @@ String acl = "researcher";
 <%
     ResearcherCreateIfNeeded.createIfNecessary();
 %>
+<%
+if (!Pagez.getUserSession().getPl().getIsanybodyallowedtocreatesurveys()){
+    if (!Pagez.getUserSession().getIsCreateSurveys()){
+        Pagez.getUserSession().setMessage("Sorry, you don't appear to have Create Surveys permission.  Please contact a system administrator if you believe this is an error.");
+        Pagez.sendRedirect("/researcher/index.jsp");
+        return;
+    }
+}
+%>
 <%@ include file="/template/auth.jsp" %>
 <%
 ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01");

@@ -173,11 +173,7 @@ String acl = "blogger";
                     <%}%>
                 </div>
 
-               <br/>
-               <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
-                    <font class="mediumfont">Don't Miss</font>
-                    <font class="smallfont">You may also be interested in the <a href="/account/reseller.jsp">Reseller Program</a> that allows you to make money selling conversations... it's more work... but also more cash!</font>
-                </div>
+
 
             </td></tr>
         </table>

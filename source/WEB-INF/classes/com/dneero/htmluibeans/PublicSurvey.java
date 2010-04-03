@@ -564,8 +564,6 @@ public class PublicSurvey implements Serializable {
                     user.setNotifyofnewsurveyslastsent(new Date());
                     user.setAllownoncriticalemails(true);
                     user.setInstantnotifybyemailison(false);
-                    user.setInstantnotifybytwitterison(false);
-                    user.setInstantnotifytwitterusername("");
                     user.setInstantnotifyxmppison(false);
                     user.setInstantnotifyxmppusername("");
                     user.setIsenabled(true);

@@ -18,7 +18,7 @@ ResearcherSurveyDetailPostlaunch researcherSurveyDetailPostlaunch = (ResearcherS
 %>
 <%
 if (researcherSurveyDetailPostlaunch.getSurvey().getStatus()==Survey.STATUS_OPEN){
-    Pagez.getUserSession().setMessage("Your conversation is launched!  You should answer the questions and post it to your blog or social network!");
+    Pagez.getUserSession().setMessage("Your conversation is launched!  Why not be the first to join?");
     Pagez.sendRedirect("/survey.jsp?surveyid="+researcherSurveyDetailPostlaunch.getSurvey().getSurveyid()+"");
     return;
 }

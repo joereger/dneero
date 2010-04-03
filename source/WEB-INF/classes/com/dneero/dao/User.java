@@ -42,8 +42,6 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private Date notifyofnewsurveyslastsent;
      private boolean allownoncriticalemails;
      private boolean instantnotifybyemailison;
-     private boolean instantnotifybytwitterison;
-     private String instantnotifytwitterusername;
      private boolean instantnotifyxmppison;
      private String instantnotifyxmppusername;
      private double charityamtdonated;
@@ -299,22 +297,6 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
 
     public void setInstantnotifybyemailison(boolean instantnotifybyemailison) {
         this.instantnotifybyemailison = instantnotifybyemailison;
-    }
-
-    public boolean getInstantnotifybytwitterison() {
-        return instantnotifybytwitterison;
-    }
-
-    public void setInstantnotifybytwitterison(boolean instantnotifybytwitterison) {
-        this.instantnotifybytwitterison = instantnotifybytwitterison;
-    }
-
-    public String getInstantnotifytwitterusername() {
-        return instantnotifytwitterusername;
-    }
-
-    public void setInstantnotifytwitterusername(String instantnotifytwitterusername) {
-        this.instantnotifytwitterusername = instantnotifytwitterusername;
     }
 
     public boolean getInstantnotifyxmppison() {

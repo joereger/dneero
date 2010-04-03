@@ -9,7 +9,6 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
-import com.dneero.twitter.TwitterUsernameAlreadyInUse;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
@@ -30,8 +29,6 @@ public class AccountSettings implements Serializable {
     private int notifyofnewsurveysbyemaileveryexdays = 1;
     private boolean allownoncriticalemails = true;
     private boolean instantnotifybyemailison = false;
-    private boolean instantnotifybytwitterison = false;
-    private String instantnotifytwitterusername = "";
     private boolean instantnotifyxmppison = false;
     private String instantnotifyxmppusername = "";
     private String paymethodpaypaladdress;
@@ -53,8 +50,6 @@ public class AccountSettings implements Serializable {
             notifyofnewsurveysbyemaileveryexdays = user.getNotifyofnewsurveysbyemaileveryexdays();
             allownoncriticalemails = user.getAllownoncriticalemails();
             instantnotifybyemailison = user.getInstantnotifybyemailison();
-            instantnotifybytwitterison = user.getInstantnotifybytwitterison();
-            instantnotifytwitterusername = user.getInstantnotifytwitterusername();
             instantnotifyxmppison = user.getInstantnotifyxmppison();
             instantnotifyxmppusername =  user.getInstantnotifyxmppusername();
             paymethodpaypaladdress = user.getPaymethodpaypaladdress();
@@ -96,13 +91,6 @@ public class AccountSettings implements Serializable {
             } else {
                 nickname = "";
             }
-            if (instantnotifytwitterusername!=null && !instantnotifytwitterusername.equals("")){
-                if (!instantnotifytwitterusername.equals(user.getInstantnotifytwitterusername())){
-                    if (TwitterUsernameAlreadyInUse.usernameExistsAlreadyForSomebodyElse(instantnotifytwitterusername, user)){
-                        vex.addValidationError("Sorry, that Twitter Username is already in use.");
-                    }
-                }
-            }
             //Throw validation error if necessary
             if (vex.getErrors()!=null && vex.getErrors().length>0){
                 throw vex;
@@ -112,8 +100,6 @@ public class AccountSettings implements Serializable {
             user.setNotifyofnewsurveysbyemaileveryexdays(notifyofnewsurveysbyemaileveryexdays);
             user.setAllownoncriticalemails(allownoncriticalemails);
             user.setInstantnotifybyemailison(instantnotifybyemailison);
-            user.setInstantnotifybytwitterison(instantnotifybytwitterison);
-            user.setInstantnotifytwitterusername(instantnotifytwitterusername);
             user.setInstantnotifyxmppison(instantnotifyxmppison);
             user.setInstantnotifyxmppusername(instantnotifyxmppusername);
             user.setPaymethod(PaymentMethod.PAYMENTMETHODPAYPAL);
@@ -196,21 +182,7 @@ public class AccountSettings implements Serializable {
         this.instantnotifybyemailison = instantnotifybyemailison;
     }
 
-    public boolean getInstantnotifybytwitterison() {
-        return instantnotifybytwitterison;
-    }
-
-    public void setInstantnotifybytwitterison(boolean instantnotifybytwitterison) {
-        this.instantnotifybytwitterison = instantnotifybytwitterison;
-    }
-
-    public String getInstantnotifytwitterusername() {
-        return instantnotifytwitterusername;
-    }
-
-    public void setInstantnotifytwitterusername(String instantnotifytwitterusername) {
-        this.instantnotifytwitterusername = instantnotifytwitterusername;
-    }
+   
 
     public boolean getInstantnotifyxmppison() {
         return instantnotifyxmppison;

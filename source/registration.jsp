@@ -25,11 +25,8 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
     if (request.getParameter("action") != null && request.getParameter("action").equals("register")) {
         try {
             registration.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
-            //registration.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
             //registration.setEula(Textarea.getValueFromRequest("eula", "Eula", true));
             //registration.setFirstname(Textbox.getValueFromRequest("firstname", "First Name", true, DatatypeString.DATATYPEID));
-            //registration.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", false, DatatypeString.DATATYPEID));
-            //registration.setCaptchaId(request.getParameter("captchaId"));
             //registration.setLastname(Textbox.getValueFromRequest("lastname", "Last Name", true, DatatypeString.DATATYPEID));
             registration.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
             //registration.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
@@ -39,7 +36,7 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
             ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
             if (capResp.isValid()) {
                 registration.registerAction();
-                Pagez.getUserSession().setMessage("Welcome!  Your account is created.  We've sent you a confirmation email.");
+                Pagez.getUserSession().setMessage("Welcome!  We've sent you a confirmation email (you have 3 days to confirm.)");
                 //Note that Pagez.getUserSession().getWhereToRedirectToAfterSignup() is handled in /account/index.jsp because survey processing must supercede
                 //Redir if https is on
                 if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
@@ -65,9 +62,6 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
-%>
-<%
-    String captchaId=RandomString.randomAlphanumeric(10);
 %>
 <%@ include file="/template/header.jsp" %>
 
@@ -104,7 +98,6 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
         <form action="/registration.jsp" method="post" class="niceform">
             <input type="hidden" name="dpage" value="/registration.jsp">
             <input type="hidden" name="action" value="register">
-            <%--<input type="hidden" name="captchaId" value="<%=captchaId%>">--%>
             <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">--%>
                 <br/><br/>
                 <table cellpadding="5" cellspacing="0" border="0">
@@ -159,15 +152,6 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
                         <%--</td>--%>
                     <%--</tr>--%>
 
-                    <%--<tr>--%>
-                        <%--<td valign="top">--%>
-                            <%--<font class="formfieldnamefont">Twitter User Name (Optional)</font>--%>
-                            <%--<font class="tinyfont">e.x. "joereger" or "timsmith"</font>--%>
-                        <%--</td>--%>
-                        <%--<td valign="top">--%>
-                            <%--<%=Textbox.getHtml("twitterusername", registration.getTwitterusername(), 255, 35, "", "")%>--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
 
 
                     <tr>

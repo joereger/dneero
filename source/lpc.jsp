@@ -1,7 +1,12 @@
-<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.htmlui.DatatypeString" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmlui.TextboxSecret" %>
+<%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.htmluibeans.LostPasswordChoose" %>
-<%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.util.RandomString" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptcha" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Reset Password";
@@ -15,24 +20,26 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("choose")) {
         try {
-            lostPasswordChoose.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
-            lostPasswordChoose.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
-            lostPasswordChoose.setJ_captcha_response(com.dneero.htmlui.Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", true, DatatypeString.DATATYPEID));
-            lostPasswordChoose.setU(request.getParameter("u"));
-            lostPasswordChoose.setK(request.getParameter("k"));
-            lostPasswordChoose.setCaptchaId(request.getParameter("captchaId"));
-            lostPasswordChoose.choosePassword();
-            Pagez.getUserSession().setMessage("Your password has been set.  Store it in a safe place.");
-            Pagez.sendRedirect("/account/index.jsp");
-            return;
+            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+            ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
+            if (capResp.isValid()) {
+                lostPasswordChoose.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
+                lostPasswordChoose.setPasswordverify(TextboxSecret.getValueFromRequest("passwordverify", "Password Verify", true, DatatypeString.DATATYPEID));
+                lostPasswordChoose.setU(request.getParameter("u"));
+                lostPasswordChoose.setK(request.getParameter("k"));
+                lostPasswordChoose.choosePassword();
+                Pagez.getUserSession().setMessage("Your password has been set.  Store it in a safe place.");
+                Pagez.sendRedirect("/account/index.jsp");
+                return;
+            } else {
+                Pagez.getUserSession().setMessage("Sorry, you need to type the squiggly letters properly.");
+            }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
 %>
-<%
-    String captchaId=RandomString.randomAlphanumeric(10);
-%>
+
 <%@ include file="/template/header.jsp" %>
 
 <form action="/lpc.jsp" method="post" class="niceform">
@@ -40,7 +47,6 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
     <input type="hidden" name="action" value="choose">
     <input type="hidden" name="u" value="<%=request.getParameter("u")%>">
     <input type="hidden" name="k" value="<%=request.getParameter("k")%>">
-    <input type="hidden" name="captchaId" value="<%=captchaId%>">
     <table cellpadding="0" cellspacing="0" border="0">
 
         <tr>
@@ -66,21 +72,11 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
                     <font class="formfieldnamefont">Prove You're a Human</font>
                 </td>
                 <td valign="top">
-                    <div style="border: 1px solid #ccc; padding: 3px;">
-                    <%=Textbox.getHtml("j_captcha_response", lostPasswordChoose.getJ_captcha_response(), 255, 35, "", "")%>
-                    <br/>
-                    <font class="tinyfont">(type the squiggly letters that appear below)</font>
-                    <br/>
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <tr>
-                            <td><img src="/images/clear.gif" alt="" width="1" height="100"/></td>
-                            <td style="background: url(/images/loading-captcha.gif);">
-                                <img src="/images/clear.gif" alt="" width="200" height="1"/><br/>
-                                <img src="/jcaptcha?captchaId=<%=captchaId%>"/>
-                            </td>
-                        </tr>
-                    </table>
-                    </div>
+                    <%
+                    ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+                    String captchaScript = captcha.createRecaptchaHtml(request.getParameter("error"), null);
+                    out.print(captchaScript);
+                    %>
                 </td>
             </tr>
 

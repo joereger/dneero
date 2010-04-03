@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * Date: Nov 26, 2006
  * Time: 11:57:46 AM
  */
-public class Version74 implements UpgradeDatabaseOneVersion {
+public class Version79 implements UpgradeDatabaseOneVersion {
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -27,39 +27,23 @@ public class Version74 implements UpgradeDatabaseOneVersion {
 
         //-----------------------------------
         //-----------------------------------
-        int count1 = Db.RunSQLUpdate("UPDATE pl SET isanybodyallowedtocreatesurveys=true", dbConfig);
+        int count1 = Db.RunSQLUpdate("UPDATE pl SET isresellerprogramon=false", dbConfig);
         //-----------------------------------
         //-----------------------------------
 
         //-----------------------------------
         //-----------------------------------
-        int count2 = Db.RunSQLUpdate("UPDATE pl SET isanybodyallowedtocreatetwitasks=true", dbConfig);
+        int count2 = Db.RunSQLUpdate("UPDATE pl SET isreferralprogramon=false", dbConfig);
         //-----------------------------------
         //-----------------------------------
 
         //-----------------------------------
         //-----------------------------------
-        int count3 = Db.RunSQLUpdate("UPDATE pl SET isbloggerdemographicrequired=true", dbConfig);
+        int count3 = Db.RunSQLUpdate("UPDATE pl SET isvenuerequired=false", dbConfig);
         //-----------------------------------
         //-----------------------------------
 
-        //-----------------------------------
-        //-----------------------------------
-        int count4 = Db.RunSQLUpdate("UPDATE pl SET isemailactivationrequired=true", dbConfig);
-        //-----------------------------------
-        //-----------------------------------
 
-        //-----------------------------------
-        //-----------------------------------
-        int count5 = Db.RunSQLUpdate("UPDATE pl SET isemailon=true", dbConfig);
-        //-----------------------------------
-        //-----------------------------------
-
-        //-----------------------------------
-        //-----------------------------------
-        int count6 = Db.RunSQLUpdate("UPDATE pl SET ispaidallowed=true", dbConfig);
-        //-----------------------------------
-        //-----------------------------------
 
         logger.debug("doPostHibernateUpgrade() finish");
     }

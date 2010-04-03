@@ -6,6 +6,7 @@ import com.dneero.dao.Usereula;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.email.EmailActivationSend;
 import com.dneero.eula.EulaHelper;
+import com.dneero.helpers.CreateEmptyBloggerProfile;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
 import com.dneero.htmlui.Pagez;
@@ -39,12 +40,10 @@ public class Registration implements Serializable {
     private String email;
     private String password;
     private String passwordverify;
-    //private String j_captcha_response;
-    //private String captchaId;
     private String eula;
     private boolean displaytempresponsesavedmessage;
     private String nickname;
-    private String twitterusername="";
+
 
 
     //private String temp;
@@ -117,7 +116,7 @@ public class Registration implements Serializable {
 //        } else {
 //            twitterusername = "";
 //        }
-        twitterusername="";
+
 
         //@todo need to check for lcase(firstname), lcase(lastname), email in the database... people are changing caps on name and creating another account.
 
@@ -131,16 +130,7 @@ public class Registration implements Serializable {
             //haveErrors = true;
         //}
 
-//        boolean isCaptchaCorrect = false;
-//        try {
-//            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
-//        } catch (CaptchaServiceException e) {
-//             //should not happen, may be thrown if the id is not valid
-//        }
-//        if (!isCaptchaCorrect){
-//            vex.addValidationError("You failed to correctly type the letters into the box.");
-//            haveErrors = true;
-//        }
+
 
         List<User> users = HibernateUtil.getSession().createQuery("from User where email='"+ Str.cleanForSQL(email)+"'").list();
         if (users.size()>0){
@@ -159,7 +149,7 @@ public class Registration implements Serializable {
         user.setEmail(email);
         user.setPassword(password);
         user.setName("");
-        user.setIsactivatedbyemail(false);
+        user.setIsactivatedbyemail(!Pagez.getUserSession().getPl().getIsemailactivationrequired());
         user.setIsqualifiedforrevshare(true);
         user.setReferredbyuserid(Pagez.getUserSession().getReferredbyOnlyUsedForSignup());
         user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
@@ -176,8 +166,6 @@ public class Registration implements Serializable {
         user.setNotifyofnewsurveyslastsent(new Date());
         user.setAllownoncriticalemails(true);
         user.setInstantnotifybyemailison(false);
-        user.setInstantnotifybytwitterison(false);
-        user.setInstantnotifytwitterusername(twitterusername);
         user.setInstantnotifyxmppison(false);
         user.setInstantnotifyxmppusername("");
         user.setIsenabled(true);
@@ -216,6 +204,11 @@ public class Registration implements Serializable {
             throw new ValidationException("An internal server error occurred.  Apologies for the trouble.  Please try again.");
         }
         user.getUsereulas().add(usereula);
+
+        //If PL doesn't require the blogger demographic info, create an empty one
+        if (!Pagez.getUserSession().getPl().getIsbloggerdemographicrequired()){
+            CreateEmptyBloggerProfile.create(user);    
+        }
 
         //Pending survey save
         //Note: this code also on Login and PublicSurvey
@@ -329,11 +322,4 @@ public class Registration implements Serializable {
         this.nickname=nickname;
     }
 
-    public String getTwitterusername() {
-        return twitterusername;
-    }
-
-    public void setTwitterusername(String twitterusername) {
-        this.twitterusername=twitterusername;
-    }
 }

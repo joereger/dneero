@@ -95,10 +95,8 @@
 ##            <a href="/publicsurveylist.jsp">Find Conversations</a>
 ##            <a href="/superpanels.jsp">SuperPanels</a>
 ##            <a href="/blogger/bloggerearningsrevshare.jsp">Referral Program</a>
-            <a href="/blogger/bloggerdetails.jsp">Profile</a>
+##            <a href="/blogger/bloggerdetails.jsp">Profile</a>
         #end
-        <a href="/blogger/bloggerfaq.jsp">Conversations FAQ</a>
-##        <a href="/blogger.jsp">Social People Basics</a>
     #end
     #if ($navtab == "researchers")
         #if ($userSession.isloggedin && $userSession.user.researcherid>0)
@@ -109,19 +107,20 @@
 ##            <a href="/researcher/researcherdetails.jsp">Igniter Details</a>
 ##            <a href="/researcher/researcherbilling.jsp">Billing</a>
         #end
-##        <a href="/researcher/about-faq.jsp">Creating Conversations FAQ</a>
 ##        <a href="/researcher.jsp">Igniter Basics</a>
     #end
     #if ($navtab == "youraccount")
-        #if ($userSession.isloggedin)
-            <a href="/account/accountbalance.jsp">Account Balance</a>
-            <a href="/account/accountsettings.jsp">Account Settings</a>
-            <a href="/account/awards.jsp">Awards</a>
-            <a href="/account/changepassword.jsp">Change Password</a>
-            <a href="/account/reviewables.jsp">Flagged Content</a>
-            <a href="/account/reseller.jsp">Reseller Program</a>
-            <a href="/account/inbox.jsp">Inbox</a>
-        #end
+##        #if ($userSession.isloggedin)
+##            #if ($userSession.isloggedin && $userSession.user.currentbalance!=0.0)
+##            <a href="/account/accountbalance.jsp">Account Balance</a>
+##            #end
+##            <a href="/account/accountsettings.jsp">Account Settings</a>
+##            <a href="/account/awards.jsp">Awards</a>
+##            <a href="/account/changepassword.jsp">Change Password</a>
+##            <a href="/account/reviewables.jsp">Flagged Content</a>
+##            <a href="/account/reseller.jsp">Reseller Program</a>
+##            <a href="/account/inbox.jsp">Inbox</a>
+##        #end
     #end
     #if ($navtab == "customercare")
         #if ($userSession.isloggedin && $userSession.isCustomerCare)

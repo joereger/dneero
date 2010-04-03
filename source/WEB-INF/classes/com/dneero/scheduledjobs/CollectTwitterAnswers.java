@@ -196,15 +196,17 @@ public class CollectTwitterAnswers implements Job {
     }
 
     public static User getUserByTwitterUsername(String twitterusername){
-        List<User> users = HibernateUtil.getSession().createCriteria(User.class)
-                                           .add(Restrictions.eq("instantnotifytwitterusername", twitterusername.trim()))
-                                           .setCacheable(true)
-                                           .list();
-        if (users!=null && users.size()>0){
-            return users.get(0);
-        } else {
-            return null;
-        }
+        //Fix when I implement OAuth
+        return null;
+//        List<User> users = HibernateUtil.getSession().createCriteria(User.class)
+//                                           .add(Restrictions.eq("instantnotifytwitterusername", twitterusername.trim()))
+//                                           .setCacheable(true)
+//                                           .list();
+//        if (users!=null && users.size()>0){
+//            return users.get(0);
+//        } else {
+//            return null;
+//        }
     }
 
     public static Twitask getTwitaskByReplyToId(long inreplytostatusid){

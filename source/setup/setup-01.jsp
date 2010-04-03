@@ -52,8 +52,6 @@
 //	notifyofnewsurveyslastsent,
 //	allownoncriticalemails,
 //	instantnotifybyemailison,
-//	instantnotifybytwitterison,
-//	instantnotifytwitterusername,
 //	instantnotifyxmppison,
 //	instantnotifyxmppusername,
 //	charityamtdonated,
@@ -96,8 +94,6 @@
 //	'2010-04-02 06:45:19',
 //	TRUE,
 //	TRUE,
-//	FALSE,
-//	'',
 //	FALSE,
 //	'',
 //	'0.0',
@@ -200,8 +196,6 @@
                         user.setNotifyofnewsurveyslastsent(new Date());
                         user.setAllownoncriticalemails(true);
                         user.setInstantnotifybyemailison(false);
-                        user.setInstantnotifybytwitterison(false);
-                        user.setInstantnotifytwitterusername("");
                         user.setInstantnotifyxmppison(false);
                         user.setInstantnotifyxmppusername("");
                         user.setIsenabled(true);

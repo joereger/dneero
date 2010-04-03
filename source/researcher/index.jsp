@@ -69,13 +69,13 @@ String acl = "public";
                                 <font class="smallfont">Create your own ranking index and use it to define/track people across multiple conversations.</font>
                             </td></tr></table>
 
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Update My Researcher Profile</font></a>
-                             </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Help us understand your needs so that we can serve you better.</font>
-                            </td></tr></table>
+                            <%--<br/><br/>--%>
+                            <%--<table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>--%>
+                                <%--<a href="/researcher/researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Update My Researcher Profile</font></a>--%>
+                             <%--</td></tr>--%>
+                            <%--<tr><td valign="top"></td><td valign="top">--%>
+                                <%--<font class="smallfont">Help us understand your needs so that we can serve you better.</font>--%>
+                            <%--</td></tr></table>--%>
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
@@ -86,13 +86,6 @@ String acl = "public";
                             </td></tr></table>
 
 
-                            <br/><br/>
-                            <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/about-faq.jsp"><font class="mediumfont" style="color: #596697;">Frequently Asked Questions</font></a>
-                            </td></tr>
-                            <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Get your answers here!</font>
-                            </td></tr></table>
 
                         </div>
                     </div>

@@ -4,6 +4,7 @@ package com.dneero.util.jcaptcha;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,13 +16,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
-
 
 /**
  * Serves a captcha image
  */
 public class ImageCaptchaServlet extends HttpServlet {
+
+    //NOTE, NO LONGER IN USE
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 

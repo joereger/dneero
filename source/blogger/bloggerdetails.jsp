@@ -46,13 +46,8 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                     return;
                 }
             } else {
-                if (bloggerDetails.getIsnewblogger()){
-                    Pagez.sendRedirect("/blogger/index.jsp");
-                    return;
-                } else {
-                    Pagez.sendRedirect("/blogger/index.jsp");
-                    return;
-                }
+                Pagez.sendRedirect("/blogger/index.jsp");
+                return;
             }
 
         } catch (com.dneero.htmlui.ValidationException vex) {
@@ -100,7 +95,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
             <font class="mediumfont">Quick One-time Configuration Required</font>
             <br/>
-            <font class="smallfont">Before you can make money we need to collect a few pieces of information about you.  This will only take a minute or two and you won't have to do it again on future visits.  You'll be joining conversations, posting them socially and making money in no time! We must take your profile so that we can find offers that fit you.  This is a one-time step.  You can edit your answers later on.</font>
+            <font class="smallfont">We need to collect a few pieces of information about you. You won't have to do this again on future visits.</font>
         </div>
     <%}%>
 
@@ -218,68 +213,68 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                         </tr>
 
                         <%if (!Pagez.getUserSession().getIsfacebookui()){%>
-                            <tr>
-                                <td valign="top" colspan="2">
-                                    <br/><br/>
-                                    <font class="formfieldnamefont">Posting Venues</font>
-                                    <br/>
-                                    <font class="tinyfont">You need a place to post conversations.  Blog, profile page,  Twitter page, website, etc.  You can only accrue impressions from posting venues that you claim here.</font>
-                                    <table cellpadding="3" cellspacing="0" border="0">
-                                        <%
-                                            Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
-                                            for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
-                                                Venue venue=iterator.next();
-                                                if (venue.getIsactive()){
-                                                    String sysadminrejected = "";
-                                                    if (venue.getIssysadminrejected()){
-                                                        sysadminrejected = "<a href=\"/account/reviewables.jsp\"><img src=\"/images/alert-16.png\" alt=\"Rejected\" border=\"0\"></a>";
-                                                    } else {
-                                                        if (venue.getIssysadminreviewed() && !venue.getIssysadminrejected()){
-                                                            sysadminrejected = "<img src=\"/images/ok-16.png\" alt=\"Approved\" border=\"0\">";
+                                <tr>
+                                    <td valign="top" colspan="2">
+                                        <br/><br/>
+                                        <font class="formfieldnamefont">Posting Venues</font>
+                                        <br/>
+                                        <font class="tinyfont">Share the URL of a place that you post things.</font>
+                                        <table cellpadding="3" cellspacing="0" border="0">
+                                            <%
+                                                Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                                                for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                                                    Venue venue=iterator.next();
+                                                    if (venue.getIsactive()){
+                                                        String sysadminrejected = "";
+                                                        if (venue.getIssysadminrejected()){
+                                                            sysadminrejected = "<a href=\"/account/reviewables.jsp\"><img src=\"/images/alert-16.png\" alt=\"Rejected\" border=\"0\"></a>";
+                                                        } else {
+                                                            if (venue.getIssysadminreviewed() && !venue.getIssysadminrejected()){
+                                                                sysadminrejected = "<img src=\"/images/ok-16.png\" alt=\"Approved\" border=\"0\">";
+                                                            }
                                                         }
+                                                        %>
+                                                        <tr>
+                                                            <td valign="top">
+                                                                <font class="tinyfont" style="font-weight: bold;"><a href="/blogger/bloggerdetails.jsp?action=deletevenue&venueid=<%=venue.getVenueid()%>"><img src="/images/delete-16.png" alt="Delete" border="0"></a> http://<%=Str.truncateString(venue.getUrl(), 40)%><%=sysadminrejected%></font>
+                                                            </td>
+                                                            <td valign="top">
+                                                                <font class="tinyfont"><%=venue.getFocus()%></font>
+                                                            </td>
+                                                        </tr>
+                                                        <%
                                                     }
-                                                    %>
-                                                    <tr>
-                                                        <td valign="top">
-                                                            <font class="tinyfont" style="font-weight: bold;"><a href="/blogger/bloggerdetails.jsp?action=deletevenue&venueid=<%=venue.getVenueid()%>"><img src="/images/delete-16.png" alt="Delete" border="0"></a> http://<%=Str.truncateString(venue.getUrl(), 40)%><%=sysadminrejected%></font>
-                                                        </td>
-                                                        <td valign="top">
-                                                            <font class="tinyfont"><%=venue.getFocus()%></font>
-                                                        </td>
-                                                    </tr>
-                                                    <%
                                                 }
-                                            }
-                                        %>
-                                        <%if (bloggerDetails.getVenuecount()<=4){%>
-                                        <tr>
-                                            <td valign="top">
-                                                <%=Textbox.getHtml("venueurl", bloggerDetails.getVenueurl(), 255, 25, "", "")%><br/>
+                                            %>
+                                            <%if (bloggerDetails.getVenuecount()<=4){%>
+                                            <tr>
+                                                <td valign="top">
+                                                    <%=Textbox.getHtml("venueurl", bloggerDetails.getVenueurl(), 255, 25, "", "")%><br/>
 
-                                            </td>
-                                            <td valign="top">
-                                                <%=Dropdown.getHtml("venuefocus", bloggerDetails.getVenuefocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top">
-                                                <font class="tinyfont" style="font-weight: bold;">URL of Venue</font>
-                                                <br/>
-                                                <font class="tinyfont">The main or home page.</font>
-                                                <br/>
-                                                <font class="tinyfont">ex: www.myblog.com</font>
-                                            </td>
-                                            <td valign="top">
-                                                <font class="tinyfont" style="font-weight: bold;">Focus</font>
-                                                <br/>
-                                                <font class="tinyfont">The primary topic covered.</font>
-                                            </td>
-                                        </tr>
-                                        <%}%>
-                                    </table>
+                                                </td>
+                                                <td valign="top">
+                                                    <%=Dropdown.getHtml("venuefocus", bloggerDetails.getVenuefocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">
+                                                    <font class="tinyfont" style="font-weight: bold;">URL of Venue</font>
+                                                    <br/>
+                                                    <font class="tinyfont">The main or home page.</font>
+                                                    <br/>
+                                                    <font class="tinyfont">ex: www.myblog.com</font>
+                                                </td>
+                                                <td valign="top">
+                                                    <font class="tinyfont" style="font-weight: bold;">Focus</font>
+                                                    <br/>
+                                                    <font class="tinyfont">The primary topic covered.</font>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                        </table>
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                         <%}%>
 
 
@@ -319,8 +314,6 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
 
                         <br/><br/><b>Check the conversation criteria</b><br/>
                         If a conversation has a sufficiently limited demographic target it's possible that conversation readers can infer demographic data about you.  For example, if somebode creates a conversation targeted only to individuals with an income of between $30,000 and $40,000 per year and you join the conversation then people can infer what your salary is.  When a conversation is displayed both the criteria and who joined in are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
-
-
                     </font>
                     <br/><br/>
                 </div>

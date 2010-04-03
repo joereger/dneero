@@ -1,18 +1,21 @@
 package com.dneero.survey.servlet;
 
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.dao.*;
-import com.dneero.util.*;
-import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.helpers.UserInputSafe;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.dao.hibernate.HibernateUtilImpressions;
 import com.dneero.helpers.VenueUtils;
-
-import java.util.*;
-
+import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.util.DateDiff;
+import com.dneero.util.GeneralException;
+import com.dneero.util.RandomString;
+import com.dneero.util.Time;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -138,32 +141,38 @@ public class ImpressionActivityObjectCollatedStorage {
                     try{
                         String referer = iao.getReferer();
                         logger.debug("START referer="+referer);
-                        if (user.getFacebookuserid()<=0){
-                            logger.debug("not facebook");
-                            if (referer!=null && !referer.equals("")){
-                                logger.debug("referer not null");
-                                Blogger blogger = Blogger.get(user.getBloggerid());
-                                if (blogger!=null && blogger.getBloggerid()>0){
-                                    logger.debug("blogger not null");
-                                    for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
-                                        Venue venue=iterator.next();
-                                        logger.debug("found venue url="+venue.getUrl());
-                                        if (venue.getIsactive() && !venue.getIssysadminrejected()){
-                                            logger.debug("venue is active and venue is not sysadminrejected");
-                                            if (referer.indexOf(VenueUtils.stringToMatchForImpressions(venue.getUrl()))>-1){
-                                                isvalidurl = true;
-                                                venueid = venue.getVenueid();
-                                                logger.debug("PASS VALID     referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
-                                                break;
-                                            } else {
-                                                logger.debug("FAIL NOT VALID referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
+                        Pl pl = Pl.get(survey.getPlid());
+                        if (pl.getIsvenuerequired()){
+                            if (user.getFacebookuserid()<=0){
+                                logger.debug("not facebook");
+                                if (referer!=null && !referer.equals("")){
+                                    logger.debug("referer not null");
+                                    Blogger blogger = Blogger.get(user.getBloggerid());
+                                    if (blogger!=null && blogger.getBloggerid()>0){
+                                        logger.debug("blogger not null");
+                                        for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                                            Venue venue=iterator.next();
+                                            logger.debug("found venue url="+venue.getUrl());
+                                            if (venue.getIsactive() && !venue.getIssysadminrejected()){
+                                                logger.debug("venue is active and venue is not sysadminrejected");
+                                                if (referer.indexOf(VenueUtils.stringToMatchForImpressions(venue.getUrl()))>-1){
+                                                    isvalidurl = true;
+                                                    venueid = venue.getVenueid();
+                                                    logger.debug("PASS VALID     referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
+                                                    break;
+                                                } else {
+                                                    logger.debug("FAIL NOT VALID referer="+referer+" venue.getUrl()="+venue.getUrl()+"");
+                                                }
                                             }
                                         }
                                     }
                                 }
+                            } else {
+                                //It's a facebook user
+                                isvalidurl = true;
                             }
                         } else {
-                            //It's a facebook user
+                            //Venue not required for this pl
                             isvalidurl = true;
                         }
                         Calendar startChecking = Time.dbstringtocalendar("2009-03-01 00:00:00");

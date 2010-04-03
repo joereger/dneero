@@ -14,6 +14,15 @@ String acl = "researcher";
 <%
     ResearcherCreateIfNeeded.createIfNecessary();
 %>
+<%
+if (!Pagez.getUserSession().getPl().getIsanybodyallowedtocreatetwitasks()){
+    if (!Pagez.getUserSession().getIsCreateTwitasks()){
+        Pagez.getUserSession().setMessage("Sorry, you don't appear to have Create Twitter Questions permission.  Please contact a system administrator if you believe this is an error.");
+        Pagez.sendRedirect("/researcher/index-twitask.jsp");
+        return;
+    }
+}
+%>
 <%@ include file="/template/auth.jsp" %>
 <%
 ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)Pagez.getBeanMgr().get("ResearcherTwitaskDetail01");

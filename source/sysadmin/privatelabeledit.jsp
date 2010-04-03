@@ -24,16 +24,15 @@ String acl = "sysadmin";
     pl.setWebhtmlheader(defaultWebHeader);
     pl.setWebhtmlfooter(defaultWebFooter);
     pl.setIshttpson(false);
-    pl.setTwitterusername("");
-    pl.setTwitterpassword("");
     pl.setHomepagetemplate("");
     pl.setPeers("0");
     pl.setIsanybodyallowedtocreatesurveys(true);
     pl.setIsanybodyallowedtocreatetwitasks(true);
     pl.setIsbloggerdemographicrequired(true);
     pl.setIsemailactivationrequired(true);
-    pl.setIsemailon(false);
-    pl.setIspaidallowed(true);
+    pl.setIsreferralprogramon(false);
+    pl.setIsresellerprogramon(false);
+    pl.setIsvenuerequired(false);
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -66,14 +65,13 @@ String acl = "sysadmin";
                 pl.setEmailhtmlfooter(Textarea.getValueFromRequest("emailhtmlfooter", "Email Html Footer", false));
                 pl.setHomepagetemplate(Textarea.getValueFromRequest("homepagetemplate", "Homepage Html Template", false));
                 pl.setIshttpson(CheckboxBoolean.getValueFromRequest("ishttpson"));
-                pl.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
-                pl.setTwitterpassword(Textbox.getValueFromRequest("twitterpassword", "Twitter Password", false, DatatypeString.DATATYPEID));
                 pl.setIsanybodyallowedtocreatesurveys(CheckboxBoolean.getValueFromRequest("isanybodyallowedtocreatesurveys"));
                 pl.setIsanybodyallowedtocreatetwitasks(CheckboxBoolean.getValueFromRequest("isanybodyallowedtocreatetwitasks"));
                 pl.setIsbloggerdemographicrequired(CheckboxBoolean.getValueFromRequest("isbloggerdemographicrequired"));
                 pl.setIsemailactivationrequired(CheckboxBoolean.getValueFromRequest("isemailactivationrequired"));
-                pl.setIsemailon(CheckboxBoolean.getValueFromRequest("isemailon"));
-                pl.setIspaidallowed(CheckboxBoolean.getValueFromRequest("ispaidallowed"));
+                pl.setIsreferralprogramon(CheckboxBoolean.getValueFromRequest("isreferralprogramon"));
+                pl.setIsresellerprogramon(CheckboxBoolean.getValueFromRequest("isresellerprogramon"));
+                pl.setIsvenuerequired(CheckboxBoolean.getValueFromRequest("isvenuerequired"));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -256,22 +254,6 @@ String acl = "sysadmin";
                 </tr>
                 <tr>
                     <td valign="top">
-                        <font class="formfieldnamefont">Twitter Username</font>
-                    </td>
-                    <td valign="top">
-                        <%=Textbox.getHtml("twitterusername", pl.getTwitterusername(), 255, 35, "", "")%>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
-                        <font class="formfieldnamefont">Twitter Password</font>
-                    </td>
-                    <td valign="top">
-                        <%=Textbox.getHtml("twitterpassword", pl.getTwitterpassword(), 255, 35, "", "")%>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
                         <font class="formfieldnamefont">Private Label Peers</font>
                         <br/><font class="tinyfont">Selecting All will make you peered with all pls.</font>
                         <br/><font class="tinyfont"><%=pl.getPeers()%></font>
@@ -331,16 +313,24 @@ String acl = "sysadmin";
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <%=CheckboxBoolean.getHtml("isemailon", pl.getIsemailon(), "", "")%>
-                        <font class="formfieldnamefont">Email Is On</font>
+                        <%=CheckboxBoolean.getHtml("isreferralprogramon", pl.getIsreferralprogramon(), "", "")%>
+                        <font class="formfieldnamefont">Referral Program On</font>
                     </td>
                 </tr>
                 <tr>
                     <td valign="top">
                     </td>
                     <td valign="top">
-                        <%=CheckboxBoolean.getHtml("ispaidallowed", pl.getIspaidallowed(), "", "")%>
-                        <font class="formfieldnamefont">Paid Incentives Allowed</font>
+                        <%=CheckboxBoolean.getHtml("isresellerprogramon", pl.getIsresellerprogramon(), "", "")%>
+                        <font class="formfieldnamefont">Reseller Program On</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isvenuerequired", pl.getIsvenuerequired(), "", "")%>
+                        <font class="formfieldnamefont">Venues Required to Post</font>
                     </td>
                 </tr>
                 <tr>
@@ -350,7 +340,7 @@ String acl = "sysadmin";
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlheadertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                         <br/>
-                        <%=Textarea.getHtml("webhtmlheader", pl.getWebhtmlheader(), 16, 80, "", "width: 100%;")%>
+                        <%=Textarea.getHtml("webhtmlheader", pl.getWebhtmlheader(), 24, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
@@ -359,7 +349,7 @@ String acl = "sysadmin";
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlfootertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                         <br/>
-                        <%=Textarea.getHtml("webhtmlfooter", pl.getWebhtmlfooter(), 16, 80, "", "width: 100%;")%>
+                        <%=Textarea.getHtml("webhtmlfooter", pl.getWebhtmlfooter(), 24, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
@@ -368,7 +358,7 @@ String acl = "sysadmin";
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=sethomepagetemplatetodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                         <br/>
-                        <%=Textarea.getHtml("homepagetemplate", pl.getHomepagetemplate(), 16, 80, "", "width: 100%;")%>
+                        <%=Textarea.getHtml("homepagetemplate", pl.getHomepagetemplate(), 24, 80, "", "width: 100%;")%>
                     </td>
                 </tr>
                 <tr>
@@ -394,12 +384,11 @@ String acl = "sysadmin";
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
+                    <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Email Html Footer</font>
                         <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlfootertodefault">Set to Default</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
-                    </td>
-                    <td valign="top">
+                        <br/>
                         <%=Textarea.getHtml("emailhtmlfooter", pl.getEmailhtmlfooter(), 8, 80, "", "width: 100%;")%>
                     </td>
                 </tr>

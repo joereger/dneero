@@ -12,6 +12,7 @@ String acl = "public";
 <%
     ResearcherIndex researcherIndex=(ResearcherIndex) Pagez.getBeanMgr().get("ResearcherIndex");
     ResearcherSurveyList researcherSurveyList=(ResearcherSurveyList) Pagez.getBeanMgr().get("ResearcherSurveyList");
+    BloggerCompletedTwitasks bloggerCompletedTwitasks = (BloggerCompletedTwitasks) Pagez.getBeanMgr().get("BloggerCompletedTwitasks");
 %>
 <%if (researcherSurveyList.getTwitasks()==null || researcherSurveyList.getTwitasks().size()==0){
     Pagez.sendRedirect("/researcher/researchertwitaskdetail_01.jsp");
@@ -46,11 +47,12 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/about-faq.jsp"><font class="mediumfont" style="color: #596697;">Frequently Asked Questions</font></a>
+                                <a href="/blogger/bloggercompletedtwitasks.jsp"><font class="mediumfont" style="color: #596697;">Answered Twitter Questions</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Get your answers here!</font>
+                                <font class="smallfont">Check the status of Twitter Questions.</font>
                             </td></tr></table>
+
 
                         </div>
                     </div>
@@ -72,6 +74,37 @@ String acl = "public";
                         %>
                         <%=Grid.render(researcherSurveyList.getTwitasks(), cols, 15, "/researcher/index-twitask.jsp", "pagetwitask")%>
                     <%}%>
+
+
+
+                    <%
+                            StringBuffer taTemplate = new StringBuffer();
+                            taTemplate.append("<div class=\"rounded\" style=\"background: #e6e6e6; padding: 10px;\">\n" +
+                    "            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +
+                    "                <tr>\n" +
+                    "                    <td valign=\"top\">\n" +
+                    "                        <font class=\"tinyfont\"><$twitanswer.twittercreatedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$></font><br/>\n" +
+                    "                        <font class=\"normalfont\" style=\"font-weight: bold; color: #0000ff;\"><a href=\"/twitask.jsp?twitaskid=<$twitask.twitaskid$>\"><$twitask.question$></a></font><br/>\n" +
+                    "                    </td>\n" +
+                    "                </tr>\n" +
+                    "            </table>\n" +
+                    "        </div>");
+                        %>
+
+                        <br/><br/><br/>
+                        <font class="largefont hdr">Twitter Questions Answered</font>
+                        <%if (bloggerCompletedTwitasks.getTwitanswers()==null || bloggerCompletedTwitasks.getTwitanswers().size()==0){%>
+                            <br/><font class="normalfont">You haven't yet responded to any Twitter Questions!</font>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                                cols.add(new GridCol("", taTemplate.toString(), false, "", "tinyfont", "background: #ffffff;", ""));
+                            %>
+                            <%=Grid.render(bloggerCompletedTwitasks.getTwitanswers(), cols, 10, "/blogger/index.jsp", "pagetwitanswers")%>
+                            <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">See All Twitter Questions You've Answered</font></a>
+                        <%}%>
+
+
 
                 </td>
 

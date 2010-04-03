@@ -107,12 +107,6 @@
         <property name="instantnotifybyemailison" type="boolean">
             <column name="instantnotifybyemailison" />
         </property>
-        <property name="instantnotifybytwitterison" type="boolean">
-            <column name="instantnotifybytwitterison" />
-        </property>
-        <property name="instantnotifytwitterusername" type="string">
-            <column name="instantnotifytwitterusername" />
-        </property>
         <property name="instantnotifyxmppison" type="boolean">
             <column name="instantnotifyxmppison" />
         </property>

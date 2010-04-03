@@ -1,22 +1,19 @@
 package com.dneero.bulkusercreation;
 
-import com.dneero.dao.Blogger;
 import com.dneero.dao.User;
 import com.dneero.dao.Usereula;
-import com.dneero.dao.Userrole;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.eula.EulaHelper;
+import com.dneero.helpers.CreateEmptyBloggerProfile;
 import com.dneero.helpers.NicknameHelper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.money.PaymentMethod;
 import com.dneero.sir.SocialInfluenceRating;
 import com.dneero.util.RandomString;
 import com.dneero.util.Str;
-import com.dneero.util.Time;
 import org.apache.commons.validator.EmailValidator;
 import org.apache.log4j.Logger;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -88,7 +85,7 @@ public class Bulkuser {
             user.setEmail(email);
             user.setPassword(password);
             user.setName(name);
-            user.setIsactivatedbyemail(false);
+            user.setIsactivatedbyemail(true);
             user.setIsqualifiedforrevshare(true);
             user.setReferredbyuserid(Pagez.getUserSession().getReferredbyOnlyUsedForSignup());
             user.setEmailactivationkey(RandomString.randomAlphanumeric(5));
@@ -105,8 +102,6 @@ public class Bulkuser {
             user.setNotifyofnewsurveyslastsent(new Date());
             user.setAllownoncriticalemails(true);
             user.setInstantnotifybyemailison(false);
-            user.setInstantnotifybytwitterison(false);
-            user.setInstantnotifytwitterusername("");
             user.setInstantnotifyxmppison(false);
             user.setInstantnotifyxmppusername("");
             user.setIsenabled(true);
@@ -143,46 +138,8 @@ public class Bulkuser {
             }
             user.getUsereulas().add(usereula);
 
-            //Blogger details
-            Blogger blogger = new Blogger();
-            blogger.setUserid(Pagez.getUserSession().getUser().getUserid());
-            blogger.setBirthdate(Time.xYearsAgoStart(Calendar.getInstance(), 25).getTime());
-            blogger.setEducationlevel("NA");
-            blogger.setEthnicity("NA");
-            blogger.setGender("NA");
-            blogger.setIncomerange("NA");
-            blogger.setMaritalstatus("NA");
-            blogger.setState("NA");
-            blogger.setCity("NA");
-            blogger.setProfession("NA");
-            blogger.setPolitics("NA");
-            blogger.setBlogfocus("NA");
-            blogger.setCountry("NA");
-
-            try{
-                blogger.save();
-            } catch (Exception ex){
-                logger.error("", ex);
-            }
-
-            try{
-                user.setBloggerid(blogger.getBloggerid());
-                user.save();
-            } catch (Exception ex){
-                logger.error("", ex);
-            }
-
-            //User role
-            Userrole role = new Userrole();
-            role.setUserid(Pagez.getUserSession().getUser().getUserid());
-            role.setRoleid(Userrole.BLOGGER);
-            user.getUserroles().add(role);
-            try{
-                role.save();
-                user.save();
-            } catch (Exception ex){
-                logger.error("", ex);
-            }
+            //Create the blogger
+            CreateEmptyBloggerProfile.create(user);
 
             //Set to this user
             this.user = user;

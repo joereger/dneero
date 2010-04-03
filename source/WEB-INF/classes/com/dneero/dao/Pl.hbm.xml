@@ -42,12 +42,6 @@
         <property name="ishttpson" type="boolean">
             <column name="ishttpson" />
         </property>
-        <property name="twitterusername" type="text">
-            <column name="twitterusername" not-null="true" />
-        </property>
-        <property name="twitterpassword" type="text">
-            <column name="twitterpassword" not-null="true" />
-        </property>
         <property name="homepagetemplate" type="text">
             <column name="homepagetemplate" not-null="true" />
         </property>
@@ -66,13 +60,15 @@
         <property name="isemailactivationrequired" type="boolean">
             <column name="isemailactivationrequired" />
         </property>
-        <property name="isemailon" type="boolean">
-            <column name="isemailon" />
+        <property name="isresellerprogramon" type="boolean">
+            <column name="isresellerprogramon" />
         </property>
-        <property name="ispaidallowed" type="boolean">
-            <column name="ispaidallowed" />
+        <property name="isreferralprogramon" type="boolean">
+            <column name="isreferralprogramon" />
         </property>
-
+        <property name="isvenuerequired" type="boolean">
+            <column name="isvenuerequired" />
+        </property>
 
     </class>
 </hibernate-mapping>

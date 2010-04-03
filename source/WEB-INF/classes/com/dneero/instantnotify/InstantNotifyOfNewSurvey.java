@@ -7,7 +7,6 @@ import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.finders.FindBloggersForSurvey;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.threadpool.ThreadPool;
-import com.dneero.twitter.TwitterNewDirectMessage;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.Str;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -82,11 +81,6 @@ public class InstantNotifyOfNewSurvey implements Runnable {
                 if (user.getInstantnotifybyemailison()){
                     //Send email
                     EmailTemplateProcessor.sendMail("Instant Notification: New Conversation for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
-                }
-                if (user.getInstantnotifybytwitterison() && !user.getInstantnotifytwitterusername().equals("")){
-                    //Send Twitter
-                    TwitterNewDirectMessage tndm = new TwitterNewDirectMessage(user.getInstantnotifytwitterusername(), instantmessage);
-                    tndm.sendDirectMessage();
                 }
                 if (user.getInstantnotifyxmppison() && !user.getInstantnotifyxmppusername().equals("")){
                     //Send XMPP

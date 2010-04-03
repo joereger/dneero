@@ -19,8 +19,6 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
         accountSettings.setNotifyofnewsurveysbyemaileveryexdays(Dropdown.getIntFromRequest("notifyofnewsurveysbyemaileveryexdays", "Notify Every X Days", true));
         accountSettings.setAllownoncriticalemails(CheckboxBoolean.getValueFromRequest("allownoncriticalemails"));
         accountSettings.setInstantnotifybyemailison(CheckboxBoolean.getValueFromRequest("instantnotifybyemailison"));
-        accountSettings.setInstantnotifybytwitterison(CheckboxBoolean.getValueFromRequest("instantnotifybytwitterison"));
-        accountSettings.setInstantnotifytwitterusername(Textbox.getValueFromRequest("instantnotifytwitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
         accountSettings.setInstantnotifyxmppison(CheckboxBoolean.getValueFromRequest("instantnotifyxmppison"));
         accountSettings.setInstantnotifyxmppusername(Textbox.getValueFromRequest("instantnotifyxmppusername", "XMPP/Jabber Username", false, DatatypeString.DATATYPEID));
         accountSettings.setPaymethodpaypaladdress(Textbox.getValueFromRequest("paymethodpaypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
@@ -123,24 +121,6 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     </td>
                 </tr>
 
-                <tr>
-                    <td valign="top">
-                        <font class="formfieldnamefont">Twitter Username (Optional)</font>
-                        <br/>
-                        <font class="tinyfont">Allows you to reply to Twitter Questions and if you like we can also instantly notify you of new conversations via Twitter. Follow us <a href="http://twitter.com/<%=Pagez.getUserSession().getPl().getTwitterusername()%>">here</a>.</font>
-                    </td>
-                    <td valign="top">
-                        <%=Textbox.getHtml("instantnotifytwitterusername", accountSettings.getInstantnotifytwitterusername(), 255, 20, "", "")%>
-                        <br/>
-                        <font class="tinyfont">Note: this should be something like "joereger" and not your email address.</font>
-                        <br/>
-                        <%=CheckboxBoolean.getHtml("instantnotifybytwitterison", accountSettings.getInstantnotifybytwitterison(), "", "")%>
-                        <font class="formfieldnamefont">Instantly notify me via Twitter</font>
-                        <br/>
-
-
-                    </td>
-                </tr>
 
                 <tr>
                     <td valign="top">

@@ -1,20 +1,12 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-import com.dneero.util.jcaptcha.CaptchaServiceSingleton;
-
-import com.dneero.util.GeneralException;
-import com.dneero.util.Num;
 import com.dneero.dao.User;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.email.LostPasswordSend;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import com.dneero.htmlui.UserSession;
-import com.octo.captcha.service.CaptchaServiceException;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import org.apache.log4j.Logger;
 
-import java.util.List;
-import java.util.Iterator;
 import java.io.Serializable;
 
 /**
@@ -27,10 +19,8 @@ public class LostPasswordChoose implements Serializable {
     //Form props
     private String password;
     private String passwordverify;
-    private String j_captcha_response;
     private String u;
     private String k;
-    private String captchaId;
 
     public LostPasswordChoose(){
 
@@ -95,17 +85,6 @@ public class LostPasswordChoose implements Serializable {
             haveErrors = true;
         }
 
-//        boolean isCaptchaCorrect = false;
-//        try {
-//            isCaptchaCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId, j_captcha_response);
-//        } catch (CaptchaServiceException e) {
-//             //should not happen, may be thrown if the id is not valid
-//             logger.error("", e);
-//        }
-//        if (!isCaptchaCorrect){
-//            Pagez.getUserSession().setMessage("You failed to correctly type the letters into the box.");
-//            haveErrors = true;
-//        }
 
         
         if (haveErrors){
@@ -152,13 +131,7 @@ public class LostPasswordChoose implements Serializable {
     }
 
 
-    public String getJ_captcha_response() {
-        return j_captcha_response;
-    }
 
-    public void setJ_captcha_response(String j_captcha_response) {
-        this.j_captcha_response = j_captcha_response;
-    }
 
     public String getU() {
         return u;
@@ -176,11 +149,5 @@ public class LostPasswordChoose implements Serializable {
         this.k=k;
     }
 
-    public String getCaptchaId() {
-        return captchaId;
-    }
 
-    public void setCaptchaId(String captchaId) {
-        this.captchaId=captchaId;
-    }
 }

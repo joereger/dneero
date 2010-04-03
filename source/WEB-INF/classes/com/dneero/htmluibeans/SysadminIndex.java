@@ -77,7 +77,7 @@ public class SysadminIndex implements Serializable {
         double freepercent = (free/rt.maxMemory()) * 100;
         double availablepercent = (available/rt.maxMemory()) * 100;
 
-        mb.append("<table cellpadding=0 cellspacing=1 border=4 width=100% >");
+        mb.append("<table cellpadding=0 cellspacing=1 border=0 width=100% >");
         mb.append("<tr>");
         mb.append("<td bgcolor=#ff0000 width="+(int)usedpercent+"% align=center>");
         mb.append("<font face=arial size=-2 color=#ffffff>");

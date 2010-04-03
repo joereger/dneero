@@ -1,28 +1,22 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Calendar;
-import java.util.List;
-import java.io.Serializable;
-
-
-import com.dneero.util.GeneralException;
-import com.dneero.util.Time;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
-import com.dneero.dao.User;
 import com.dneero.dao.Venue;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.money.PaymentMethod;
 import com.dneero.finders.UserProfileCompletenessChecker;
-import com.dneero.helpers.VenueUtils;
 import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
+import com.dneero.helpers.VenueUtils;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
+import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 
 
 /**
@@ -66,6 +60,8 @@ public class BloggerDetails implements Serializable {
 
     public void initBean(){
         UserSession userSession = Pagez.getUserSession();
+
+        //Pl requires bloggerdemographics
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(userSession.getUser().getBloggerid());
             birthdate = blogger.getBirthdate();
@@ -127,27 +123,29 @@ public class BloggerDetails implements Serializable {
                 haveValidationError = true;
             }
             if (Pagez.getUserSession().getUser().getFacebookuserid()<=0){
-                venuecount = 0;
-                if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
-                    for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
-                        Venue venue=iterator.next();
-                        if (venue.getIsactive()){
-                            venuecount = venuecount + 1;
+                if (Pagez.getUserSession().getPl().getIsvenuerequired()){
+                    venuecount = 0;
+                    if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
+                        for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                            Venue venue=iterator.next();
+                            if (venue.getIsactive()){
+                                venuecount = venuecount + 1;
+                            }
                         }
                     }
-                }
-                if (venuecount==0 && (venueurl.equals("") || venuefocus.equals(""))){
-                    vex.addValidationError("You must provide at least one posting venue url and focus.");
-                    haveValidationError = true;
-                }
-                if (VenueUtils.isVenueUrlInUse(venueurl)){
-                    vex.addValidationError("The new venue url you provided is already in use.");
-                    haveValidationError = true;
-                }
-                if(venueurl!=null && !venueurl.equals("") && venuefocus!=null && !venuefocus.equals("")){
-                    if (venuecount==5){
-                        vex.addValidationError("Sorry, you can have at most 5 posting venues.");
+                    if (venuecount==0 && (venueurl.equals("") || venuefocus.equals(""))){
+                        vex.addValidationError("You must provide at least one posting venue url and focus.");
                         haveValidationError = true;
+                    }
+                    if (VenueUtils.isVenueUrlInUse(venueurl)){
+                        vex.addValidationError("The new venue url you provided is already in use.");
+                        haveValidationError = true;
+                    }
+                    if(venueurl!=null && !venueurl.equals("") && venuefocus!=null && !venuefocus.equals("")){
+                        if (venuecount==5){
+                            vex.addValidationError("Sorry, you can have at most 5 posting venues.");
+                            haveValidationError = true;
+                        }
                     }
                 }
             }

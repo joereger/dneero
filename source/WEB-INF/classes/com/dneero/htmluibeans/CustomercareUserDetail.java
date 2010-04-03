@@ -52,7 +52,6 @@ public class CustomercareUserDetail implements Serializable {
     private String pwd="";
     private String messagetousersubject="";
     private String messagetouser="";
-    private String twitterusername = "";
 
 
 
@@ -78,7 +77,6 @@ public class CustomercareUserDetail implements Serializable {
             isenabled = user.getIsenabled();
             issysadmin = false;
             facebookuid = String.valueOf(user.getFacebookuserid());
-            twitterusername = user.getInstantnotifytwitterusername();
             for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                 Userrole userrole = iterator.next();
                 if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
@@ -86,6 +84,12 @@ public class CustomercareUserDetail implements Serializable {
                 }
                 if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
                     iscustomercare = true;
+                }
+                if (userrole.getRoleid()== Userrole.CREATESURVEYS){
+                    iscreatesurveys = true;
+                }
+                if (userrole.getRoleid()== Userrole.CREATETWITASKS){
+                    iscreatetwitasks = true;
                 }
             }
             if (user.getResearcherid()>0){
@@ -111,7 +115,6 @@ public class CustomercareUserDetail implements Serializable {
             user.setEmail(email);
             user.setReferredbyuserid(referredbyuserid);
             user.setPaymethodpaypaladdress(paypaladdress);
-            user.setInstantnotifytwitterusername(twitterusername);
             if (Num.isinteger(facebookuid)){
                 user.setFacebookuserid(Integer.parseInt(facebookuid));
             }
@@ -233,7 +236,7 @@ public class CustomercareUserDetail implements Serializable {
     public String togglecreatetwitasks() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("togglecreatetwitasks()");
-        if (toggleroleprivs(Userrole.CREATESURVEYS)){
+        if (toggleroleprivs(Userrole.CREATETWITASKS)){
             iscreatetwitasks = true;
         } else {
             iscreatetwitasks = false;
@@ -597,14 +600,6 @@ public class CustomercareUserDetail implements Serializable {
 
     public void setMessagetouser(String messagetouser) {
         this.messagetouser=messagetouser;
-    }
-
-    public String getTwitterusername() {
-        return twitterusername;
-    }
-
-    public void setTwitterusername(String twitterusername) {
-        this.twitterusername=twitterusername;
     }
 
     public boolean getIscreatesurveys() {

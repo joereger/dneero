@@ -15,7 +15,7 @@
 <%@ page import="com.dneero.scheduledjobs.SystemStats" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "User: "+((CustomercareUserDetail) Pagez.getBeanMgr().get("CustomercareUserDetail")).getEmail();
+String pagetitle = "User: "+((CustomercareUserDetail) Pagez.getBeanMgr().get("CustomercareUserDetail")).getName();
 String navtab = "customercare";
 String acl = "customercare";
 %>
@@ -43,7 +43,6 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
             customercareUserDetail.setPaypaladdress(Textbox.getValueFromRequest("paypaladdress", "PayPal Address", false, DatatypeString.DATATYPEID));
             customercareUserDetail.setReferredbyuserid(Textbox.getIntFromRequest("referredbyuserid", "Referredbyuserid", false, DatatypeString.DATATYPEID));
             customercareUserDetail.setFacebookuid(Textbox.getValueFromRequest("facebookuserid", "Facebookuserid", false, DatatypeString.DATATYPEID));
-            customercareUserDetail.setTwitterusername(Textbox.getValueFromRequest("twitterusername", "Twitter Username", false, DatatypeString.DATATYPEID));
             customercareUserDetail.save();
             Pagez.getUserSession().setMessage("User details saved");
         } catch (com.dneero.htmlui.ValidationException vex) {
@@ -222,14 +221,6 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                     </tr>
                                     <tr>
                                         <td valign="top">
-                                            <font class="formfieldnamefont">Twitter Username</font>
-                                        </td>
-                                        <td valign="top">
-                                            <%=Textbox.getHtml("twitterusername", customercareUserDetail.getTwitterusername(), 255, 35, "", "")%>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top">
                                             <font class="formfieldnamefont">PayPal Address</font>
                                         </td>
                                         <td valign="top">
@@ -379,9 +370,9 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="action" value="togglecreatesurveys">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
                                 <%if (customercareUserDetail.getIscreatesurveys()){%>
-                                    <font class="mediumfont">User can create surveys.</font>
+                                    <font class="mediumfont">User has create surveys permission.</font>
                                 <%} else {%>
-                                    <font class="mediumfont">User can not create surveys.</font>
+                                    <font class="mediumfont">User does not have create surveys permission.</font>
                                 <%}%>
                                 <br/>
                                 <font class="formfieldnamefont">Password:</font>
@@ -400,9 +391,9 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <input type="hidden" name="action" value="togglecreatetwitasks">
                                 <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
                                 <%if (customercareUserDetail.getIscreatetwitasks()){%>
-                                    <font class="mediumfont">User can create twitasks.</font>
+                                    <font class="mediumfont">User has create twitasks permission.</font>
                                 <%} else {%>
-                                    <font class="mediumfont">User can not create twitasks.</font>
+                                    <font class="mediumfont">User does not have create twitasks permission.</font>
                                 <%}%>
                                 <br/>
                                 <font class="formfieldnamefont">Password:</font>

@@ -21,8 +21,14 @@ public class TwitanswerFinderAfterAccountInfoChange {
     public static void findAndChangeUseridOfTwitanswers(User user){
         Logger logger = Logger.getLogger(TwitanswerFinderAfterAccountInfoChange.class);
         try{
-            if (user.getInstantnotifytwitterusername()!=null && !user.getInstantnotifytwitterusername().equals("")){
-                String twitterusername = user.getInstantnotifytwitterusername().trim();
+
+            //Uncomment and fix next few lines once OAuth implemented at user level
+            //What happened here is that I ripped instantnotifytwitterusername out of the system
+            //Once I do OAuth I'll have User.twitterusername to use here
+            if (1==1){return;}
+            //if (user.getInstantnotifytwitterusername()!=null && !user.getInstantnotifytwitterusername().equals("")){
+                //String twitterusername = user.getInstantnotifytwitterusername().trim();
+                String twitterusername = "";
                 List<Twitanswer> twitanswers = HibernateUtil.getSession().createCriteria(Twitanswer.class)
                                                    .add(Restrictions.eq("twitterusername", twitterusername))
                                                    .add(Restrictions.eq("userid", 0))
@@ -52,7 +58,7 @@ public class TwitanswerFinderAfterAccountInfoChange {
                     twitanswer.setUserid(user.getUserid());
                     twitanswer.save();
                 }
-            }
+            //}
         } catch (Exception ex){
             logger.error(ex);
         }

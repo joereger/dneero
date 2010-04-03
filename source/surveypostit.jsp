@@ -162,9 +162,7 @@ String acl = "public";
                             <br/>
                             <img src="/images/ok-128.png" width="128" height="128"/>
                             <br/>
-                            <font class="mediumfont">Now post your answers to your blog!</font>
-                            <br/>
-                            <font class="smallfont">(instructions to the right... the conversation must appear on your blog for 5 of 10 days from when you joined the conversation to earn your reward)</font>
+                            <font class="mediumfont">Now share your answers!</font>
                         </div>
                         <br/>
                         <% if (publicSurveyPostit.getSurvey().getIscharityonly()){ %>
@@ -179,27 +177,22 @@ String acl = "public";
                         <% } %>
 
                         <font class="smallfont">
-                        <br/><br/><b>How do I add it to my blog?</b><br/>
-                        We've made it incredibly easy.  Click the Show link next to your blogging or social networking tool (right of this screen) and follow the instructions.  It usually boils down to copying and pasting a single line of code into a blog post.  That's it!
-
-                        <br/><br/><b>What will appear on my blog?</b><br/>
-                        The conversation with your answers.  This is an opportunity to show your readers what you think.
+                        <br/><br/><b>What gets shared?</b><br/>
+                        The conversation with your answers.  This is an opportunity to show your readers, friends and family what you think and encourage them to join the conversation.
 
                         <br/><br/><b>How big is it?</b><br/>
                         Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the conversation is long it'll scroll automatically.
 
-                        <br/><br/><b>Can people who read my blog answer the questions?</b><br/>
-                        Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers and then post them to their own blog.
+                        <br/><br/><b>Can people who see my answers jump in?</b><br/>
+                        Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers.
 
                         <br/><br/><b>Will I see how others answered?</b><br/>
-                        Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who joined the conversation!
+                        Yes!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from you answered.  Then you can quickly compare your readers to all those who joined the conversation!
                         </font>
 
                         <br/><br/>
                         <% if (Pagez.getUserSession().getIsloggedin() && publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
-                            <div class="rounded" style="background: #ffffff; text-align: center;">
-                                <a href="/account/inbox.jsp"><font class="mediumfont">Need Help?</font></a>
-                            </div>
+                                <center><a href="/account/inbox.jsp"><font class="smallfont">Need Help?</font></a></center>
                         <% } %>
                     </div>
                 </td>
@@ -211,29 +204,41 @@ String acl = "public";
                         </div>
                     <%}%>
 
-                    <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                    Instructions for posting your conversation answers to various blogs and social networks.  Need <a href="/account/inbox.jsp"><font class="smallfont">help</font></a> posting to your blog?
-                    </font></div></center>
 
 
-
-                    <!-- START GIGYA -->
-                    <script src="http://cdn.gigya.com/wildfire/js/wfapiv2.js"></script>
-                    <textarea rows="1" cols="1" id="TEXTAREA_ID" style="display: none">
-                    <%=publicSurveyPostit.getHtmltoposttoblogflash()%>
-                    </textarea>
-                    <div id="divWildfirePost"></div>
-                    <script>
-                    var pconf={
-                      useFacebookMystuff: 'false',
-                      defaultContent: 'TEXTAREA_ID',
-                      UIConfig: '<config baseTheme="v2"><display showEmail="false" showBookmark="false"></display></config>'
-                    };
-                    Wildfire.initPost('551572', 'divWildfirePost', 400, 300, pconf);
-                    </script>
+                    <center>
+                    <font class="mediumfont">Choose Your Social Network</font>
+                    <br/>
+                    <font class="smallfont">Or copy Embed Code and paste into your social network.</font>
                     <br/><br/>
-                    <!-- END GIGYA -->
+                    </center>
 
+                    <center>
+                    <div style="text-align:left; width: 400px;">
+                        <!-- START GIGYA -->
+                        <script src="http://cdn.gigya.com/wildfire/js/wfapiv2.js"></script>
+                        <textarea rows="1" cols="1" id="TEXTAREA_ID" style="display: none">
+                        <%=publicSurveyPostit.getHtmltoposttoblogflash()%>
+                        </textarea>
+                        <div id="divWildfirePost"></div>
+                        <script>
+                        var pconf={
+                          useFacebookMystuff: 'false',
+                          defaultContent: 'TEXTAREA_ID',
+                          UIConfig: '<config baseTheme="v2"><display showEmail="false" showBookmark="false"></display></config>'
+                        };
+                        Wildfire.initPost('551572', 'divWildfirePost', 400, 300, pconf);
+                        </script>
+                        <!-- END GIGYA -->
+                        <br/>
+                        <a href="#" id="togglepagelink"><font class="tinyfont">Other Embed Codes</font></a>
+                    </div>
+                    </center>
+
+
+
+                    <div id="togglepage">
+                    <!-- Start hidable stuff -->
 
 
                     <br/><br/>
@@ -589,6 +594,16 @@ String acl = "public";
                             <li>Click to publish and you're done!</li>
                         </ol>
                     </font>
+
+                    <!-- End hidable stuff -->
+                    </div>
+
+                    <script>
+                        $("#togglepagelink").click(function() {
+                            $("#togglepage").toggle();
+                        });
+                        $("#togglepage").hide();
+                    </script>
 
                 </td>
             </tr>

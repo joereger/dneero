@@ -1,12 +1,11 @@
-<%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.PublicBlogPost" %>
-<%@ page import="com.dneero.util.Time" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="com.dneero.util.Util" %>
-<%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.util.RandomString" %>
+<%@ page import="com.dneero.util.Time" %>
+<%@ page import="com.dneero.util.Util" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptcha" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
+<%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -20,19 +19,20 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("addcomment")) {
         try {
-            publicBlogPost.setName(Textbox.getValueFromRequest("name", "Name", false, DatatypeString.DATATYPEID));
-            publicBlogPost.setUrl(Textbox.getValueFromRequest("url", "Url", false, DatatypeString.DATATYPEID));
-            publicBlogPost.setComment(Textarea.getValueFromRequest("comment", "Comment", true));
-            publicBlogPost.setJ_captcha_response(Textbox.getValueFromRequest("j_captcha_response", "Squiggly Letters", false, DatatypeString.DATATYPEID));
-            publicBlogPost.setCaptchaId(request.getParameter("captchaId"));
-            publicBlogPost.postComment();
+            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+            ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
+            if (capResp.isValid()) {
+                publicBlogPost.setName(Textbox.getValueFromRequest("name", "Name", false, DatatypeString.DATATYPEID));
+                publicBlogPost.setUrl(Textbox.getValueFromRequest("url", "Url", false, DatatypeString.DATATYPEID));
+                publicBlogPost.setComment(Textarea.getValueFromRequest("comment", "Comment", true));
+                publicBlogPost.postComment();
+            } else {
+                Pagez.getUserSession().setMessage("Sorry, you need to type the squiggly letters properly.");
+            }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
     }
-%>
-<%
-    String captchaId=RandomString.randomAlphanumeric(10);
 %>
 <%
 if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost.getBlogpost().getBlogpostid()==0){
@@ -74,7 +74,6 @@ if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost
             <input type="hidden" name="dpage" value="/blogpost.jsp">
             <input type="hidden" name="action" value="addcomment">
             <input type="hidden" name="blogpostid" value="<%=publicBlogPost.getBlogpost().getBlogpostid()%>">
-            <input type="hidden" name="captchaId" value="<%=captchaId%>">
             <br/><br/>
             <font class="formfieldnamefont">Post a comment:</font>
             <br/>
@@ -111,21 +110,11 @@ if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost
                         <font class="formfieldnamefont">Prove You're a Human</font>
                     </td>
                     <td valign="top">
-                        <div style="border: 1px solid #ccc; padding: 3px;">
-                        <%=Textbox.getHtml("j_captcha_response", publicBlogPost.getJ_captcha_response(), 255, 35, "", "")%>
-                        <br/>
-                        <font class="tinyfont">(type the squiggly letters that appear below)</font>
-                        <br/>
-                        <table cellpadding="0" cellspacing="0" border="0">
-                            <tr>
-                                <td><img src="/images/clear.gif" alt="" width="1" height="100"></img></td>
-                                <td style="background: url(/images/loading-captcha.gif);">
-                                    <img src="/images/clear.gif" alt="" width="200" height="1"></img><br/>
-                                    <img src="/jcaptcha?captchaId=<%=captchaId%>" alt=""/>
-                                </td>
-                            </tr>
-                        </table>
-                        </div>
+                        <%
+                        ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+                        String captchaScript = captcha.createRecaptchaHtml(request.getParameter("error"), null);
+                        out.print(captchaScript);
+                        %>
                     </td>
                 </tr>
 

@@ -11,7 +11,7 @@
 <%@ page import="com.dneero.htmluibeans.StaticVariables" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "User: "+((CustomercareUserDetailExtended) Pagez.getBeanMgr().get("CustomercareUserDetailExtended")).getEmail();
+String pagetitle = "User: "+((CustomercareUserDetailExtended) Pagez.getBeanMgr().get("CustomercareUserDetailExtended")).getName();
 String navtab = "customercare";
 String acl = "customercare";
 %>
