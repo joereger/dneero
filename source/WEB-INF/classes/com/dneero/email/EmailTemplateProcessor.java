@@ -2,6 +2,7 @@ package com.dneero.email;
 
 import com.dneero.dao.Pl;
 import com.dneero.dao.User;
+import com.dneero.privatelabel.PlTemplate;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.WebAppRootDir;
 import com.dneero.util.Io;
@@ -51,13 +52,11 @@ public class EmailTemplateProcessor {
         //Use Pl email headers/footers
         if (userTo!=null && userTo.getPlid()>0){
             Pl pl = Pl.get(userTo.getPlid());
-            htmlEmailHeader = pl.getEmailhtmlheader();
-            htmlEmailFooter = pl.getEmailhtmlfooter();
-        }
-        //Default to system values if *both* are blank
-        if (htmlEmailHeader.equals("") && htmlEmailFooter.equals("")){
-            htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();
-            htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailfooter.html").toString();
+            htmlEmailHeader = PlTemplate.getEmailhtmlheader(pl);
+            htmlEmailFooter = PlTemplate.getEmailhtmlfooter(pl);
+        } else {
+            htmlEmailHeader = PlTemplate.getEmailhtmlheader(null);
+            htmlEmailFooter = PlTemplate.getEmailhtmlfooter(null);
         }
         //Process templates to create the message
         String htmlMessage = processTemplate(htmlTemplate, userTo, args);

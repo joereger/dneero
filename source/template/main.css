@@ -1,0 +1,5 @@
+Note that this file will not be displayed to web.
+
+com.dneero.privatelabel.MainCss takes over requests for /template/main.css
+
+It pulls from filesystem or database using com.dneero.privatelabel.PlTemplate.getMaincss()

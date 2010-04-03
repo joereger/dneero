@@ -1,21 +1,19 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
-
-import com.dneero.util.Io;
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.email.EmailTemplateProcessor;
-import com.dneero.email.EmailSendThread;
+import com.dneero.dao.Massemail;
 import com.dneero.email.EmailSend;
-import com.dneero.scheduledjobs.SendMassemails;
+import com.dneero.email.EmailSendThread;
+import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.scheduledjobs.SendMassemails;
+import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.util.Io;
+import org.apache.commons.mail.HtmlEmail;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import org.apache.log4j.Logger;
-import org.apache.commons.mail.HtmlEmail;
 
 /**
  * User: Joe Reger Jr
@@ -86,8 +84,8 @@ public class SysadminMassemailDetail implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         if (massemail!=null){
             String[] args = SendMassemails.getMassemailArgsFromUser(Pagez.getUserSession().getUser());
-            String htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailheader.html").toString();
-            String htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + "emailfooter.html").toString();
+            String htmlEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "template" + java.io.File.separator + "default" + java.io.File.separator + "emailheader.html").toString();
+            String htmlEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "template" + java.io.File.separator + "default" + java.io.File.separator + "emailfooter.html").toString();
             String htmlMessage = EmailTemplateProcessor.processTemplate(massemail.getHtmlmessage(), Pagez.getUserSession().getUser(), args);
             String txtMessage = EmailTemplateProcessor.processTemplate(massemail.getTxtmessage(), Pagez.getUserSession().getUser(), args);
             subjectPreview = EmailTemplateProcessor.processTemplate(massemail.getSubject(), Pagez.getUserSession().getUser(), args);

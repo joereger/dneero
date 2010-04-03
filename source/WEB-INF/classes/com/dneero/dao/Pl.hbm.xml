@@ -27,6 +27,12 @@
         <property name="customdomain3" type="string">
             <column name="customdomain3" not-null="true" />
         </property>
+        <property name="templatedirectory" type="string">
+            <column name="templatedirectory" not-null="true" />
+        </property>
+        <property name="maincss" type="text">
+            <column name="maincss" not-null="true" />
+        </property>
         <property name="webhtmlheader" type="text">
             <column name="webhtmlheader" not-null="true" />
         </property>

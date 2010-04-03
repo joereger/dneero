@@ -18,22 +18,25 @@ public class Io {
          public static StringBuffer textFileRead(String filename){
             StringBuffer sb = new StringBuffer();
             Logger logger = Logger.getLogger(Io.class);
-            File file = new File(filename);
-            char[] chars = new char[(int) file.length()];
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                for(int i = 0; i < 10000; i++) {
-                    reader.read(chars);
+            try{
+                File file = new File(filename);
+                char[] chars = new char[(int) file.length()];
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    for(int i = 0; i < 10000; i++) {
+                        reader.read(chars);
+                    }
+                    reader.close();
+                } catch (FileNotFoundException e) {
+                    logger.error("", e);
+                } catch (IOException e) {
+                    logger.error("", e);
                 }
-                reader.close();
-            } catch (FileNotFoundException e) {
-                logger.error("", e);
-            } catch (IOException e) {
-                logger.error("", e);
+
+                sb.append(new String(chars));
+            } catch (Exception ex){
+                logger.error("", ex);
             }
-
-            sb.append(new String(chars));
-
             return sb;
         }
 

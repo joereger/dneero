@@ -309,6 +309,8 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setIsreferralprogramon(false);
             pl.setIsresellerprogramon(false);
             pl.setIsvenuerequired(false);
+            pl.setMaincss("");
+            pl.setTemplatedirectory("");
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }

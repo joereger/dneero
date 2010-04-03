@@ -12,17 +12,11 @@ String navtab = "sysadmin";
 String acl = "sysadmin";
 %>
 <%@ include file="/template/auth.jsp" %>
-<%
-    String defaultWebHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/header-dneero.vm").toString();
-    String defaultWebFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/footer-dneero.vm").toString();
-    String defaultEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"emailtemplates/emailheader.html").toString();
-    String defaultEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"emailtemplates/emailfooter.html").toString();
-    String defaultHomepagetemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"index.vm").toString();
-%>
+
 <%
     Pl pl = new Pl();
-    pl.setWebhtmlheader(defaultWebHeader);
-    pl.setWebhtmlfooter(defaultWebFooter);
+    pl.setWebhtmlheader("");
+    pl.setWebhtmlfooter("");
     pl.setIshttpson(false);
     pl.setHomepagetemplate("");
     pl.setPeers("0");
@@ -33,9 +27,23 @@ String acl = "sysadmin";
     pl.setIsreferralprogramon(false);
     pl.setIsresellerprogramon(false);
     pl.setIsvenuerequired(false);
+    pl.setMaincss("");
+    pl.setTemplatedirectory("");
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
+%>
+<%
+    String templatedirectory = "default";
+    if (!pl.getTemplatedirectory().equals("")){
+        templatedirectory = pl.getTemplatedirectory();
+    }
+    String defaultWebHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/"+templatedirectory+"/webhtmlheader.vm").toString();
+    String defaultWebFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/"+templatedirectory+"/webhtmlfooter.vm").toString();
+    String defaultEmailHeader = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/"+templatedirectory+"/emailheader.html").toString();
+    String defaultEmailFooter = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/"+templatedirectory+"/emailfooter.html").toString();
+    String defaultHomepagetemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/"+templatedirectory+"/homepagetemplate.vm").toString();
+    String defaultMaincss = Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"template/"+templatedirectory+"/main.css").toString();
 %>
 <%
     if (request.getParameter("action") != null) {
@@ -59,11 +67,13 @@ String acl = "sysadmin";
                 pl.setCustomdomain2(Textbox.getValueFromRequest("customdomain2", "Customdomain2", false, DatatypeString.DATATYPEID).toLowerCase());
                 pl.setCustomdomain3(Textbox.getValueFromRequest("customdomain3", "Customdomain3", false, DatatypeString.DATATYPEID).toLowerCase());
                 pl.setSubdomain(Textbox.getValueFromRequest("subdomain", "subdomain", false, DatatypeString.DATATYPEID).toLowerCase());
+                pl.setTemplatedirectory(Textbox.getValueFromRequest("templatedirectory", "Template Directory", false, DatatypeString.DATATYPEID));
                 pl.setWebhtmlheader(Textarea.getValueFromRequest("webhtmlheader", "Web Html Header", false));
                 pl.setWebhtmlfooter(Textarea.getValueFromRequest("webhtmlfooter", "Web Html Footer", false));
                 pl.setEmailhtmlheader(Textarea.getValueFromRequest("emailhtmlheader", "Email Html Header", false));
                 pl.setEmailhtmlfooter(Textarea.getValueFromRequest("emailhtmlfooter", "Email Html Footer", false));
                 pl.setHomepagetemplate(Textarea.getValueFromRequest("homepagetemplate", "Homepage Html Template", false));
+                pl.setMaincss(Textarea.getValueFromRequest("maincss", "Main CSS Template", false));
                 pl.setIshttpson(CheckboxBoolean.getValueFromRequest("ishttpson"));
                 pl.setIsanybodyallowedtocreatesurveys(CheckboxBoolean.getValueFromRequest("isanybodyallowedtocreatesurveys"));
                 pl.setIsanybodyallowedtocreatetwitasks(CheckboxBoolean.getValueFromRequest("isanybodyallowedtocreatetwitasks"));
@@ -131,6 +141,25 @@ String acl = "sysadmin";
         try {
             if (request.getParameter("action").equals("setemailhtmlheadertodefault")){
                 pl.setEmailhtmlheader(defaultEmailHeader);
+                //Validate data
+                if (PlVerification.isValid(pl)){
+                    pl.save();
+                    CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
+                    Pagez.getUserSession().setMessage("Done!");
+                } else {
+                    Pagez.getUserSession().setMessage("Pl Fails Validation!");
+                }
+            }
+        } catch (Exception vex) {
+            Pagez.getUserSession().setMessage(vex.toString());
+        }
+    }
+%>
+<%
+    if (request.getParameter("action") != null) {
+        try {
+            if (request.getParameter("action").equals("setmaincsstodefault")){
+                pl.setMaincss(defaultMaincss);
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -334,11 +363,29 @@ String acl = "sysadmin";
                     </td>
                 </tr>
                 <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Template Directory</font>
+                        <br/><font class="tinyfont">Setting to "default" or "myco" will use hard-coded files in that /template/myco/ directory and then override with boxes below.</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("templatedirectory", pl.getTemplatedirectory(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" colspan="2">
+                        <font class="formfieldnamefont">Main CSS</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setmaincsstodefault">Reset</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default or files in templatedirectory)</font>
+                        <br/>
+                        <%=Textarea.getHtml("maincss", pl.getMaincss(), 24, 80, "", "width: 100%;")%>
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Web Html Header</font>
                         <br/><font class="tinyfont">Uses <a href="http://velocity.apache.org/engine/releases/velocity-1.5/vtl-reference-guide.html">VTL</a></font>
-                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlheadertodefault">Set to Default</a></font>
-                        <br/><font class="tinyfont">(Set to blank to always use system default)</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlheadertodefault">Reset</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default or files in templatedirectory)</font>
                         <br/>
                         <%=Textarea.getHtml("webhtmlheader", pl.getWebhtmlheader(), 24, 80, "", "width: 100%;")%>
                     </td>
@@ -346,8 +393,8 @@ String acl = "sysadmin";
                 <tr>
                     <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Web Html Footer</font>
-                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlfootertodefault">Set to Default</a></font>
-                        <br/><font class="tinyfont">(Set to blank to always use system default)</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setwebhtmlfootertodefault">Reset</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default or files in templatedirectory)</font>
                         <br/>
                         <%=Textarea.getHtml("webhtmlfooter", pl.getWebhtmlfooter(), 24, 80, "", "width: 100%;")%>
                     </td>
@@ -355,8 +402,8 @@ String acl = "sysadmin";
                 <tr>
                     <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Homepage Html Template</font>
-                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=sethomepagetemplatetodefault">Set to Default</a></font>
-                        <br/><font class="tinyfont">(Set to blank to always use system default)</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=sethomepagetemplatetodefault">Reset</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default or files in templatedirectory)</font>
                         <br/>
                         <%=Textarea.getHtml("homepagetemplate", pl.getHomepagetemplate(), 24, 80, "", "width: 100%;")%>
                     </td>
@@ -364,7 +411,7 @@ String acl = "sysadmin";
                 <tr>
                     <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Email Html Header</font>
-                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlheadertodefault">Set to Default</a></font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlheadertodefault">Reset</a></font>
                         <br/><font class="tinyfont">(Set to blank to always use system default)</font>
                         <br/><font class="tinyfont">
                             totalConvoJoins,
@@ -386,8 +433,8 @@ String acl = "sysadmin";
                 <tr>
                     <td valign="top" colspan="2">
                         <font class="formfieldnamefont">Email Html Footer</font>
-                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlfootertodefault">Set to Default</a></font>
-                        <br/><font class="tinyfont">(Set to blank to always use system default)</font>
+                        <br/><font class="tinyfont"><a href="/sysadmin/privatelabeledit.jsp?plid=<%=pl.getPlid()%>&action=setemailhtmlfootertodefault">Reset</a></font>
+                        <br/><font class="tinyfont">(Set to blank to always use system default or files in templatedirectory)</font>
                         <br/>
                         <%=Textarea.getHtml("emailhtmlfooter", pl.getEmailhtmlfooter(), 8, 80, "", "width: 100%;")%>
                     </td>

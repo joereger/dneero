@@ -22,10 +22,12 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private String customdomain1;
     private String customdomain2;
     private String customdomain3;
+    private String templatedirectory;
     private String webhtmlheader;
     private String webhtmlfooter;
     private String emailhtmlheader;
     private String emailhtmlfooter;
+    private String maincss;
     private boolean ishttpson;
     private String homepagetemplate;
     private String peers;
@@ -36,6 +38,7 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private boolean isresellerprogramon=false;
     private boolean isreferralprogramon=false;
     private boolean isvenuerequired=false;
+
   
 
 
@@ -266,5 +269,21 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setIsvenuerequired(boolean isvenuerequired) {
         this.isvenuerequired = isvenuerequired;
+    }
+
+    public String getTemplatedirectory() {
+        return templatedirectory;
+    }
+
+    public void setTemplatedirectory(String templatedirectory) {
+        this.templatedirectory = templatedirectory;
+    }
+
+    public String getMaincss() {
+        return maincss;
+    }
+
+    public void setMaincss(String maincss) {
+        this.maincss = maincss;
     }
 }

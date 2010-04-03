@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    #if ($pagetitle!="")
+        <title>dNeero: $pagetitle</title>
+    #else
+        <title>dNeero: Social Network Currency</title>
+    #end
+    <link rel="alternate" type="application/rss+xml" title="dNeero Conversations Blog" href="http://www.dneero.com/rss.xml" />
+    <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated social network users. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
+    <meta name="keywords" content="conversation,market research,survey,blog,web 2.0,startup,money,market intelligence" />
+    <link rel="stylesheet" type="text/css" href="/template/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/SexyButtons/sexybuttons.css" />
+    <link rel="stylesheet" type="text/css" href="/js/jquery-ui/css/smoothness/jquery-ui-1.8rc3.custom.css" />
+    <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui/jquery-ui-1.8rc3.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.corner.js"></script>
+</head>
+<body LEFTMARGIN="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0"><center><div class="header">
+<table width="985" cellspacing="0" border="0" cellpadding="0">
+    <tr>
+        <td valign="top" width="20">
+            <img src="/images/clear.gif" width="20" height="1" align="left"/>
+        </td>
+        <td valign="top">
+            <div style="text-align:left;">
+            <img src="/images/clear.gif" width="1" height="30"/><br/>
+            <a href="/">Political</a>
+            </div>
+        </td>
+        <td valign="top" width="143">
+            #if ($userSession.isloggedin)
+                <a href="/blogger/index.jsp">
+            #else
+                <a href="/publicsurveylist.jsp">
+            #end
+            #if ($navtab  == "bloggers")
+                <img src="/images/hp-version6/toptab_enter_off.gif" width="143" height="63" border="0"/>
+            #else
+                <img src="/images/hp-version6/toptab_enter_off.gif" width="143" height="63" border="0"/>
+            #end
+            </a>
+        </td>
+        <td valign="top" width="143">
+            #if ($userSession.isloggedin)
+                <a href="/researcher/index.jsp">
+            #else
+                <a href="/researcher.jsp">
+            #end
+            #if ($navtab  == "researchers")
+                <img src="/images/hp-version6/toptab_create_off.gif" width="143" height="63" border="0"/>
+            #else
+                <img src="/images/hp-version6/toptab_create_off.gif" width="143" height="63" border="0"/>
+            #end
+            </a>
+        </td>
+        <td valign="top" width="143">
+            #if ($userSession.isloggedin)
+                <a href="/researcher/index-twitask.jsp">
+            #else
+                <a href="/ask.jsp">
+            #end
+            #if ($navtab  == "researchers")
+                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
+            #else
+                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
+            #end
+            </a>
+        </td>
+        <td valign="top" width="20">
+            <img src="/images/clear.gif" width="20" height="1"/>
+        </td>
+    </tr>
+</table></div>
+<div class="navbar">
+    <img src="/images/clear.gif" width="1" height="1" border="0"/>
+    <div class="navbarinner">
+    #if ($navtab == "home")
+##        <a href="/publicsurveylist.jsp">Active Conversations</a>
+##        <a href="/publicoldsurveylist.jsp">Old Conversations</a>
+##        <a href="/blog.jsp">The dNeero Blog</a>
+##        <a href="/charity.jsp">Charity</a>
+##        <a href="/reseller.jsp">Reseller Program</a>
+##        <a href="/superpanels.jsp">SuperPanels</a>
+        #if (!$userSession.isloggedin)
+##            <a href="/registration.jsp">Sign Up</a>
+        #end
+        #if (!$userSession.isloggedin)
+##            <a href="/login.jsp">Log In</a>
+        #end
+    #end
+    #if ($navtab == "bloggers")
+        #if ($userSession.isloggedin && $userSession.user.bloggerid>0)
+##            <a href="/publicsurveylist.jsp">Find Conversations</a>
+##            <a href="/superpanels.jsp">SuperPanels</a>
+##            <a href="/blogger/bloggerearningsrevshare.jsp">Referral Program</a>
+##            <a href="/blogger/bloggerdetails.jsp">Profile</a>
+        #end
+    #end
+    #if ($navtab == "researchers")
+        #if ($userSession.isloggedin && $userSession.user.researcherid>0)
+##            <a href="/researcher/index.jsp">Main</a>
+##            <a href="/researcher/panels.jsp">Panels</a>
+##            <a href="/researcher/rank-list.jsp">Rankings</a>
+##            <a href="/researcher/reviewables.jsp">Reviewables</a>
+##            <a href="/researcher/researcherdetails.jsp">Igniter Details</a>
+##            <a href="/researcher/researcherbilling.jsp">Billing</a>
+        #end
+##        <a href="/researcher.jsp">Igniter Basics</a>
+    #end
+    #if ($navtab == "youraccount")
+##        #if ($userSession.isloggedin)
+##            #if ($userSession.isloggedin && $userSession.user.currentbalance!=0.0)
+##            <a href="/account/accountbalance.jsp">Account Balance</a>
+##            #end
+##            <a href="/account/accountsettings.jsp">Account Settings</a>
+##            <a href="/account/awards.jsp">Awards</a>
+##            <a href="/account/changepassword.jsp">Change Password</a>
+##            <a href="/account/reviewables.jsp">Flagged Content</a>
+##            <a href="/account/reseller.jsp">Reseller Program</a>
+##            <a href="/account/inbox.jsp">Inbox</a>
+##        #end
+    #end
+    #if ($navtab == "customercare")
+        #if ($userSession.isloggedin && $userSession.isCustomerCare)
+            <a href="/customercare/sysadminsupportissueslist.jsp">Support Issues</a>
+            <a href="/customercare/reviewables.jsp">Reviewable Items</a>
+            <a href="/customercare/userlist.jsp">Users</a>
+            <a href="/customercare/sysadminsurveylist.jsp">Conversations</a>
+            <a href="/customercare/charityreport.jsp">Charity</a>
+            <a href="/customercare/couponlist.jsp">Coupons</a>
+            <a href="/customercare/transactions.jsp">Real-World Transactions</a>
+            <a href="/customercare/balance.jsp">Balance Updates</a>
+            <a href="/customercare/iptrack.jsp">Ip Track</a>
+            <a href="/customercare/panels.jsp">SuperPanels</a>
+        #end
+    #end
+    #if ($navtab == "sysadmin")
+        #if ($userSession.isloggedin && $userSession.isSysadmin)
+            <a href="/sysadmin/errorlist.jsp">System Log</a>
+            <a href="/sysadmin/errorlist-logging.jsp">LogConfig</a>
+            <a href="/sysadmin/editeula.jsp">Eula</a>
+            <a href="/sysadmin/rateblogpost.jsp">Rate</a>
+            <a href="/sysadmin/manuallyrunscheduledtask.jsp">Scheds</a>
+            <a href="/sysadmin/systemprops.jsp">SysProps</a>
+            <a href="/sysadmin/instanceprops.jsp">InsProps</a>
+            <a href="/sysadmin/hibernatecache.jsp">Cache</a>
+            <a href="/sysadmin/massemaillist.jsp">Email</a>
+            <a href="/sysadmin/demographicreport.jsp">Demogrs</a>
+            <a href="/sysadmin/pageperformance.jsp">Perf</a>
+            <a href="/sysadmin/blogpost.jsp">Blog</a>
+            <a href="/sysadmin/privatelabels.jsp">PrivateLabels</a>
+            <a href="/sysadmin/bulkuser.jsp">Bulkuser</a>
+            <a href="/sysadmin/impressionsbyday.jsp">ImpByDay</a>
+            <a href="/sysadmin/usagereport.jsp">Usage</a>
+        #end
+    #end
+</div></div>
+<div class="subnav">
+    <img src="/images/clear.gif" width="1" height="1" border="0"/>
+    <div class="subnavinner">
+    #if (!$userSession.isloggedin)
+        <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/registration.jsp">Sign Up</a></font>
+    #end
+    #if ($userSession.isloggedin)
+        <font class="subnavfont">Hi, $userSession.user.nickname | <a href="/account/index.jsp">Account</a> | <a href="/account/inbox.jsp">Help</a>
+        #if ($userSession.isCustomerCare)
+            | <a href="/customercare/index.jsp">Customer Care</a>
+        #end
+        #if ($userSession.isSysadmin)
+            | <a href="/sysadmin/index.jsp">SysAdmin</a>
+        #end
+        | <a href="/login.jsp?action=logout">Log Out</a></font>
+    #end
+</div></div>
+
+
+<div class="pagetitle">
+    #if ($pagetitle!="")
+        <font class="pagetitlefont">$pagetitle</font>
+        <br/>
+    #end
+    #if ($userSession.message!="")
+        <br/>
+        <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="formfieldnamefont">$userSession.message</font></div></center>
+        <br/>
+    #end
+</div>
+
+<div class="mainbody">
+<!-- Start Main Body Content -->
+
+
+
+

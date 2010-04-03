@@ -74,15 +74,8 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
 
     <%
     if (1==1){
-        String templateHomepageName= "";
-        String templateHomepage= "";
-        if (Pagez.getUserSession().getPl()!=null && Pagez.getUserSession().getPl().getHomepagetemplate()!=null && Pagez.getUserSession().getPl().getHomepagetemplate().length()>0){
-            templateHomepage= Pagez.getUserSession().getPl().getHomepagetemplate();
-            templateHomepageName= "index-plid-"+Pagez.getUserSession().getPl().getPlid();
-        } else {
-            templateHomepage= Io.textFileRead(WebAppRootDir.getWebAppRootPath()+"index.vm").toString();
-            templateHomepageName= "index-plid-default";
-        }
+        String templateHomepageName = "index-plid-"+Pagez.getUserSession().getPl().getPlid();
+        String templateHomepage = PlTemplate.getHomepagetemplate(Pagez.getUserSession().getPl());
         VelocityContext velocityContext = new VelocityContext();
         velocityContext.put("pagetitle", pagetitle);
         velocityContext.put("navtab", navtab);
