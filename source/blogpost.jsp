@@ -19,7 +19,7 @@ PublicBlogPost publicBlogPost = (PublicBlogPost) Pagez.getBeanMgr().get("PublicB
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("addcomment")) {
         try {
-            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6Le0RgwAAAAAAG5hYkFqs3xMIAIHIwreTJsPkFGg", "6Le0RgwAAAAAACMo7qCUbKxrPGpB6pgrITwOshzd", false);
             ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
             if (capResp.isValid()) {
                 publicBlogPost.setName(Textbox.getValueFromRequest("name", "Name", false, DatatypeString.DATATYPEID));
@@ -111,7 +111,7 @@ if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost
                     </td>
                     <td valign="top">
                         <%
-                        ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+                        ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6Le0RgwAAAAAAG5hYkFqs3xMIAIHIwreTJsPkFGg", "6Le0RgwAAAAAACMo7qCUbKxrPGpB6pgrITwOshzd", false);
                         String captchaScript = captcha.createRecaptchaHtml(request.getParameter("error"), null);
                         out.print(captchaScript);
                         %>

@@ -20,7 +20,7 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("send")) {
         try {
-            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6Le0RgwAAAAAAG5hYkFqs3xMIAIHIwreTJsPkFGg", "6Le0RgwAAAAAACMo7qCUbKxrPGpB6pgrITwOshzd", false);
             ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
             if (capResp.isValid()) {
                 emailActivationResend.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
@@ -60,7 +60,7 @@ EmailActivationResend emailActivationResend = (EmailActivationResend)Pagez.getBe
                     <td valign="top">
                         <br/><br/>
                         <%
-                        ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+                        ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6Le0RgwAAAAAAG5hYkFqs3xMIAIHIwreTJsPkFGg", "6Le0RgwAAAAAACMo7qCUbKxrPGpB6pgrITwOshzd", false);
                         String captchaScript = captcha.createRecaptchaHtml(request.getParameter("error"), null);
                         out.print(captchaScript);
                         %>

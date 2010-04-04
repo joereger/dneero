@@ -20,7 +20,7 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("choose")) {
         try {
-            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+            ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6Le0RgwAAAAAAG5hYkFqs3xMIAIHIwreTJsPkFGg", "6Le0RgwAAAAAACMo7qCUbKxrPGpB6pgrITwOshzd", false);
             ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
             if (capResp.isValid()) {
                 lostPasswordChoose.setPassword(TextboxSecret.getValueFromRequest("password", "Password", true, DatatypeString.DATATYPEID));
@@ -73,7 +73,7 @@ LostPasswordChoose lostPasswordChoose=(LostPasswordChoose) Pagez.getBeanMgr().ge
                 </td>
                 <td valign="top">
                     <%
-                    ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6LeIqAQAAAAAALFIlYeWpO4tV_mGwfssSd7nAiul", "6LeIqAQAAAAAAE9cMX9WGmGKEgQfXl-8PAPYmJyn", false);
+                    ReCaptcha captcha = ReCaptchaFactory.newReCaptcha("6Le0RgwAAAAAAG5hYkFqs3xMIAIHIwreTJsPkFGg", "6Le0RgwAAAAAACMo7qCUbKxrPGpB6pgrITwOshzd", false);
                     String captchaScript = captcha.createRecaptchaHtml(request.getParameter("error"), null);
                     out.print(captchaScript);
                     %>
