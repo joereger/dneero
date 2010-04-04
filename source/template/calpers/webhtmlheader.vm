@@ -10,7 +10,7 @@
     <link rel="alternate" type="application/rss+xml" title="dNeero Conversations Blog" href="http://www.dneero.com/rss.xml" />
     <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated social network users. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
     <meta name="keywords" content="conversation,market research,survey,blog,web 2.0,startup,money,market intelligence" />
-    <link rel="stylesheet" type="text/css" href="/template/main.css" />
+    <link rel="stylesheet" type="text/css" href="/template/calpers/main.css" />
     <link rel="stylesheet" type="text/css" href="/css/SexyButtons/sexybuttons.css" />
     <link rel="stylesheet" type="text/css" href="/js/jquery-ui/css/smoothness/jquery-ui-1.8rc3.custom.css" />
     <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
@@ -26,7 +26,7 @@
         <td valign="top">
             <div style="text-align:left;">
             <img src="/images/clear.gif" width="1" height="30"/><br/>
-            <a href="/">Calpers</a>
+            <a href="/"><img src="/template/calpers/images/calpers-logo.gif" width="95" height="99" border="0"/></a>
             </div>
         </td>
         <td valign="top" width="143">
@@ -42,32 +42,32 @@
             #end
             </a>
         </td>
-        <td valign="top" width="143">
-            #if ($userSession.isloggedin)
-                <a href="/researcher/index.jsp">
-            #else
-                <a href="/researcher.jsp">
-            #end
-            #if ($navtab  == "researchers")
-                <img src="/images/hp-version6/toptab_create_off.gif" width="143" height="63" border="0"/>
-            #else
-                <img src="/images/hp-version6/toptab_create_off.gif" width="143" height="63" border="0"/>
-            #end
-            </a>
-        </td>
-        <td valign="top" width="143">
-            #if ($userSession.isloggedin)
-                <a href="/researcher/index-twitask.jsp">
-            #else
-                <a href="/ask.jsp">
-            #end
-            #if ($navtab  == "researchers")
-                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
-            #else
-                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
-            #end
-            </a>
-        </td>
+##        <td valign="top" width="143">
+##            #if ($userSession.isloggedin)
+##                <a href="/researcher/index.jsp">
+##            #else
+##                <a href="/researcher.jsp">
+##            #end
+##            #if ($navtab  == "researchers")
+##                <img src="/images/hp-version6/toptab_create_off.gif" width="143" height="63" border="0"/>
+##            #else
+##                <img src="/images/hp-version6/toptab_create_off.gif" width="143" height="63" border="0"/>
+##            #end
+##            </a>
+##        </td>
+##        <td valign="top" width="143">
+##            #if ($userSession.isloggedin)
+##                <a href="/researcher/index-twitask.jsp">
+##            #else
+##                <a href="/ask.jsp">
+##            #end
+##            #if ($navtab  == "researchers")
+##                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
+##            #else
+##                <img src="/images/hp-version6/toptab_ask_off.gif" width="143" height="63" border="0"/>
+##            #end
+##            </a>
+##        </td>
         <td valign="top" width="20">
             <img src="/images/clear.gif" width="20" height="1"/>
         </td>

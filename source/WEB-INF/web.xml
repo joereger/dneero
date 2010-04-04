@@ -21,17 +21,6 @@
 
 
 
-    <servlet>
-      <servlet-name>jcaptcha</servlet-name>
-      <servlet-class>com.dneero.util.jcaptcha.ImageCaptchaServlet</servlet-class>
-      <load-on-startup>0</load-on-startup>
-   </servlet>
-   <servlet-mapping>
-        <servlet-name>jcaptcha</servlet-name>
-        <url-pattern>/jcaptcha</url-pattern>
-    </servlet-mapping>
-
-
 
 
     <filter>
@@ -42,6 +31,7 @@
         <filter-name>HibernateSessionCloser</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 
     <filter>
         <filter-name>FilterMain</filter-name>
@@ -64,11 +54,20 @@
     <filter>
        <filter-name>UrlRewriteFilter</filter-name>
        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>log4j</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
        <filter-name>UrlRewriteFilter</filter-name>
        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+
+
+
 
 
     <servlet>

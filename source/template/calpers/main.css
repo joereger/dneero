@@ -4,7 +4,7 @@ body {
     min-width:750px;
     background:#FFFFFF;
     background-color:#FFFFFF;
-    background-image:url('/images/hp-version6/bg.gif');
+    background-image:url('/template/calpers/images/bg-calpers.gif');
     background-attachment:fixed;
     background-position: top center;
     background-repeat:no-repeat;
@@ -20,7 +20,7 @@ body {
     height:137px;
     background:#FFFFFF;
     background-color:#FFFFFF;
-    background-image:url('/images/hp-version6/header.gif');
+    background-image:url('/template/calpers/images/header-calpers.gif');
     /*background-attachment:fixed;*/
     background-position: top center;
     background-repeat:no-repeat;

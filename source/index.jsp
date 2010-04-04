@@ -90,7 +90,7 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
         velocityContext.put("twitterAnswers", (TwitterQuestionAnswers) GetCachedStuff.get(new TwitterQuestionAnswers(), Pagez.getUserSession().getPl()));
         //velocityContext.put("recentlyPaid", (MostRecentPaidInBalance) GetCachedStuff.get(new MostRecentPaidInBalance(), Pagez.getUserSession().getPl()));
         //velocityContext.put("newestUsers", (NewestUsers) GetCachedStuff.get(new NewestUsers(), Pagez.getUserSession().getPl()));
-        //velocityContext.put("blogPosts", (BlogPosts) GetCachedStuff.get(new BlogPosts(), Pagez.getUserSession().getPl()));
+        velocityContext.put("blogPosts", (BlogPosts) GetCachedStuff.get(new BlogPosts(), Pagez.getUserSession().getPl()));
         String homepage = TemplateProcessor.process(templateHomepageName, templateHomepage, velocityContext);
         %>
         <%=homepage%>

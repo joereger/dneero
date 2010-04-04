@@ -8,7 +8,7 @@
     http://tuckey.org/urlrewrite/
 
 -->
-<urlrewrite use-query-string="false">
+<urlrewrite use-query-string="true">
 
     <rule>
         <from>/SkinUnderPlaySeekMute.swf</from>
@@ -57,7 +57,35 @@
     <!--</rule>-->
 
 
+    <rule>
+        <from>/convo/([a-zA-Z0-9\_]*)/</from>
+        <to last="true">/survey.jsp?surveyid=$1</to>
+    </rule>
 
+    <rule>
+        <from>/convo/([a-zA-Z0-9\_]*)</from>
+        <to last="true">/survey.jsp?surveyid=$1</to>
+    </rule>
+
+    <rule>
+        <from>/profile/([a-zA-Z0-9\_]*)/</from>
+        <to last="true">/profile.jsp?userid=$1</to>
+    </rule>
+
+    <rule>
+        <from>/profile/([a-zA-Z0-9\_]*)</from>
+        <to last="true">/profile.jsp?userid=$1</to>
+    </rule>
+
+    <rule>
+        <from>/twitask/([a-zA-Z0-9\_]*)/</from>
+        <to last="true">/twitask.jsp?twitaskid=$1</to>
+    </rule>
+
+    <rule>
+        <from>/twitask/([a-zA-Z0-9\_]*)</from>
+        <to last="true">/twitask.jsp?twitaskid=$1</to>
+    </rule>
 
 
     <!--<rule>-->

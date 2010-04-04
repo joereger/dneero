@@ -52,6 +52,7 @@ public class PublicProfile implements Serializable {
 
         user = null;
         blogger = null;
+        logger.debug("Pagez.getRequest().getParameter(\"userid\")="+Pagez.getRequest().getParameter("userid"));
         if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("userid"))){
             user = User.get(Integer.parseInt(Pagez.getRequest().getParameter("userid")));
             if (user!=null && user.getUserid()>0 && user.getBloggerid()>0){
@@ -68,6 +69,7 @@ public class PublicProfile implements Serializable {
         }
 
         if (user==null){
+            logger.debug("return because user==null");
             return;    
         }
 

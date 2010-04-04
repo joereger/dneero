@@ -1,56 +1,8 @@
 
-<center><img src="/images/hp-version6/hp.png" width="950" height="250"/></center>
+<center><img src="/template/calpers/images/hp-calpers.png" width="950" height="250"/></center>
 <br clear="all"/><br/>
     <center>
-    <table cellpadding="0" cellspacing="10" border="0" width="95%">
-       <tr>
-           <td width="50%">
-               <div class="rounded" style="background: #00ff00; padding: 20px 30px 20px 30px; height: 140px; background-image:url('/images/hp-version6/calloutbox_bg.gif');">
-                   <script type="text/javascript">
-                        function textCounter( field, countfield, maxlimit ) {
-                          if ( field.value.length > maxlimit ){
-                            field.value = field.value.substring( 0, maxlimit );
-                            return false;
-                          } else {
-                            countfield.value = maxlimit - field.value.length;
-                          }
-                        }
-                   </script>
-                   <font class="mediumfont" style="color: #333333;">Ask Your Twitter Followers Anything</font><br/>
-                   <form action="/index.jsp" method="post" class="niceform" id="rsdform">
-                        <input type="hidden" name="dpage" value="/index.jsp">
-                        <input type="hidden" name="action" value="newtwitask">
-                       <textarea name="twitterquestionfromhomepage" rows="2" cols="20" style="width: 100%; font-size: 15px;" onkeypress="textCounter(this,this.form.counter, 120);"></textarea>
-                       <br/><font class="tinyfont">ex: "Do you like old Michael Jackson videos?" or "Do you care about the environment?"</font>
-                       <br/><input type="text" name="counter" id="counter" maxlength="3" size="3" style="font-size: 8px;" value="120" onblur="textCounter(this.form.twitterquestionfromhomepage,this,120);"><font class="tinyfont"> chars left</font>
-                       <div style="width:100%; text-align: right;">
-                       <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Ask Twitter Question">
-                       </div>
-                   </form>
-               </div>
-           </td>
-           <td width="50%">
-               <div class="rounded" style="background: #00ff00; padding: 20px 30px 20px 30px; height: 140px; background-image:url('/images/hp-version6/calloutbox_bg_blue.gif');">
-                    <font class="mediumfont" style="color: #333333;">Create a Social Survey About Anything</font><br/>
-                    <form action="/index.jsp" method="post" class="niceform" id="rsdform">
-                        <input type="hidden" name="dpage" value="/index.jsp">
-                        <input type="hidden" name="action" value="newsurvey">
-                        <font class="tinyfont"><b>Title</b> (Example: "Joe's Weekly Social Survey")</font>
-                        <br/>
-                        <input type="text" name="surveytitlefromhomepage" value="" style="width: 100%; font-size: 15px;">
-                        <br/>
-                        <font class="tinyfont"><b>Description</b> (Example: "The purpose of this survey is to...")</font>
-                        <br/>
-                        <textarea name="surveydescriptionfromhomepage" rows="2" cols="40" style="width: 100%; font-size: 15px;"></textarea>
-                        <div style="width:100%; text-align: right;">
-                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Create Social Survey">
-                        </div>
-                   </form>
-               </div>
-           </td>
-       </tr>
-    </table>
-    </center>
+
 
     <table cellpadding="0" cellspacing="10" border="0" width="100%">
 
@@ -65,13 +17,13 @@
 
                <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Conversation Embeds</font><br/>
-                    <font class="largefont" style="color: #666666;">$totalConvoEmbeds.html</font><br/>
-                    <font class="tinyfont">Times a conversation's been displayed while embedded in a blog or social media profile.</font><br/>
-               </div>
-
-               <br/>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <font class="mediumfont" style="color: #999999;">Conversation Embeds</font><br/>
+##                    <font class="largefont" style="color: #666666;">$totalConvoEmbeds.html</font><br/>
+##                    <font class="tinyfont">Times a conversation's been displayed while embedded in a blog or social media profile.</font><br/>
+##               </div>
+##
+##               <br/>
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                    <font class="mediumfont" style="color: #999999;">Are You Experienced?</font><br/>
@@ -80,16 +32,16 @@
 
                <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <form action="/index.jsp" method="post" class="niceform">
-                        <input type="hidden" name="action" value="enteraccesscode">
-                        <font class="mediumfont" style="color: #999999;">Got an Access Code?</font><br/>
-                        <input type="text" name="accesscode" size="10" maxlength="250">
-                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Use Access Code" style="font-size: 11px;">
-                    </form>
-                </div>
-
-               <br/>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <form action="/index.jsp" method="post" class="niceform">
+##                        <input type="hidden" name="action" value="enteraccesscode">
+##                        <font class="mediumfont" style="color: #999999;">Got an Access Code?</font><br/>
+##                        <input type="text" name="accesscode" size="10" maxlength="250">
+##                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Use Access Code" style="font-size: 11px;">
+##                    </form>
+##                </div>
+##
+##               <br/>
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                    <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
@@ -123,11 +75,11 @@
 
                 <br/>
 
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
-                    <font class="mediumfont" style="color: #999999;">Recent Twitter Question Responses</font><br/>
-                    $twitterAnswers.html
-                </div>
+##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
+##                    <font class="mediumfont" style="color: #999999;">Recent Twitter Question Responses</font><br/>
+##                    $twitterAnswers.html
+##                </div>
 
 ##                <br/>
 ##
@@ -152,10 +104,10 @@
 
 ##                <br/>
 ##
-##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-##                    <font class="mediumfont" style="color: #999999;">Blog Posts/Latest News/System Status</font><br/>
-##                    $blogPosts.html
-##                </div>
+                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                    <font class="mediumfont" style="color: #999999;">Blog Posts/Latest News/System Status</font><br/>
+                    $blogPosts.html
+                </div>
            </td>
        </tr>
 
