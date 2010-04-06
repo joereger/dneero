@@ -10,10 +10,20 @@
            <td width="225">
 
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Conversation Engagements</font><br/>
-                    <font class="largefont" style="color: #666666;">$totalConvoJoins.html</font>
-               </div>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <font class="mediumfont" style="color: #999999;">Conversation Engagements</font><br/>
+##                    <font class="largefont" style="color: #666666;">$totalConvoJoins.html</font>
+##               </div>
+##
+##               <br/>
+
+
+
+                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
+                    <font class="mediumfont" style="color: #999999;">Recent Participants</font><br/>
+                    $recentConvoJoins.html
+                </div>
 
                <br/>
 
@@ -25,12 +35,12 @@
 ##
 ##               <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                   <font class="mediumfont" style="color: #999999;">Are You Experienced?</font><br/>
-                   $usersWithMostConvos.html
-               </div>
-
-               <br/>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                   <font class="mediumfont" style="color: #999999;">Are You Experienced?</font><br/>
+##                   $usersWithMostConvos.html
+##               </div>
+##
+##               <br/>
 
 ##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
 ##                    <form action="/index.jsp" method="post" class="niceform">
@@ -67,13 +77,13 @@
 
                 <br/>
 
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
-                    <font class="mediumfont" style="color: #999999;">Recent Conversation Participants</font><br/>
-                    $recentConvoJoins.html
-                </div>
-
-                <br/>
+##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
+##                    <font class="mediumfont" style="color: #999999;">Recent Conversation Participants</font><br/>
+##                    $recentConvoJoins.html
+##                </div>
+##
+##                <br/>
 
 ##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
 ##                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
@@ -105,8 +115,8 @@
 ##                <br/>
 ##
                 <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Blog Posts/Latest News/System Status</font><br/>
-                    $blogPosts.html
+                    <font class="mediumfont" style="color: #999999;">Blog Posts</font><br/><br/>
+                    $blogPostsFull.html
                 </div>
            </td>
        </tr>

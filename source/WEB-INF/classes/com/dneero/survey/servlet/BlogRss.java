@@ -1,32 +1,23 @@
 package com.dneero.survey.servlet;
 
+import com.dneero.dao.Blogpost;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmluibeans.PublicBlog;
+import com.dneero.systemprops.BaseUrl;
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.FeedException;
+import com.sun.syndication.io.SyndFeedOutput;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.PrintWriter;
-import java.util.List;
 import java.util.ArrayList;
-
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
-import com.dneero.dao.Blogpost;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.htmluibeans.PublicBlog;
-import com.sun.syndication.feed.rss.Channel;
-import com.sun.syndication.feed.rss.Guid;
-import com.sun.syndication.feed.rss.Category;
-import com.sun.syndication.feed.synd.*;
-import com.sun.syndication.io.SyndFeedOutput;
-import com.sun.syndication.io.FeedException;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -65,7 +56,7 @@ public class BlogRss extends HttpServlet {
         List entries = new ArrayList();
 
 
-        List<Blogpost> blogposts = HibernateUtil.getSession().createQuery("from Blogpost order by date DESC").setCacheable(true).setMaxResults(20).list();
+        List<Blogpost> blogposts = HibernateUtil.getSession().createQuery("from Blogpost where plid='"+ Pagez.getUserSession().getPl().getPlid() +"' order by date DESC").setCacheable(true).setMaxResults(20).list();
         for (int i = 0; i < blogposts.size(); i++) {
             Blogpost blogpost = blogposts.get(i);
 

@@ -1,9 +1,12 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.cachedstuff.BlogPosts;
+import com.dneero.cachedstuff.BlogPostsFull;
+import com.dneero.cachedstuff.GetCachedStuff;
 import com.dneero.dao.Betainvite;
 import com.dneero.dao.Blogpost;
+import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.helpers.Pingomatic;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.systemprops.BaseUrl;
@@ -29,6 +32,7 @@ public class SysadminBlogpost implements Serializable {
     private String title="";
     private String body="";
     private String categories="";
+    private int plid = 1;
 
 
     public SysadminBlogpost() {
@@ -48,6 +52,7 @@ public class SysadminBlogpost implements Serializable {
         title="";
         body="";
         categories="";
+        plid = 1;
 
         String tmpBlogpostid = Pagez.getRequest().getParameter("blogpostid");
         if (com.dneero.util.Num.isinteger(tmpBlogpostid) && Integer.parseInt(tmpBlogpostid)>0){
@@ -58,6 +63,7 @@ public class SysadminBlogpost implements Serializable {
             title = blogpost.getTitle();
             body = blogpost.getBody();
             categories = blogpost.getCategories();
+            plid = blogpost.getPlid();
         }
     }
 
@@ -75,13 +81,15 @@ public class SysadminBlogpost implements Serializable {
         blogpost.setTitle(title);
         blogpost.setBody(body);
         blogpost.setCategories(categories);
+        blogpost.setPlid(plid);
         try{blogpost.save();}catch(Exception ex){logger.error("",ex);}
         initBean();
         //Refresh the blog posts on the homepage
-        //GetCachedStuff.refresh(new BlogPosts(), Pl.get(1));
+        GetCachedStuff.flush(new BlogPosts(), Pl.get(plid));
+        GetCachedStuff.flush(new BlogPostsFull(), Pl.get(plid));
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
-                Pingomatic.ping("dNeero Conversations Blog", BaseUrl.get(false)+"blog.jsp", BaseUrl.get(false)+"rss.xml");
+                //Pingomatic.ping("dNeero Conversations Blog", BaseUrl.get(false)+"blog.jsp", BaseUrl.get(false)+"rss.xml");
             }
         } catch (Exception ex){
             logger.error("",ex);
@@ -185,5 +193,13 @@ public class SysadminBlogpost implements Serializable {
 
     public void setCategories(String categories) {
         this.categories = categories;
+    }
+
+    public int getPlid() {
+        return plid;
+    }
+
+    public void setPlid(int plid) {
+        this.plid = plid;
     }
 }

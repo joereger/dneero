@@ -1,4 +1,5 @@
 <%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.privatelabel.ListOfPrivateLabels" %>
 <%@ page import="com.dneero.htmluibeans.SysadminBlogpost" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
@@ -22,6 +23,7 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
             sysadminBlogpost.setTitle(Textbox.getValueFromRequest("title", "Title", true, DatatypeString.DATATYPEID));
             sysadminBlogpost.setCategories(Textbox.getValueFromRequest("categories", "Categories", false, DatatypeString.DATATYPEID));
             sysadminBlogpost.setDate(DateTime.getValueFromRequest("date", "Date", true).getTime());
+            sysadminBlogpost.setPlid(Textbox.getIntFromRequest("plid", "Private Label", true, DatatypeInteger.DATATYPEID));
             sysadminBlogpost.save();
             Pagez.getUserSession().setMessage("Blog post saved.");
             Pagez.sendRedirect("/sysadmin/blogpost.jsp");
@@ -51,6 +53,15 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
         <input type="hidden" name="blogpostid" value="<%=sysadminBlogpost.getBlogpostid()%>">
 
         <table cellpadding="0" cellspacing="0" border="0">
+
+            <tr>
+                <td valign="top">
+                    <font class="formfieldnamefont">Private Label</font>
+                </td>
+                <td valign="top">
+                    <%=Dropdown.getHtml("plid", String.valueOf(sysadminBlogpost.getPlid()), ListOfPrivateLabels.getList(), "", "")%>
+                </td>
+            </tr>
 
             <tr>
                 <td valign="top">
@@ -126,8 +137,9 @@ SysadminBlogpost sysadminBlogpost = (SysadminBlogpost)Pagez.getBeanMgr().get("Sy
             cols.add(new GridCol("Date", "<$date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "smallfont"));
             cols.add(new GridCol("Title", "<a href=\"/sysadmin/blogpost.jsp?blogpostid=<$blogpostid$>\"><$title$></a>", true, "", "smallfont"));
             cols.add(new GridCol("Author", "<$author$>", true, "", "smallfont"));
+            cols.add(new GridCol("Plid", "<$plid$>", true, "", "smallfont"));
         %>
-        <%=Grid.render(sysadminBlogpost.getBlogposts(), cols, 50, "/sysadmin/blogpost.jsp", "page")%>
+        <%=Grid.render(sysadminBlogpost.getBlogposts(), cols, 50, "/sysadmin/blogpost.jsp?plid="+request.getParameter("plid"), "page")%>
     <%}%>
 
 

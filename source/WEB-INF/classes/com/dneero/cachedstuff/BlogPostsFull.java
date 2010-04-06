@@ -14,13 +14,13 @@ import java.util.List;
  * Date: Jan 29, 2008
  * Time: 2:03:07 PM
  */
-public class BlogPosts implements CachedStuff, Serializable {
+public class BlogPostsFull implements CachedStuff, Serializable {
 
     private Calendar refreshedTimestamp;
     private String html;
 
     public String getKey() {
-        return "BlogPosts";
+        return "BlogPostsFull";
     }
 
     public void refresh(Pl pl) {
@@ -40,12 +40,16 @@ public class BlogPosts implements CachedStuff, Serializable {
             out.append("<font class='tinyfont'>");
             out.append(ago);
             out.append("</font>");
-            out.append("</td>");
-            out.append("<td>");
-            out.append("<font class='tinyfont'>");
+            out.append("<br/>");
+            out.append("<font class='normalfont' style='font-weight:bold;'>");
             out.append("<a href=\"/blogpost.jsp?blogpostid="+blogpost.getBlogpostid()+"\">");
             out.append(blogpost.getTitle());
             out.append("</a>");
+            out.append("</font>");
+            out.append("<br/>");
+            out.append("<font class='normalfont'>");
+            out.append(blogpost.getBody());
+            out.append("<br/><br/>");
             out.append("</font>");
             out.append("</td>");
             out.append("</tr>");

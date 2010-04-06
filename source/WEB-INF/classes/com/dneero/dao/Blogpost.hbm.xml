@@ -29,6 +29,9 @@
         <property name="categories" type="string">
             <column name="categories" not-null="true" />
         </property>
+        <property name="plid" type="int">
+            <column name="plid" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

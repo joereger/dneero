@@ -46,6 +46,17 @@ public class GetCachedStuff {
         return cs;
     }
 
+    public static void flush(CachedStuff cs, Pl pl){
+        Logger logger = Logger.getLogger(CachedStuff.class);
+        String key = cs.getKey();
+        String group = "CachedStuff-plid="+pl.getPlid();
+        try{
+            DbcacheexpirableCache.flush(key, group);
+        } catch (Exception ex){
+            logger.error("", ex);
+        }
+    }
+
 
 
 }
