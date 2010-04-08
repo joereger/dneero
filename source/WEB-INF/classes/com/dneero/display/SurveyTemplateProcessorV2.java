@@ -400,6 +400,9 @@ public class SurveyTemplateProcessorV2 {
                 elResp.setAttribute("surveyid", String.valueOf(survey.getSurveyid()));
                 elResp.setAttribute("responseid", String.valueOf(response.getResponseid()));
                 elResp.setAttribute("userid", String.valueOf(blogger.getUserid()));
+                elResp.setAttribute("plid", String.valueOf(survey.getPlid()));
+                Pl pl = Pl.get(survey.getPlid());
+                elResp.setAttribute("googleanalyticsidflash", String.valueOf(pl.getGoogleanalyticsidflash()));
                 String isforcharityStr = "0";
                 if (response.getIsforcharity()){isforcharityStr="1";}
                 elResp.setAttribute("isforcharity", String.valueOf(isforcharityStr));

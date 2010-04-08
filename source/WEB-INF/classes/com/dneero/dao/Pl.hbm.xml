@@ -75,6 +75,12 @@
         <property name="isvenuerequired" type="boolean">
             <column name="isvenuerequired" />
         </property>
+        <property name="googleanalyticsidweb" type="string">
+            <column name="googleanalyticsidweb" not-null="true" />
+        </property>
+        <property name="googleanalyticsidflash" type="string">
+            <column name="googleanalyticsidflash" not-null="true" />
+        </property>
 
     </class>
 </hibernate-mapping>

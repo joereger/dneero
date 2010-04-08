@@ -29,6 +29,8 @@ String acl = "sysadmin";
     pl.setIsvenuerequired(false);
     pl.setMaincss("");
     pl.setTemplatedirectory("");
+    pl.setGoogleanalyticsidweb("");
+    pl.setGoogleanalyticsidflash("");
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -82,6 +84,8 @@ String acl = "sysadmin";
                 pl.setIsreferralprogramon(CheckboxBoolean.getValueFromRequest("isreferralprogramon"));
                 pl.setIsresellerprogramon(CheckboxBoolean.getValueFromRequest("isresellerprogramon"));
                 pl.setIsvenuerequired(CheckboxBoolean.getValueFromRequest("isvenuerequired"));
+                pl.setGoogleanalyticsidweb(Textbox.getValueFromRequest("googleanalyticsidweb", "Google Analytics Web", false, DatatypeString.DATATYPEID));
+                pl.setGoogleanalyticsidflash(Textbox.getValueFromRequest("googleanalyticsidflash", "Google Analytics Flash", false, DatatypeString.DATATYPEID));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -279,6 +283,26 @@ String acl = "sysadmin";
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("customdomain3", pl.getCustomdomain3(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Google Analytics ID Web</font>
+                        <br/>
+                        <font class="tinyfont">ex. UA-208946-2</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("googleanalyticsidweb", pl.getGoogleanalyticsidweb(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Google Analytics ID Flash</font>
+                        <br/>
+                        <font class="tinyfont">ex. UA-208946-2</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("googleanalyticsidflash", pl.getGoogleanalyticsidflash(), 255, 35, "", "")%>
                     </td>
                 </tr>
                 <tr>

@@ -38,6 +38,8 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private boolean isresellerprogramon=false;
     private boolean isreferralprogramon=false;
     private boolean isvenuerequired=false;
+    private String googleanalyticsidweb="";
+    private String googleanalyticsidflash="";
 
   
 
@@ -285,5 +287,21 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setMaincss(String maincss) {
         this.maincss = maincss;
+    }
+
+    public String getGoogleanalyticsidweb() {
+        return googleanalyticsidweb;
+    }
+
+    public void setGoogleanalyticsidweb(String googleanalyticsidweb) {
+        this.googleanalyticsidweb = googleanalyticsidweb;
+    }
+
+    public String getGoogleanalyticsidflash() {
+        return googleanalyticsidflash;
+    }
+
+    public void setGoogleanalyticsidflash(String googleanalyticsidflash) {
+        this.googleanalyticsidflash = googleanalyticsidflash;
     }
 }

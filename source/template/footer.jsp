@@ -10,6 +10,7 @@
     velocityContext.put("acl", acl);
     velocityContext.put("instancename", InstanceProperties.getInstancename());
     velocityContext.put("elapsedTime", Pagez.getElapsedTime());
+    velocityContext.put("googleanalyticsidweb", Pagez.getUserSession().getPl().getGoogleanalyticsidweb());
     String footer = TemplateProcessor.process(templateFName, templateF, velocityContext);
     %>
     <%=footer%>

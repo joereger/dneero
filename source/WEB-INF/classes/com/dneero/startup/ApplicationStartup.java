@@ -311,6 +311,8 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setIsvenuerequired(false);
             pl.setMaincss("");
             pl.setTemplatedirectory("");
+            pl.setGoogleanalyticsidweb("");
+            pl.setGoogleanalyticsidflash("");
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }
