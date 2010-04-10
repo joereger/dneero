@@ -89,8 +89,10 @@ public class SysadminMassemailDetail implements Serializable {
             String htmlMessage = EmailTemplateProcessor.processTemplate(massemail.getHtmlmessage(), Pagez.getUserSession().getUser(), args);
             String txtMessage = EmailTemplateProcessor.processTemplate(massemail.getTxtmessage(), Pagez.getUserSession().getUser(), args);
             subjectPreview = EmailTemplateProcessor.processTemplate(massemail.getSubject(), Pagez.getUserSession().getUser(), args);
-            htmlPreview = htmlEmailHeader + EmailTemplateProcessor.translateImageLinks(htmlMessage) + htmlEmailFooter;
-            txtPreview = EmailTemplateProcessor.translateImageLinks(txtMessage);
+            //htmlPreview = htmlEmailHeader + EmailTemplateProcessor.translateImageLinks(htmlMessage) + htmlEmailFooter;
+            //txtPreview = EmailTemplateProcessor.translateImageLinks(txtMessage);
+            htmlPreview = htmlEmailHeader + htmlMessage + htmlEmailFooter;
+            txtPreview = txtMessage;
         } else {
             htmlPreview="";
             txtPreview="";

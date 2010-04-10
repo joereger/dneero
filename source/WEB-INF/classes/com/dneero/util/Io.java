@@ -32,7 +32,6 @@ public class Io {
                 } catch (IOException e) {
                     logger.error("", e);
                 }
-
                 sb.append(new String(chars));
             } catch (Exception ex){
                 logger.error("", ex);

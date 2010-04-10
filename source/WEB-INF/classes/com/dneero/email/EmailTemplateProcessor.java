@@ -2,10 +2,10 @@ package com.dneero.email;
 
 import com.dneero.dao.Pl;
 import com.dneero.dao.User;
+import com.dneero.privatelabel.PlEmailTemplate;
+import com.dneero.privatelabel.PlFinder;
 import com.dneero.privatelabel.PlTemplate;
 import com.dneero.systemprops.BaseUrl;
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.util.Io;
 import com.dneero.util.Num;
 import com.dneero.util.Str;
 import org.apache.commons.mail.HtmlEmail;
@@ -23,8 +23,8 @@ public class EmailTemplateProcessor {
 
     public static void sendGenericEmail(String toaddress, String subject, String body){
         String emailTemplateFilenameWithoutExtension = "generic";
-        String htmlTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".html").toString();
-        String txtTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".txt").toString();
+        String htmlTemplate = PlEmailTemplate.getHtml(null, emailTemplateFilenameWithoutExtension+".html");
+        String txtTemplate = PlEmailTemplate.getHtml(null, emailTemplateFilenameWithoutExtension+".txt");
         String[] args = new String[10];
         args[0] = body;
         sendMail(subject, htmlTemplate, txtTemplate, null, args, toaddress, "");   
@@ -40,8 +40,11 @@ public class EmailTemplateProcessor {
 
     public static void sendMail(String subject, String emailTemplateFilenameWithoutExtension, User userTo, String[] args, String toaddress, String fromaddress){
         Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
-        String htmlTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".html").toString();
-        String txtTemplate = Io.textFileRead(WebAppRootDir.getWebAppRootPath() + "emailtemplates" + java.io.File.separator + emailTemplateFilenameWithoutExtension + ".txt").toString();
+        Pl pl = null;
+        if (userTo!=null && userTo.getPlid()>0){   pl = Pl.get(userTo.getPlid());   }
+        if (pl==null){  pl = PlFinder.getDefaultPl();  }
+        String htmlTemplate = PlEmailTemplate.getHtml(pl, emailTemplateFilenameWithoutExtension+".html");
+        String txtTemplate = PlEmailTemplate.getHtml(pl, emailTemplateFilenameWithoutExtension+".txt");
         sendMail(subject, htmlTemplate, txtTemplate, userTo, args, toaddress, fromaddress);
     }
 
@@ -61,8 +64,8 @@ public class EmailTemplateProcessor {
         //Process templates to create the message
         String htmlMessage = processTemplate(htmlTemplate, userTo, args);
         String txtMessage = processTemplate(txtTemplate, userTo, args);
-        htmlMessage = translateImageLinks(htmlMessage);
-        txtMessage = translateImageLinks(txtMessage);
+        //htmlMessage = translateImageLinks(htmlMessage);
+        //txtMessage = translateImageLinks(txtMessage);
         try{
             HtmlEmail email = new HtmlEmail();
             boolean havetoaddress=false;
@@ -80,7 +83,7 @@ public class EmailTemplateProcessor {
             if (fromaddress!=null && !fromaddress.equals("")){
                 email.setFrom(fromaddress, fromaddress);
             } else {
-                email.setFrom(EmailSendThread.DEFAULTFROM, "dNeero");
+                email.setFrom(EmailSendThread.DEFAULTFROM, "Social Survey System");
             }
             email.setSubject(subject);
             email.setHtmlMsg(htmlEmailHeader + htmlMessage + htmlEmailFooter);
@@ -180,33 +183,31 @@ public class EmailTemplateProcessor {
         return out;
     }
 
-    public static String translateImageLinks(String template){
-        Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
-        try{
-            StringBuffer out = new StringBuffer();
-            Pattern p = Pattern.compile("img src=(['\"])?images", Pattern.CASE_INSENSITIVE);
-            Matcher m = p.matcher(template);
-            while(m.find()) {
-                String tag = m.group();
-                logger.debug("found tag="+tag);
-                String openquote = "";
-                if (m.group(1)!=null){
-                    openquote = m.group(1);
-                }
-                //@todo All email images must be called from dNeero folder because of this line
-                String replacement = "img src="+openquote+BaseUrl.get(false)+"emailtemplates/images";
-                logger.debug("replacement ="+replacement);
-                m.appendReplacement(out, Str.cleanForAppendreplacement(replacement));
-            }
-            try{ m.appendTail(out); } catch (Exception e){}
-            return out.toString();
-        } catch (Exception ex){
-            logger.error("",ex);
-            return template;
-        }
-
-
-    }
+//    public static String translateImageLinks(String template){
+//        Logger logger = Logger.getLogger(EmailTemplateProcessor.class);
+//        try{
+//            StringBuffer out = new StringBuffer();
+//            Pattern p = Pattern.compile("img src=(['\"])?images", Pattern.CASE_INSENSITIVE);
+//            Matcher m = p.matcher(template);
+//            while(m.find()) {
+//                String tag = m.group();
+//                logger.debug("found tag="+tag);
+//                String openquote = "";
+//                if (m.group(1)!=null){
+//                    openquote = m.group(1);
+//                }
+//                //@todo All email images must be called from dNeero folder because of this line
+//                String replacement = "img src="+openquote+BaseUrl.get(false)+"emailtemplates/images";
+//                logger.debug("replacement ="+replacement);
+//                m.appendReplacement(out, Str.cleanForAppendreplacement(replacement));
+//            }
+//            try{ m.appendTail(out); } catch (Exception e){}
+//            return out.toString();
+//        } catch (Exception ex){
+//            logger.error("",ex);
+//            return template;
+//        }
+//    }
 
 
 

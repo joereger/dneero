@@ -4,6 +4,7 @@ import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.cache.providers.CacheFactory;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,8 @@ public class PlFinder {
         } catch (Exception ex){
             logger.error("", ex);
         }
-        return Pl.get(1);
+        //None found, return the default
+        return getDefaultPl();
     }
 
     private static Pl doDatabaseSearching(HttpServletRequest request){
@@ -96,9 +98,20 @@ public class PlFinder {
             return pl;
         }
 
+        //None found, return the default
+        return getDefaultPl();
+    }
 
+    public static Pl getDefaultPl(){
+        List<Pl> plDefaults = HibernateUtil.getSession().createCriteria(Pl.class)
+                       .addOrder(Order.asc("plid"))
+                       .setCacheable(true)
+                       .list();
+        for (Iterator<Pl> plIterator=plDefaults.iterator(); plIterator.hasNext();) {
+            Pl pl=plIterator.next();
+            return pl;
+        }
         //None found, return the basic
         return Pl.get(1);
     }
-
 }
