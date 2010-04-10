@@ -28,7 +28,7 @@ public class Io {
                     }
                     reader.close();
                 } catch (FileNotFoundException e) {
-                    logger.error("", e);
+                    logger.debug("", e);
                 } catch (IOException e) {
                     logger.error("", e);
                 }

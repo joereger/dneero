@@ -1,23 +1,22 @@
 package com.dneero.survey.servlet.v1;
 
+import com.dneero.cache.providers.CacheFactory;
+import com.dneero.dao.Pl;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.dao.Pl;
-import com.dneero.util.Str;
-import com.dneero.util.RandomString;
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
 import com.dneero.systemprops.BaseUrl;
+import com.dneero.util.RandomString;
+import com.dneero.util.Str;
+import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import org.apache.log4j.Logger;
 
 /**
  * User: Joe Reger Jr
@@ -162,7 +161,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
                 pl = Pl.get(user.getPlid());
             }
             String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn, pl);
-            out.append("<!-- Start dNeero Conversation -->\n" +
+            out.append("<!-- Start Conversation -->\n" +
                     "<div style=\"border: 5px solid #cccccc; width: 415px\">"+
                     "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" width=\"415\">\n" +
                     "\t<tr>\n" +
@@ -188,7 +187,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
             }
             out.append("</table>\n" +
                     "</div>"+
-                    "<!-- End dNeero Conversation -->");
+                    "<!-- End Conversation -->");
 
              return out.toString();
         }

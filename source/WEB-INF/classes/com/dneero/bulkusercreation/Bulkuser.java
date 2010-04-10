@@ -128,7 +128,7 @@ public class Bulkuser {
             //Eula
             Usereula usereula = new Usereula();
             usereula.setDate(new Date());
-            usereula.setEulaid(EulaHelper.getMostRecentEula().getEulaid());
+            usereula.setEulaid(EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl()).getEulaid());
             usereula.setUserid(user.getUserid());
             usereula.setIp("");
             try{

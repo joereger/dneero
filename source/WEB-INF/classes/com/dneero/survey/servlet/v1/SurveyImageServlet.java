@@ -1,19 +1,18 @@
 package com.dneero.survey.servlet.v1;
 
-import org.apache.log4j.Logger;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
-
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
 import com.dneero.systemprops.WebAppRootDir;
+import org.apache.log4j.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * User: Joe Reger Jr
@@ -122,11 +121,11 @@ public class SurveyImageServlet extends HttpServlet {
         String urlofimage = baseurl+"i?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
         String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
 
-        out = "<!-- Start dNeero Conversation -->"+
+        out = "<!-- Start Conversation -->"+
               "<a href=\""+urlofsurvey+"\">" +
               "<img src=\""+urlofimage+"\" border=\"0\"/>" +
               "</a>"+
-              "<!-- End dNeero Conversation -->";
+              "<!-- End Conversation -->";
 
         return out;
     }

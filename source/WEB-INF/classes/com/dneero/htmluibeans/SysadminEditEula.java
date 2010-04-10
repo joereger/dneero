@@ -1,18 +1,18 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.eula.EulaHelper;
 import com.dneero.dao.Eula;
-import com.dneero.util.GeneralException;
-
-import com.dneero.util.Time;
+import com.dneero.dao.Pl;
+import com.dneero.eula.EulaHelper;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
-import com.mysql.jdbc.TimeUtil;
-
-import java.util.Date;
-import java.io.Serializable;
-
+import com.dneero.privatelabel.PlFinder;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import com.dneero.util.Time;
 import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * User: Joe Reger Jr
@@ -24,6 +24,7 @@ public class SysadminEditEula implements Serializable {
     private String eula;
     private int eulaid;
     private String date;
+    private int plid;
 
     public SysadminEditEula(){
 
@@ -32,17 +33,25 @@ public class SysadminEditEula implements Serializable {
 
 
     public void initBean(){
-        eula = EulaHelper.getMostRecentEula().getEula();
-        eulaid = EulaHelper.getMostRecentEula().getEulaid();
-        date = Time.dateformatcompactwithtime(Time.getCalFromDate(EulaHelper.getMostRecentEula().getDate()));
+        Pl pl = PlFinder.getDefaultPl();
+        plid = pl.getPlid();
+        if (Num.isinteger(Pagez.getRequest().getParameter("plid"))){
+            plid = Integer.parseInt(Pagez.getRequest().getParameter("plid"));
+            pl = Pl.get(plid);
+        }
+        eula = EulaHelper.getMostRecentEula(pl).getEula();
+        eulaid = EulaHelper.getMostRecentEula(pl).getEulaid();
+        date = Time.dateformatcompactwithtime(Time.getCalFromDate(EulaHelper.getMostRecentEula(pl).getDate()));
     }
 
     public void edit() throws ValidationException {
         Logger logger = Logger.getLogger(this.getClass().getName());
-        if (!eula.equals(EulaHelper.getMostRecentEula().getEula())){
+        Pl pl = Pl.get(plid);
+        if (!eula.equals(EulaHelper.getMostRecentEula(pl).getEula())){
             Eula eulaObj = new Eula();
             eulaObj.setDate(new Date());
             eulaObj.setEula(eula);
+            eulaObj.setPlid(plid);
             try{
                 eulaObj.save();
             } catch (GeneralException gex){
@@ -51,7 +60,7 @@ public class SysadminEditEula implements Serializable {
                 Pagez.getUserSession().setMessage("Error... please try again.");
                 throw new ValidationException("Error with db.");
             }
-            EulaHelper.refreshMostRecentEula();
+            EulaHelper.refreshMostRecentEula(pl);
         }
     }
 
@@ -79,5 +88,13 @@ public class SysadminEditEula implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getPlid() {
+        return plid;
+    }
+
+    public void setPlid(int plid) {
+        this.plid = plid;
     }
 }

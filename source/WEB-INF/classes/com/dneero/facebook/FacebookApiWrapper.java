@@ -416,7 +416,7 @@ public class FacebookApiWrapper {
         String type = "dNeero";
         CharSequence typeChars = type.subSequence(0, type.length());
         StringBuffer content = new StringBuffer();
-        content.append("You've been invited to the conversation app called dNeero that allows you to earn real money joining conversations and sharing your opinions with your friends.");
+        content.append("You've been invited to the conversation app that allows you to earn real money joining conversations and sharing your opinions with your friends.");
         content.append("<fb:req-choice url=\"http://apps.facebook.com/"+SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)+"\" label=\"Check it Out\" />");
         CharSequence contentChars = content.subSequence(0, content.length());
         URL imgUrl = null;

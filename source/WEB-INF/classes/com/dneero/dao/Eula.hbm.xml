@@ -9,6 +9,9 @@
             <column name="eulaid" />
             <generator class="native" />
         </id>
+        <property name="plid" type="int">
+            <column name="plid" not-null="true" />
+        </property>
         <property name="eula" type="text">
             <column name="eula" not-null="true" />
         </property>

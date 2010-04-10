@@ -41,11 +41,11 @@ public class BlogRss extends HttpServlet {
         feed.setFeedType("rss_2.0");
 
         //Channel Title
-        String channelTitle = "dNeero.com Conversations Blog";
+        String channelTitle = "Conversations Blog";
         feed.setTitle(channelTitle);
 
         //Channel Description
-        String channelDesc = "This is the official dNeero Conversations Blog.";
+        String channelDesc = "Conversations Blog";
         feed.setDescription(channelDesc);
 
         //Channel Link

@@ -34,7 +34,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
 
        <%if (!accountIndex.getMsg().equals("")) {%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
-                <font class="mediumfont"><%=((AccountIndex)Pagez.getBeanMgr().get("AccountIndex")).getMsg()%></font>
+                <font class="mediumfont"><%=accountIndex.getMsg()%></font>
             </div>
        <%}%>
 
@@ -210,10 +210,10 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                         bloggerCompletedTwitasks.setMaxtodisplay(1);
                                         bloggerCompletedTwitasks.initBean();
                                         %>
-                                        <%if (bloggerCompletedTwitasks.getTwitanswers()!=null && bloggerCompletedTwitasks.getTwitanswers().size()>0){%>
+                                        <%if (bloggerCompletedTwitasks!=null && bloggerCompletedTwitasks.getTwitanswers()!=null && bloggerCompletedTwitasks.getTwitanswers().size()>0){%>
                                             <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Answered</font></a>
                                         <%}%>
-                                        <%if (researcherSurveyList.getSurveys()!=null && researcherSurveyList.getSurveys().size()>0){%>
+                                        <%if (researcherSurveyList!=null && researcherSurveyList.getTwitasks()!=null && researcherSurveyList.getTwitasks().size()>0){%>
                                             <br/><a href="/researcher/index-twitask.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Asked</font></a>
                                         <%}%>
                                     <%}%>

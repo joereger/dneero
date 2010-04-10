@@ -149,4 +149,6 @@ public class ResearcherSurveyList implements Serializable {
     public void setTwitasks(List<ResearcherTwitaskListitem> twitasks) {
         this.twitasks=twitasks;
     }
+
+    
 }

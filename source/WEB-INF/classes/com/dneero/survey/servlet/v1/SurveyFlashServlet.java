@@ -1,29 +1,28 @@
 package com.dneero.survey.servlet.v1;
 
-import org.apache.log4j.Logger;
-import org.apache.catalina.connector.ClientAbortException;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.net.URLEncoder;
-
+import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.cache.providers.CacheFactory;
-import com.dneero.util.RandomString;
 import com.dneero.pageperformance.PagePerformanceUtil;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
+import com.dneero.systemprops.BaseUrl;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.systemprops.WebAppRootDir;
+import com.dneero.util.RandomString;
 import com.flagstone.transform.*;
+import org.apache.catalina.connector.ClientAbortException;
+import org.apache.log4j.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -123,7 +122,7 @@ public class SurveyFlashServlet extends HttpServlet {
                 surveyasxhtml.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
                 surveyasxhtml.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
                 surveyasxhtml.append("<head>");
-                surveyasxhtml.append("<title>dNeero Conversation</title>");
+                surveyasxhtml.append("<title>Conversation</title>");
                 surveyasxhtml.append("<style>");
                 surveyasxhtml.append(".questiontitle{");
                 surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; border: 0px solid #8d8d8d; padding: 0px; text-align: left; background: #e6e6e6;");
@@ -175,7 +174,7 @@ public class SurveyFlashServlet extends HttpServlet {
                                     logger.debug("Setting the text of the search engine textbox");
                                     textfield.setHTML(true);
                                     //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
-                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">dNeero Conversation</a></h1>.<br/><br/>"+surveyashtml);
+                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">Conversation</a></h1>.<br/><br/>"+surveyashtml);
                                 }
                                 if (textfield.getVariableName().equals("flashhtmlvar")){
                                     logger.debug("Setting the text of the html textbox");

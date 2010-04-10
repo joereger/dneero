@@ -32,28 +32,32 @@ public class EmailSendThread implements Runnable, Serializable {
         try{
             logger.debug("Start sending htmlEmail subject:"+htmlEmail.getSubject());
             logger.debug("SystemProperty.PROP_SMTPOUTBOUNDSERVER="+SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
-            if (htmlEmail!=null){
-                logger.debug("an htmlEmail was found... sending");
-                htmlEmail.setHostName(SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
-                htmlEmail.send();
-            } else {
-                logger.debug("not sending");
-                if (htmlEmail==null){
-                    logger.debug("htmlEmail is null");
+            if (SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER).length()>2){
+                if (htmlEmail!=null){
+                    logger.debug("an htmlEmail was found... sending");
+                    htmlEmail.setHostName(SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER));
+                    htmlEmail.send();
                 } else {
-                    logger.debug("no idea why it didn't send");
+                    logger.debug("not sending");
+                    if (htmlEmail==null){
+                        logger.debug("htmlEmail is null");
+                    } else {
+                        logger.debug("no idea why it didn't send");
+                    }
                 }
+            } else {
+                logger.debug("SystemProperty.getProp(SystemProperty.PROP_SMTPOUTBOUNDSERVER) was empty");
             }
             logger.debug("End sending htmlEmail subject:"+htmlEmail.getSubject());
         } catch (Exception e){
             logger.error("top try/catch",e);
-            e.printStackTrace();
+            //e.printStackTrace();
         } finally {
             try{
                 if (htmlEmail!=null && htmlEmail.getMimeMessage()!=null && htmlEmail.getMimeMessage().getAllRecipients()!=null && htmlEmail.getMimeMessage().getAllRecipients().length>0){
                     logEmailSend(htmlEmail);
                 }
-            } catch (Exception ex){logger.error("try/catch inside finally", ex);ex.printStackTrace();}
+            } catch (Exception ex){logger.error("try/catch inside finally", ex);}
         }
     }
 

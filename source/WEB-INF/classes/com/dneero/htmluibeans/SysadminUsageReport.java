@@ -1,17 +1,17 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.charity.CharityReport;
-import com.dneero.reports.FieldAggregator;
-import com.dneero.reports.SimpleTableOutput;
+import com.dneero.dao.Eula;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Eula;
-import com.dneero.util.Time;
 import com.dneero.eula.EulaHelper;
+import com.dneero.htmlui.Pagez;
+import com.dneero.util.Time;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -60,7 +60,7 @@ public class SysadminUsageReport implements Serializable {
         usersWhoHavePosted = NumFromUniqueResult.getInt("SELECT count(distinct bloggerid) from Response where impressionstotal>0");
         usersWhoHaveBeenPaidInBalance = NumFromUniqueResult.getInt("SELECT count(distinct userid) from Balance where amt>0");
         usersWhoHaveBeenPaidInRealWorld = NumFromUniqueResult.getInt("SELECT count(distinct userid) from Balancetransaction where issuccessful=true and amt>0");
-        Eula mostRecentEula = EulaHelper.getMostRecentEula();
+        Eula mostRecentEula = EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl());
         usersOnLatestEULA = NumFromUniqueResult.getInt("SELECT count(distinct userid) from Usereula where eulaid='"+mostRecentEula.getEulaid()+"'");
         usersLoggedInLast3Days = usersLoggedInInLastXDays(3);
         usersLoggedInLast7Days = usersLoggedInInLastXDays(7);

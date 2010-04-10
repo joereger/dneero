@@ -1,15 +1,16 @@
 package com.dneero.eula;
 
 import com.dneero.dao.Eula;
+import com.dneero.dao.Pl;
 import com.dneero.dao.User;
 import com.dneero.dao.Usereula;
 import com.dneero.dao.hibernate.HibernateUtil;
-
-import java.util.List;
-import java.util.Iterator;
-import java.util.Date;
-
 import org.apache.log4j.Logger;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -18,31 +19,42 @@ import org.apache.log4j.Logger;
  */
 public class EulaHelper {
 
-    public static Eula eula;
+    public static TreeMap<Integer, Eula> eulas;
 
-    public static Eula getMostRecentEula(){
-        if (eula==null){
-            refreshMostRecentEula();
+    public static Eula getMostRecentEula(Pl pl){
+        if (eulas==null){ eulas = new TreeMap<Integer, Eula>(); }
+        if (eulas.get(pl.getPlid())==null){
+            refreshMostRecentEula(pl);
         }
+        Eula eula = eulas.get(pl.getPlid());
+        if (eula==null){ eula = getEmptyEula(pl); }
         return eula;
     }
 
-    public static void refreshMostRecentEula(){
-        eula = new Eula();
-        synchronized(eula){
-            List eulas = HibernateUtil.getSession().createQuery("from Eula order by eulaid desc").list();
-            if (eulas!=null && eulas.size()>0){
-                eula = (Eula)eulas.get(0);
+    private static Eula getEmptyEula(Pl pl){
+        Eula eula = new Eula();
+        eula.setDate(new Date());
+        eula.setEula("End User License Agreement");
+        eula.setPlid(pl.getPlid());
+        return eula;
+    }
+
+    public static void refreshMostRecentEula(Pl pl){
+        synchronized(eulas){
+            List eulasThisPl = HibernateUtil.getSession().createQuery("from Eula where plid='"+pl.getPlid()+"' order by eulaid desc").list();
+            if (eulasThisPl!=null && eulasThisPl.size()>0){
+                Eula eula = (Eula)eulasThisPl.get(0);
+                eulas.put(pl.getPlid(), eula);
                 return;
             }
             //But since none was found in DB, create a blank empty one
-            eula.setDate(new Date());
-            eula.setEula("End User License Agreement");
+            eulas.put(pl.getPlid(), getEmptyEula(pl));
         }
     }
 
     public static boolean isUserUsingMostRecentEula(User user){
         Logger logger = Logger.getLogger(EulaHelper.class);
+        Pl pl = Pl.get(user.getPlid());
         int highestEulaidForUser = 0;
         List results = HibernateUtil.getSession().createQuery("from Usereula where userid='"+user.getUserid()+"'").list();
         for (Iterator<Usereula> iterator = results.iterator(); iterator.hasNext();) {
@@ -54,8 +66,8 @@ public class EulaHelper {
             }
         }
         logger.debug("highestEulaidForUser="+highestEulaidForUser);
-        logger.debug("getMostRecentEula().getEulaid()="+getMostRecentEula().getEulaid());
-        if (highestEulaidForUser>=getMostRecentEula().getEulaid()){
+        logger.debug("getMostRecentEula().getEulaid()="+getMostRecentEula(pl).getEulaid());
+        if (highestEulaidForUser>=getMostRecentEula(pl).getEulaid()){
             logger.debug("returning true because highesteulaidforuser>=getMostRecentEula().getEulaid()");
             return true;
         }

@@ -2,25 +2,14 @@ package com.dneero.finders;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.Util;
-import com.dneero.util.Time;
-import com.dneero.util.DateDiff;
-import com.dneero.sir.SocialInfluenceRatingPercentile;
-import com.dneero.scheduledjobs.SystemStats;
-import com.dneero.constants.Dneerousagemethods;
 import com.dneero.privatelabel.PlPeers;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Calendar;
-
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.apache.log4j.Logger;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -87,15 +76,22 @@ public class FindSurveysForBlogger {
             Pl plOfSurvey = Pl.get(survey.getPlid());
             logger.debug("Seeing if surveyid="+survey.getSurveyid()+" works for this blogger.");
             if (PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, plOfUser)){
-                SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
-                if (scXml.isUserQualified(User.get(blogger.getUserid()))){
+                if (survey.getIsopentoanybody()){
                     this.surveys.add(survey);
+                } else {
+                    SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
+                    if (scXml.isUserQualified(User.get(blogger.getUserid()))){
+                        this.surveys.add(survey);
+                    }
                 }
             }
         }
     }
 
     public static boolean isUserQualifiedToTakeSurvey(User user, Survey survey){
+        if (survey.getIsopentoanybody()){
+            return true;
+        }
         if (user==null){
             return false;
         }
@@ -110,6 +106,9 @@ public class FindSurveysForBlogger {
     }
 
     public static boolean isBloggerQualifiedToTakeSurvey(Blogger blogger, Survey survey){
+        if (survey.getIsopentoanybody()){
+            return true;
+        }
         if (blogger==null){
             return false;
         }

@@ -196,7 +196,6 @@ public class EmailTemplateProcessor {
 //                if (m.group(1)!=null){
 //                    openquote = m.group(1);
 //                }
-//                //@todo All email images must be called from dNeero folder because of this line
 //                String replacement = "img src="+openquote+BaseUrl.get(false)+"emailtemplates/images";
 //                logger.debug("replacement ="+replacement);
 //                m.appendReplacement(out, Str.cleanForAppendreplacement(replacement));

@@ -1,9 +1,10 @@
 package com.dneero.finders;
 
-import com.dneero.dao.User;
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Venue;
 import com.dneero.constants.*;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.Pl;
+import com.dneero.dao.User;
+import com.dneero.dao.Venue;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -20,6 +21,11 @@ public class UserProfileCompletenessChecker {
         logger.debug("isProfileComplete(userid="+user.getUserid()+") called");
         if (user.getBloggerid()<=0){
             logger.debug("returning true for userid="+user.getUserid()+" because user.getBloggerid()<=0");
+            return true;
+        }
+        Pl pl = Pl.get(user.getPlid());
+        if (!pl.getIsbloggerdemographicrequired()){
+            logger.debug("returning true for userid="+user.getUserid()+" because !pl.getIsbloggerdemographicrequired()");
             return true;
         }
         Blogger blogger = Blogger.get(user.getBloggerid());

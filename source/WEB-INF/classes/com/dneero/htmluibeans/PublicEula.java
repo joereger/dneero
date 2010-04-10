@@ -4,6 +4,7 @@ import com.dneero.eula.EulaHelper;
 import com.dneero.dao.User;
 import com.dneero.dao.Usereula;
 
+import com.dneero.htmlui.Pagez;
 import com.dneero.util.GeneralException;
 
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public class PublicEula implements Serializable {
 
 
     public void initBean(){
-        eula = EulaHelper.getMostRecentEula().getEula();
+        eula = EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl()).getEula();
     }
 
 

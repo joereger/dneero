@@ -138,8 +138,8 @@ String acl = "public";
                         action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/surveypostit.jsp&surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"
                         method="POST"
                         invite="true"
-                        type="dNeero Conversation"
-                        content="<%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getTitle())%> - <%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getDescription())%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this dNeero Conversation!' />
+                        type="Conversation"
+                        content="<%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getTitle())%> - <%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getDescription())%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this Conversation!' />
                     ">
                         <fb:multi-friend-selector
                             showborder="false"

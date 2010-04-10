@@ -62,7 +62,7 @@ public class Registration implements Serializable {
         if (Pagez.getUserSession().getPendingSurveyResponseAsString()!=null && !Pagez.getUserSession().getPendingSurveyResponseAsString().equals("")){
             displaytempresponsesavedmessage = true;
         }
-        eula = EulaHelper.getMostRecentEula().getEula();
+        eula = EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl()).getEula();
         
     }
 
@@ -121,12 +121,12 @@ public class Registration implements Serializable {
         //@todo need to check for lcase(firstname), lcase(lastname), email in the database... people are changing caps on name and creating another account.
 
 
-        //if (eula==null || !eula.trim().equals(EulaHelper.getMostRecentEula().getEula().trim())){
+        //if (eula==null || !eula.trim().equals(EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl()).getEula().trim())){
             //@todo Registration EULA validation
             //logger.debug("eula="+eula);
-            //logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula().getEula());
+            //logger.debug("EulaHelper.getMostRecentEula().getEula()="+EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl()).getEula());
             //vex.addValidationError("The end user license can't be edited.");
-            //eula = EulaHelper.getMostRecentEula().getEula();
+            //eula = EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl()).getEula();
             //haveErrors = true;
         //}
 
@@ -194,7 +194,7 @@ public class Registration implements Serializable {
         //Eula version check
         Usereula usereula = new Usereula();
         usereula.setDate(new Date());
-        usereula.setEulaid(EulaHelper.getMostRecentEula().getEulaid());
+        usereula.setEulaid(EulaHelper.getMostRecentEula(Pagez.getUserSession().getPl()).getEulaid());
         usereula.setUserid(user.getUserid());
         usereula.setIp(Pagez.getRequest().getRemoteAddr());
         try{

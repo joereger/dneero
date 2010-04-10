@@ -7,8 +7,7 @@
     #else
         <title>dNeero: Social Network Currency</title>
     #end
-    <link rel="alternate" type="application/rss+xml" title="dNeero Conversations Blog" href="http://www.dneero.com/rss.xml" />
-    <meta name="description" content="dNeero connects advertisers and market researchers with a large pool of qualified and motivated social network users. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
+    <meta name="description" content="connects advertisers and market researchers with a large pool of qualified and motivated social network users. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
     <meta name="keywords" content="conversation,market research,survey,blog,web 2.0,startup,money,market intelligence" />
     <link rel="stylesheet" type="text/css" href="/template/calpers/main.css" />
     <link rel="stylesheet" type="text/css" href="/css/SexyButtons/sexybuttons.css" />
