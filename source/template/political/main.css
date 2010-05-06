@@ -2,9 +2,9 @@ body {
     padding:0px;
     margin:0px;
     min-width:750px;
-    background:#FFFFFF;
-    background-color:#FFFFFF;
-    background-image:url('/images/hp-version6/bg.gif');
+    background:#f1efed;
+    background-color:#f1efed;
+    /*background-image:url('/images/hp-version6/bg.gif');*/
     background-attachment:fixed;
     background-position: top center;
     background-repeat:no-repeat;

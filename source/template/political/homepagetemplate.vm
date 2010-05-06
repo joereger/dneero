@@ -1,65 +1,14 @@
 
-<center><img src="/images/hp-version6/hp.png" width="950" height="250"/></center>
 <br clear="all"/><br/>
-    <center>
-    <table cellpadding="0" cellspacing="10" border="0" width="95%">
-       <tr>
-           <td width="50%">
-               <div class="rounded" style="background: #00ff00; padding: 20px 30px 20px 30px; height: 140px; background-image:url('/images/hp-version6/calloutbox_bg.gif');">
-                   <script type="text/javascript">
-                        function textCounter( field, countfield, maxlimit ) {
-                          if ( field.value.length > maxlimit ){
-                            field.value = field.value.substring( 0, maxlimit );
-                            return false;
-                          } else {
-                            countfield.value = maxlimit - field.value.length;
-                          }
-                        }
-                   </script>
-                   <font class="mediumfont" style="color: #333333;">Ask Your Twitter Followers Anything</font><br/>
-                   <form action="/index.jsp" method="post" class="niceform" id="rsdform">
-                        <input type="hidden" name="dpage" value="/index.jsp">
-                        <input type="hidden" name="action" value="newtwitask">
-                       <textarea name="twitterquestionfromhomepage" rows="2" cols="20" style="width: 100%; font-size: 15px;" onkeypress="textCounter(this,this.form.counter, 120);"></textarea>
-                       <br/><font class="tinyfont">ex: "Do you like old Michael Jackson videos?" or "Do you care about the environment?"</font>
-                       <br/><input type="text" name="counter" id="counter" maxlength="3" size="3" style="font-size: 8px;" value="120" onblur="textCounter(this.form.twitterquestionfromhomepage,this,120);"><font class="tinyfont"> chars left</font>
-                       <div style="width:100%; text-align: right;">
-                       <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Ask Twitter Question">
-                       </div>
-                   </form>
-               </div>
-           </td>
-           <td width="50%">
-               <div class="rounded" style="background: #00ff00; padding: 20px 30px 20px 30px; height: 140px; background-image:url('/images/hp-version6/calloutbox_bg_blue.gif');">
-                    <font class="mediumfont" style="color: #333333;">Create a Social Survey About Anything</font><br/>
-                    <form action="/index.jsp" method="post" class="niceform" id="rsdform">
-                        <input type="hidden" name="dpage" value="/index.jsp">
-                        <input type="hidden" name="action" value="newsurvey">
-                        <font class="tinyfont"><b>Title</b> (Example: "Joe's Weekly Social Survey")</font>
-                        <br/>
-                        <input type="text" name="surveytitlefromhomepage" value="" style="width: 100%; font-size: 15px;">
-                        <br/>
-                        <font class="tinyfont"><b>Description</b> (Example: "The purpose of this survey is to...")</font>
-                        <br/>
-                        <textarea name="surveydescriptionfromhomepage" rows="2" cols="40" style="width: 100%; font-size: 15px;"></textarea>
-                        <div style="width:100%; text-align: right;">
-                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Create Social Survey">
-                        </div>
-                   </form>
-               </div>
-           </td>
-       </tr>
-    </table>
-    </center>
+
 
     <table cellpadding="0" cellspacing="10" border="0" width="100%">
 
        <tr>
            <td width="225">
 
-
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Conversation Engagements</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Survey Respondents</font><br/>
                     <font class="largefont" style="color: #666666;">$totalConvoJoins.html</font>
                </div>
 
@@ -74,7 +23,7 @@
                <br/>
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                   <font class="mediumfont" style="color: #999999;">Are You Experienced?</font><br/>
+                   <font class="mediumfont" style="color: #999999;">Most Conversations</font><br/>
                    $usersWithMostConvos.html
                </div>
 
@@ -85,27 +34,13 @@
                         <input type="hidden" name="action" value="enteraccesscode">
                         <font class="mediumfont" style="color: #999999;">Got an Access Code?</font><br/>
                         <input type="text" name="accesscode" size="10" maxlength="250">
-                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Use Access Code" style="font-size: 11px;">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Go" style="font-size: 11px;">
                     </form>
                 </div>
 
                <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                   <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
-                   $donationsMiniReport.html
-                   <br/>
-                   <div class="rounded" style="background: #ffffff; padding: 10px;">
-                        <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  You can create conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
-                   </div>
-               </div>
 
-               <br/>
-
-##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-##                    <font class="mediumfont" style="color: #999999;">Recent Earners</font><br/>
-##                    $recentDonations.html
-##               </div>
 
            </td>
            <td>
@@ -129,33 +64,6 @@
                     $twitterAnswers.html
                 </div>
 
-##                <br/>
-##
-##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-##                    <table cellpadding="0" cellspacing="10" border="0" width="100%">
-##                        <tr>
-##                            <td width="50%">
-##                                <div class="rounded" style="background: #ffffff; padding: 10px;">
-##                                    <font class="mediumfont" style="color: #999999;">Recent Money Earners</font><br/>
-##                                    $recentlyPaid.html
-##                                </div>
-##                            </td>
-##                            <td width="50%">
-##                                <div class="rounded" style="background: #ffffff; padding: 10px;">
-##                                    <font class="mediumfont" style="color: #999999;">Newest Users</font><br/>
-##                                    $newestUsers.html
-##                                </div>
-##                            </td>
-##                        </tr>
-##                    </table>
-##                </div>
-
-##                <br/>
-##
-##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-##                    <font class="mediumfont" style="color: #999999;">Blog Posts/Latest News/System Status</font><br/>
-##                    $blogPosts.html
-##                </div>
            </td>
        </tr>
 

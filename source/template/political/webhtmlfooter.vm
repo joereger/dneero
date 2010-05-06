@@ -1,26 +1,38 @@
- <!-- End Main Body Content -->
- </div>
+
+<!-- End Main Body Content -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
- <br/><br/>
+            <!--END CONTENTAREA -->
 
 
- <table width="985" cellspacing="0" border="0" cellpadding="0">
- <tr>
-     <tr>
-         <td valign="top" align="right">
-         </td>
-         <td valign="top" align="right">
-             <center><font class="tinyfont" style="color: #cccccc; padding-right: 10px;">At Your Service is a Server Called: $instancename which built this page in: <a href="/pageperformance.jsp" style="color: #cccccc;">$elapsedTime milliseconds</a></font></center>
-         </td>
-     </tr>
- </table>
 
- <br/><br/>
+                </div>
+            </div>
+        </div>
+        <div class="footer" style="margin-top: 150px; padding-top: 25px; height: 150px; font-size:0.90em;">
+            <div class="footerFrame">
+                <div class="legal">
+                    <div style="float:right;">
+                        <a href="http://www.309million.com"><img src="/template/political/images/logo-v01.png" alt="logo" title="" id="logo" height="69" width="259" border="0" align="right"></a>
+                    </div>
+                    <div style="">
+                        © 2010 political concept LLC. All rights reserved.
+                        <a href="/pageperformance.jsp" style="color: #cccccc;">$elapsedTime millis</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfloat"></div>
+        </div>
+    </div>
+</div>
 
- </center>
 
- <script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
     $('.rounded').corner();
 });
@@ -38,6 +50,6 @@ pageTracker._setAllowLinker(true);
 pageTracker._trackPageview();
 } catch(err) {}</script>
 
- </body>
- </html>
+
+</body></html>
 

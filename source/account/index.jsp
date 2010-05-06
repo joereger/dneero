@@ -181,43 +181,47 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                     <%}%>
                                 </div>
                             </td>
+                            <%  ResearcherSurveyList researcherSurveyList = null; %>
                             <td valign="top" width="33%">
-                                <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
-                                    <form action="/researcher/researchersurveydetail_01.jsp" method="get">
-                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Create a Conversation">
-                                    </form>
-                                    <%  ResearcherSurveyList researcherSurveyList = null; %>
-                                    <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
-                                        <%
-                                        researcherSurveyList = new ResearcherSurveyList();
-                                        researcherSurveyList.setMaxtodisplay(3);
-                                        researcherSurveyList.initBean();
-                                        %>
-                                        <%if (researcherSurveyList.getSurveys()!=null && researcherSurveyList.getSurveys().size()>0){%>
-                                            <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Convos You've Created</font></a>
+                                <%if (Pagez.getUserSession().getPl().getIsanybodyallowedtocreatesurveys() || Pagez.getUserSession().getIsCreateSurveys()){%>
+                                    <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
+                                        <form action="/researcher/researchersurveydetail_01.jsp" method="get">
+                                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Create a Conversation">
+                                        </form>
+                                        <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
+                                            <%
+                                            researcherSurveyList = new ResearcherSurveyList();
+                                            researcherSurveyList.setMaxtodisplay(3);
+                                            researcherSurveyList.initBean();
+                                            %>
+                                            <%if (researcherSurveyList.getSurveys()!=null && researcherSurveyList.getSurveys().size()>0){%>
+                                                <br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Convos You've Created</font></a>
+                                            <%}%>
                                         <%}%>
-                                    <%}%>
-                                </div>
+                                    </div>
+                                <%}%>
                             </td>
                             <td valign="top" width="33%">
-                                <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
-                                    <form action="/researcher/researchertwitaskdetail_01.jsp" method="get">
-                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Ask a Twitter Question">
-                                    </form>
-                                    <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
-                                        <%
-                                        BloggerCompletedTwitasks bloggerCompletedTwitasks = new BloggerCompletedTwitasks();
-                                        bloggerCompletedTwitasks.setMaxtodisplay(1);
-                                        bloggerCompletedTwitasks.initBean();
-                                        %>
-                                        <%if (bloggerCompletedTwitasks!=null && bloggerCompletedTwitasks.getTwitanswers()!=null && bloggerCompletedTwitasks.getTwitanswers().size()>0){%>
-                                            <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Answered</font></a>
+                                <%if (Pagez.getUserSession().getPl().getIsanybodyallowedtocreatetwitasks() || Pagez.getUserSession().getIsCreateTwitasks()){%>
+                                    <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
+                                        <form action="/researcher/researchertwitaskdetail_01.jsp" method="get">
+                                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Ask a Twitter Question">
+                                        </form>
+                                        <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
+                                            <%
+                                            BloggerCompletedTwitasks bloggerCompletedTwitasks = new BloggerCompletedTwitasks();
+                                            bloggerCompletedTwitasks.setMaxtodisplay(1);
+                                            bloggerCompletedTwitasks.initBean();
+                                            %>
+                                            <%if (bloggerCompletedTwitasks!=null && bloggerCompletedTwitasks.getTwitanswers()!=null && bloggerCompletedTwitasks.getTwitanswers().size()>0){%>
+                                                <br/><a href="/blogger/bloggercompletedtwitasks.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Answered</font></a>
+                                            <%}%>
+                                            <%if (researcherSurveyList!=null && researcherSurveyList.getTwitasks()!=null && researcherSurveyList.getTwitasks().size()>0){%>
+                                                <br/><a href="/researcher/index-twitask.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Asked</font></a>
+                                            <%}%>
                                         <%}%>
-                                        <%if (researcherSurveyList!=null && researcherSurveyList.getTwitasks()!=null && researcherSurveyList.getTwitasks().size()>0){%>
-                                            <br/><a href="/researcher/index-twitask.jsp"><font class="smallfont" style="font-weight: bold;">Questions You've Asked</font></a>
-                                        <%}%>
-                                    <%}%>
-                                </div>
+                                    </div>
+                                <%}%>
                             </td>
                         </tr>
                     </table>
