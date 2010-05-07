@@ -141,6 +141,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
             UserSession userSession = Pagez.getUserSession();
 
             Survey survey = new Survey();
+            survey.setPlid(Pagez.getUserSession().getPl().getPlid());
             survey.setResearcherid(userSession.getUser().getResearcherid());
             survey.setStatus(Survey.STATUS_DRAFT);
             survey.setPublicsurveydisplays(0);

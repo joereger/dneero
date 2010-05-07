@@ -37,6 +37,7 @@ if (publicSurvey.getSurvey().getStatus()<Survey.STATUS_OPEN){
 //If the survey isn't peered with this pl
 Pl plOfSurvey = Pl.get(publicSurvey.getSurvey().getPlid());
 if (!PlPeers.isThereATwoWayTrustRelationship(plOfSurvey, Pagez.getUserSession().getPl())){
+    Pagez.getUserSession().setMessage("No Private Label Peering Agreement Exists between plOfSurvey("+plOfSurvey.getPlid()+") and userSession.getPl("+Pagez.getUserSession().getPl().getPlid()+").");
     Pagez.sendRedirect("/notauthorized.jsp");
     return;
 }

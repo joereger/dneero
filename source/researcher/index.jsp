@@ -47,7 +47,7 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont" style="color: #596697;">Create a New Conversation</font></a>
+                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont">Create a New Conversation</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in a matter of minutes.</font>
@@ -55,7 +55,7 @@ String acl = "public";
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/panels.jsp"><font class="mediumfont" style="color: #596697;">Panels</font></a>
+                                <a href="/researcher/panels.jsp"><font class="mediumfont">Panels</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create and manage standing panels of bloggers for longitudinal studies.</font>
@@ -63,7 +63,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/rank-list.jsp"><font class="mediumfont" style="color: #596697;">Rankings</font></a>
+                                <a href="/researcher/rank-list.jsp"><font class="mediumfont">Rankings</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Create your own ranking index and use it to define/track people across multiple conversations.</font>
@@ -71,7 +71,7 @@ String acl = "public";
 
                             <%--<br/><br/>--%>
                             <%--<table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>--%>
-                                <%--<a href="/researcher/researcherdetails.jsp"><font class="mediumfont" style="color: #596697;">Update My Researcher Profile</font></a>--%>
+                                <%--<a href="/researcher/researcherdetails.jsp"><font class="mediumfont">Update My Researcher Profile</font></a>--%>
                              <%--</td></tr>--%>
                             <%--<tr><td valign="top"></td><td valign="top">--%>
                                 <%--<font class="smallfont">Help us understand your needs so that we can serve you better.</font>--%>
@@ -79,7 +79,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researcherbilling.jsp"><font class="mediumfont" style="color: #596697;">Billing Info</font></a>
+                                <a href="/researcher/researcherbilling.jsp"><font class="mediumfont">Billing Info</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">If you're doing conversations with incentives update your billing information on this screen.</font>

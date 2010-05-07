@@ -37,7 +37,7 @@ String acl = "public";
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researchertwitaskdetail_01.jsp"><font class="mediumfont" style="color: #596697;">Ask a Twitter Question</font></a>
+                                <a href="/researcher/researchertwitaskdetail_01.jsp"><font class="mediumfont">Ask a Twitter Question</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Ask Twitter users a question. This step-by-step wizard will guide you through the process.  Your Twitter Question can be ready to roll in minutes.</font>
@@ -47,7 +47,7 @@ String acl = "public";
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/bloggercompletedtwitasks.jsp"><font class="mediumfont" style="color: #596697;">Answered Twitter Questions</font></a>
+                                <a href="/blogger/bloggercompletedtwitasks.jsp"><font class="mediumfont">Answered Twitter Questions</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Check the status of Twitter Questions.</font>

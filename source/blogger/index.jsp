@@ -53,7 +53,7 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/publicsurveylist.jsp"><font class="mediumfont" style="color: #596697;">Find Conversations<br/>to Enter</font></a>
+                                <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Conversations<br/>to Enter</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Join conversations and share your answers with your social network.</font>
@@ -63,7 +63,7 @@ String acl = "public";
                             
                             <%if(Pagez.getUserSession().getPl().getIsreferralprogramon()){%>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/blogger/bloggerearningsrevshare.jsp"><font class="mediumfont" style="color: #596697;">Invite Friends</font></a>
+                                <a href="/blogger/bloggerearningsrevshare.jsp"><font class="mediumfont">Invite Friends</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Invite friends to join conversations!</font>

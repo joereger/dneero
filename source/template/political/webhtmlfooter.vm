@@ -14,15 +14,15 @@
                 </div>
             </div>
         </div>
-        <div class="footer" style="margin-top: 150px; padding-top: 25px; height: 150px; font-size:0.90em;">
+        <div class="footer" style="margin-top: 0px; padding-top: 25px; height: 150px; font-size:0.90em;">
             <div class="footerFrame">
                 <div class="legal">
-                    <div style="float:right;">
-                        <a href="http://www.309million.com"><img src="/template/political/images/logo-v01.png" alt="logo" title="" id="logo" height="69" width="259" border="0" align="right"></a>
-                    </div>
+##                    <div style="float:right;">
+##                        <a href="http://www.309million.com"><img src="/template/political/images/logo-v01.png" alt="logo" title="" id="logo" height="69" width="294" border="0" align="right"></a>
+##                    </div>
                     <div style="">
                         © 2010 political concept LLC. All rights reserved.
-                        <a href="/pageperformance.jsp" style="color: #cccccc;">$elapsedTime millis</a>
+                        <a href="/pageperformance.jsp" style="color: #cccccc;">Page in $elapsedTime ms</a>
                     </div>
                 </div>
             </div>

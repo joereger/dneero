@@ -192,7 +192,7 @@ String acl="researcher";
                                 %>
                                 <%=Grid.render(researcherSurveyQuestionList.getQuestions(), cols, 50, "/researcher/researchersurveydetail_02.jsp", "page")%>
                                 <%if (researcherSurveyDetail02.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_02){%>
-                                    <div style="float:right;"><input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="update" onclick="document.getElementById('action').value='questionorder';"></div>
+                                    <div style="float:right;"><input type="submit" class="formsubmitbutton sexybutton sexysimple sexym" value="update" onclick="document.getElementById('action').value='questionorder';"></div>
                                     <br clear="all"/>
                                 <%}%>
                             <%}%>

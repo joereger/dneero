@@ -50,7 +50,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                         <%if (Pagez.getUserSession().getUser().getCurrentbalance()!=0.0){%>
                             <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                                 <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                    <a href="/account/accountbalance.jsp"><font class="mediumfont" style="color: #596697;">Account Balance</font></a>
+                                    <a href="/account/accountbalance.jsp"><font class="mediumfont">Account Balance</font></a>
                                 </td></tr>
                                 <tr><td valign="top"></td><td valign="top">
                                     <font class="smallfont">See the earnings and charges for your account.</font><br/>
@@ -108,7 +108,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
 
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/account/accountsettings.jsp"><font class="mediumfont" style="color: #596697;">Account Settings</font></a>
+                                <a href="/account/accountsettings.jsp"><font class="mediumfont">Account Settings</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Change the name and/or email on your account.</font>
@@ -116,7 +116,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                             
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/profile.jsp?userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="mediumfont" style="color: #596697;">Your Profile</font></a>
+                                <a href="/profile.jsp?userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="mediumfont">Your Profile</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Update info on your Profile in <a href="/account/accountsettings.jsp">account settings</a> or in <a href="/blogger/bloggerdetails.jsp">details</a> page</font>
@@ -124,7 +124,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/account/awards.jsp"><font class="mediumfont" style="color: #596697;">Awards</font></a>
+                                <a href="/account/awards.jsp"><font class="mediumfont">Awards</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Sometimes conversations include an incentive like a coupon or charitable donation.</font>
@@ -132,7 +132,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/account/changepassword.jsp"><font class="mediumfont" style="color: #596697;">Change Your Password</font></a>
+                                <a href="/account/changepassword.jsp"><font class="mediumfont">Change Your Password</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Change the password that you use to log in to your account.</font>
@@ -141,7 +141,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                             <%if(Pagez.getUserSession().getPl().getIsresellerprogramon()){%>
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/account/reseller.jsp"><font class="mediumfont" style="color: #596697;">Reseller Program</font></a>
+                                <a href="/account/reseller.jsp"><font class="mediumfont">Reseller Program</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Sell conversations and make money!</font>
@@ -150,7 +150,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
 
                             <br/><br/>
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/account/inbox.jsp"><font class="mediumfont" style="color: #596697;">Inbox</font></a>
+                                <a href="/account/inbox.jsp"><font class="mediumfont">Inbox</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Use the Inbox messaging system to get help with your account.  Ask us anything and view our responses quickly and easily.</font>
