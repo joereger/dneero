@@ -29,18 +29,7 @@ String acl = "public";
 
 
 
-    <div id="csstabs">
-      <ul>
-        <li><a href="/survey.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>" title="Share It"><span>Share It</span></a></li>
-        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>" title="Answers"><span>Answers</span></a></li>
-        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>" title="Who's In?"><span>Who's In?</span></a></li>
-        <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
-      </ul>
-    </div>
-    <br/><br/><br/>
+    <%@ include file="/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyRequirements.getSurvey().getTitle()%></font></a>
     <br/><br/><br/>

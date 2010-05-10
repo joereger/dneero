@@ -8,7 +8,7 @@
         #if ($pagetitle!="")
             <title>Politics: $pagetitle</title>
         #else
-            <title>Politics: Exerting Your Opinion</title>
+            <title>Politics</title>
         #end
         <meta name="description" content="political discussion" />
         <meta name="keywords" content="politics" />
@@ -27,7 +27,7 @@
 				<div class="mast_wrap">
 
                     <div class="logo">
-                        <a href="http://www.309million.com"><img src="/template/political/images/logo-v01.png" alt="logo" title="" id="logo" height="69" width="294" border="0"></a>
+                        <a href="http://localhost/wordpress/"><img src="/template/political/images/logo-v01.png" alt="logo" title="" id="logo" height="69" width="294" border="0"></a>
                     </div>
 ##                    <div class="block" id="block-4">
 ##                        <div class="content">

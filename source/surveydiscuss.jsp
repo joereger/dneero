@@ -43,18 +43,7 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-    <div id="csstabs">
-      <ul>
-        <li><a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Share It"><span>Share It</span></a></li>
-        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Answers"><span>Answers</span></a></li>
-        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Who's In?"><span>Who's In?</span></a></li>
-        <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
-      </ul>
-    </div>
-    <br/><br/><br/>
+    <%@ include file="/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyDiscuss.getSurvey().getTitle()%></font></a>
     <br/><br/><br/>
@@ -76,7 +65,7 @@ String acl = "public";
                 <% } %>
             </td>
             <td valign="top" width="150">
-                <img src="/images/wireless-green-128.png" width="128" height="128"/>
+                <img src="/images/wireless-green.png" width="32" height="32"/>
             </td>
         </tr>
     </table>

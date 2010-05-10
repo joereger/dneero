@@ -45,18 +45,7 @@ String acl = "public";
 
 
 
-    <div id="csstabs">
-      <ul>
-        <li><a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Questions"><span>Questions</span></a></li>
-        <li><a href="/surveypostit.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Share It"><span>Share It</span></a></li>
-        <li><a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Answers"><span>Answers</span></a></li>
-        <li><a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Who's In?"><span>Who's In?</span></a></li>
-        <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Discuss"><span>Discuss</span></a></li>
-        <li><a href="/surveyrequirements.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Requirements"><span>Requirements</span></a></li>
-        <li><a href="/surveydisclosure.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>" title="Disclosure"><span>Disclosure</span></a></li>
-      </ul>
-    </div>
-    <br/><br/><br/>
+    <%@ include file="/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyPostit.getSurvey().getTitle()%></font></a>
     <br/><br/><br/>
@@ -83,7 +72,7 @@ String acl = "public";
                             </div>
                             <br/>
                             <font class="smallfont">
-                            <br/><br/><b>How do I add it to my blog?</b><br/>
+                            <br/><br/><b>How do I add it to my blog or social network?</b><br/>
                             We'll make it incredibly easy.  After you answer the questions we'll give you a line of code that you copy and paste into a blog post.  That's it!
 
                             <br/><br/><b>What will appear on my blog?</b><br/>
@@ -162,7 +151,7 @@ String acl = "public";
                             <br/>
                             <img src="/images/ok-128.png" width="128" height="128"/>
                             <br/>
-                            <font class="mediumfont">Now share your answers!</font>
+                            <font class="mediumfont">Now share your answers to get others involved!</font>
                         </div>
                         <br/>
                         <% if (publicSurveyPostit.getSurvey().getIscharityonly()){ %>
@@ -183,7 +172,7 @@ String acl = "public";
                         <br/><br/><b>How big is it?</b><br/>
                         Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the conversation is long it'll scroll automatically.
 
-                        <br/><br/><b>Can people who see my answers jump in?</b><br/>
+                        <br/><br/><b>Can my friends jump in?</b><br/>
                         Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers.
 
                         <br/><br/><b>Will I see how others answered?</b><br/>
