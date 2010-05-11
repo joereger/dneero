@@ -42,7 +42,7 @@ String acl = "public";
 %>
 <%@ include file="/template/header.jsp" %>
 
-
+    <% Survey surveyInTabs = publicSurveyDiscuss.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyDiscuss.getSurvey().getTitle()%></font></a>

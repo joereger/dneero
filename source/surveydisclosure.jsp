@@ -27,7 +27,7 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-
+    <% Survey surveyInTabs = publicSurveyDisclosure.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
 
 

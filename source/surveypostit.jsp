@@ -44,7 +44,7 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-
+    <% Survey surveyInTabs = publicSurveyPostit.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyPostit.getSurvey().getTitle()%></font></a>

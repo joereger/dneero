@@ -28,7 +28,7 @@ String acl = "public";
 
 
 
-
+    <% Survey surveyInTabs = publicSurveyRequirements.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyRequirements.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyRequirements.getSurvey().getTitle()%></font></a>

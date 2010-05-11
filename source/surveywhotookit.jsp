@@ -29,7 +29,7 @@ String acl="public";
 <%@ include file="/template/auth.jsp" %>
 <%@ include file="/template/header.jsp" %>
 
-
+    <% Survey surveyInTabs = publicSurveyWhotookit.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyWhotookit.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyWhotookit.getSurvey().getTitle()%></font></a>

@@ -78,8 +78,9 @@ String acl = "public";
 
 
 
-
+    <% Survey surveyInTabs = publicSurvey.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
+
 
 
 
