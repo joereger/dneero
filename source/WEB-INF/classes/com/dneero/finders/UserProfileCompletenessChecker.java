@@ -5,6 +5,7 @@ import com.dneero.dao.Blogger;
 import com.dneero.dao.Pl;
 import com.dneero.dao.User;
 import com.dneero.dao.Venue;
+import com.dneero.htmlui.Pagez;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
@@ -73,18 +74,20 @@ public class UserProfileCompletenessChecker {
 //                return false;
 //            }
             if (user.getFacebookuserid()<=0){
-                int venuecount = 0;
-                if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
-                    for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
-                        Venue venue=iterator.next();
-                        if (venue.getIsactive() && !venue.getIssysadminrejected()){
-                            venuecount = venuecount + 1;
+                if (Pagez.getUserSession().getPl().getIsvenuerequired()){
+                    int venuecount = 0;
+                    if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
+                        for (Iterator<Venue> iterator=blogger.getVenues().iterator(); iterator.hasNext();) {
+                            Venue venue=iterator.next();
+                            if (venue.getIsactive() && !venue.getIssysadminrejected()){
+                                venuecount = venuecount + 1;
+                            }
                         }
                     }
-                }
-                if (venuecount==0){
-                    logger.debug("return false because at least one posting venue url required");
-                    return false;
+                    if (venuecount==0){
+                        logger.debug("return false because at least one posting venue url required");
+                        return false;
+                    }
                 }
             }
 

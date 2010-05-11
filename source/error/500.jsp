@@ -18,10 +18,10 @@
 <body bgcolor=#ffffff>
 <br><br>
 <blockquote><blockquote>
-<img src="/images/dneero-logo.jpg" alt=""/>
+<img src="/images/alert.png" alt=""/>
 <br/>
-<strong><font face=arial size=+1 color="#666666">We're sorry.  We're either updating the software at this time or there's been some sort of catastrophic software error.</font></strong><br/>
-<font face=arial size=-1 color="#666666">We're always trying to launch new features to make the site more powerful and sometimes bugs slip out the door.  We apologize for the invconvenience.  Please try again soon.  A system administrator has been notified of this error.</font>
+<strong><font face=arial size=+1 color="#666666">We're sorry.  We're updating our system.</font></strong><br/>
+<font face=arial size=-1 color="#666666">We're always trying to launch new features to make the site more powerful.  We apologize for the invconvenience.  Please try again soon.</font>
 </blockquote></blockquote>
 <br>
 <%

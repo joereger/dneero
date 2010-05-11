@@ -145,13 +145,13 @@ String acl = "public";
             <table cellpadding="3" cellspacing="15" border="0" width="100%">
             <tr>
                 <td valign="top" width="35%">
-                    <div class="rounded" style="background: #e6e6e6;">
+                    <%--<div class="rounded" style="background: #e6e6e6;">--%>
                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <font class="mediumfont">You've Entered this Conversation!</font>
-                            <br/>
-                            <img src="/images/ok-128.png" width="128" height="128"/>
-                            <br/>
-                            <font class="mediumfont">Now share your answers to get others involved!</font>
+                            <font class="mediumfont">You've Entered this Conversation.</font>
+                            <%--<br/>--%>
+                            <%--<img src="/images/ok-128.png" width="128" height="128"/>--%>
+                            <%--<br/>--%>
+                            <%--<font class="smallfont">Now share your response to get others involved!</font>--%>
                         </div>
                         <br/>
                         <% if (publicSurveyPostit.getSurvey().getIscharityonly()){ %>
@@ -183,9 +183,10 @@ String acl = "public";
                         <% if (Pagez.getUserSession().getIsloggedin() && publicSurveyPostit.isLoggedinuserhasalreadytakensurvey()){ %>
                                 <center><a href="/account/inbox.jsp"><font class="smallfont">Need Help?</font></a></center>
                         <% } %>
-                    </div>
+                    <%--</div>--%>
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">
+                    <div class="rounded" style="background: #e6e6e6;">
 
                     <%if (publicSurveyPostit.getPostresponseinstructions()!=null && !publicSurveyPostit.getPostresponseinstructions().equals("")){%>
                         <div class="rounded" style="background: #e6e6e6;">
@@ -193,13 +194,24 @@ String acl = "public";
                         </div>
                     <%}%>
 
-
-
                     <center>
-                    <font class="mediumfont">Choose Your Social Network</font>
-                    <br/>
-                    <font class="smallfont">Or copy Embed Code and paste into your social network.</font>
-                    <br/><br/>
+                    <table cellpadding="3" cellspacing="15" border="0" width="400">
+                    <tr>
+                        <td valign="top" width="64">
+                            <img src="/images/down-alt-64.png" alt="" width="64" height="64"/>    
+                        </td>
+                        <td valign="top">
+                            <center>
+                            <font class="tinyfont">you're almost done...</font>
+                            <br/>
+                            <font class="mediumfont">Share Your Answers,<br/>Get Others Involved</font>
+                            <br/>
+                            <font class="tinyfont">...choose your social network below.</font>
+                            <br/><br/>
+                            </center>
+                        </td>
+                    </tr>
+                    </table>
                     </center>
 
                     <center>
@@ -594,6 +606,7 @@ String acl = "public";
                         $("#togglepage").hide();
                     </script>
 
+                    </div>
                 </td>
             </tr>
         </table>

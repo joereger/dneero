@@ -212,7 +212,8 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                             </td>
                         </tr>
 
-                        <%if (!Pagez.getUserSession().getIsfacebookui()){%>
+                        <%if (Pagez.getUserSession().getPl().getIsvenuerequired()){%>
+                            <%if (!Pagez.getUserSession().getIsfacebookui()){%>
                                 <tr>
                                     <td valign="top" colspan="2">
                                         <br/><br/>
@@ -247,34 +248,36 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                                 }
                                             %>
                                             <%if (bloggerDetails.getVenuecount()<=4){%>
-                                            <tr>
-                                                <td valign="top">
-                                                    <%=Textbox.getHtml("venueurl", bloggerDetails.getVenueurl(), 255, 25, "", "")%><br/>
+                                                <tr>
+                                                    <td valign="top">
+                                                        <%=Textbox.getHtml("venueurl", bloggerDetails.getVenueurl(), 255, 25, "", "")%><br/>
 
-                                                </td>
-                                                <td valign="top">
-                                                    <%=Dropdown.getHtml("venuefocus", bloggerDetails.getVenuefocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top">
-                                                    <font class="tinyfont" style="font-weight: bold;">URL of Venue</font>
-                                                    <br/>
-                                                    <font class="tinyfont">The main or home page.</font>
-                                                    <br/>
-                                                    <font class="tinyfont">ex: www.myblog.com</font>
-                                                </td>
-                                                <td valign="top">
-                                                    <font class="tinyfont" style="font-weight: bold;">Focus</font>
-                                                    <br/>
-                                                    <font class="tinyfont">The primary topic covered.</font>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <%=Dropdown.getHtml("venuefocus", bloggerDetails.getVenuefocus(), Util.treeSetToTreeMap(Blogfocuses.get()), "", "")%>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        <font class="tinyfont" style="font-weight: bold;">URL of Venue</font>
+                                                        <br/>
+                                                        <font class="tinyfont">The main or home page.</font>
+                                                        <br/>
+                                                        <font class="tinyfont">ex: www.myblog.com</font>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <font class="tinyfont" style="font-weight: bold;">Focus</font>
+                                                        <br/>
+                                                        <font class="tinyfont">The primary topic covered.</font>
+                                                    </td>
+                                                </tr>
                                             <%}%>
+
                                         </table>
 
                                     </td>
                                 </tr>
+                            <%}%>
                         <%}%>
 
 

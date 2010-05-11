@@ -10,7 +10,7 @@
     PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
 %>
 <%
-if (publicProfile==null || publicProfile.getUser()==null || publicProfile.getUser().getUserid()==0 || publicProfile.getUser().getBloggerid()==0 || !publicProfile.getUser().getIsenabled()){
+if (publicProfile==null || publicProfile.getUser()==null || publicProfile.getUser().getUserid()==0 || !publicProfile.getUser().getIsenabled()){
 
     Pagez.getUserSession().setMessage("profile.jsp");
     Pagez.getUserSession().setMessage("request.getParameter(\"userid\")="+request.getParameter("userid"));
@@ -20,8 +20,6 @@ if (publicProfile==null || publicProfile.getUser()==null || publicProfile.getUse
         Pagez.getUserSession().setMessage("publicProfile.getUser()==null");
     } else if (publicProfile.getUser().getUserid()==0){
         Pagez.getUserSession().setMessage("publicProfile.getUser().getUserid()==0");
-    } else if (publicProfile.getUser().getBloggerid()==0){
-        Pagez.getUserSession().setMessage("publicProfile.getUser().getBloggerid()==0");
     } else if (!publicProfile.getUser().getIsenabled()){
         Pagez.getUserSession().setMessage("!publicProfile.getUser().getIsenabled()");
     } else {

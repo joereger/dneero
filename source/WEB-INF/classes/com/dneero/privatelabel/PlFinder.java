@@ -52,19 +52,21 @@ public class PlFinder {
         logger.debug("servernameSplit.length="+servernameSplit.length);
         if (servernameSplit!=null && servernameSplit.length>0 && servernameSplit[0]!=null){
             subdomain = servernameSplit[0];
-            logger.debug("subdomain="+subdomain);
-            List<Pl> plsSubdomain = HibernateUtil.getSession().createCriteria(Pl.class)
-                           .add(Restrictions.eq("subdomain", subdomain.toLowerCase()))
-                           .setCacheable(true)
-                           .list();
-            logger.debug("plsSubdomain.size()="+plsSubdomain.size());
-            if (plsSubdomain!=null && plsSubdomain.size()>1){
-                logger.error("More than one dNeero pl with subdomain="+subdomain);
-            }
-            for (Iterator<Pl> plIterator=plsSubdomain.iterator(); plIterator.hasNext();) {
-                Pl pl=plIterator.next();
-                logger.debug("Found pl via subdomain="+subdomain+": plid="+pl.getPlid()+" name="+pl.getName());
-                return pl;
+            if (subdomain!=null){
+                logger.debug("subdomain="+subdomain);
+                List<Pl> plsSubdomain = HibernateUtil.getSession().createCriteria(Pl.class)
+                               .add(Restrictions.eq("subdomain", subdomain.toLowerCase()))
+                               .setCacheable(true)
+                               .list();
+                logger.debug("plsSubdomain.size()="+plsSubdomain.size());
+                if (plsSubdomain!=null && plsSubdomain.size()>1){
+                    logger.error("More than one dNeero pl with subdomain="+subdomain);
+                }
+                for (Iterator<Pl> plIterator=plsSubdomain.iterator(); plIterator.hasNext();) {
+                    Pl pl=plIterator.next();
+                    logger.debug("Found pl via subdomain="+subdomain+": plid="+pl.getPlid()+" name="+pl.getName());
+                    return pl;
+                }
             }
         }
         //Search via customdomain1

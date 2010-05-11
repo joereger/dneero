@@ -86,7 +86,7 @@ String acl = "public";
         <font class="mediumfont" style="color: #666666;">Conversation Disclosure</font>
         <br/><br/>
         <font class="normalfont">
-        This conversation is powered by a third party technology.  It is created by a person or organization which may exert bias through their choice of questions.
+        This conversation is powered by a third party technology.
         </font> 
    <% } %>
 

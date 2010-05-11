@@ -654,9 +654,9 @@ IMG.play {
 .form-text {
 	BORDER-BOTTOM: #000 1px solid; BORDER-LEFT: #000 1px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid; PADDING-TOP: 3px
 }
-TEXTAREA {
-	BORDER-BOTTOM: #222 1px solid; BORDER-LEFT: #222 1px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 1.23em; BORDER-TOP: #222 1px solid; BORDER-RIGHT: #222 1px solid; PADDING-TOP: 3px
-}
+/*TEXTAREA {*/
+	/*BORDER-BOTTOM: #222 1px solid; BORDER-LEFT: #222 1px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 1.23em; BORDER-TOP: #222 1px solid; BORDER-RIGHT: #222 1px solid; PADDING-TOP: 3px*/
+/*}*/
 LABEL {
 	TEXT-TRANSFORM: lowercase
 }
