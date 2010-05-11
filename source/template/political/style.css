@@ -1,0 +1,1603 @@
+
+#block-4 {
+	POSITION: absolute; BOTTOM: 0px; LEFT: 0px
+}
+.block .navigation UL {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.navigation {
+	Z-INDEX: 1000; MARGIN-TOP: 20px; WIDTH: 850px; FLOAT: left
+}
+.navigation .nav {
+	TEXT-TRANSFORM: uppercase
+}
+.navigation LI {
+	DISPLAY: inline
+}
+.navigation .nav A {
+	PADDING-BOTTOM: 6px; BACKGROUND-COLOR: #000000; PADDING-LEFT: 13px; PADDING-RIGHT: 13px; DISPLAY: block; FLOAT: left; COLOR: #fff; FONT-SIZE: 1.08em; FONT-WEIGHT: normal; PADDING-TOP: 6px
+}
+.navigation .nav A.active IMG:hover {
+	BACKGROUND-COLOR: #00ccff
+}
+.navigation .nav A.active:hover {
+	BACKGROUND-COLOR: #00ccff
+}
+.navigation .nav A.active {
+	BACKGROUND-COLOR: #00ccff
+}
+.navigation .nav A:hover {
+	DISPLAY: block; BACKGROUND: #999999
+}
+.navigation .nav lia {
+	DISPLAY: block; BACKGROUND: #999999
+}
+.navigation .flag-active {
+	Z-INDEX: 1000; POSITION: absolute; MARGIN-TOP: 27px
+}
+.navigation LI#nav-magazine .flag-active {
+	LEFT: 13px
+}
+.navigation LI#nav-articles .flag-active {
+	LEFT: 105px
+}
+.navigation LI#nav-videos .flag-active {
+	LEFT: 195px
+}
+.navigation LI#nav-audio .flag-active {
+	LEFT: 261px
+}
+.navigation LI#nav-blog .flag-active {
+	LEFT: 328px
+}
+.navigation LI#nav-events .flag-active {
+	LEFT: 399px
+}
+.navigation LI#nav-subscribe .flag-active {
+	LEFT: 477px
+}
+.navigation LI#rss A {
+	LINE-HEIGHT: 0px; BACKGROUND-COLOR: #fff
+}
+.navigation LI#rss A:hover {
+	BACKGROUND-COLOR: transparent
+}
+.navigation TABLE {
+	MARGIN: -1px; WIDTH: 0px; BORDER-COLLAPSE: collapse; HEIGHT: 0px
+}
+.container {
+	Z-INDEX: 500; TEXT-ALIGN: left; MARGIN: 0px auto -55px; MIN-HEIGHT: 100%; WIDTH: 100%; HEIGHT: auto !important; FONT-SIZE: 0.75em
+}
+.frame {
+	
+}
+.mast {
+	Z-INDEX: 1000; BACKGROUND-COLOR: #fff; MARGIN-BOTTOM: 23px; HEIGHT: 130px; CLEAR: both
+}
+.mast_wrap {
+	Z-INDEX: 1000; POSITION: relative; MARGIN: 0px auto; WIDTH: 996px; HEIGHT: 130px
+}
+#homepage .mast {
+	MARGIN-BOTTOM: 0px
+}
+#search-0 {
+	POSITION: absolute; WIDTH: 230px; TOP: 100px; RIGHT: 0px
+}
+#search-0 .form-item {
+	MARGIN: 0px
+}
+#search-0 .form-item INPUT {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; COLOR: #999999; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid
+}
+#search-0 #search-block-form {
+	FLOAT: right
+}
+#designmind-13 {
+	POSITION: absolute; WIDTH: 996px; TOP: 11px; RIGHT: 0px
+}
+#designmind-13 .footernav {
+	FLOAT: right; COLOR: #999
+}
+#designmind-13 .footernav LI {
+	LIST-STYLE-TYPE: none; MARGIN: 0px; DISPLAY: inline; FLOAT: left
+}
+#designmind-13 .footernav LI A {
+	COLOR: #999; FONT-SIZE: 0.91em
+}
+#designmind-13 .footernav LI A:hover {
+	
+}
+#menu-159 {
+	POSITION: absolute; WIDTH: 996px; TOP: 0px
+}
+#menu-159 UL LI.leaf {
+	LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-RIGHT: 5px; DISPLAY: inline; FLOAT: right; LIST-STYLE-IMAGE: none; BORDER-RIGHT: #000 1px solid
+}
+.contentarea {
+	PADDING-BOTTOM: 100px; MARGIN: 0px auto; PADDING-LEFT: 0px; WIDTH: 996px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.contentarea .columns {
+	Z-INDEX: 105
+}
+.logo {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FLOAT: left; PADDING-TOP: 69px
+}
+.logo #logo {
+	FLOAT: left
+}
+#tagline {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FLOAT: left; COLOR: #666666; PADDING-TOP: 21px
+}
+.polylogo {
+	MARGIN: -4px 0px 0px; PADDING-LEFT: 0px; FLOAT: right
+}
+.node P A {
+	TEXT-DECORATION: underline
+}
+.node P A:visited {
+	TEXT-DECORATION: underline
+}
+.node P A:hover {
+	TEXT-DECORATION: none
+}
+.teaser.node {
+	BORDER-BOTTOM: #cdcdcd 1px solid; BORDER-LEFT: #cdcdcd 1px solid; PADDING-BOTTOM: 20px; BACKGROUND-COLOR: #fff; MARGIN: 0px 0px 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: #cdcdcd 1px solid; BORDER-RIGHT: #cdcdcd 1px solid; PADDING-TOP: 20px
+}
+.teaser.node H2 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; COLOR: #333333; FONT-SIZE: 2.08em; FONT-WEIGHT: bold; PADDING-TOP: 0px
+}
+.teaser.node P {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 1.5em; PADDING-LEFT: 30px; PADDING-RIGHT: 20px; MARGIN-BOTTOM: 20px; PADDING-TOP: 0px
+}
+.teaser.node P IMG {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; CLEAR: left; PADDING-TOP: 0px
+}
+.teaser.node .player {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; PADDING-TOP: 0px
+}
+.teaser.node .readmore A {
+	FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+.teaser.node UL.readmore {
+	LIST-STYLE-TYPE: none; PADDING-LEFT: 30px
+}
+.teaser.node UL.readmore LI {
+	DISPLAY: inline; MARGIN-RIGHT: 10px
+}
+.teaser.node .swftools-wrapper {
+	PADDING-LEFT: 30px
+}
+.video.teaser.node H3 {
+	FONT-SIZE: 1.25em
+}
+.video.teaser.node SPAN.type {
+	COLOR: #777777; FONT-SIZE: 0.66em; FONT-WEIGHT: normal
+}
+.interior.node {
+	BORDER-BOTTOM: #cdcdcd 1px solid; BORDER-LEFT: #cdcdcd 1px solid; PADDING-BOTTOM: 15px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; MARGIN-BOTTOM: 10px; BORDER-TOP: #cdcdcd 1px solid; BORDER-RIGHT: #cdcdcd 1px solid; PADDING-TOP: 30px
+}
+.interior.node .byline {
+	MARGIN-BOTTOM: 10px; COLOR: #666666; FONT-SIZE: 0.83em
+}
+.teaser.node .byline {
+	MARGIN-BOTTOM: 10px; COLOR: #666666; FONT-SIZE: 0.83em
+}
+.byline {
+	MARGIN-BOTTOM: 10px; COLOR: #666666; FONT-SIZE: 0.83em
+}
+.interior.node UL {
+	MARGIN-BOTTOM: 15px
+}
+.interior.node UL LI {
+	PADDING-BOTTOM: 15px; LINE-HEIGHT: 1.5em; LIST-STYLE-TYPE: disc; PADDING-LEFT: 5px; MARGIN-LEFT: 15px
+}
+.interior.node OL LI {
+	PADDING-BOTTOM: 15px; LINE-HEIGHT: 1em; LIST-STYLE-TYPE: decimal; MARGIN-LEFT: 20px
+}
+.interior.node BLOCKQUOTE {
+	FONT-STYLE: italic
+}
+.article.interior.node H2 {
+	LINE-HEIGHT: 20px; COLOR: #222; FONT-WEIGHT: normal
+}
+.article.interior.node H2 {
+	FONT-WEIGHT: bold
+}
+.article.interior.node H3 {
+	MARGIN: 20px 0px 5px; FONT-SIZE: 1.08em
+}
+.article.interior.node H4 {
+	FONT-SIZE: 1.08em
+}
+.interior.node .caption {
+	FONT-STYLE: italic; COLOR: #666666; FONT-SIZE: 0.83em
+}
+.interior.node .caption EM.title {
+	FONT-WEIGHT: bold
+}
+.photo {
+	
+}
+.photo P {
+	MARGIN-BOTTOM: 5px
+}
+.interior.node .caption P.credit {
+	TEXT-ALIGN: right; COLOR: #777777; FONT-SIZE: 0.75em
+}
+#homepage .article.teaser H3 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; PADDING-TOP: 0px
+}
+#homepage .article.teaser .thumb {
+	DISPLAY: none
+}
+.preview {
+	PADDING-BOTTOM: 20px; BACKGROUND-COLOR: #ffe7e7; MARGIN: 0px 30px; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; PADDING-TOP: 20px
+}
+.preview .node {
+	BACKGROUND-COLOR: #ffe7e7
+}
+.page {
+	BORDER-BOTTOM: #cdcdcd 1px solid; BORDER-LEFT: #cdcdcd 1px solid; BACKGROUND-COLOR: #fff; BORDER-TOP: #cdcdcd 1px solid; BORDER-RIGHT: #cdcdcd 1px solid
+}
+.footer {
+	BACKGROUND-COLOR: #fff; WIDTH: 100%; HEIGHT: 40px; FONT-SIZE: 0.68em; PADDING-TOP: 28px
+}
+.footerFrame {
+	MARGIN: 0px auto; WIDTH: 996px
+}
+.footer .legal {
+	FLOAT: left
+}
+.footer .navFooter {
+	FLOAT: right
+}
+#homepage UL.primary.tabs {
+	Z-INDEX: 1000; POSITION: absolute; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; RIGHT: 0px; PADDING-TOP: 0px
+}
+#homepage UL.primary.tabs LI {
+	TEXT-ALIGN: right; MARGIN-TOP: 5px; WIDTH: 100px; DISPLAY: block
+}
+#homepage UL.primary.tabs LI A {
+	MARGIN: 0px; DISPLAY: block
+}
+#homepage .admin-links .links LI {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: #cdcdcd 1px solid; PADDING-BOTTOM: 0px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-TOP: #cdcdcd 1px solid; BORDER-RIGHT: #cdcdcd 1px solid; PADDING-TOP: 0px
+}
+#homepage H4 {
+	FONT-SIZE: 1.25em
+}
+#homepage H4 A {
+	TEXT-DECORATION: none
+}
+#homepage .comment.teaser H3 {
+	FONT-SIZE: 0.83em
+}
+#homepage .footer {
+	POSITION: relative; MARGIN-TOP: 600px;
+}
+#homepage .panel-2col-stacked .panel-col-first {
+	WIDTH: 660px; FLOAT: left
+}
+#homepage .panel-2col-stacked .panel-col-last {
+	WIDTH: 315px; FLOAT: right; MARGIN-LEFT: 7px; PADDING-TOP: 20px
+}
+#homepage .center-wrapper {
+	POSITION: relative;
+}
+#center-wrapper-index {
+	TOP: 558px
+}
+#center-wrapper-nonindex {
+	TOP: 150px
+}
+#homepage .article-grid .node-item {
+	MIN-HEIGHT: 185px; HEIGHT: 185px
+}
+H2.title {
+	BORDER-BOTTOM: #000 1px solid; PADDING-BOTTOM: 6px; FONT-STYLE: italic; MARGIN: 0px; PADDING-LEFT: 17px; PADDING-RIGHT: 0px; FONT-FAMILY: Times New Roman, serif; BORDER-TOP: #000 6px solid; PADDING-TOP: 6px
+}
+.panel-col-last .panel-pane {
+	MARGIN-BOTTOM: 56px; CLEAR: both
+}
+.panel-col-top .panel-hide {
+	POSITION: absolute; BACKGROUND-COLOR: #fff
+}
+.panel-separator {
+	CLEAR: both
+}
+#search-block-form {
+	
+}
+.search INPUT {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; WIDTH: 223px; PADDING-RIGHT: 0px; FONT-FAMILY: arial, sans-serif; MARGIN-BOTTOM: 7px; FLOAT: right; HEIGHT: 16px; FONT-SIZE: 0.91em; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 5px
+}
+.search #edit-submit {
+	DISPLAY: none
+}
+.row {
+	WIDTH: 100%; CLEAR: both
+}
+.feature.row {
+	BORDER-BOTTOM: #ffffff 1px solid; MARGIN-BOTTOM: 30px; HEIGHT: 300px; BORDER-TOP: #ffffff 1px solid
+}
+.feature.row .rectangle {
+	MARGIN-LEFT: 30px
+}
+.feature.row H2 {
+	MARGIN: 0px; FONT-SIZE: 1.25em; FONT-WEIGHT: bold
+}
+.issue.feature.row .column {
+	PADDING-TOP: 10px
+}
+.feature.row .excerpt {
+	FONT-SIZE: 0.91em
+}
+.feature.row .column P {
+	LINE-HEIGHT: normal
+}
+.feature.row A.more {
+	POSITION: absolute; MARGIN-TOP: 5px; DISPLAY: block; FONT-SIZE: 0.83em
+}
+.subfeature {
+	PADDING-BOTTOM: 30px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 30px
+}
+.subfeature .header {
+	CURSOR: pointer
+}
+.archive.row {
+	MARGIN-BOTTOM: 0px
+}
+.issue.row {
+	BORDER-BOTTOM: 1px solid; BORDER-LEFT: 0px solid; MIN-HEIGHT: 60px; BORDER-TOP: 1px solid; BORDER-RIGHT: 0px solid
+}
+.white.issue.row {
+	BACKGROUND-COLOR: #000000
+}
+.issue.row A.toggle {
+	MARGIN-LEFT: 30px
+}
+.search.issue.row {
+	BORDER-BOTTOM: 0px
+}
+.black.issue.row {
+	BACKGROUND-COLOR: #000000
+}
+.issue A {
+	COLOR: #fff
+}
+.issue A:visited {
+	COLOR: #fff
+}
+.issue {
+	COLOR: #fff
+}
+.issue H1 {
+	FONT-SIZE: 2.08em
+}
+.issue SPAN.date {
+	FONT-SIZE: 0.48em; FONT-WEIGHT: normal
+}
+.issue .type {
+	FONT-SIZE: 0.83em
+}
+.issue .issue-item H2 {
+	MARGIN: 0px; FONT-SIZE: 1.25em
+}
+.issue .issue-item P.excerpt {
+	FONT-SIZE: 0.91em
+}
+.black.issue A {
+	COLOR: #000
+}
+.black {
+	COLOR: #000
+}
+.black A {
+	COLOR: #000
+}
+A.toggle {
+	PADDING-LEFT: 10px; BACKGROUND: url(images/menu-collapsed-white.gif) no-repeat 0px 5px; CURSOR: pointer
+}
+A.opened.toggle {
+	BACKGROUND: url(images/menu-expanded-white.gif) no-repeat 0px 5px
+}
+.black A.toggle {
+	PADDING-LEFT: 10px; BACKGROUND: url(images/menu-collapsed.png) no-repeat 0px 5px; CURSOR: pointer
+}
+.black A.opened.toggle {
+	BACKGROUND: url(images/menu-expanded.png) no-repeat 0px 5px
+}
+.columns {
+	WIDTH: 100%
+}
+.columns .column {
+	
+}
+.column {
+	FLOAT: left
+}
+.onefourth {
+	WIDTH: 218px
+}
+.twofourths {
+	WIDTH: 454px
+}
+.threefourths {
+	WIDTH: 700px
+}
+.onefifth {
+	WIDTH: 199px
+}
+.onethird {
+	PADDING-LEFT: 14px; WIDTH: 322px; PADDING-TOP: 20px
+}
+.onehalf {
+	WIDTH: 398px
+}
+.twothirds {
+	WIDTH: 660px
+}
+.endcolumns {
+	CLEAR: both
+}
+.left {
+	FLOAT: left
+}
+.right {
+	FLOAT: right
+}
+.interior BLOCKQUOTE {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 5px
+}
+.teaser BLOCKQUOTE {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 5px
+}
+.quotetop {
+	MARGIN-RIGHT: 5px
+}
+.quotebottom {
+	MARGIN-LEFT: 5px
+}
+P.readmore {
+	CLEAR: both; FONT-SIZE: 0.91em; FONT-WEIGHT: bold
+}
+.videos .post.node {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.articleFooter {
+	BORDER-BOTTOM: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; PADDING-BOTTOM: 15px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 15px; WIDTH: 628px; PADDING-RIGHT: 15px; CLEAR: both; BORDER-TOP: #cccccc 1px solid; BORDER-RIGHT: #cccccc 1px solid; PADDING-TOP: 15px
+}
+.articleFooter H3.title {
+	BORDER-BOTTOM: #000 1px solid; FONT: bold italic 1.25em Times New Roman, serif
+}
+.articleFooter H2 {
+	BORDER-BOTTOM: #000 1px solid; PADDING-BOTTOM: 10px; FONT: bold italic 1.16em Time New Roman, serif; COLOR: #000
+}
+.articleFooter .header H2 {
+	MARGIN-TOP: 0px
+}
+.articleFooter .box H2 {
+	MARGIN-TOP: 30px
+}
+.comment {
+	BORDER-BOTTOM: #999999 1px dashed; PADDING-BOTTOM: 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 20px
+}
+.articleFooter .comment-unpublished {
+	BACKGROUND-COLOR: #f09090
+}
+.articleFooter .pager {
+	MARGIN: 15px 0px 10px
+}
+#pingbacks LEGEND A {
+	FONT: bold italic 1.16em Time New Roman, serif; CURSOR: pointer
+}
+#pingbacks .pager {
+	MARGIN: 15px 0px 10px; FLOAT: left
+}
+#pingbacks .fieldset-wrapper {
+	OVERFLOW: hidden
+}
+.invisible {
+	PADDING-BOTTOM: 0px; TEXT-INDENT: -9000px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-SIZE: 0.9em; FONT-WEIGHT: normal; PADDING-TOP: 0px
+}
+.hidden {
+	DISPLAY: none
+}
+.nobg {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.clearfloat {
+	CLEAR: both
+}
+.center {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+TBODY {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+TABLE.chart {
+	MARGIN-BOTTOM: 10px
+}
+TABLE.chart TBODY {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+TABLE.chart TR {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+TABLE.chart TH {
+	BORDER-BOTTOM: 0px; TEXT-ALIGN: center; BORDER-LEFT: 0px; PADDING-BOTTOM: 7px; BORDER-TOP: 0px; FONT-WEIGHT: bold; BORDER-RIGHT: 0px
+}
+TABLE.chart TD {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 0px; PADDING-RIGHT: 10px; PADDING-TOP: 0px
+}
+.articlesNav {
+	BORDER-BOTTOM: #222222 1px solid; BORDER-LEFT: #222222 0px solid; MIN-HEIGHT: 30px; COLOR: #fff; BORDER-TOP: #222222 1px solid; BORDER-RIGHT: #222222 0px solid
+}
+.articlesNav A {
+	COLOR: #fff; MARGIN-LEFT: 10px
+}
+#trackback-url H2 {
+	FONT-SIZE: 1em; FONT-WEIGHT: bold
+}
+SUP A {
+	TEXT-DECORATION: none
+}
+.teaser P {
+	FONT-SIZE: 1.08em
+}
+.interior P {
+	FONT-SIZE: 1.08em
+}
+.articleFooter .header {
+	PADDING-BOTTOM: 5px; HEIGHT: 25px
+}
+A.prev SPAN {
+	VISIBILITY: hidden
+}
+A.next SPAN {
+	VISIBILITY: hidden
+}
+.articleNav {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 5px
+}
+.articleNav A {
+	CURSOR: pointer
+}
+.articleNav A.prev {
+	PADDING-RIGHT: 2px; FLOAT: right
+}
+.articleNav A.next {
+	FLOAT: right
+}
+.articleNav P.legal {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 17px; PADDING-RIGHT: 0px; DISPLAY: inline; MARGIN-BOTTOM: 0px; FLOAT: left; COLOR: #666666; FONT-SIZE: 0.83em; PADDING-TOP: 2px
+}
+.videoplayer {
+	MARGIN-BOTTOM: 30px
+}
+IMG.play {
+	POSITION: absolute; MARGIN: 50px 0px 0px 85px; WIDTH: 40px; DISPLAY: none; HEIGHT: 40px
+}
+.block.play {
+	DISPLAY: block
+}
+.notfound {
+	MARGIN: 5px 0px; FONT-SIZE: 0.91em
+}
+.static OL {
+	PADDING-BOTTOM: 10px; LIST-STYLE-TYPE: decimal
+}
+.article .interior OL {
+	PADDING-BOTTOM: 10px; LIST-STYLE-TYPE: decimal
+}
+.static OL LI {
+	MARGIN: 0px 0px 4px 20px; PADDING-LEFT: 5px
+}
+.article .interior OL LI {
+	MARGIN: 0px 0px 4px 20px; PADDING-LEFT: 5px
+}
+.static UL {
+	LIST-STYLE-TYPE: disc; MARGIN-BOTTOM: 10px; PADDING-TOP: 0px
+}
+.article .interior UL {
+	LIST-STYLE-TYPE: disc; MARGIN-BOTTOM: 10px; PADDING-TOP: 0px
+}
+.static UL LI {
+	MARGIN-TOP: 10px
+}
+.static OL UL {
+	MARGIN-TOP: 10px
+}
+.article .interior UL LI {
+	MARGIN: 0px 20px 2px 15px; PADDING-LEFT: 5px
+}
+.interior.article OL.footnotes {
+	PADDING-BOTTOM: 10px; LIST-STYLE-TYPE: decimal; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.article .interior SUP A {
+	TEXT-DECORATION: none
+}
+.podcast {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 10px
+}
+.share {
+	BORDER-BOTTOM: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; PADDING-BOTTOM: 15px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; MARGIN-BOTTOM: 10px; BORDER-TOP: #cccccc 1px solid; BORDER-RIGHT: #cccccc 1px solid; PADDING-TOP: 15px
+}
+.share .left H3 {
+	BORDER-BOTTOM: #000 1px solid; FONT: bold italic 1.25em Times New Roman, serif
+}
+.share .right H3 {
+	BORDER-BOTTOM: #000 1px solid; FONT: bold italic 1.25em Times New Roman, serif
+}
+.share DIV.left {
+	WIDTH: 280px
+}
+.share DIV.right {
+	PADDING-LEFT: 30px; WIDTH: 290px
+}
+#social H3 {
+	MARGIN-BOTTOM: 1em
+}
+#trackback H3 {
+	MARGIN-BOTTOM: 1em
+}
+#trackback {
+	MARGIN-TOP: 1em
+}
+.embed {
+	MARGIN-TOP: 1em
+}
+#embed_code {
+	BORDER-BOTTOM-COLOR: #424242; BORDER-TOP-COLOR: #424242; WIDTH: 226px; COLOR: #7a7a7a; BORDER-RIGHT-COLOR: #424242; FONT-SIZE: 0.91em; BORDER-LEFT-COLOR: #424242
+}
+
+.form-text {
+	BORDER-BOTTOM: #000 1px solid; BORDER-LEFT: #000 1px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid; PADDING-TOP: 3px
+}
+TEXTAREA {
+	BORDER-BOTTOM: #222 1px solid; BORDER-LEFT: #222 1px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 1.23em; BORDER-TOP: #222 1px solid; BORDER-RIGHT: #222 1px solid; PADDING-TOP: 3px
+}
+LABEL {
+	TEXT-TRANSFORM: lowercase
+}
+.resizable-textarea TEXTAREA#edit-comment {
+	WIDTH: 578px
+}
+UL.buttons {
+	
+}
+UL.buttons LI {
+	LIST-STYLE-TYPE: none; MARGIN-BOTTOM: 20px
+}
+.form-submit {
+	PADDING-BOTTOM: 4px; BACKGROUND-COLOR: #00ccff; PADDING-LEFT: 6px; PADDING-RIGHT: 6px; COLOR: #fff; FONT-SIZE: 0.91em; CURSOR: pointer; PADDING-TOP: 4px
+}
+.dm-button {
+	PADDING-BOTTOM: 4px; BACKGROUND-COLOR: #00ccff; PADDING-LEFT: 6px; PADDING-RIGHT: 6px; COLOR: #fff; FONT-SIZE: 0.91em; CURSOR: pointer; PADDING-TOP: 4px
+}
+.form-submit {
+	HEIGHT: 23px
+}
+
+UL.primary.tabs {
+	MARGIN: 0px 30px; PADDING-TOP: 15px
+}
+
+LEGEND {
+	PADDING-LEFT: 0px
+}
+.bar {
+	MARGIN-LEFT: 30px
+}
+.message {
+	MARGIN-LEFT: 30px
+}
+.pagednav {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 600px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 5px; PADDING-TOP: 60px
+}
+.pagednav A:visited {
+	COLOR: #333333; FONT-WEIGHT: bold
+}
+.pagednav A {
+	COLOR: #333333; FONT-WEIGHT: bold
+}
+.pagednav .pager-current {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0.5em; PADDING-RIGHT: 0.5em; COLOR: #fff; BORDER-TOP: #222222 4px solid; PADDING-TOP: 0.5em
+}
+.pagednav .pager A {
+	PADDING-BOTTOM: 0.5em; PADDING-LEFT: 0.5em; PADDING-RIGHT: 0.5em; PADDING-TOP: 0.5em
+}
+.pagednav .pager STRONG.pager-current {
+	PADDING-BOTTOM: 0.5em; PADDING-LEFT: 0.5em; PADDING-RIGHT: 0.5em; PADDING-TOP: 0.5em
+}
+.pager {
+	TEXT-ALIGN: left; DISPLAY: inline; FLOAT: right
+}
+.pager .pager-current {
+	BACKGROUND-COLOR: #333333; COLOR: #fff; FONT-WEIGHT: normal
+}
+.nextArticle {
+	DISPLAY: inline; FLOAT: right
+}
+.messages {
+	BORDER-BOTTOM: 1px solid; POSITION: absolute; BORDER-LEFT: 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; WIDTH: 325px; PADDING-RIGHT: 10px; BORDER-TOP: 1px solid; TOP: 50%; RIGHT: 50%; BORDER-RIGHT: 1px solid; PADDING-TOP: 10px
+}
+.status.messages {
+	BORDER-BOTTOM-COLOR: #5ebf5e; BACKGROUND-COLOR: #d5fed5; BORDER-TOP-COLOR: #5ebf5e; BORDER-RIGHT-COLOR: #5ebf5e; BORDER-LEFT-COLOR: #5ebf5e
+}
+.messages UL {
+	
+}
+.messages UL LI {
+	LIST-STYLE-TYPE: disc; PADDING-LEFT: 5px; MARGIN-LEFT: 15px; FONT-WEIGHT: bold
+}
+#results {
+	Z-INDEX: 300; POSITION: absolute; MARGIN-TOP: 21px; WIDTH: 996px; DISPLAY: none
+}
+#results * {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+#results #live-search-results {
+	BORDER-BOTTOM: #111 1px solid; BORDER-LEFT: #111 1px solid; BACKGROUND-COLOR: #fff; WIDTH: 260px; FLOAT: right; BORDER-TOP: #111 1px solid; BORDER-RIGHT: #111 1px solid
+}
+#results #live-search-results .search.post.node {
+	Z-INDEX: 1000; BORDER-BOTTOM: #111 1px solid; POSITION: relative; WIDTH: 100%; FLOAT: right; CLEAR: both
+}
+#results #live-search-results .search.post.node H3 {
+	PADDING-BOTTOM: 5px; MARGIN: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-SIZE: 1em; PADDING-TOP: 5px
+}
+#results #live-search-results .search.post.node P {
+	DISPLAY: none
+}
+UL.bloggernav {
+	MARGIN-TOP: 8px; FLOAT: right; FONT-SIZE: 0.91em; MARGIN-RIGHT: 10px
+}
+.bloggernav LI A {
+	
+}
+.bloggernav LI {
+	DISPLAY: inline; MARGIN-RIGHT: 10px
+}
+.node-form {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 20px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 20px
+}
+#register-form {
+	PADDING-BOTTOM: 45px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 15px
+}
+.galleria {
+	LIST-STYLE-TYPE: none; LIST-STYLE-IMAGE: none
+}
+.galleria_wrapper {
+	TEXT-ALIGN: center; MARGIN-BOTTOM: 15px
+}
+.article .galleria LI {
+	MARGIN: 0px 10px 10px 0px; WIDTH: 40px; DISPLAY: block; FLOAT: left; HEIGHT: 40px; OVERFLOW: hidden
+}
+.galleria LI A {
+	DISPLAY: none
+}
+.galleria LI DIV {
+	POSITION: absolute; DISPLAY: none; TOP: 0px; LEFT: 180px
+}
+.galleria LI DIV IMG {
+	CURSOR: pointer
+}
+.galleria LI.active DIV IMG {
+	DISPLAY: block
+}
+.galleria LI.active DIV {
+	DISPLAY: block
+}
+.galleria LI IMG.thumb {
+	WIDTH: auto; DISPLAY: block; HEIGHT: auto; TOP: auto; CURSOR: pointer; LEFT: auto
+}
+.galleria LI .caption {
+	DISPLAY: block; PADDING-TOP: 0.5em
+}
+* HTML .galleria LI DIV SPAN {
+	WIDTH: 400px
+}
+.galleriaNav {
+	MARGIN-BOTTOM: 10px; CLEAR: both
+}
+.galleriaNext {
+	FLOAT: right
+}
+.galleriaPrev {
+	FLOAT: left
+}
+P.nav {
+	CLEAR: both
+}
+.floatleft {
+	FLOAT: left; MARGIN-RIGHT: 15px
+}
+.floatright {
+	FLOAT: right; MARGIN-LEFT: 15px
+}
+.clearboth {
+	CLEAR: both
+}
+.clearfloat {
+	CLEAR: both
+}
+.mainbanner {
+	BORDER-BOTTOM: #999999 1px dotted; BACKGROUND-COLOR: #666666; POSITION: absolute; WIDTH: 100%; HEIGHT: 293px; TOP: 130px; LEFT: 0px
+}
+#mainbanner-index {
+	HEIGHT: 293px;
+}
+#mainbanner-nonindex {
+	HEIGHT: 5px;
+}
+.mainbanner .issue {
+	POSITION: absolute; PADDING-LEFT: 15px; BOTTOM: 60px
+}
+.mainbanner .content {
+	MARGIN: 0px auto; WIDTH: 996px
+}
+.mainbanner .thumb {
+	FLOAT: left; MARGIN-LEFT: 20px; CURSOR: pointer; MARGIN-RIGHT: 10px
+}
+.mainbanner .thumb IMG {
+	VISIBILITY: hidden
+}
+.mainbanner .onethird {
+	PADDING-LEFT: 0px
+}
+.mainbanner H3 {
+	MARGIN-BOTTOM: 5px; COLOR: #fff; FONT-SIZE: 2.5em
+}
+.mainbanner H3 A:visited {
+	COLOR: #fff
+}
+.mainbanner P {
+	LINE-HEIGHT: 0.7em; MARGIN-TOP: 2px; COLOR: #fff; FONT-SIZE: 0.91em
+}
+.mainbanner UL.buttons {
+	MARGIN: 20px 0px 0px
+}
+.mainbanner UL.buttons LI {
+	MARGIN: 0px 0px 15px
+}
+.magazine .cover {
+	WIDTH: 175px; BACKGROUND: url(images/thumb_dropshadow.png) no-repeat 0px 0px; FLOAT: left; HEIGHT: 216px; MARGIN-RIGHT: 10px
+}
+.magazine-promo-small .thumb {
+	WIDTH: 175px; BACKGROUND: url(images/thumb_dropshadow.png) no-repeat 0px 0px; FLOAT: left; HEIGHT: 216px; MARGIN-RIGHT: 10px
+}
+.magazine-promo-small H3 {
+	FONT-SIZE: 1.7em; PADDING-TOP: 20px
+}
+.magazine-promo-small P {
+	FONT: italic 1.08em Times New Roman, serif
+}
+.tag-label {
+	MARGIN: 0px 0px 30px; FONT: bold 0.91em Times New Roman, serif; HEIGHT: 30px; COLOR: #fff
+}
+.tag-label .left {
+	WIDTH: 31px; BACKGROUND: url(images/tag_label_left.png) no-repeat 0px 0px; HEIGHT: 30px; MARGIN-LEFT: -3px
+}
+.tag-label .center {
+	MIN-WIDTH: 121px; TEXT-ALIGN: left; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 10px; DISPLAY: block; BACKGROUND: url(images/tag_label_center.png) repeat-x 0px 0px; FLOAT: left; HEIGHT: 23px; PADDING-TOP: 7px
+}
+.tag-label .right {
+	WIDTH: 13px; BACKGROUND: url(images/tag_label_right.png) no-repeat 0px 0px; FLOAT: left; HEIGHT: 30px
+}
+.tag-label A {
+	COLOR: #fff
+}
+.image-header {
+	MARGIN-BOTTOM: 20px; HEIGHT: 160px
+}
+.image-header .corner {
+	WIDTH: 23px; BACKGROUND: url(images/image-header-corner.png) no-repeat 0px 0px; FLOAT: right; HEIGHT: 24px
+}
+.image-header .content {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; PADDING-TOP: 30px
+}
+.image-header .content A.rss {
+	PADDING-LEFT: 8px
+}
+.image-header .content A.rss IMG {
+	VERTICAL-ALIGN: top; PADDING-TOP: 6px
+}
+.image-header .content H1 {
+	DISPLAY: inline; FONT-SIZE: 2.5em
+}
+.image-header .content P {
+	WIDTH: 420px; COLOR: #fff; FONT-SIZE: 1.25em
+}
+.image-header .content P.byline {
+	COLOR: #fff; FONT-SIZE: 0.83em
+}
+.image-header .content P A:link {
+	COLOR: #fff
+}
+.image-header .content P A:visited {
+	COLOR: #fff
+}
+.image-header .content P A:hover {
+	TEXT-DECORATION: underline
+}
+.image-header P.legal {
+	MARGIN-TOP: -30px; PADDING-LEFT: 30px; COLOR: #666; FONT-SIZE: 0.83em
+}
+.image-header P.itunes {
+	MARGIN-TOP: -5px; MARGIN-BOTTOM: 0px; FONT-SIZE: 1em
+}
+.image-header P.itunes A {
+	TEXT-DECORATION: underline
+}
+.bloggers {
+	PADDING-BOTTOM: 20px; WIDTH: 996px; HEIGHT: 190px; OVERFLOW: hidden
+}
+.bloggers .item-list {
+	MARGIN-TOP: 10px
+}
+.bloggers .item-list UL {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.bloggers .item-list UL LI {
+	LIST-STYLE-TYPE: none; MARGIN: 0px 5px 0px 0px
+}
+.bloggers .item-list UL LI .blogger-item {
+	WIDTH: 196px; HEIGHT: 116px; CURSOR: pointer
+}
+.bloggers .item-list UL LI .blogger-item .content {
+	POSITION: relative; HEIGHT: 116px
+}
+.bloggers .item-list UL LI .blogger-item .content H3 {
+	POSITION: absolute; BOTTOM: 15px
+}
+.bloggers .item-list UL LI .content H3 {
+	PADDING-TOP: 75px
+}
+.bloggers .item-list UL LI .content H3 A {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; DISPLAY: block; COLOR: #fff; FONT-SIZE: 1.25em; PADDING-TOP: 0px
+}
+.bloggers .item-list UL LI .content H3 .type {
+	DISPLAY: block; COLOR: #fff; FONT-SIZE: 0.66em; FONT-WEIGHT: normal
+}
+#search .twothirds {
+	WIDTH: 658px
+}
+#search #search-form {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 20px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 20px
+}
+#search #search-form .form-item {
+	MARGIN-TOP: 0px
+}
+#search .twothirds H2 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; FONT-SIZE: 1.66em; PADDING-TOP: 0px
+}
+#search .search.node {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 20px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 20px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 20px
+}
+#search .search.node H3 A {
+	FONT-SIZE: 1.25em
+}
+.ui-tabs-panel {
+	BACKGROUND: #fff
+}
+.ui-tabs-panel H2 {
+	MARGIN: 0px
+}
+.ui-tabs-panel H2 A {
+	COLOR: #333333; FONT-SIZE: 1.83em
+}
+.ui-tabs-panel H2 A:hover {
+	COLOR: #0be806
+}
+.ui-tabs-panel P.byline {
+	LINE-HEIGHT: 1em
+}
+.ui-tabs-panel STRONG {
+	BACKGROUND-COLOR: #0be806
+}
+.search-results {
+	MARGIN: 0px
+}
+.fragment {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.purchase {
+	WIDTH: 315px; MARGIN-LEFT: 7px
+}
+.type-print {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.type-online {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; WIDTH: 183px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 30px; PADDING-TOP: 0px
+}
+.type-print.magazine-issue H3 {
+	WIDTH: 205px; FONT-SIZE: 1.9em
+}
+.type-print.magazine-issue H3 A {
+	COLOR: #333333
+}
+.type-print.magazine-issue H3 A:visited {
+	COLOR: #333333
+}
+.type-print.magazine-issue .dm-button {
+	MARGIN: 23px 55px 0px 0px
+}
+.magazine-issue .thumb {
+	
+}
+.magazine-issue .thumb IMG {
+	FLOAT: left
+}
+.magazine-issue .dm-button {
+	MARGIN: 15px 25px 0px 0px; FLOAT: right
+}
+.magazine-issue H3 {
+	MARGIN-TOP: 15px; FLOAT: left; FONT-SIZE: 1.66em; FONT-WEIGHT: bold
+}
+.magazine-issue P {
+	FONT: italic 1.08em Times New Roman, serif; CLEAR: both
+}
+.issue-print .cover {
+	WIDTH: 292px; BACKGROUND: url(images/cover_dropshadow.png) no-repeat 0px 0px; FLOAT: left; HEIGHT: 363px
+}
+.magazine-issue .print.thumb {
+	WIDTH: 292px; BACKGROUND: url(images/cover_dropshadow.png) no-repeat 0px 0px; FLOAT: left; HEIGHT: 363px
+}
+.magazine-current {
+	BORDER-BOTTOM: #d6d6d6 1px solid; BORDER-LEFT: #d6d6d6 1px solid; PADDING-BOTTOM: 30px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 30px; WIDTH: 600px; PADDING-RIGHT: 30px; MARGIN-BOTTOM: 40px; HEIGHT: 355px; BORDER-TOP: #d6d6d6 1px solid; BORDER-RIGHT: #d6d6d6 1px solid; PADDING-TOP: 30px
+}
+.magazine-current .thumb {
+	WIDTH: 297px; PADDING-RIGHT: 17px; FLOAT: left
+}
+.magazine-current H2 {
+	MARGIN: 0px; FONT-SIZE: 2.5em
+}
+.magazine-info {
+	PADDING-TOP: 5px
+}
+.magazine-info H2 {
+	MARGIN: 0px; FONT-SIZE: 2.5em
+}
+.magazine-info .issue {
+	PADDING-RIGHT: 73px; DISPLAY: inline; FONT: italic 1.08em Times New Roman, serif; FLOAT: left; COLOR: #000
+}
+.magazine-list {
+	PADDING-BOTTOM: 10px
+}
+.magazine-list H2 {
+	BORDER-BOTTOM: #000 1px solid; PADDING-BOTTOM: 9px; FONT-STYLE: italic; MARGIN-TOP: 20px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; FONT-FAMILY: Times New Roman, serif; MARGIN-BOTTOM: 33px; BORDER-TOP: #000 6px solid; PADDING-TOP: 9px
+}
+.magazine-list .onethird {
+	PADDING-LEFT: 0px; MARGIN-RIGHT: 14px
+}
+.magazine-list .column-end {
+	MARGIN-RIGHT: 0px
+}
+.print.magazine-list .issue-list {
+	PADDING-LEFT: 0px
+}
+.purchase H3 {
+	BORDER-BOTTOM: #000 1px solid; PADDING-BOTTOM: 10px; FONT-STYLE: italic; MARGIN-TOP: 116px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; FONT-FAMILY: Times New Roman, serif; FONT-SIZE: 1.08em; BORDER-TOP: #000 7px solid; PADDING-TOP: 10px
+}
+.issue-list {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 14px
+}
+.issues-nav {
+	BORDER-BOTTOM: #000 1px solid; MARGIN-BOTTOM: 25px; BORDER-TOP: #000 6px solid
+}
+.issues-nav H1 {
+	PADDING-BOTTOM: 3px; PADDING-LEFT: 16px; PADDING-RIGHT: 0px; DISPLAY: inline; FLOAT: left; FONT-SIZE: 2.5em; PADDING-TOP: 2px
+}
+.issues-nav H1 .issue-num {
+	FONT: italic 0.43em Times New Roman, serif; COLOR: #00ccff
+}
+.issues-nav .previous-issues {
+	MARGIN-TOP: 12px; FLOAT: right; MARGIN-LEFT: 12px
+}
+.issues-nav .previous-issues .item-list H3 {
+	PADDING-RIGHT: 5px; DISPLAY: inline; FLOAT: left
+}
+.issues-nav .previous-issues .item-list UL {
+	MARGIN: 0px; FLOAT: left
+}
+.issues-nav .previous-issues .item-list LI {
+	LIST-STYLE-TYPE: none; FONT-STYLE: italic; MARGIN: 0px 7px 0px 0px; DISPLAY: inline; FONT-FAMILY: Times New Roman, serif
+}
+.issues-nav .previous-issues .item-list LI A {
+	COLOR: #333333
+}
+.issues-nav .previous-issues .item-list LI A:visited {
+	COLOR: #333333
+}
+.issues-nav .previous-issues .item-list LI A.active:visited {
+	COLOR: #00ccff
+}
+.issues-nav .previous-issues .item-list LI A.active {
+	COLOR: #00ccff
+}
+.issues-nav#bottom H2 {
+	PADDING-BOTTOM: 6px; PADDING-LEFT: 17px; PADDING-RIGHT: 0px; DISPLAY: inline; FONT: bold italic 1.33em Times New Roman, serif; FLOAT: left; PADDING-TOP: 6px
+}
+.issues-nav#bottom .previous-issues {
+	FLOAT: left
+}
+.issue-feature {
+	BORDER-BOTTOM: #cfcfcf 1px solid; BORDER-LEFT: #cfcfcf 1px solid; PADDING-BOTTOM: 15px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 20px; WIDTH: 600px; PADDING-RIGHT: 15px; MARGIN-BOTTOM: 8px; FLOAT: right; HEIGHT: 196px; BORDER-TOP: #cfcfcf 1px solid; BORDER-RIGHT: #cfcfcf 1px solid; PADDING-TOP: 15px
+}
+.issue-feature .thumb {
+	FLOAT: right
+}
+.issue-feature H2 {
+	FONT-SIZE: 2.5em
+}
+.issue-feature .excerpt {
+	WIDTH: 300px; FONT-SIZE: 1.25em
+}
+.issue-print.row {
+	Z-INDEX: 100; POSITION: absolute; HEIGHT: 515px; TOP: 130px; LEFT: 0px
+}
+.issue-print H1 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 0px; COLOR: #fff; FONT-SIZE: 3.33em; PADDING-TOP: 20px
+}
+.issue-print .issue-info {
+	PADDING-LEFT: 14px; PADDING-TOP: 20px
+}
+.issue-print .issue {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; FONT: italic 1.25em Times New Roman, serif; FLOAT: left; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.issue-print .buy {
+	MARGIN: 0px 30px 0px 15px; DISPLAY: inline
+}
+.issue-print .cover {
+	CLEAR: both
+}
+.issue-print .cover IMG {
+	FLOAT: left
+}
+.issue-print .columns {
+	MARGIN: 0px auto; WIDTH: 996px
+}
+.issue-print .columns .onethird {
+	WIDTH: 308px
+}
+.issue-print .twothirds .columns {
+	WIDTH: 660px
+}
+.issue-print .twothirds .onethird {
+	MARGIN: 45px 0px 0px; PADDING-LEFT: 0px; WIDTH: 220px; PADDING-TOP: 0px
+}
+.issue-print .twothirds .onethird .article {
+	
+}
+.issue-print .twothirds .onethird .node {
+	POSITION: relative; PADDING-BOTTOM: 13px; PADDING-LEFT: 0px; WIDTH: 209px; PADDING-RIGHT: 0px; HEIGHT: 285px; PADDING-TOP: 13px
+}
+.issue-print .twothirds .onethird .node .thumb {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 13px; PADDING-RIGHT: 13px; MARGIN-BOTTOM: 17px; PADDING-TOP: 0px
+}
+.issue-print .twothirds .onethird .node H2 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 13px; PADDING-RIGHT: 13px; FONT-SIZE: 1.83em; FONT-WEIGHT: bold; PADDING-TOP: 0px
+}
+.issue-print .twothirds .onethird .node H3 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 13px; PADDING-RIGHT: 13px; FONT-SIZE: 1.08em; FONT-WEIGHT: normal; PADDING-TOP: 0px
+}
+.issue-print .twothirds .onethird .node .readmore {
+	POSITION: absolute; PADDING-BOTTOM: 0px; PADDING-LEFT: 13px; BOTTOM: 13px; PADDING-RIGHT: 13px; PADDING-TOP: 0px
+}
+.article-grid.issue-print {
+	PADDING-TOP: 0px
+}
+.issue-print-bottom {
+	PADDING-TOP: 520px
+}
+.issue-online.article-grid {
+	PADDING-TOP: 0px
+}
+.article-grid {
+	PADDING-TOP: 33px
+}
+.article-grid .node-item {
+	BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 14px; MIN-HEIGHT: 230px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; MARGIN-BOTTOM: 33px; HEIGHT: 230px; PADDING-TOP: 14px
+}
+.article-grid .node-item .thumb {
+	FLOAT: left
+}
+.article-grid .node-item .type {
+	COLOR: #666666; FONT-SIZE: 0.83em
+}
+.article-grid .node-item H3 {
+	FONT-SIZE: 1.25em
+}
+.article-grid .node-item P.excerpt {
+	FONT-SIZE: 0.91em
+}
+.article-grid .column-end .node-item {
+	BORDER-RIGHT: #ccc 1px solid
+}
+#homepage .article-grid .node-item .thumb {
+	FLOAT: none
+}
+.currentsurveys {
+	POSITION: absolute; MARGIN-TOP: 0px; WIDTH: 996px; TOP: 410px; padding-top: 33px;
+}
+.currentsurveys-box {
+	WIDTH: 485px; BORDER: #cdcdcd 1px solid;	BORDER-TOP: #666666 6px solid; BACKGROUND-COLOR:#fff; HEIGHT: 185px; MIN-HEIGHT: 185px; FLOAT: left; margin-left: 5px; margin-right: 5px;
+} 
+.currentsurveys-box H2 {
+	margin: 0px; margin-top: 10px; padding: 0px; font-size:2.08em;
+} 
+.currentsurveys-box .current-watermark {
+	float: right; font-size:2.5em; color: #e9e9e9; margin-right: 5px; margin-top: 5px;
+} 
+.currentsurveys-box-inner {
+	padding-left: 10px; padding-right: 10px;
+} 
+.currentsurveys-box .tag-label {
+	margin-top: 10px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;
+} 
+.currentsurveys-box .calltoaction {
+	position: absolute; top: 170px; left: 225px; width: 265px; height: 49px; border-left: 1px dotted #cccccc; background:#ffffff;
+} 
+.block H2 {
+	BORDER-BOTTOM: #000 1px solid; PADDING-BOTTOM: 6px; FONT-STYLE: italic; MARGIN: 0px; PADDING-LEFT: 17px; PADDING-RIGHT: 0px; FONT-FAMILY: Times New Roman, serif; BORDER-TOP: #000 6px solid; PADDING-TOP: 6px
+}
+.onethird .block {
+	MARGIN-BOTTOM: 56px; CLEAR: both
+}
+#designmind-14 {
+	BORDER-TOP: 0px
+}
+#designmind-14 .issue {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 17px; COLOR: #222222
+}
+#designmind-14 .issue H3.title {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; FONT-SIZE: 1.9em; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 55px
+}
+#designmind-14 .issue H2 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; CLEAR: both; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+#designmind-14 .issue P {
+	FONT-STYLE: italic
+}
+#designmind-14 #print .magazine-thumb {
+	WIDTH: 175px; BACKGROUND: url(images/thumb_dropshadow.png) no-repeat 0px 0px; FLOAT: right; HEIGHT: 216px
+}
+#designmind-14 #print .dropShadow {
+	WIDTH: 170px
+}
+#designmind-14 #online .magazine-thumb {
+	WIDTH: 170px; FLOAT: right; HEIGHT: 113px
+}
+.article-stickies {
+	
+}
+.article-stickies .onethird {
+	MARGIN: 0px 14px 20px 0px; PADDING-LEFT: 0px; PADDING-TOP: 0px
+}
+.article-stickies .column-end {
+	MARGIN-RIGHT: 0px
+}
+.article-stickies .article {
+	POSITION: relative; PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; HEIGHT: 399px; PADDING-TOP: 15px
+}
+.article-stickies .tag-label {
+	MARGIN: 0px 0px 30px -15px; PADDING-TOP: 12px
+}
+.article-stickies .article H2 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT: bold 2.08em Arial, sans-serif; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+.article-stickies .article H3 {
+	FONT-SIZE: 1.25em; FONT-WEIGHT: normal
+}
+.article-stickies .article .byline {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.article-stickies .teaser UL.readmore {
+	POSITION: absolute; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; BOTTOM: 15px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+#designmind-17 {
+	BORDER-BOTTOM: #000 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; BORDER-TOP: #000 6px solid; PADDING-TOP: 9px
+}
+#designmind-17 H2 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 16px; DISPLAY: inline; FLOAT: left; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+#designmind-17 UL.filter-category {
+	PADDING-TOP: 3px
+}
+#designmind-17 UL.filter-category LI {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 12px; DISPLAY: inline; PADDING-TOP: 0px
+}
+#designmind-17 UL.filter-category LI A {
+	TEXT-TRANSFORM: lowercase; DISPLAY: inline; FONT: bold 0.91em Arial, sans-serif; COLOR: #666666; CURSOR: pointer
+}
+#designmind-17 UL.filter-category LI A.active {
+	COLOR: #000
+}
+#designmind-17 UL.filter-category LI A.active SPAN.term-active {
+	TEXT-TRANSFORM: none; COLOR: #00ccff
+}
+#designmind-17 UL.filter-category LI A.arrow {
+	PADDING-LEFT: 12px; BACKGROUND: url(images/arrow.jpg) no-repeat 0px 1px
+}
+#designmind-17 UL.filter-category LI A.opened.arrow {
+	PADDING-LEFT: 12px; BACKGROUND: url(images/arrow_down.jpg) no-repeat left bottom
+}
+#designmind-17 UL.categories-list LI A.active.term {
+	COLOR: #00ccff
+}
+#designmind-27 {
+	BORDER-BOTTOM: #cdcdcd 1px solid; BORDER-LEFT: #cdcdcd 1px solid; PADDING-BOTTOM: 15px; BACKGROUND-COLOR: #fff; MARGIN-TOP: 10px; PADDING-LEFT: 25px; PADDING-RIGHT: 25px; BORDER-TOP: #cdcdcd 1px solid; BORDER-RIGHT: #cdcdcd 1px solid; PADDING-TOP: 15px
+}
+#designmind-27 H2 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT: bold 2.08em Arial, sans-serif; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 15px
+}
+#designmind-27 .magazine-list .magazine {
+	
+}
+#designmind-27 .magazine-list .magazine H3 {
+	FONT-SIZE: 1.9em; FONT-WEIGHT: bold
+}
+#designmind-27 .magazine-list .magazine .thumb {
+	FLOAT: left; MARGIN-RIGHT: 20px
+}
+#designmind-27 .magazine-list .magazine .description {
+	WIDTH: 412px; FLOAT: right
+}
+#designmind-27 .magazine-list .magazine .issue {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; FONT: italic 1em Times New Roman, serif; COLOR: #000; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+#designmind-27 .magazine-list .magazine .price {
+	FONT-WEIGHT: bold
+}
+#block-35 {
+	POSITION: absolute; HEIGHT: 150px
+}
+.item-list UL.categories-list {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 360px; PADDING-RIGHT: 0px; DISPLAY: none; MARGIN-LEFT: 265px; PADDING-TOP: 0px
+}
+.item-list UL.categories-list LI {
+	LIST-STYLE-TYPE: none; MARGIN: 0px; WIDTH: 90px; DISPLAY: inline; FLOAT: left
+}
+.item-list UL.categories-list LI A {
+	COLOR: #666; FONT-SIZE: 0.91em; CURSOR: pointer
+}
+.item-list UL.categories-list LI A:hover {
+	COLOR: #000
+}
+.item-list UL.categories-list LI A.active {
+	COLOR: #000
+}
+.item-list UL.sidebar-right-list {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.item-list UL.sidebar-right-list LI {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; CLEAR: both; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.item-list UL.sidebar-right-list H3 {
+	FONT-SIZE: 1.25em
+}
+.item-list UL.sidebar1-right-list H3 A:visited {
+	BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; WIDTH: 291px; PADDING-RIGHT: 16px; DISPLAY: block; FLOAT: left; COLOR: #333; BORDER-TOP: #eaeaea 1px solid; PADDING-TOP: 15px
+}
+.item-list UL.sidebar-right-list H3 A {
+	BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; WIDTH: 291px; PADDING-RIGHT: 16px; DISPLAY: block; FLOAT: left; COLOR: #333; BORDER-TOP: #eaeaea 1px solid; PADDING-TOP: 15px
+}
+.item-list UL.sidebar-right-list H3.active A {
+	BACKGROUND-COLOR: #ffffff; DISPLAY: block
+}
+.item-list UL.sidebar-right-list H3 A:hover {
+	BACKGROUND-COLOR: #ffffff; DISPLAY: block
+}
+.item-list UL.sidebar-right-list .title {
+	
+}
+.item-list UL.sidebar-right-list .type {
+	DISPLAY: block; COLOR: #666666; FONT-SIZE: 0.66em; FONT-WEIGHT: normal
+}
+.item-list UL.sidebar-right-list .excerpt {
+	WIDTH: 173px; DISPLAY: block; FLOAT: right; FONT-SIZE: 0.73em; FONT-WEIGHT: normal
+}
+.item-list UL.sidebar-right-list .thumb {
+	PADDING-RIGHT: 10px; FLOAT: left
+}
+.item-list UL.sidebar-right-list .byline {
+	DISPLAY: block; FONT-SIZE: 0.66em; FONT-WEIGHT: normal
+}
+.item-list UL.twitter-feed LI {
+	BORDER-BOTTOM: #ccc 1px solid; PADDING-BOTTOM: 12px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 12px
+}
+.item-list UL.twitter-feed .twitter-link {
+	COLOR: #01b1e3
+}
+.item-list UL.twitter-feed .twitter-user {
+	COLOR: #01b1e3
+}
+.item-list UL.twitter-feed .twitter-link:hover {
+	TEXT-DECORATION: underline
+}
+.item-list UL.twitter-feed .twitter-user:hover {
+	TEXT-DECORATION: underline
+}
+.item-list UL.video-series {
+	PADDING-TOP: 12px
+}
+.item-list UL.video-series LI {
+	PADDING-BOTTOM: 2px
+}
+.item-list UL.category-list {
+	PADDING-BOTTOM: 0px; MARGIN-TOP: 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.item-list UL.category-list LI {
+	PADDING-BOTTOM: 3px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 15px; WIDTH: 145px; PADDING-RIGHT: 0px; FLOAT: left; PADDING-TOP: 0px
+}
+.item-list UL.category-list LI A {
+	FONT-SIZE: 0.91em
+}
+.item-list UL.category-list LI A.active {
+	COLOR: #00ccff
+}
+.item-list #find-us-on {
+	PADDING-LEFT: 13px; PADDING-TOP: 9px
+}
+.item-list #find-us-on LI {
+	PADDING-RIGHT: 4px; DISPLAY: inline
+}
+.item-list #bookstores LI P {
+	MARGIN-BOTTOM: 0px
+}
+.item-list #bookstores H3 A {
+	PADDING-BOTTOM: 13px; PADDING-LEFT: 13px; PADDING-RIGHT: 13px; FLOAT: none; PADDING-TOP: 13px
+}
+.item-list #bookstores H3 A:hover {
+	BACKGROUND-COLOR: #fff
+}
+.item-list #bookstores H3 A .address {
+	FONT-SIZE: 0.8em; FONT-WEIGHT: normal
+}
+.item-list .magazine-list {
+	BORDER-BOTTOM: #ccc 1px dashed; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 20px; PADDING-TOP: 0px
+}
+.item-list .magazine-list LI {
+	PADDING-BOTTOM: 20px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; CLEAR: both; BORDER-TOP: #ccc 1px dashed; PADDING-TOP: 20px
+}
+A.more-less {
+	MARGIN: 5px 0px 0px 15px; DISPLAY: block; FONT-SIZE: 0.83em; CURSOR: pointer
+}
+UL.primary {
+	BORDER-BOTTOM: 0px
+}
+.box H3 {
+	BORDER-BOTTOM: #000 1px solid; PADDING-BOTTOM: 10px; MARGIN-TOP: 43px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT: bold italic 1.25em Times New Roman, serif; BORDER-TOP: #000 6px solid; PADDING-TOP: 10px
+}
+#dm-event-form {
+	MARGIN-LEFT: 15px
+}
+#dm-event-form .form-item INPUT {
+	WIDTH: 256px
+}
+#dm-event-form .form-item .form-checkbox {
+	WIDTH: 20px
+}
+#category .teaser.node H3 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; PADDING-TOP: 0px
+}
+IMG.float-left {
+	MARGIN-BOTTOM: 10px; MARGIN-RIGHT: 15px
+}
+IMG.float-right {
+	MARGIN-BOTTOM: 10px; MARGIN-LEFT: 15px
+}
+.bioFooter {
+	FONT-STYLE: italic; COLOR: #666666
+}
+.interior.node .garamond.caption {
+	TEXT-ALIGN: center; FONT-STYLE: normal; FONT-FAMILY: "Garamond", Georgia, "Times New Roman", Times, serif; FONT-SIZE: 1.1em
+}
+.article-series {
+	
+}
+.item-list UL.series-list.categories-list {
+	MARGIN-LEFT: 378px
+}
+.item-list UL.series-list.categories-list LI {
+	WIDTH: 140px
+}
+#series-the-meaning-of-business {
+	BACKGROUND-COLOR: #fad5e5
+}
+.series-landing#series-the-meaning-of-business H1 {
+	WIDTH: 326px; MARGIN-BOTTOM: 20px; BACKGROUND: url(images/article-series-the-meaning-of-business.jpg) no-repeat 0px 0px; FLOAT: left; HEIGHT: 210px
+}
+.series-landing#series-the-meaning-of-business H1 SPAN {
+	DISPLAY: none
+}
+.series-landing#series-the-meaning-of-business .description {
+	MARGIN-TOP: 47px; WIDTH: 460px; FLOAT: right; COLOR: #ee3124
+}
+.series-landing#series-the-meaning-of-business .description P {
+	LINE-HEIGHT: 1.43em; FONT-SIZE: 1.12em
+}
+.series-landing#series-the-meaning-of-business .description STRONG {
+	COLOR: #000; FONT-WEIGHT: bold
+}
+.series-landing#series-the-meaning-of-business .columns {
+	CLEAR: both
+}
+.series-landing#series-the-meaning-of-business .article-stickies {
+	BORDER-TOP: #f72318 3px double; PADDING-TOP: 28px
+}
+.series-landing#series-the-meaning-of-business .article-stickies .article {
+	HEIGHT: 355px
+}
+.article-series#series-the-meaning-of-business .onethird.column {
+	PADDING-TOP: 0px
+}
+.article-series#series-the-meaning-of-business #designmind-30 H2#title {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN-TOP: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 20px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+.article-series#series-the-meaning-of-business #designmind-30 H2#title A {
+	WIDTH: 276px; DISPLAY: block; MARGIN-BOTTOM: 27px; BACKGROUND: url(images/article-series-the-meaning-of-business-vert.jpg) no-repeat 0px 0px; HEIGHT: 335px
+}
+.article-series#series-the-meaning-of-business #designmind-30 H2#title SPAN {
+	DISPLAY: none
+}
+.article-series#series-the-meaning-of-business #designmind-30 H3 {
+	COLOR: #333333
+}
+.article-series#series-the-meaning-of-business #designmind-30 P {
+	COLOR: #333333
+}
+.article-series#series-the-meaning-of-business #designmind-30 H2 {
+	BORDER-BOTTOM-COLOR: #333333; MARGIN-TOP: 30px; BORDER-TOP-COLOR: #333333; COLOR: #333333; BORDER-RIGHT-COLOR: #333333; BORDER-LEFT-COLOR: #333333
+}
+.article-series#series-the-meaning-of-business #designmind-30 .description {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; PADDING-RIGHT: 16px; PADDING-TOP: 15px
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list H3 A {
+	COLOR: #333333
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list H3 A:visited {
+	BORDER-BOTTOM: #333333 1px solid; BORDER-TOP: 0px
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list H3 A {
+	BORDER-BOTTOM: #333333 1px solid; BORDER-TOP: 0px
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list H3 A.active {
+	BORDER-BOTTOM: #333333 1px solid; BACKGROUND-COLOR: #fff; COLOR: #000; BORDER-TOP: 0px
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list H3 A:hover {
+	BORDER-BOTTOM: #333333 1px solid; BACKGROUND-COLOR: #fff; COLOR: #000; BORDER-TOP: 0px
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list H3 A.active .type {
+	COLOR: #666666
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list H3 A:hover .type {
+	COLOR: #666666
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list .type {
+	COLOR: #333333
+}
+.article-series#series-the-meaning-of-business .item-list UL.sidebar-right-list .excerpt {
+	WIDTH: 100%; FLOAT: none
+}
+#designmind-32 .content {
+	PADDING-LEFT: 15px
+}
+.progress {
+	MARGIN-TOP: 20px
+}
+.progress .message {
+	MARGIN-LEFT: 0px
+}
+.progress .bar {
+	MARGIN-LEFT: 0px
+}
+.nodequeue-table {
+	BORDER-BOTTOM: #cdcdcd 1px solid; BORDER-LEFT: #cdcdcd 1px solid; BACKGROUND-COLOR: #fff; WIDTH: 100%; BORDER-TOP: #cdcdcd 1px solid; BORDER-RIGHT: #cdcdcd 1px solid
+}
+.nodequeue-table THEAD TR {
+	PADDING-BOTTOM: 30px; PADDING-LEFT: 30px; PADDING-RIGHT: 30px; PADDING-TOP: 30px
+}
+.swftools {
+	HEIGHT: 24px
+}
