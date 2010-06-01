@@ -76,7 +76,7 @@ String acl = "public";
                 </td>
                 <td valign="top">
                     
-                    <font class="largefont hdr">Conversations You've Entered</font>
+                    <font class="largefont hdr">Conversations You've Joined</font>
 
                     <%
                             StringBuffer template = new StringBuffer();

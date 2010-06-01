@@ -266,40 +266,55 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                     <%--<%}%>--%>
 
 
-                    <%--<%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>--%>
-                        <%--<br/><br/><br/>--%>
-                        <%--<font class="largefont hdr">Conversations You've Joined</font>--%>
-                        <%--<br/>--%>
-                        <%--<%--%>
-                            <%--BloggerCompletedsurveys bloggerCompletedsurveys = new BloggerCompletedsurveys();--%>
-                            <%--bloggerCompletedsurveys.setMaxtodisplay(3);--%>
-                            <%--bloggerCompletedsurveys.initBean();--%>
-                            <%--StringBuffer template = new StringBuffer();--%>
-                            <%--template.append("" +--%>
-                        <%--"            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +--%>
-                        <%--"                <tr>\n" +--%>
-                        <%--"                    <td valign=\"top\">\n" +--%>
-                        <%--"     <font class=\"normalfont\" style=\"font-weight: bold;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +--%>
-                        <%--"     <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a> | <a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Answers</a></font>\n" +--%>
-                        <%--"                    </td>\n" +--%>
-                        <%--"                    <td valign=\"top\" width=\"200\">\n" +--%>
-                        <%--"     <$response.responsestatushtml$>\n" +--%>
-                        <%--"                    </td>\n" +--%>
-                        <%--"                </tr>\n" +--%>
-                        <%--"            </table>\n");--%>
-                        <%--%>--%>
-                        <%--<%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>--%>
-                            <%--<font class="smallfont">You haven't joined any conversations.</font>--%>
-                            <%--<br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">Find Conversations to Join</font></a>--%>
-                        <%--<%} else {%>--%>
-                            <%--<%--%>
-                                <%--ArrayList<GridCol> cols = new ArrayList<GridCol>();--%>
-                                <%--cols.add(new GridCol("", template.toString(), false, "", "tinyfont", "background: #ffffff;", ""));--%>
-                            <%--%>--%>
-                            <%--<%=Grid.render(bloggerCompletedsurveys.getList(), cols, 3, "/account/index.jsp", "pageyourconvos")%>--%>
-                            <%--<br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Joined</font></a>--%>
-                        <%--<%}%>--%>
-                    <%--<%}%>--%>
+                    <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
+                        <br/><br/><br/>
+                        <font class="largefont hdr">Conversations You've Joined</font>
+                        <br/>
+                        <%
+                            BloggerCompletedsurveys bloggerCompletedsurveys = new BloggerCompletedsurveys();
+                            bloggerCompletedsurveys.setMaxtodisplay(3);
+                            bloggerCompletedsurveys.initBean();
+                            StringBuffer template = new StringBuffer();
+//                            template.append("" +
+//                        "            <table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\">\n" +
+//                        "                <tr>\n" +
+//                        "                    <td valign=\"top\">\n" +
+//                        "     <font class=\"normalfont\" style=\"font-weight: bold;\"><a href=\"/surveypostit.jsp?surveyid=<$surveyid$>\"><$surveytitle$></a></font><br/>\n" +
+//                        "     <font class=\"tinyfont\" style=\"font-weight:bold; text-decoration: none;\"><a href=\"/blogger/impressions.jsp?surveyid=<$surveyid$>\">Impressions</a> | <a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Answers</a></font>\n" +
+//                        "                    </td>\n" +
+//                        "                    <td valign=\"top\" width=\"200\">\n" +
+//                        "     <$response.responsestatushtml$>\n" +
+//                        "                    </td>\n" +
+//                        "                </tr>\n" +
+//                        "            </table>\n");
+
+
+                            template.append("<div class=\"rounded\" style=\"background: #e6e6e6; padding: 10px;\">\n" +
+    "                        <table cellpadding=\"0\" border=\"0\" width=\"100%\">\n" +
+    "                            <tr>");
+                                     template.append("<td width=\"10%\">");
+                                     template.append("<img src=\"/images/ok-32.png\" alt=\"\" width=\"32\" height=\"32\"/><br/><font class=\"tinyfont\"><b>Joined</b></font>");
+                                     template.append("</td>");
+                                     template.append("<td>\n" +
+    "                                    <a href=\"/survey.jsp?surveyid=<$surveyid$>\"><font class=\"normalfont\" style=\"text-decoration: none; font-weight: bold; color: #0000ff;\"><$surveytitle$></font></a>\n"+
+    "                                    <br/><font class=\"tinyfont\"><b><a href=\"/survey.jsp?surveyid=<$surveyid$>\">Edit Your Answers</a></b></font>\n" +
+    "                                </td>");
+                             template.append("</tr>\n" +
+    "                        </table>\n" +
+    "                    </div>");
+                        %>
+                        <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
+                            <font class="smallfont">You haven't joined any conversations.</font>
+                            <br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">Find Conversations to Join</font></a>
+                        <%} else {%>
+                            <%
+                                ArrayList<GridCol> cols = new ArrayList<GridCol>();
+                                cols.add(new GridCol("", template.toString(), false, "", "", "", ""));
+                            %>
+                            <%=Grid.render(bloggerCompletedsurveys.getList(), cols, 3, "/account/index.jsp", "pageyourconvos")%>
+                            <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Joined</font></a>
+                        <%}%>
+                    <%}%>
 
 
                     <%--<%if (1==1){%>--%>

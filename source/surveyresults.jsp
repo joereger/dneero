@@ -38,7 +38,9 @@ String acl = "public";
             <li><a href="#tabs-1">Main Questions</a></li>
             <li><a href="#tabs-2">User Questions</a></li>
             <%if (!Pagez.getUserSession().getIsfacebookui()){%>
-            <li><a href="#tabs-3"><%=publicSurveyResults.getResultsfriendstabtext()%></a></li>
+                <%if (publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()!=null && !publicSurveyResults.getResultsHtmlForUserWhoTookSurvey().equals("")){%>
+                    <li><a href="#tabs-3"><%=publicSurveyResults.getResultsfriendstabtext()%></a></li>
+                <% } %>
             <% } %>
             <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
             <li><a href="#tabs-2">Your Friends</a></li>
@@ -57,16 +59,18 @@ String acl = "public";
             <%=publicSurveyResults.getResultsUserquestionsHtml()%>
         </div>
         <%if (!Pagez.getUserSession().getIsfacebookui()){%>
-            <div id="tabs-3">
-                <font class="mediumfont" style="color: #cccccc;"><%=publicSurveyResults.getResultsfriendstabtext()%></font><br/>
-                <table width="100%" cellpadding="10" cellspacing="0" border="0">
-                    <tr>
-                        <td valign="top">
-                            <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <%if (publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()!=null && !publicSurveyResults.getResultsHtmlForUserWhoTookSurvey().equals("")){%>
+                <div id="tabs-3">
+                    <font class="mediumfont" style="color: #cccccc;"><%=publicSurveyResults.getResultsfriendstabtext()%></font><br/>
+                    <table width="100%" cellpadding="10" cellspacing="0" border="0">
+                        <tr>
+                            <td valign="top">
+                                <%=publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()%>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            <%}%>
         <%}%>
         <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
             <div id="tabs-4">

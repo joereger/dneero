@@ -1,0 +1,8 @@
+New conversations have been created!
+
+<$args.2$>
+<$args.4$>
+
+Best,
+
+The Support Team

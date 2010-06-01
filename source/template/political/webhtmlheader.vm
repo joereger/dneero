@@ -43,7 +43,7 @@
                                 <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/registration.jsp">Sign Up</a></font>
                             #end
                             #if ($userSession.isloggedin)
-                                <font class="subnavfont">Hi, $userSession.user.nickname | <a href="/account/index.jsp">Account</a> | <a href="/account/inbox.jsp">Help</a>
+                                <font class="subnavfont">Hi, $userSession.user.nickname | <a href="/publicsurveylist.jsp">All Surveys</a> | <a href="/account/index.jsp">My Account</a> | <a href="/account/inbox.jsp">Help</a>
                                 #if ($userSession.isCustomerCare)
                                     | <a href="/customercare/index.jsp">Customer Care</a>
                                 #end

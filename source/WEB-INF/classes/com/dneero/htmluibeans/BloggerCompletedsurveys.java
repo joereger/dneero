@@ -56,7 +56,6 @@ public class BloggerCompletedsurveys implements Serializable {
                     listrecent.add(listitem);
                 }
             }
-
         }
     }
 

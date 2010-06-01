@@ -14,7 +14,7 @@
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Conversations";
+String pagetitle = "Active Conversations";
 String navtab = "home";
 String acl = "public";
 %>
@@ -71,20 +71,19 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         StringBuffer srv = new StringBuffer();
                         srv.append("<div class=\"rounded\" style=\"background: #e6e6e6; padding: 10px;\">\n" +
 "                        <table cellpadding=\"0\" border=\"0\" width=\"100%\">\n" +
-"                            <tr>\n" +
-"                                <td>\n" +
+"                            <tr>");
+                                 srv.append("<td width=\"10%\">");
+                                 srv.append("<$hasusertakenhtml$>");
+                                 srv.append("</td>");
+                                 srv.append("<td>\n" +
 "                                    <a href=\"/survey.jsp?surveyid=<$surveyid$>\"><font class=\"normalfont\" style=\"text-decoration: none; font-weight: bold; color: #0000ff;\"><$title$></font></a>\n"+
 "                                    <font class=\"normalfont\"><$description$></font><br/><br/>\n" +
 "                                    <$accessonlyhtml$> <font class=\"tinyfont\"><b><$daysuntilend$></b></font>\n" +
-"                                </td>\n" +
-"                                <td width=\"30%\">");
-                                 srv.append("<div class=\"rounded\" style=\"background: #ffffff; padding: 10px;\">\n" +
-"                                        <center>\n" +
-"                                            <font class=\"mediumfont\"><$earn$></font><br/>\n" +
-"                                        </center>\n" +
-"                                    </div>");
-                             srv.append("</td>\n" +
-"                            </tr>\n" +
+"                                </td>");
+                                 srv.append("<td width=\"20%\">");
+                                 srv.append("<$earn$>");
+                                 srv.append("</td>");
+                         srv.append("</tr>\n" +
 "                        </table>\n" +
 "                    </div>");
                         ArrayList<GridCol> cols=new ArrayList<GridCol>();
@@ -92,7 +91,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                     %>
                     <%=Grid.render(publicSurveyList.getSurveys(), cols, 100, "/publicsurveylist.jsp", "pagesurveys")%>
                     <br/><br/>
-                    <a href="/publicoldsurveylist.jsp">See Old Conversations</a>
+                    <a href="/publicoldsurveylist.jsp">See Older Conversations</a>
                 <%}%>
                 
             </td>

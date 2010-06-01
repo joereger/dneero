@@ -17,6 +17,7 @@ public class SurveyListItem implements Serializable {
     private String daysuntilend;
     private String numberofquestions;
     private boolean loggedinuserhasalreadytakensurvey = false;
+    private String hasusertakenhtml = "";
     private boolean isloggedinuserqualified = true;
     private String isbloggerqualifiedstring = "";
     private String description = "";
@@ -137,5 +138,13 @@ public class SurveyListItem implements Serializable {
 
     public void setEarncompact(String earncompact) {
         this.earncompact=earncompact;
+    }
+
+    public String getHasusertakenhtml() {
+        return hasusertakenhtml;
+    }
+
+    public void setHasusertakenhtml(String hasusertakenhtml) {
+        this.hasusertakenhtml = hasusertakenhtml;
     }
 }

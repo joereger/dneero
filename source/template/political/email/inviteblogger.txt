@@ -1,0 +1,9 @@
+<$user.nickname$> has invited you to earn money with your blog.
+
+<$args.0$>
+
+<$baseUrl.includinghttp$>invite.jsp?referredby=<$user.userid$>
+
+Best,
+
+The Support Team

@@ -137,12 +137,11 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     </td>
                 </tr>
 
-
                 <tr>
                     <td valign="top">
                         <font class="formfieldnamefont">PayPal Address (Optional)</font>
                         <br/>
-                        <font class="tinyfont">We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Your PayPal address is the email<br/>address you use to log in<br/>to paypal.com.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href="http://www.paypal.com" target="paypal" class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
+                        <font class="tinyfont">From time to time we run for-pay surveys.<br/> We can't pay you until we have a valid<br/>PayPal address.  You can enter one<br/>at any time.  You don't need to have one<br/>in the system to blog and earn money.<br/>Your PayPal address is the email<br/>address you use to log in<br/>to paypal.com.<br/>Don't have a PayPal account? <br/>Setup is quick, easy and secure.<br/>Click <a href="http://www.paypal.com" target="paypal" class="tinyfont"><font class="tinyfont">here</font></a> to create one.</font>
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("paymethodpaypaladdress", accountSettings.getPaymethodpaypaladdress(), 255, 20, "", "")%>

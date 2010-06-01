@@ -101,6 +101,11 @@ public class PublicSurveyList implements Serializable {
                             if (survey.getIncentive().getSurveyincentive()==null){
                                 logger.debug("survey.getIncentive().getSurveyincentive()==null");
                             } else {
+
+                                earn.append("<div class=\"rounded\" style=\"background: #ffffff; padding: 10px;\">\n" +
+"                                        <center>\n" +
+"                                            <font class=\"mediumfont\">");
+
                                 if(survey.getIncentive().getSurveyincentive().getType()== IncentiveCash.ID){
                                     earn.append(survey.getIncentive().getShortSummary());
                                     earncompact.append(survey.getIncentive().getShortSummary());
@@ -114,6 +119,9 @@ public class PublicSurveyList implements Serializable {
                                 if (survey.getWillingtopaypercpm()>0){
                                     earn.append("<br/><font class=\"tinyfont\">plus $"+Str.formatForMoney(survey.getWillingtopaypercpm())+" per 1000 displays,<br/>max "+survey.getMaxdisplaysperblog()+" displays</font>");
                                 }
+                                earn.append("</font><br/>\n" +
+"                                        </center>\n" +
+"                                    </div>");
                             }
                         }
                     }  else {
@@ -143,6 +151,7 @@ public class PublicSurveyList implements Serializable {
                             Response response = iterator2.next();
                             if (response.getSurveyid()==survey.getSurveyid()){
                                 bsli.setLoggedinuserhasalreadytakensurvey(true);
+                                bsli.setHasusertakenhtml("<img src=\"/images/ok-32.png\" alt=\"\" width=\"32\" height=\"32\"/><font class=\"tinyfont\"><b>You've Already Joined</b></font>");
                             }
                         }
                     }
