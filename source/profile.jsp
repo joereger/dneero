@@ -150,6 +150,7 @@ String acl = "public";
                                 <font class="smallfont"><%=publicProfile.getPeoplereferred()%></font>
                             </td>
                         </tr>
+                        <%if (publicProfile.getSuperpanels()==null || publicProfile.getSuperpanels().size()==0){%>
                         <tr>
                             <td valign="top" align="right">
                                 <a href="/superpanels.jsp"><font class="formfieldnamefont">SuperPanels</font></a>
@@ -171,6 +172,7 @@ String acl = "public";
                                 <%}%>
                             </td>
                         </tr>
+                        <%}%>
                     </table>
                 </div>
             </td>
