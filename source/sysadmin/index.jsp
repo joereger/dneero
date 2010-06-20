@@ -46,7 +46,7 @@ String acl = "sysadmin";
                 <div class="rounded" style="padding: 15px; margin: 8px; background: #e6e6e6;">
                     <font class="largefont"><%=systemStats.getTotalsurveystaken()%></font>
                     <br/>
-                    <font class="mediumfont">conversations joined</font>
+                    <font class="mediumfont"><%=Pagez._surveys()%> joined</font>
                 </div>
                </td>
                <td valign="top" width="25%">
@@ -67,7 +67,7 @@ String acl = "sysadmin";
     <div class="rounded" style="padding: 15px; margin: 8px; background: #e6e6e6;">
         <font class="normalfont"><b>Pending Balance:</b> </font>
         <font class="normalfont"><%=Str.formatForMoney(systemStats.getSystembalance())%></font>
-        <br/><font class="tinyfont">The amount of accrued balance that users are holding.  A positive number means we are holding this much money for people.  But keep in mind that this also includes money for researchers who are running conversations.</font>
+        <br/><font class="tinyfont">The amount of accrued balance that users are holding.  A positive number means we are holding this much money for people.  But keep in mind that this also includes money for researchers who are running <%=Pagez._surveys()%>.</font>
         <br/><br/>
         <font class="normalfont"><b>System Balance Real World:</b> </font>
         <font class="normalfont"><%=Str.formatForMoney(systemStats.getSystembalancerealworld())%></font>

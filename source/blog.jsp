@@ -7,7 +7,7 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Conversations Blog";
+String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Blog";
 String navtab = "home";
 String acl = "public";
 %>

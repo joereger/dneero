@@ -71,7 +71,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 researcherSurveyDetail05.saveSurvey();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -106,7 +106,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             isfreeChecked = "checked=\"checked\"";
         }
     %>
-    <input type="checkbox" id="isfree" name="isfree" value="1" <%=isfreeChecked%> /> Free conversation, I don't want to pay for a cash incentive or charity donation    
+    <input type="checkbox" id="isfree" name="isfree" value="1" <%=isfreeChecked%> /> Free <%=Pagez._survey()%>, I don't want to pay for a cash incentive or charity donation
 
     <div id="togglepage">
 
@@ -115,9 +115,9 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             In this step you'll choose how much you're willing to pay bloggers. You'll want to craft an incentive that generates the response you're looking for.
             <br/><br/>
-            Example 1: You have a new product to announce to the blogosphere.  You need to find new bloggers to talk about your product and you then need them to post the conversation to their blogs to tell their friends and families.  Your pricing should be a good balance of Conversation Participation Incentive and Peer Display Incentive.
+            Example 1: You have a new product to announce to the blogosphere.  You need to find new bloggers to talk about your product and you then need them to post the <%=Pagez._survey()%> to their blogs to tell their friends and families.  Your pricing should be a good balance of <%=Pagez._Survey()%> Participation Incentive and Peer Display Incentive.
             <br/><br/>
-            Example 2: You want to see what bloggers think about a new concept.  Being more concerned about the research side of the equation, you may pay a lot for respondents and almost nothing for them to post the conversation to their blogs.
+            Example 2: You want to see what bloggers think about a new concept.  Being more concerned about the research side of the equation, you may pay a lot for respondents and almost nothing for them to post the <%=Pagez._survey()%> to their blogs.
             <br/><br/>
             The possibilities are endless... give it some thought and create a great incentive.  The better the incentive the more activity you'll generate.
             </font></div>
@@ -143,7 +143,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="smallfont">The number of people that you would like to have fill out the conversation and post to their blogs.  Once this number is reached no more people can join the conversation as paid participants.  The minimum is 100.</font><br/>
+                    <font class="smallfont">The number of people that you would like to have fill out the <%=Pagez._survey()%> and post to their blogs.  Once this number is reached no more people can join the <%=Pagez._survey()%> as paid participants.  The minimum is 100.</font><br/>
                 </td>
                 <td valign="top">
                     <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -157,8 +157,8 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
             <tr>
                 <td valign="top" colspan="2">
                     <br/><br/>
-                    <font class="mediumfont">Conversation Participation Incentive (Choose One)</font><br/>
-                    <font class="smallfont">Amount to award a person who fulfills the targeting criteria and successfully joins the conversation.  Respondents will only earn this amount after they've joined your conversation *and* posted it to their peers for a period of time.  Awarding more will attract more people.</font><br/>
+                    <font class="mediumfont"><%=Pagez._Survey()%> Participation Incentive (Choose One)</font><br/>
+                    <font class="smallfont">Amount to award a person who fulfills the targeting criteria and successfully joins the <%=Pagez._survey()%>.  Respondents will only earn this amount after they've joined your <%=Pagez._survey()%> *and* posted it to their peers for a period of time.  Awarding more will attract more people.</font><br/>
                     <br/>
                 </td>
                 <!--<td valign="top">-->
@@ -171,7 +171,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 <!--<td valign="top">-->
                     <!--<font class="formfieldnamefont">Incentive Per Respondent (Choose One)</font>-->
                     <!--<br/>-->
-                    <!--<font class="smallfont">Amount to award a person who fulfills the targeting criteria and successfully joins the conversation.  Awarding more will attract more people.</font>-->
+                    <!--<font class="smallfont">Amount to award a person who fulfills the targeting criteria and successfully joins.  Awarding more will attract more people.</font>-->
                 <!--</td>-->
                 <td valign="top" colspan="2">
                     <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -234,7 +234,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
                                 </td>
                                 <td valign="top">
-                                        <font class="tinyfont">A set of redemption instructions that the user will see after they're awarded the coupon.  These instructions will be emailed to respondents who successfully post the conversation to their peers for five days.  They'll also be available online.</font>
+                                        <font class="tinyfont">A set of redemption instructions that the user will see after they're awarded the coupon.  These instructions will be emailed to respondents who successfully post the <%=Pagez._survey()%> to their peers for five days.  They'll also be available online.</font>
                                 </td>
                                 <td valign="top">
                                         <%=Textarea.getHtml("couponinstructions", String.valueOf(researcherSurveyDetail05.getCouponinstructions()), 2, 25, "", "font-size: 9px;")%>
@@ -300,9 +300,9 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
 
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Willing to Pay Per Thousand Conversation Displays to a Peer (CPM) ($USD)</font>
+                    <font class="formfieldnamefont">Willing to Pay Per Thousand <%=Pagez._Survey()%> Displays to a Peer (CPM) ($USD)</font>
                     <br/>
-                    <font class="smallfont">Once conversations are joined they are posted to a person's blog or social network profile.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your conversation.  This value must be at least $0.25 (unless you're using a Coupon Incentive above) to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your conversation prominently on their blog.</font>
+                    <font class="smallfont">Once <%=Pagez._surveys()%> are joined they are posted to a person's blog or social network profile.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your <%=Pagez._survey()%>.  This value must be at least $0.25 (unless you're using a Coupon Incentive above) to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your <%=Pagez._survey()%> prominently on their blog.</font>
                 </td>
                 <td valign="top">
                     <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -319,7 +319,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 <td valign="top">
                     <font class="formfieldnamefont">Max Displays Per Account</font>
                     <br/>
-                    <font class="smallfont">You may want to cap the maximum number of displays that a social person can get paid for.  Your conversation will continue to be displayed if the blog is visited over this number of times but you won't be charged for it.  It is tempting to set this number low, but be cautious... bloggers will quickly realize that they don't stand to make money by displaying your conversation... so they won't.  The minimum value is 1000.</font>
+                    <font class="smallfont">You may want to cap the maximum number of displays that a social person can get paid for.  Your <%=Pagez._survey()%> will continue to be displayed if the blog is visited over this number of times but you won't be charged for it.  It is tempting to set this number low, but be cautious... bloggers will quickly realize that they don't stand to make money by displaying your <%=Pagez._survey()%>... so they won't.  The minimum value is 1000.</font>
                 </td>
                 <td valign="top">
                     <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -334,7 +334,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 <td valign="top">
                     <font class="formfieldnamefont">Max Displays Total</font>
                     <br/>
-                    <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max conversations per account... many social people have multiple blogs and can get paid on each one separately.  The minimum value is 25% of Number of Respondents Requested multiplied by Max Displays Per Account.</font>
+                    <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max <%=Pagez._surveys()%> per account... many social people have multiple blogs and can get paid on each one separately.  The minimum value is 25% of Number of Respondents Requested multiplied by Max Displays Per Account.</font>
                 </td>
                 <td valign="top">
                     <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -358,7 +358,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 <td valign="top">
                     <font class="formfieldnamefont">Only if Blogger Lets <%=Pagez.getUserSession().getPl().getNameforui()%> Give Earnings to Charity?</font>
                     <br/>
-                    <font class="smallfont">By checking this box only those bloggers willing let <%=Pagez.getUserSession().getPl().getNameforui()%> give all of their earnings from this conversation to charity will be able to take the conversation.  The blogger will be able to choose from a list of charities.</font>
+                    <font class="smallfont">By checking this box only those bloggers willing let <%=Pagez.getUserSession().getPl().getNameforui()%> give all of their earnings from this <%=Pagez._survey()%> to charity will be able to take the <%=Pagez._survey()%>.  The blogger will be able to choose from a list of charities.</font>
                 </td>
                 <td valign="top">
                     <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
@@ -423,7 +423,7 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
                 <td valign="top">
                     <font class="formfieldnamefont">Hide Overall Aggregate Results for This Survey?</font>
                     <br/>
-                    <font class="smallfont">By checking this box you're hiding overall aggregate results on the conversation's main page results tab.  Still available will be the aggregate results for individual blogs.  This is a balance between the blogger's widget value and value for you, the researcher. There are times when you don't want your competition to be able to simply grab the benefit of your research investment.  We advocate openness and charge an additional 5% fee to hide results.  This is calculated as 5% of the maximum possible conversation fee and is a one-time non-refundable fee.</font>
+                    <font class="smallfont">By checking this box you're hiding overall aggregate results on the <%=Pagez._survey()%> main page results tab.  Still available will be the aggregate results for individual blogs.  This is a balance between the blogger's widget value and value for you, the researcher. There are times when you don't want your competition to be able to simply grab the benefit of your research investment.  We advocate openness and charge an additional 5% fee to hide results.  This is calculated as 5% of the maximum possible <%=Pagez._survey()%> fee and is a one-time non-refundable fee.</font>
                 </td>
                 <td valign="top">
                     <%if (researcherSurveyDetail05.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>

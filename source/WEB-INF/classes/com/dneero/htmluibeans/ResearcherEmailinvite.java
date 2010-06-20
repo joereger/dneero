@@ -19,7 +19,7 @@ import java.util.*;
 public class ResearcherEmailinvite implements Serializable {
 
 
-    private String subject = "You've Been Invited to Join a Conversation";
+    private String subject = "You've Been Invited to Join";
     private String message;
     private String manuallyenteredemailaddresses;
     private int surveyiduserisinvitedto;

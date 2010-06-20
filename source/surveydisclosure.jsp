@@ -1,7 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyDisclosure" %>
-<%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 PublicSurveyDisclosure publicSurveyDisclosure = (PublicSurveyDisclosure)Pagez.getBeanMgr().get("PublicSurveyDisclosure");
 %>
@@ -41,14 +41,14 @@ String acl = "public";
         <table width="100%" cellpadding="5">
             <tr>
                 <td valign="top" width="450">
-                    <font class="mediumfont" style="color: #666666;">Sponsored Conversation Disclosure</font>
+                    <font class="mediumfont" style="color: #666666;">Sponsored <%=Pagez._Survey()%> Disclosure</font>
                     <br/><br/>
                     <font class="normalfont">
-                    This is a sponsored conversation.  The sponsor did not and does not encourage the blogger/social networker to post any particular opinion or answers.  The sponsor encourages the blogger/social networker to simply tell the truth.
+                    This is a sponsored <%=Pagez._survey()%>.  The sponsor did not and does not encourage the blogger/social networker to post any particular opinion or answers.  The sponsor encourages the blogger/social networker to simply tell the truth.
                     <br/><br/>
-                    The sponsor pays the blogger/social networker for their time to respond to the conversation and for the number of times that the conversation is displayed on his or her blog or social network profile.
+                    The sponsor pays the blogger/social networker for their time to respond to the <%=Pagez._survey()%> and for the number of times that the <%=Pagez._survey()%> is displayed on his or her blog or social network profile.
                     <br/><br/>
-                    A link to this disclosure statement is required (and is automatically posted) with each conversation to protect the integrity of the blogosphere and social networks.
+                    A link to this disclosure statement is required (and is automatically posted) with each <%=Pagez._survey()%> to protect the integrity of the blogosphere and social networks.
                     </font>
                 </td>
                 <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
@@ -61,7 +61,7 @@ String acl = "public";
                                     <div class="rounded" style="background: #cccccc; text-align: center;">
                                         <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
                                         <br/>
-                                        <font class="mediumfont">This conversation is closed.</font>
+                                        <font class="mediumfont">This <%=Pagez._survey()%> is closed.</font>
                                     </div>
                                     <br/>
                                 <% } %>
@@ -70,9 +70,9 @@ String acl = "public";
                                     <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                         <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
                                         <br/>
-                                        <font class="mediumfont">This is a Charity Only conversation.</font>
+                                        <font class="mediumfont">This is a Charity Only <%=Pagez._survey()%>.</font>
                                         <br/>
-                                        <font class="tinyfont">The conversation sponsor requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                        <font class="tinyfont">The <%=Pagez._survey()%> sponsor requires that we donate all of your earnings from the <%=Pagez._survey()%> to a charity of your choice.  It's a chance to do some good!</font>
                                     </div>
                                 <% } %>
                             </div>
@@ -83,10 +83,10 @@ String acl = "public";
         </table>
     <% } else { %>
         <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
-        <font class="mediumfont" style="color: #666666;">Conversation Disclosure</font>
+        <font class="mediumfont" style="color: #666666;"><%=Pagez._Survey()%> Disclosure</font>
         <br/><br/>
         <font class="normalfont">
-        This conversation is powered by a third party technology.
+        This <%=Pagez._survey()%> is powered by a third party technology.
         </font> 
    <% } %>
 

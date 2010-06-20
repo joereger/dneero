@@ -19,7 +19,7 @@ String acl = "public";
         <td valign="top">
             <font class="mediumfont" style="color: #999999">Users Add Questions</font>
             <br/>
-            When a user joins a conversation they're asked a starting set of questions.  They then have to ask one additional question of their own.  People who join the conversation after seeing the original person's answers will have to answer that question... and add one of their own.  As the conversation expands to three levels each respondent will answer the three questions that were added by the three people who took it before them.
+            When a user joins a <%=Pagez._survey()%> they're asked a starting set of questions.  They then have to ask one additional question of their own.  People who join the <%=Pagez._survey()%> after seeing the original person's answers will have to answer that question... and add one of their own.  As the <%=Pagez._survey()%> expands to three levels each respondent will answer the three questions that were added by the three people who took it before them.
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Expanding the Scope Highlights Missing Links</font>
             <br/>
@@ -27,7 +27,7 @@ String acl = "public";
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Deep, but Not Too Deep</font>
             <br/>
-            For an average sized conversation you may expect to see three or four levels meaning that late participants answer that many additional questions.  We never want to create a situation where people have to answer 100 questions.
+            For an average sized <%=Pagez._survey()%> you may expect to see three or four levels meaning that late participants answer that many additional questions.  We never want to create a situation where people have to answer 100 questions.
         </td>
         <td valign="top" width="30%">
             <%@ include file="/researcher/about-nav-include.jsp" %>

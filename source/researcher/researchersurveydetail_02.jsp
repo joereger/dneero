@@ -46,7 +46,7 @@ String acl="researcher";
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 researcherSurveyDetail02.saveSurvey();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -112,7 +112,7 @@ String acl="researcher";
     <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
     <div id="togglehelp">
         <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        Add questions to your conversation on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the Conversation to see what these questions look like to somebody joining the conversation.  When you're done, click Next Step.
+        Add questions to your <%=Pagez._survey()%> on this page.  Choose from the Question Type dropdown box and then click Add Question.  You'll quickly build a list of questions.  Click Preview the <%=Pagez._survey()%> to see what these questions look like to somebody joining the <%=Pagez._survey()%>.  When you're done, click Next Step.
         <br/><br/>
         </font></div>
     </div>
@@ -122,7 +122,7 @@ String acl="researcher";
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Questions</a></li>
-            <li><a href="#tabs-2">Preview Conversation</a></li>
+            <li><a href="#tabs-2">Preview <%=Pagez._Survey()%></a></li>
             <li><a href="#tabs-3">Preview Embed Widget</a></li>
         </ul>
         <div id="tabs-1">
@@ -174,7 +174,7 @@ String acl="researcher";
                         </td>
                         <td valign="top">
                             <%if (researcherSurveyQuestionList.getQuestions()==null || researcherSurveyQuestionList.getQuestions().size()==0){%>
-                                <font class="normalfont">This conversation contains no questions... you need to add one to continue.</font>
+                                <font class="normalfont">This <%=Pagez._survey()%> contains no questions... you need to add one to continue.</font>
                             <%} else {%>
                                 <%
                                     ArrayList<GridCol> cols=new ArrayList<GridCol>();

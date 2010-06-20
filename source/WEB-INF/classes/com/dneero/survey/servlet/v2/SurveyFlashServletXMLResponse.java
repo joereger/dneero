@@ -1,36 +1,25 @@
 package com.dneero.survey.servlet.v2;
 
-import org.apache.log4j.Logger;
+import com.dneero.cache.providers.CacheFactory;
+import com.dneero.dao.Blogger;
+import com.dneero.dao.Survey;
+import com.dneero.dao.User;
+import com.dneero.display.SurveyTemplateProcessorV2;
+import com.dneero.pageperformance.PagePerformanceUtil;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.util.Util;
 import org.apache.catalina.connector.ClientAbortException;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Text;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.net.URLEncoder;
-
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
-import com.dneero.dao.Dbcache;
-import com.dneero.dao.Blogger;
-import com.dneero.systemprops.WebAppRootDir;
-import com.dneero.systemprops.BaseUrl;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.cache.providers.CacheFactory;
-import com.dneero.util.RandomString;
-import com.dneero.util.Util;
-import com.dneero.pageperformance.PagePerformanceUtil;
-import com.dneero.survey.servlet.RecordImpression;
-import com.dneero.survey.servlet.SurveyAsHtml;
-import com.dneero.display.SurveyTemplateProcessorV2;
-import com.flagstone.transform.*;
 
 /**
  * User: Joe Reger Jr
@@ -127,7 +116,7 @@ public class SurveyFlashServletXMLResponse extends HttpServlet {
                     responseAsXML = Util.jdomXmlDocAsString(responseAsXMLDoc);
                 } else {
                     Element el = new Element("error");
-                    el.setContent(new Text("This conversation is not currently available."));
+                    el.setContent(new Text("This is not currently available."));
                     Document doc = new Document(el);
                     responseAsXML = Util.jdomXmlDocAsString(doc);
                 }

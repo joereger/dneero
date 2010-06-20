@@ -1,10 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicCharity" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="com.dneero.charity.CharityReport" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<img src=\"/images/charity-128.png\" alt=\"\" border=\"0\" width=\"128\" height=\"128\" align=\"right\"/>Make (Real) Change<br/><font class=\"mediumfont\">Make great content and great contributions -- at the same time!</font>";
@@ -23,7 +20,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                     <td valign="top"  width="50%">
                         <font class="mediumfont" style="color: #999999">We'll Give Your Earnings to Charity</font>
                         <br/>
-                        We will, if you so choose, donate your earnings to charity.  Each time you join a conversation you'll be able to choose whether to donate and which charity to donate to.  We currently have a number of charitable options and will look to add more in the future.
+                        We will, if you so choose, donate your earnings to charity.  Each time you join a <%=Pagez._survey()%> you'll be able to choose whether to donate and which charity to donate to.  We currently have a number of charitable options and will look to add more in the future.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Results</font>
                         <br/>
@@ -35,7 +32,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Researchers and Marketers: Do Some Good</font>
                         <br/>
-                        When you create a conversation you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
+                        When you create a <%=Pagez._survey()%> you can mark it as Charity Only which means that only bloggers who are willing to have their earnings donated to charity will be able to take it.
                         <br/><br/><br/>
                         <font class="mediumfont" style="color: #999999">Most Recent Donations</font>
                         <br/>
@@ -82,7 +79,7 @@ PublicCharity publicCharity = (PublicCharity) Pagez.getBeanMgr().get("PublicChar
                             <br/><a href="http://en.wikipedia.org/wiki/Wikimedia_Foundation" target="charity">Wikimedia Foundation</a>
                             <br/><a href="http://www.conservationfund.org/" target="charity">The Conservation Fund</a>
                             </blockquote>
-                            And you can add your own favorite charity when you create a conversation!
+                            And you can add your own favorite charity when you create a <%=Pagez._survey()%>!
                         </div>
 
                         <br/><br/>

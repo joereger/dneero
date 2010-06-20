@@ -1,6 +1,5 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.htmluibeans.AccountSettings" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Account Settings";
@@ -88,9 +87,9 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
 
                 <tr>
                     <td valign="top">
-                        <font class="formfieldnamefont">Notification of New Conversations<br/>Every X Days</font>
+                        <font class="formfieldnamefont">Notification of New <%=Pagez._Surveys()%><br/>Every X Days</font>
                         <br/>
-                        <font class="tinyfont">Learn about new conversations before others. Of course we'll only disturb your inbox if there's actually a new conversation that you qualify for.</font>
+                        <font class="tinyfont">Learn about new <%=Pagez._surveys()%> before others. Of course we'll only disturb your inbox if there's actually a new <%=Pagez._survey()%> that you qualify for.</font>
                     </td>
                     <td valign="top">
                         <%=Dropdown.getHtml("notifyofnewsurveysbyemaileveryexdays",String.valueOf(accountSettings.getNotifyofnewsurveysbyemaileveryexdays()), ((AccountSettings)Pagez.getBeanMgr().get("AccountSettings")).getNotificationFrequencies(), "","")%>
@@ -113,7 +112,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">Email Instant Notify</font>
                         <br/>
-                        <font class="tinyfont">If you like we can instantly notify you of new conversations by email.  No need to wait for the once a day message!</font>
+                        <font class="tinyfont">If you like we can instantly notify you of new <%=Pagez._surveys()%> by email.  No need to wait for the once a day message!</font>
                     </td>
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("instantnotifybyemailison", accountSettings.getInstantnotifybyemailison(), "", "")%>
@@ -126,7 +125,7 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
                     <td valign="top">
                         <font class="formfieldnamefont">XMPP/Jabber Address (Optional)</font>
                         <br/>
-                        <font class="tinyfont">If you like we can also instantly notify you of new conversations via XMPP/Jabber. This works with a Google Chat account or other Jabber servers.</font>
+                        <font class="tinyfont">If you like we can also instantly notify you of new <%=Pagez._surveys()%> via XMPP/Jabber. This works with a Google Chat account or other Jabber servers.</font>
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("instantnotifyxmppusername", accountSettings.getInstantnotifyxmppusername(), 255, 20, "", "")%>

@@ -56,7 +56,7 @@ public class SurveyTemplateProcessorV1 {
         if (!displayEvenIfSysadminRejected){
             if (blogger!=null && response!=null){
                 if (response.getIssysadminrejected()){
-                    return "<p>This conversation is not currently available.</p>";
+                    return "<p>Not currently available.</p>";
                 }
             }
         }

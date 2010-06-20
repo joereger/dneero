@@ -1,8 +1,8 @@
-<%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Create Conversations";
+String pagetitle = "Create "+ Pagez._surveys();
 String navtab = "home";
 String acl = "public";
 %>
@@ -15,7 +15,7 @@ String acl = "public";
                <td valign="top" width="70%">
                     <div style="margin: 15px;">
 
-                        It only takes a few minutes to spin up a conversation about anything.  Your weekend plans.  A tv show.  An event.
+                        It only takes a few minutes to spin up a <%=Pagez._survey()%> about anything.  Your weekend plans.  A tv show.  An event.
                         <br/><br/>
 
                         <font class="mediumfont" style="color: #999999">How it Works</font>

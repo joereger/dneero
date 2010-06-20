@@ -177,7 +177,7 @@ String acl = "customercare";
                         <td valign="top">
                             <font class="formfieldnamefont">Slots Remaining</font>
                             <br/>
-                            <font class="smallfont">The number of people that you would like to have join the conversation and post to their peers.  Once this number is reached no more people can join the conversation.  The minimum is 100.</font>
+                            <font class="smallfont">The number of people that you would like to have join the <%=Pagez._survey()%> and post to their peers.  Once this number is reached no more people can join the <%=Pagez._survey()%>.  The minimum is 100.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("numberofrespondentsrequested", String.valueOf(customercareSurveyDetail.getSurvey().getNumberofrespondentsrequested()), 255, 35, "", "")%>
@@ -187,7 +187,7 @@ String acl = "customercare";
                         <td valign="top">
                             <font class="formfieldnamefont">Willing to Pay Per Thousand Displays on a Blog (CPM) ($USD)</font>
                             <br/>
-                            <font class="smallfont">Once conversations are taken they are posted to a person's peers.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your conversation.  This value must be at least $1 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your conversation prominently to their peers.</font>
+                            <font class="smallfont">Once <%=Pagez._surveys()%> are taken they are posted to a person's peers.  With this value you determine what you're willing to pay for 1000 displays (CPM) of your <%=Pagez._survey()%>.  This value must be at least $1 to cover bandwidth costs and can go as high as $1000 ($1000 would be equivalent to $1 per display).  The more you pay the more you attract bloggers who will display your <%=Pagez._survey()%> prominently to their peers.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("willingtopaypercpm", String.valueOf(customercareSurveyDetail.getSurvey().getWillingtopaypercpm()), 255, 35, "", "")%>
@@ -197,7 +197,7 @@ String acl = "customercare";
                         <td valign="top">
                             <font class="formfieldnamefont">Max Survey Displays Per Blog</font>
                             <br/>
-                            <font class="smallfont">You may want to cap the maximum number of displays that a blogger can get paid for.  Your survey will continue to be displayed if the blog is visited over this number of times but you won't be charged for it.  It is tempting to set this number low, but be cautious... bloggers will quickly realize that they don't stand to make money by displaying your conversation... so they won't.  The minimum value is 1000.</font>
+                            <font class="smallfont">You may want to cap the maximum number of displays that a blogger can get paid for.  Your survey will continue to be displayed if the blog is visited over this number of times but you won't be charged for it.  It is tempting to set this number low, but be cautious... bloggers will quickly realize that they don't stand to make money by displaying your <%=Pagez._survey()%>... so they won't.  The minimum value is 1000.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("maxdisplaysperblog", String.valueOf(customercareSurveyDetail.getSurvey().getMaxdisplaysperblog()), 255, 35, "", "")%>
@@ -207,7 +207,7 @@ String acl = "customercare";
                         <td valign="top">
                             <font class="formfieldnamefont">Max Survey Displays Total</font>
                             <br/>
-                            <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max conversations per account... many bloggers have multiple blogs and can get paid on each one separately.  The minimum value is 1000.</font>
+                            <font class="smallfont">This is a safety check that allows you to cap the total number of displays that you're willing to pay for.  Note that this value is not simply the number of respondents requested multiplied by the max <%=Pagez._surveys()%> per account... many bloggers have multiple blogs and can get paid on each one separately.  The minimum value is 1000.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("maxdisplaystotal", String.valueOf(customercareSurveyDetail.getSurvey().getMaxdisplaystotal()), 255, 35, "", "")%>
@@ -227,7 +227,7 @@ String acl = "customercare";
                         <td valign="top">
                             <font class="smallfont"><%=customercareSurveyDetail.getSurvey().getPublicsurveydisplays()%></font>
                             <br/>
-                            <font class="tinyfont">Times somebody's looked at the conversation, considering whether or not to join it.</font>
+                            <font class="tinyfont">Times somebody's looked at the <%=Pagez._survey()%>, considering whether or not to join it.</font>
                         </td>
                     </tr>
                     <tr>

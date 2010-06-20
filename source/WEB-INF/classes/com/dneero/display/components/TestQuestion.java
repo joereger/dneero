@@ -9,7 +9,6 @@ import com.dneero.rank.RankUnit;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
-import org.jdom.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,7 +65,7 @@ public class TestQuestion implements Component {
         out.append(" ");
         out.append("<font class=\"formfieldnamefont\" style=\"color: #ff0000;\">(Required)</font>");
         out.append("<br/>");
-        out.append("<font class=\"tinyfont\" style=\"color: #ff0000;\">You must answer this question correctly to qualify for this conversation.</font>");
+        out.append("<font class=\"tinyfont\" style=\"color: #ff0000;\">You must answer this question correctly to qualify.</font>");
         out.append("<br/>");
         out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+ Str.cleanForHtml(value)+"\">");
 

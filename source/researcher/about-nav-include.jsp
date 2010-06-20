@@ -1,5 +1,5 @@
 <div class="rounded" style="background: #eeeeee;">
-    <font class="mediumfont" style="font-weight: bold;">About Creating Conversations</font>
+    <font class="mediumfont" style="font-weight: bold;">About Creating <%=Pagez._Surveys()%></font>
     <br/>
     <a href="/researcher/about-execsum.jsp"><font class="smallfont" style="font-weight: bold;">Overview</font></a>
     <br/>

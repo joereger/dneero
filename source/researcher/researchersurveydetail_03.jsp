@@ -53,7 +53,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
             if (request.getParameter("action").equals("savetemplate")) {
                 logger.debug("Savetemplate was clicked");
                 researcherSurveyDetail03.saveSurvey();
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
             } else if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail03.saveSurvey();
@@ -61,7 +61,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 researcherSurveyDetail03.saveSurvey();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -111,7 +111,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
       }
     </script>
     <div id="tabs">
-    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Preview of Conversation in Blog</a>
+    <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel1');" id="tab1" onclick="return false;">Preview of <%=Pagez._Survey()%> in Blog</a>
     <%if (researcherSurveyDetail03.getSurvey().getEmbedversion()==Survey.EMBEDVERSION_01){%>
         <a href="" class="tab" onmousedown="return event.returnValue = showPanel(this, 'panel2');" onclick="return false;">Advanced Formatting</a>
     <%}%>
@@ -123,7 +123,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                 <div id="togglehelp">
                     <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
                     <img src="/images/lightbulb_on.png" alt="" align="right"/>
-                    This is how your conversation looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the conversation slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
+                    This is how your <%=Pagez._survey()%> looks when posted to a blog.  Bloggers, depending on their blogging tool, can choose from one of many embedding methods.  Each renders the <%=Pagez._survey()%> slightly differently.  You can enable/disable each method on the Advanced Formatting tab.
                     <br/><br/></font></div>
                 </div>
                 <table cellpadding="30" cellspacing="0" border="0">
@@ -167,14 +167,14 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                 <img src="/images/clear.gif" width="725" height="1"/><br/>
                 <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
                 <img src="/images/lightbulb_on.png" alt="" align="right"/>
-                In this step you can optionally change the formatting of the conversation as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
+                In this step you can optionally change the formatting of the <%=Pagez._survey()%> as it appears on a person's blog.  Click the Advanced Formatting tab to get started.  This requires some basic HTML skills and is very powerful:
                 <ul>
                 <li>Change the order of questions</li>
                 <li>Describe your motivations behind the survey</li>
                 </ul>
                 Advanced Formatting is powerful.  Please keep in mind that you are dealing with space on a person's blog.  Being more outrageous may require you to pay a higher per-display amount to get bloggers to post it.  Be careful and respectful.
                 <br/><br/>
-                Add HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the conversation.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog.  Before you move to the next section verify that your conversation looks like you want it to look.
+                Add HTML formatting to the box below.  You must click Save Advanced Formatting to see your changes.  A list of question tags can be found to the right of the screen. Use these tags to add questions to the <%=Pagez._survey()%>.  Each question tag will be replaced with the respondent's actual answer when it's displayed on their blog.  Before you move to the next section verify that your <%=Pagez._survey()%> looks like you want it to look.
                 </font></div></center>
                 <br/><br/>
                 <table cellpadding="0" cellspacing="5" border="0">
@@ -201,7 +201,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                             <font class="formfieldnamefont">Allow Flash Embed?</font>
                                         </td>
                                         <td valign="top">
-                                            <font class="smallfont">Flash embedding is powerful because it opens up MySpace and some other hard-to-embed environments but this reach comes at a cost:  you're unable to embed video/images in your conversation or do advanced html formatting.</font>
+                                            <font class="smallfont">Flash embedding is powerful because it opens up MySpace and some other hard-to-embed environments but this reach comes at a cost:  you're unable to embed video/images in your <%=Pagez._survey()%> or do advanced html formatting.</font>
                                         </td>
                                     </tr>
                                     <tr>
@@ -222,7 +222,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                             <div class="rounded" style="background: #e6e6e6;">
                                 <font class="mediumfont">Question Tags:</font>
                                 <br/>
-                                <font class="smallfont">Use these tags to move a question around in the conversation.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
+                                <font class="smallfont">Use these tags to move a question around in the <%=Pagez._survey()%>.  You can create tables using the html tags below but remember that you have a set 425 pixels to work with.</font>
                                 <br/>
                                 <%
                                     for (Iterator iterator=researcherSurveyDetail03.getQuestions().iterator(); iterator.hasNext();){
@@ -240,7 +240,7 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
 
                                 <font class="mediumfont">Supported HTML Tags:</font>
                                 <br/>
-                                <font class="smallfont">A powerful subset of html tags is supported.  These tags must be carefully applied in xHTML format.  If the conversation does not display then there is an error with the html syntax.  You can style these tags with basic CSS.</font>
+                                <font class="smallfont">A powerful subset of html tags is supported.  These tags must be carefully applied in xHTML format.  If the <%=Pagez._survey()%> does not display then there is an error with the html syntax.  You can style these tags with basic CSS.</font>
                                 <br/>
                                 <table cellpadding="0" cellspacing="5" border="0">
                                     <tr>
@@ -274,11 +274,11 @@ ResearcherSurveyDetail03 researcherSurveyDetail03 = (ResearcherSurveyDetail03)Pa
                                 <font class="mediumfont">Tips:</font>
                                 <font class="smallfont">
                                     <ul>
-                                        <li>HTML in conversations can be finickey.  We must display inside of a Flash movie to provide access to more bloggers and it requires very strictly perfect HTML.</li>
+                                        <li>HTML in <%=Pagez._surveys()%> can be finickey.  We must display inside of a Flash movie to provide access to more bloggers and it requires very strictly perfect HTML.</li>
                                         <li>Make small changes at first.</li>
                                         <li>A very common mistake is not closing tags.  All tags must be closed with another tag of the same name (or self-closed).</li>
-                                        <li>If you get into trouble and can't get your conversation to display, start over by clicking Reset.</li>
-                                        <li>Images can be added to conversations and will display in Flash and Javascript embedding.  However, you must close the image tag and you must include width and height attributes that are properly quoted.  Here's an example:<br/>&lt;img src="http://domain.com/image.jpg" width="100" height="50"/> (Note the closing / at the end of the img tag)</li>
+                                        <li>If you get into trouble and can't get your <%=Pagez._survey()%> to display, start over by clicking Reset.</li>
+                                        <li>Images can be added to <%=Pagez._surveys()%> and will display in Flash and Javascript embedding.  However, you must close the image tag and you must include width and height attributes that are properly quoted.  Here's an example:<br/>&lt;img src="http://domain.com/image.jpg" width="100" height="50"/> (Note the closing / at the end of the img tag)</li>
                                         <li>Only JPEG/JPG files are supported.  These files can not be progressive JPEGs.</li>
                                     </ul>
                                 </font>

@@ -1,7 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyRequirements" %>
-<%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 PublicSurveyRequirements publicSurveyRequirements = (PublicSurveyRequirements)Pagez.getBeanMgr().get("PublicSurveyRequirements");
 %>
@@ -40,11 +40,11 @@ String acl = "public";
     <% if (!publicSurveyRequirements.getSurvey().getIsopentoanybody()){ %>
         <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
         <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-        To join this conversation and get paid for it you must fulfill these demographic requirements.  If you answer the questions before logging in and/or signing up and then do not fulfill these requirements we will discard your answers.
+        To join this <%=Pagez._survey()%> you must fulfill these demographic requirements.  If you answer the questions before logging in and/or signing up and then do not fulfill these requirements we will discard your answers.
         </font></div></center>
         <%=publicSurveyRequirements.getSurveyCriteriaAsHtml()%>
     <% } else { %>
-        This conversation is open to anybody.
+        This <%=Pagez._survey()%> is open to anybody.
     <% } %>
 
 

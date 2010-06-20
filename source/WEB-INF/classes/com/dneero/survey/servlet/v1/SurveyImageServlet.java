@@ -121,11 +121,11 @@ public class SurveyImageServlet extends HttpServlet {
         String urlofimage = baseurl+"i?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
         String urlofsurvey = baseurl+"shtml?s="+surveyid+"&u="+userid+"&p="+ispreviewStr+"&r="+responseid;
 
-        out = "<!-- Start Conversation -->"+
+        out = "<!-- Start -->"+
               "<a href=\""+urlofsurvey+"\">" +
               "<img src=\""+urlofimage+"\" border=\"0\"/>" +
               "</a>"+
-              "<!-- End Conversation -->";
+              "<!-- End -->";
 
         return out;
     }

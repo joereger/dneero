@@ -53,7 +53,7 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
 
 <%if (researcherRankAddquestion.getSurvey()==null){%>
     <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-        <font class="formfieldnamefont">Please choose a conversation to pull the question from.</font>
+        <font class="formfieldnamefont">Please choose a <%=Pagez._survey()%> to pull the question from.</font>
     </div>
     <br/><br/>
     <%
@@ -72,7 +72,7 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
     %>
 <%} else {%>
     <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-        <font class="formfieldnamefont">From the Conversation: <%=researcherRankAddquestion.getSurvey().getTitle()%></font>
+        <font class="formfieldnamefont">From the <%=Pagez._Survey()%>: <%=researcherRankAddquestion.getSurvey().getTitle()%></font>
         <br/>
         <font class="formfieldnamefont">Please choose the question to add. (<b>only certain question types are currently supported</b>)</font>
     </div>

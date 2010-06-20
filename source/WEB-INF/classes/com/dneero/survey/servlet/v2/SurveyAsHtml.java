@@ -1,11 +1,9 @@
 package com.dneero.survey.servlet.v2;
 
+import com.dneero.dao.Blogger;
 import com.dneero.dao.Survey;
 import com.dneero.dao.User;
-import com.dneero.dao.Blogger;
 import com.dneero.display.SurveyTemplateProcessor;
-import com.dneero.util.Str;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -27,7 +25,7 @@ public class SurveyAsHtml {
             out.append(stp.getSurveyForDisplay(makeHttpsIfSSLIsOn, displayEvenIfSysadminRejected));
         } else {
             out = new StringBuffer();
-            out.append("This embedded conversation link is not correctly formatted.");
+            out.append("This embed link is not correctly formatted.");
         }
         return out.toString();
     }

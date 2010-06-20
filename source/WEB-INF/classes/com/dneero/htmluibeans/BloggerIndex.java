@@ -55,7 +55,7 @@ public class BloggerIndex implements Serializable {
                         responsependingmsg = responsependingmsg + "We've successfully committed your response to '"+survey.getTitle()+"'!" + "<br/><br/>";
                         surveyidtoredirectto = survey.getSurveyid();
                     } catch (ComponentException cex){
-                        responsependingmsg = responsependingmsg + "There was an error committing your response to '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new conversations opportunities!<br/><br/>";
+                        responsependingmsg = responsependingmsg + "There was an error committing your response to '"+survey.getTitle()+"': " + cex.getErrorsAsSingleString() + "  But don't worry... we're always adding new opportunities!<br/><br/>";
                     }
                     //Delete the responsepending, now that it's been handled
                     responsepending.delete();
@@ -113,12 +113,12 @@ public class BloggerIndex implements Serializable {
         for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
             Response response = iterator.next();
             if (response.getSurveyid()==survey.getSurveyid()){
-                allCex.addValidationError("You have already joined this conversation.");
+                allCex.addValidationError("You have already joined this one.");
             }
         }
         //Make sure blogger is qualified to take
         if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
-            allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Marketers determine their intended audience when they create a conversation.");
+            allCex.addValidationError("Sorry, you're not qualified to join this one.  Your qualification is determined by your Profile.");
         }
         //Make sure each component is validated
         for (Iterator<Question> iterator = survey.getQuestions().iterator(); iterator.hasNext();) {

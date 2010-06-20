@@ -97,7 +97,7 @@
                                                     <a href="/customercare/sysadminsupportissueslist.jsp">Support Issues</a>
                                                     <a href="/customercare/reviewables.jsp">Reviewable Items</a>
                                                     <a href="/customercare/userlist.jsp">Users</a>
-                                                    <a href="/customercare/sysadminsurveylist.jsp">Conversations</a>
+                                                    <a href="/customercare/sysadminsurveylist.jsp">Surveys</a>
                                                     <a href="/customercare/charityreport.jsp">Charity</a>
                                                     <a href="/customercare/couponlist.jsp">Coupons</a>
                                                     <a href="/customercare/transactions.jsp">Real-World Transactions</a>

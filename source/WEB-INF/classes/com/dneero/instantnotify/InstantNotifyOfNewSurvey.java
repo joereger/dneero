@@ -64,7 +64,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
         }
         listofsurveysTxt.append("\n" + url);
         //Instant messaging text
-        String instantmessage = "dNeero.com: Earn on Conversation: \"" + Str.truncateString(survey.getDescription(), 50)+ "\" at Url: " + url;
+        String instantmessage = "\"" + Str.truncateString(survey.getDescription(), 50)+ "\" at: " + url;
         //Create the args array to hold the dynamic stuff
         String[] args = new String[10];
         args[0] = "";
@@ -80,7 +80,7 @@ public class InstantNotifyOfNewSurvey implements Runnable {
             if (user.getIsenabled()){
                 if (user.getInstantnotifybyemailison()){
                     //Send email
-                    EmailTemplateProcessor.sendMail("Instant Notification: New Conversation for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
+                    EmailTemplateProcessor.sendMail("Instant Notification for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
                 }
                 if (user.getInstantnotifyxmppison() && !user.getInstantnotifyxmppusername().equals("")){
                     //Send XMPP

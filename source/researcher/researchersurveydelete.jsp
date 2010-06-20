@@ -3,7 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Delete Conversation";
+String pagetitle = "Delete "+Pagez._Survey();
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -15,7 +15,7 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
     if (request.getParameter("action") != null && request.getParameter("action").equals("delete")) {
         try {
             researcherSurveyDelete.deleteSurvey();
-            Pagez.getUserSession().setMessage("Conversation deleted.");
+            Pagez.getUserSession().setMessage(Pagez._Survey()+" deleted.");
             Pagez.sendRedirect("/researcher/index.jsp");
             return;
         } catch (ValidationException vex) {
@@ -29,11 +29,11 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
         <input type="hidden" name="dpage" value="/researcher/researchersurveydelete.jsp">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="surveyid" value="<%=researcherSurveyDelete.getSurvey().getSurveyid()%>">
-        <font class="mediumfont">Are you sure you want to delete the conversation<br/>"<%=((ResearcherSurveyDelete)Pagez.getBeanMgr().get("ResearcherSurveyDelete")).getTitle()%>"?</font>
+        <font class="mediumfont">Are you sure you want to delete the <%=Pagez._survey()%><br/>"<%=((ResearcherSurveyDelete)Pagez.getBeanMgr().get("ResearcherSurveyDelete")).getTitle()%>"?</font>
         <br/><br/>
-        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Yes, Delete this Conversation">
+        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Yes, Delete this <%=Pagez._Survey()%>">
         <br/><br/>
-        <a href="/researcher/index.jsp"><font class="subnavfont">Nevermind, Don't Delete this Conversation</font></a>
+        <a href="/researcher/index.jsp"><font class="subnavfont">Nevermind, Don't Delete this <%=Pagez._Survey()%></font></a>
     </form>
 
 

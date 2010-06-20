@@ -1,11 +1,9 @@
-<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.htmlui.Dropdown" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.htmluibeans.PublicProfile" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.helpers.NicknameHelper" %>
-<%@ page import="com.dneero.helpers.IsBloggerInPanel" %>
 <%
     PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
 %>
@@ -182,7 +180,7 @@ String acl = "public";
 
 
        <br/><br/>
-       <font class="mediumfont" style="color: #cccccc;">Conversations <%=publicProfile.getUser().getNickname()%> Joined</font>
+       <font class="mediumfont" style="color: #cccccc;"><%=Pagez._Surveys()%> <%=publicProfile.getUser().getNickname()%> Joined</font>
        <br/>
        <%if (publicProfile.getListitems()==null || publicProfile.getListitems().size()==0){%>
             <font class="normalfont">None... yet.</font>

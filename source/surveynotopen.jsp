@@ -1,8 +1,8 @@
-<%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Conversation Not Available";
+String pagetitle = Pagez._Survey()+" Not Available";
 String navtab = "home";
 String acl = "public";
 %>
@@ -15,10 +15,10 @@ String acl = "public";
             <center>
                 <img src="/images/info-128.png" alt="" width="128" height="128"/>
                 <br/>
-                <font class="mediumfont">The conversation you've selected isn't available.  It may not have launched yet.  Or it may be closed.</font>
+                <font class="mediumfont">The <%=Pagez._survey()%> you've selected isn't available.  It may not have launched yet.  Or it may be closed.</font>
                 <br/><br/>
                 <div class="rounded" style="background: #e6e6e6; text-align: center;">
-                    <a href="/publicsurveylist.jsp"><font class="mediumfont" style="padding-left: 15px; color: #0000ff;">Find Conversations to Join</font></a>
+                    <a href="/publicsurveylist.jsp"><font class="mediumfont" style="padding-left: 15px; color: #0000ff;">Find <%=Pagez._Survey()%> to Join</font></a>
                 </div>
             </center>
         </div>

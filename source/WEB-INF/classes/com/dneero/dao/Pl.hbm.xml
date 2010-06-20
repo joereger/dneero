@@ -81,6 +81,11 @@
         <property name="googleanalyticsidflash" type="string">
             <column name="googleanalyticsidflash" not-null="true" />
         </property>
-
+        <property name="surveycalled" type="string">
+            <column name="surveycalled" not-null="true" />
+        </property>
+        <property name="surveycalledplural" type="string">
+            <column name="surveycalledplural" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

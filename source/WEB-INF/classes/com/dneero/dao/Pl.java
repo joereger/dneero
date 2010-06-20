@@ -40,6 +40,8 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private boolean isvenuerequired=false;
     private String googleanalyticsidweb="";
     private String googleanalyticsidflash="";
+    private String surveycalled="";
+    private String surveycalledplural="";
 
   
 
@@ -303,5 +305,21 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setGoogleanalyticsidflash(String googleanalyticsidflash) {
         this.googleanalyticsidflash = googleanalyticsidflash;
+    }
+
+    public String getSurveycalled() {
+        return surveycalled;
+    }
+
+    public void setSurveycalled(String surveycalled) {
+        this.surveycalled = surveycalled;
+    }
+
+    public String getSurveycalledplural() {
+        return surveycalledplural;
+    }
+
+    public void setSurveycalledplural(String surveycalledplural) {
+        this.surveycalledplural = surveycalledplural;
     }
 }

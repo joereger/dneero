@@ -7,7 +7,7 @@ Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<font class=\"pagetitlefont\">"+((ResearcherSurveyDetail01) Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getTitle()+"</font>\n" +
 "        <br clear=\"all\"/>";
 if (((ResearcherSurveyDetail01) Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getTitle().equals("")){
-    pagetitle = "<font class=\"pagetitlefont\">Create a Conversation</font>\n" +
+    pagetitle = "<font class=\"pagetitlefont\">Create a "+Pagez._Survey()+"</font>\n" +
 "        <br clear=\"all\"/>";
 }
 String navtab = "researchers";
@@ -50,7 +50,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 researcherSurveyDetail01.saveSurvey();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -77,14 +77,14 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
     <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
     <div id="togglehelp">
         <div class="rounded" data-corner="20px"><font class="smallfont">
-            On this page you set the very general parameters for the conversation.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the conversation open long enough to attract bloggers and have them join the conversation... a month is a good starting point.
+            On this page you set the very general parameters for the <%=Pagez._survey()%>.  Choose a title that'll get people interested.  Give enough information in the description for them to understand what you're trying to understand.  Your start date must be today or in the future.  You want to keep the <%=Pagez._survey()%> open long enough to attract bloggers and have them join the <%=Pagez._survey()%>... a month is a good starting point.
         </font></div>
     </div>
     <br/><br/>
 
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Conversation Basics</a></li>
+            <li><a href="#tabs-1"><%=Pagez._Survey()%> Basics</a></li>
         </ul>
         <div id="tabs-1">
             <table cellpadding="0" cellspacing="0" border="0">
@@ -94,7 +94,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                         <table cellpadding="5" cellspacing="0" border="0">
                             <tr>
                                 <td valign="top">
-                                    <font class="formfieldnamefont">Conversation Title</font>
+                                    <font class="formfieldnamefont"><%=Pagez._Survey()%> Title</font>
                                 </td>
                                 <td valign="top">
                                     <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>

@@ -5,7 +5,7 @@
 <%@ page import="com.dneero.util.Str" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Conversation Results";
+String pagetitle = Pagez._Survey()+" Results";
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -40,15 +40,15 @@ String acl = "researcher";
             <td width="50%" valign="top">
                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 20px;">
                     <%if (researcherResults.getStatus() == Survey.STATUS_DRAFT) {%>
-                        <font class="mediumfont">Conversation Status: Draft</font>
+                        <font class="mediumfont">Status: Draft</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_WAITINGFORFUNDS){%>
-                        <font class="mediumfont">Conversation Status: Waiting for Funds</font>
+                        <font class="mediumfont">Status: Waiting for Funds</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_WAITINGFORSTARTDATE){%>
-                        <font class="mediumfont">Conversation Status: Waiting for Start Date</font>
+                        <font class="mediumfont">Status: Waiting for Start Date</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_OPEN){%>
-                        <font class="mediumfont">Conversation Status: Open</font>
+                        <font class="mediumfont">Status: Open</font>
                     <%} else if (researcherResults.getStatus() == Survey.STATUS_CLOSED){%>
-                        <font class="mediumfont">Conversation Status: Closed</font>
+                        <font class="mediumfont">Status: Closed</font>
                     <%}%>
 
                 </div>
@@ -71,7 +71,7 @@ String acl = "researcher";
                     <br/>
                     <font class="largefont"><%=researcherResults.getTotalsurveyresponses()%></font>
                     <br/>
-                    <font class="smallfont">People Have Joined the Conversation</font>
+                    <font class="smallfont">People Have Joined the <%=Pagez._Survey()%></font>
                 </div>
                 <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;">
                     <a href="/researcher/results_financial.jsp"><font class="normalfont">Financial Status</font></a>

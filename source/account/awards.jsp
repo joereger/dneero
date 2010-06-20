@@ -6,11 +6,12 @@
 <%@ page import="com.dneero.htmluibeans.AccountAwardsListitem" %>
 <%@ page import="com.dneero.incentive.Incentive" %>
 <%@ page import="com.dneero.incentive.IncentiveFactory" %>
+<%@ page import="com.dneero.incentivetwit.Incentivetwit" %>
+<%@ page import="com.dneero.incentivetwit.IncentivetwitFactory" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.dneero.incentivetwit.Incentivetwit" %>
-<%@ page import="com.dneero.incentivetwit.IncentivetwitFactory" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Awards";
@@ -51,7 +52,7 @@ String acl = "account";
     %>
 
     <%if (awas==null || awas.size()==0){%>
-        <font class="normalfont">You haven't yet been awarded anything.  Go join some conversations!</font>
+        <font class="normalfont">You haven't yet been awarded anything.  Go join some <%=Pagez._surveys()%>!</font>
     <%} else {%>
         <%
         ArrayList<GridCol> cols=new ArrayList<GridCol>();

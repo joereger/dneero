@@ -1,20 +1,19 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.Survey;
-import com.dneero.dao.Response;
+import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.Blogger;
-import com.dneero.dao.User;
+import com.dneero.dao.Response;
+import com.dneero.dao.Survey;
 import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.UserSession;
 import com.dneero.reports.FieldAggregator;
 import com.dneero.reports.SimpleTableOutput;
-import com.dneero.cache.providers.CacheFactory;
 import com.dneero.util.DateDiff;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.*;
-
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -83,7 +82,7 @@ public class ResearcherResultsDemographics implements Serializable {
                 ResearcherResultsDemographicsCacheitem ci = new ResearcherResultsDemographicsCacheitem(sto.getHtml(), Calendar.getInstance());
                 CacheFactory.getCacheProvider().put(key, group, ci);
             } else {
-                html = "Only "+bloggers.size()+" people have joined this conversation.  We don't display demographics until at least 10 have joined.  This is done to protect the demographic information of individuals.";
+                html = "Only "+bloggers.size()+" people have joined.  We don't display demographics until at least 10 have joined.  This is done to protect the demographic information of individuals.";
             }
         }
     }

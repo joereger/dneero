@@ -35,8 +35,8 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
             researcherResultsAnswersAdvanced.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
             researcherResultsAnswersAdvanced.setMinsocialinfluencepercentile(Dropdown.getIntFromRequest("minsocialinfluencepercentile", "Min Social Influence", false));
             researcherResultsAnswersAdvanced.setDayssincelastsurvey(Textbox.getIntFromRequest("dayssincelastsurvey", "Days Since Last Participation", true, DatatypeInteger.DATATYPEID));
-            researcherResultsAnswersAdvanced.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total Conversations Joined of At Least", true, DatatypeInteger.DATATYPEID));
-            researcherResultsAnswersAdvanced.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total Conversations Joined of At Most", true, DatatypeInteger.DATATYPEID));
+            researcherResultsAnswersAdvanced.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total "+Pagez._Surveys()+" Joined of At Least", true, DatatypeInteger.DATATYPEID));
+            researcherResultsAnswersAdvanced.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total "+Pagez._Surveys()+" Joined of At Most", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
             researcherResultsAnswersAdvanced.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "Usage Methods", false)));
             researcherResultsAnswersAdvanced.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
@@ -131,7 +131,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                     <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
                         <font class="mediumfont">Filter Results</font>
                         <br/>
-                        Use this screen to look at a subset of the <a href="/researcher/results_answers.jsp?surveyid=<%=researcherResultsAnswersAdvanced.getSurvey().getSurveyid()%>">overall results</a>.  Choose only the criteria for respondents that you want to see and then click Show Results.  You can optionally name and save your filter for easy access later on.  Saved filters can be applied to other conversations too.
+                        Use this screen to look at a subset of the <a href="/researcher/results_answers.jsp?surveyid=<%=researcherResultsAnswersAdvanced.getSurvey().getSurveyid()%>">overall results</a>.  Choose only the criteria for respondents that you want to see and then click Show Results.  You can optionally name and save your filter for easy access later on.  Saved filters can be applied to other <%=Pagez._surveys()%> too.
                     </font></div></center>
 
                     <br/><br/>
@@ -176,9 +176,9 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                             <%--</td>--%>
 
                             <%--<td valign="top">--%>
-                                <%--<font class="formfieldnamefont">Days Since Joining Last Conversation of At Least</font>--%>
+                                <%--<font class="formfieldnamefont">Days Since Joining of At Least</font>--%>
                                 <%--<br/>--%>
-                                <%--<font class="smallfont">A qualifying respondent must have not joined another conversation in at least this many days.</font>--%>
+                                <%--<font class="smallfont">A qualifying respondent must have not joined in at least this many days.</font>--%>
                             <%--</td>--%>
                             <%--<td valign="top">--%>
                                 <%--<%=Textbox.getHtml("dayssincelastsurvey", String.valueOf(researcherResultsAnswersAdvanced.getDayssincelastsurvey()), 5, 3, "", "")%>--%>
@@ -345,7 +345,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                             <%=Grid.render(researcherResultsAnswersAdvanced.getRespondentfilters(), cols, 500, "/researcher/results_answers_advanced.jsp", "page")%>
                             <!--<input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Show Filtered Results">-->
                             <br/>
-                            <font class="tinyfont">Choose a filter to see the results from this conversation filtered through it.</font>
+                            <font class="tinyfont">Choose a filter to see the results from this <%=Pagez._survey()%> filtered through it.</font>
                             </form>
                         <%}%>
                     </div>

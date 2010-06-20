@@ -68,7 +68,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 researcherTwitaskDetail05.save();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -97,7 +97,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
             isfreeChecked = "checked=\"checked\"";
         }
     %>
-    <input type="checkbox" id="isfree" name="isfree" value="1" <%=isfreeChecked%> /> Free conversation, I don't want to pay for a cash incentive or charity donation
+    <input type="checkbox" id="isfree" name="isfree" value="1" <%=isfreeChecked%> /> Free <%=Pagez._survey()%>, I don't want to pay for a cash incentive or charity donation
 
     <div id="togglepage">
 
@@ -152,7 +152,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
             <!--<td valign="top">-->
                 <!--<font class="formfieldnamefont">Incentive Per Respondent (Choose One)</font>-->
                 <!--<br/>-->
-                <!--<font class="smallfont">Amount to award a person who fulfills the targeting criteria and successfully joins the conversation.  Awarding more will attract more people.</font>-->
+                <!--<font class="smallfont">Amount to award a person who fulfills the targeting criteria and successfully joins.  Awarding more will attract more people.</font>-->
             <!--</td>-->
             <td valign="top" colspan="2">
                 <%if (researcherTwitaskDetail05.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>
@@ -215,7 +215,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
 
                             </td>
                             <td valign="top">
-                                    <font class="tinyfont">A set of redemption instructions that the user will see after they're awarded the coupon.  These instructions will be emailed to respondents who successfully post the conversation to their peers for five days.  They'll also be available online.</font>
+                                    <font class="tinyfont">A set of redemption instructions that the user will see after they're awarded the coupon.  These instructions will be emailed to respondents who successfully post the <%=Pagez._survey()%> to their peers for five days.  They'll also be available online.</font>
                             </td>
                             <td valign="top">
                                     <%=Textarea.getHtml("couponinstructions", String.valueOf(researcherTwitaskDetail05.getCouponinstructions()), 2, 25, "", "font-size: 9px;")%>
@@ -286,7 +286,7 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
             <td valign="top">
                 <font class="formfieldnamefont">Only if Person Lets <%=Pagez.getUserSession().getPl().getNameforui()%> Give Earnings to Charity?</font>
                 <br/>
-                <font class="smallfont">By checking this box only those people willing let <%=Pagez.getUserSession().getPl().getNameforui()%> give all of their earnings from this conversation to charity will be able to add their answer to the results.  The person will be able to choose from a list of charities.</font>
+                <font class="smallfont">By checking this box only those people willing let <%=Pagez.getUserSession().getPl().getNameforui()%> give all of their earnings from this <%=Pagez._survey()%> to charity will be able to add their answer to the results.  The person will be able to choose from a list of charities.</font>
             </td>
             <td valign="top">
                 <%if (researcherTwitaskDetail05.getTwitask().getStatus()<=Twitask.STATUS_DRAFT) {%>

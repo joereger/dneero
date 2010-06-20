@@ -31,6 +31,8 @@ String acl = "sysadmin";
     pl.setTemplatedirectory("");
     pl.setGoogleanalyticsidweb("");
     pl.setGoogleanalyticsidflash("");
+    pl.setSurveycalled("");
+    pl.setSurveycalledplural("");
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -86,6 +88,8 @@ String acl = "sysadmin";
                 pl.setIsvenuerequired(CheckboxBoolean.getValueFromRequest("isvenuerequired"));
                 pl.setGoogleanalyticsidweb(Textbox.getValueFromRequest("googleanalyticsidweb", "Google Analytics Web", false, DatatypeString.DATATYPEID));
                 pl.setGoogleanalyticsidflash(Textbox.getValueFromRequest("googleanalyticsidflash", "Google Analytics Flash", false, DatatypeString.DATATYPEID));
+                pl.setSurveycalled(Textbox.getValueFromRequest("surveycalled", "Survey Called", false, DatatypeString.DATATYPEID));
+                pl.setSurveycalledplural(Textbox.getValueFromRequest("surveycalledplural", "Survey Called Plural", false, DatatypeString.DATATYPEID));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     pl.save();
@@ -303,6 +307,26 @@ String acl = "sysadmin";
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("googleanalyticsidflash", pl.getGoogleanalyticsidflash(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Survey Called</font>
+                        <br/>
+                        <font class="tinyfont">ex. survey</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("surveycalled", pl.getSurveycalled(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Survey Called Plural</font>
+                        <br/>
+                        <font class="tinyfont">ex. surveys</font>
+                    </td>
+                    <td valign="top">
+                        <%=Textbox.getHtml("surveycalledplural", pl.getSurveycalledplural(), 255, 35, "", "")%>
                     </td>
                 </tr>
                 <tr>

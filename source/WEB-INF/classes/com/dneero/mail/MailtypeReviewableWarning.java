@@ -23,7 +23,7 @@ public class MailtypeReviewableWarning implements Mailtype {
                 "<br/>\n" +
                 "<font style=\"font-size: 12px; color: #000000;\">"+mailchild.getVar1()+"</font>\n" +
                 "<br/><br/>\n" +
-                "<font style=\"font-size: 9px; color: #000000; font-weight: bold;\">The Conversation Creator said:</font>\n" +
+                "<font style=\"font-size: 9px; color: #000000; font-weight: bold;\">The Creator said:</font>\n" +
                 "<br/>\n" +
                 "<font style=\"font-size: 8px; color: #000000;\">"+mailchild.getVar2()+"</font>\n" +
                 "<br/><br/>\n" +
@@ -45,7 +45,7 @@ public class MailtypeReviewableWarning implements Mailtype {
                 "The content warned:\n" +
                 ""+mailchild.getVar1()+"\n" +
                 "\n" +
-                "The Conversation Creator said:\n" +
+                "The Creator said:\n" +
                 ""+mailchild.getVar2()+"\n" +
                 "\n" +
                 "The System Administrator said:\n" +

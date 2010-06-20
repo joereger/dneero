@@ -38,10 +38,10 @@ if (researcherTwitaskDetailPostlaunch.getTwitask().getStatus()==Twitask.STATUS_O
         <li>Social people will see your Twitter Question in Twitter and join in.</li>
             <ul>
                 <li>Each time a social person answers your account balance will be debited according to the incentive that you've set.</li>
-                <li>We will close your conversation either when the end date is reached or when the maximum number of respondents has been reached.</li>
-                <li>Social people will post the conversation to their peers.</li>
+                <li>We will close your <%=Pagez._survey()%> either when the end date is reached or when the maximum number of respondents has been reached.</li>
+                <li>Social people will post the <%=Pagez._survey()%> to their peers.</li>
             </ul>
-        <li>If your account balance dips below 5% of the maximum value of all of your currently-active Twitter Questions at any given time then we will debit your account balance to get it back to the 20% mark.  For the case of conversations nearing their end we will only incorporate the final amount remaining in the calculation.  If your balance remains below the 5% we will shut down all conversations, placing them into a Waiting for Funds status wherein people can not respond to them.</li>
+        <li>If your account balance dips below 5% of the maximum value of all of your currently-active Twitter Questions at any given time then we will debit your account balance to get it back to the 20% mark.  For the case of <%=Pagez._surveys()%> nearing their end we will only incorporate the final amount remaining in the calculation.  If your balance remains below the 5% we will shut down all <%=Pagez._surveys()%>, placing them into a Waiting for Funds status wherein people can not respond to them.</li>
 
     </ul>
 

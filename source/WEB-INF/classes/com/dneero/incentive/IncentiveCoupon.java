@@ -232,7 +232,7 @@ public class IncentiveCoupon implements Incentive {
         if (val!=null && !val.equals("")){
             out.append(val);
         } else {
-            out.append("Contact the conversation creator for instructions on how to redeem the coupon.");
+            out.append("Contact the creator for instructions on how to redeem the coupon.");
         }
         return out.toString();
     }

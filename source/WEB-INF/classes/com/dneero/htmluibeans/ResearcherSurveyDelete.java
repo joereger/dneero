@@ -1,19 +1,13 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.dao.Survey;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
+import com.dneero.htmlui.ValidationException;
 import org.apache.log4j.Logger;
 
-import java.util.Date;
-import java.util.Calendar;
 import java.io.Serializable;
-
-
-import com.dneero.util.Time;
-import com.dneero.util.GeneralException;
-import com.dneero.htmlui.UserSession;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.dao.Survey;
-import com.dneero.xmpp.SendXMPPMessage;
+import java.util.Date;
 
 
 /**
@@ -84,7 +78,7 @@ public class ResearcherSurveyDelete implements Serializable {
                 logger.debug("Not deleting because userSession.getCurrentSurveyid() is not less than zero");
             }
         } else {
-            vex.addValidationError("Conversation could not be deleted because it is not in draft mode.");
+            vex.addValidationError("Could not be deleted because it is not in draft mode.");
             logger.debug("Not deleting because status!=Survey.STATUS_DRAFT");
             throw vex;
         }

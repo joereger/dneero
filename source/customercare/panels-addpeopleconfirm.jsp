@@ -41,7 +41,7 @@ CustomercarePanelsAddpeopleconfirm customercarePanelsAddpeopleconfirm= (Customer
                 <td valign="top">
                     <font class="formfieldnamefont">Total People in Selection</font>
                     <br/>
-                    <font class="tinyfont">The total number of people from the conversation and filter selected.</font>
+                    <font class="tinyfont">The total number of people from the <%=Pagez._survey()%> and filter selected.</font>
                 </td>
                 <td valign="top">
                     <font class="mediumfont"><%=customercarePanelsAddpeopleconfirm.getNumberofrespondents()%></font>

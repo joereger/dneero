@@ -23,7 +23,7 @@ String acl = "public";
     if (request.getParameter("action") != null && request.getParameter("action").equals("copy")) {
         try {
             researcherIndex.copy();
-            Pagez.getUserSession().setMessage("Conversation copied!");
+            Pagez.getUserSession().setMessage(Pagez._Survey()+" copied!");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -47,10 +47,10 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont">Create a New Conversation</font></a>
+                                <a href="/researcher/researchersurveydetail_01.jsp"><font class="mediumfont">Create a New <%=Pagez._Survey()%></font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Create a new conversation. This step-by-step wizard will guide you through the process.  Your conversation can be up and running in a matter of minutes.</font>
+                                <font class="smallfont">Create a new <%=Pagez._survey()%>. This step-by-step wizard will guide you through the process.  Your <%=Pagez._survey()%> can be up and running in a matter of minutes.</font>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
@@ -66,7 +66,7 @@ String acl = "public";
                                 <a href="/researcher/rank-list.jsp"><font class="mediumfont">Rankings</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Create your own ranking index and use it to define/track people across multiple conversations.</font>
+                                <font class="smallfont">Create your own ranking index and use it to define/track people across multiple <%=Pagez._surveys()%>.</font>
                             </td></tr></table>
 
                             <%--<br/><br/>--%>
@@ -82,7 +82,7 @@ String acl = "public";
                                 <a href="/researcher/researcherbilling.jsp"><font class="mediumfont">Billing Info</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">If you're doing conversations with incentives update your billing information on this screen.</font>
+                                <font class="smallfont">If you're doing <%=Pagez._surveys()%> with incentives update your billing information on this screen.</font>
                             </td></tr></table>
 
 
@@ -99,10 +99,10 @@ String acl = "public";
                         </div>
                    <%}%>
 
-                    <font class="largefont hdr">Conversations You've Created</font>
+                    <font class="largefont hdr"><%=Pagez._Surveys()%> You've Created</font>
                     <br/>
                     <%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>
-                        <font class="normalfont">You haven't yet created any conversations. <a href="/researcher/researchersurveydetail_01.jsp">Create a New Conversation</a>.</font>
+                        <font class="normalfont">You haven't yet created any <%=Pagez._surveys()%>. <a href="/researcher/researchersurveydetail_01.jsp">Create a New <%=Pagez._Survey()%></a>.</font>
                     <%} else {%>
                         <%
                             ArrayList<GridCol> cols=new ArrayList<GridCol>();

@@ -1,13 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.PublicSurveyPostit" %>
-<%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.systemprops.SystemProperty" %>
-<%@ page import="com.dneero.facebook.FacebookApiWrapper" %>
-<%@ page import="com.dneero.facebook.FacebookUser" %>
-<%@ page import="java.util.TreeSet" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.PublicSurveyPostit" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="com.dneero.util.Str" %>
 <%
     PublicSurveyPostit publicSurveyPostit=(PublicSurveyPostit) Pagez.getBeanMgr().get("PublicSurveyPostit");
@@ -66,7 +60,7 @@ String acl = "public";
                         <div class="rounded" style="background: #e6e6e6;">
                             <div class="rounded" style="background: #ffffff; text-align: left;">
                                 <img src="/images/info-48.png" width="48" height="48" align="right"/>
-                                <font class="mediumfont" style="color: #666666;">This is how your conversation answers appear when embedded into your blog or social network</font>
+                                <font class="mediumfont" style="color: #666666;">This is how your <%=Pagez._survey()%> answers appear when embedded into your blog or social network</font>
                                 <br/>
                                 <font class="smallfont" style="color: #666666;">(we'll put your actual answers in there)</font>
                             </div>
@@ -82,10 +76,10 @@ String acl = "public";
                             Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the questions/answers are long it'll scroll automatically.
 
                             <br/><br/><b>Can people who read my blog answer the questions?</b><br/>
-                            Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers and then post them to their own blog.
+                            Absolutely!  At the bottom of the <%=Pagez._survey()%> there's a link where they can provide their own answers and then post them to their own blog.
 
                             <br/><br/><b>Will I see how others answered?</b><br/>
-                            Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who joined the conversation!
+                            Yep!  This is the cool part!  When you click the See How Others Answered link at the bottom of the <%=Pagez._survey()%> you'll see how those people who clicked from your blog answered.  Then you can quickly compare your readers to all bloggers who joined the <%=Pagez._survey()%>!
                             </font>
                         </div>
                     </td>
@@ -95,7 +89,7 @@ String acl = "public";
         <% if (Pagez.getUserSession().getIsfacebookui()){ %>
             <div class="rounded" style="background: #e6e6e6;">
                 <font class="normalfont">
-                <b>Once you join the conversation we'll post a link to your Facebook feed and profile box.  When friends click that link they'll see your answers and be able to answer for themselves.</b><br/>
+                <b>Once you join the <%=Pagez._survey()%> we'll post a link to your Facebook feed and profile box.  When friends click that link they'll see your answers and be able to answer for themselves.</b><br/>
                 </font>
             </div>
         <% } %>
@@ -106,10 +100,10 @@ String acl = "public";
                 <img src="/images/ok-64.png" width="64" height="64" align="left"/>
                 <font class="mediumfont"><b>Your response has been accepted!</b></font>
                 <br/>
-                <font class="smallfont">A link to your answers has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you joined the conversation.</font><br/><br/>
+                <font class="smallfont">A link to your answers has been posted to your Facebook feed (which qualifies as a blog, for payment purposes).  Keep the links on your mini-feed and profile because to get paid you must have somebody view your answers on 5 of the 10 days following when you joined the <%=Pagez._survey()%>.</font><br/><br/>
                 <% if (!publicSurveyPostit.getJustcompletedsurvey()){ %>
                     <div class="rounded" style="background: #e6e6e6;">
-                        <font class="smallfont">If you've deleted the conversation from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the app.</font><br/>
+                        <font class="smallfont">If you've deleted the <%=Pagez._survey()%> from your Facebook Mini Feed or Profile and would like to add them back, click below.  Note that if you've turned off the profile box you'll have to turn it back on yourself in the Facebook settings for the app.</font><br/>
                         <form action="/surveypostit.jsp" method="post" class="niceform">
                             <input type="hidden" name="dpage" value="/surveypostit.jsp">
                             <input type="hidden" name="action" value="updatefacebookprofile">
@@ -119,20 +113,20 @@ String acl = "public";
                     </div>
                 <% } %>
                 <div class="rounded" style="background: #ffffff;">
-                    <font class="formfieldnamefont"><b>Now earn even more... tell friends about this conversation:</b></font>
+                    <font class="formfieldnamefont"><b>Now earn even more... tell friends about this <%=Pagez._survey()%>:</b></font>
                     <br/>
-                    <font class="smallfont">They'll be able to see your answers and then join the conversation themselves. If your friend hasn't ever used this site then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
+                    <font class="smallfont">They'll be able to see your answers and then join the <%=Pagez._survey()%> themselves. If your friend hasn't ever used this site then <b>we'll pay you for any earnings they generate</b>... and any earnings their friends make... and any earnings their friends make... up to five levels deep!</font>
                     <br/>
                     <fb:request-form
                         action="http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?dpage=/surveypostit.jsp&surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"
                         method="POST"
                         invite="true"
-                        type="Conversation"
-                        content="<%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getTitle())%> - <%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getDescription())%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this Conversation!' />
+                        type="<%=Pagez._Survey()%>"
+                        content="<%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getTitle())%> - <%=Str.cleanForHtml(publicSurveyPostit.getSurvey().getDescription())%><fb:req-choice url='http://apps.facebook.com/<%=SystemProperty.getProp(SystemProperty.PROP_FACEBOOK_APP_NAME)%>/?action=showsurvey-<%=publicSurveyPostit.getSurvey().getSurveyid()%>-<%=Pagez.getUserSession().getUser().getUserid()%>' label='Check out this <%=Pagez._Survey()%>!' />
                     ">
                         <fb:multi-friend-selector
                             showborder="false"
-                            actiontext="Invite friends to see your answers for this conversation."
+                            actiontext="Invite friends to see your answers for this <%=Pagez._survey()%>."
                             rows="3"
                             max="20"
                             bypass="skip" />
@@ -147,7 +141,7 @@ String acl = "public";
                 <td valign="top" width="35%">
                     <%--<div class="rounded" style="background: #e6e6e6;">--%>
                         <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <font class="mediumfont">You've Entered this Conversation.</font>
+                            <font class="mediumfont">You've Entered this <%=Pagez._Survey()%>.</font>
                             <%--<br/>--%>
                             <%--<img src="/images/ok-128.png" width="128" height="128"/>--%>
                             <%--<br/>--%>
@@ -159,24 +153,24 @@ String acl = "public";
                             <div class="rounded" style="background: #e6e6e6; text-align: center;">
                                 <img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>
                                 <br/>
-                                <font class="mediumfont">This is a Charity Only conversation.</font>
+                                <font class="mediumfont">This is a Charity Only <%=Pagez._survey()%>.</font>
                                 <br/>
-                                <font class="tinyfont">The conversation creator requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>
+                                <font class="tinyfont">The <%=Pagez._survey()%> creator requires that we donate all of your earnings from the <%=Pagez._survey()%> to a charity of your choice.  It's a chance to do some good!</font>
                             </div>
                         <% } %>
 
                         <font class="smallfont">
                         <br/><br/><b>What gets shared?</b><br/>
-                        The conversation with your answers.  This is an opportunity to show your readers, friends and family what you think and encourage them to join the conversation.
+                        The <%=Pagez._survey()%> with your answers.  This is an opportunity to show your readers, friends and family what you think and encourage them to join the <%=Pagez._survey()%>.
 
                         <br/><br/><b>How big is it?</b><br/>
-                        Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the conversation is long it'll scroll automatically.
+                        Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the <%=Pagez._survey()%> is long it'll scroll automatically.
 
                         <br/><br/><b>Can my friends jump in?</b><br/>
-                        Absolutely!  At the bottom of the conversation there's a link where they can provide their own answers.
+                        Absolutely!  At the bottom of the <%=Pagez._survey()%> there's a link where they can provide their own answers.
 
                         <br/><br/><b>Will I see how others answered?</b><br/>
-                        Yes!  This is the cool part!  When you click the See How Others Answered link at the bottom of the conversation you'll see how those people who clicked from you answered.  Then you can quickly compare your readers to all those who joined the conversation!
+                        Yes!  This is the cool part!  When you click the See How Others Answered link at the bottom of the <%=Pagez._survey()%> you'll see how those people who clicked from you answered.  Then you can quickly compare your readers to all those who joined the <%=Pagez._survey()%>!
                         </font>
 
                         <br/><br/>
@@ -278,7 +272,7 @@ String acl = "public";
                             <li>Log in to LiveJournal and click the "Post" link at the top of the page. NOTE: If you go to your journal first (e.g., [YourJournal].livejournal.com) and login from there, you should click the "Post to Journal" link at the top of the page.</li>
                             <li>On the "Rich text" tab, click the "Embed Media" link (it's a round disk in the center of the Rich Text editor's menu bar). We recommend that you not use the HTML tab. </li>
                             <li>Paste the code in the "Insert Embedded Content" box and click the "Insert" button.</li>
-                            <li>If you want to add text do so at the blinking cursor ... you'll see it beneath the conversation window.</li>
+                            <li>If you want to add text do so at the blinking cursor ... you'll see it beneath the <%=Pagez._survey()%> window.</li>
                             <li>Write a subject for your post.</li>
                             <li>Click the "Post to YourJournal" button at the bottom of the page and you're done!</li>
                         </ol>
@@ -290,7 +284,7 @@ String acl = "public";
                     <font class="smallfont">
                         <ol>
                             <li>Use the <a href="http://apps.facebook.com/dneerosocialsurveys/">The Facebook App</a>!</li>
-                            <li>This site is deeply integrated into Facebook... there's no need for you to post anything... we'll automatically add conversations to your profile!</li>
+                            <li>This site is deeply integrated into Facebook... there's no need for you to post anything... we'll automatically add <%=Pagez._surveys()%> to your profile!</li>
                             <li>Adding the app will create you a new Facebook-focused account... you'll need to move your PayPal address from your current account (if you have already entered it).</li>
                         </ol>
                     </font>
@@ -404,7 +398,7 @@ String acl = "public";
                             <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogimagelink()%></textarea>
                             </li>
                             <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
-                            <li>Type in some text like "To see my most recent conversation [click here].</li>
+                            <li>Type in some text like "To see my most recent <%=Pagez._survey()%> [click here].</li>
                             <li>Highlight "click here" (or any other text or image that you have in the Post Body, and the click the "Insert Link" icon ... a popup will appear ... delete "http://" ... paste the code ... Click "OK"</li>
                             <li>Enter a title.</li>
                             <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
@@ -428,7 +422,7 @@ String acl = "public";
                             </li>
                             <li>Login into Friendster, go to Blogs, then "My Blog Home", then under Shortcuts click "Create a Post"</li>
                             <li>Click the "Edit HTML" tab. </li>
-                            <li>Paste the conversation code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
+                            <li>Paste the <%=Pagez._survey()%> code onto the Post Body window. You can paste either by Ctrl+v or right click in the Post Body window and choose Paste.</li>
                             <li>Enter a title.</li>
                             <li>Scroll down to the bottom of the page and click the "Save" button and you're done!</li>
                         </ol>
@@ -507,7 +501,7 @@ String acl = "public";
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttobloglink()%></textarea>
                             </li>
                             <li>Login into Zimbio, go to "My Dashboard", then "My Articles", then "Write Article"</li>
-                            <li>Type in some text like "To see my most recent conversation [click here]." </li>
+                            <li>Type in some text like "To see my most recent <%=Pagez._survey()%> [click here]." </li>
                             <li>Highlight "click here" (or any other text or image that you have in the main window), and the click the "Insert/edit Link" icon ... a popup will appear ...</li>
                             <li>Paste the code in the "Link URL" box and click the "Insert" button. (Left-click in the "Link URL" text box and either hit Ctrl+V, or Right-click and choose Paste.)</li>
                             <li>Enter a Tiltle and any other text/images.</li>
@@ -524,7 +518,7 @@ String acl = "public";
                             <%if (publicSurveyPostit.getSurvey().getEmbedflash()){%>
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblogflash()%></textarea>
                             <%} else {%>
-                                Sorry, this conversation does not allow Flash embedding.
+                                Sorry, this <%=Pagez._survey()%> does not allow Flash embedding.
                             <%}%>
                             </li>
                             <li>Login into your publishing tool of choice.</li>
@@ -547,7 +541,7 @@ String acl = "public";
                             <%if (publicSurveyPostit.getSurvey().getEmbedjavascript()) {%>
                                 <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><%=publicSurveyPostit.getHtmltoposttoblog()%></textarea>
                             <%} else {%>
-                                Sorry, this conversation does not allow Javascript embedding.
+                                Sorry, this <%=Pagez._survey()%> does not allow Javascript embedding.
                             <%}%>
                             </li>
                             <li>Login into your publishing tool of choice.</li>

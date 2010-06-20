@@ -1,12 +1,10 @@
-<%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicOldSurveyList" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Old Conversations";
+String pagetitle = "Old "+ Pagez._Surveys();
 String navtab = "home";
 String acl = "public";
 %>
@@ -17,11 +15,11 @@ PublicOldSurveyList publicOldSurveyList = (PublicOldSurveyList) Pagez.getBeanMgr
 <%@ include file="/template/header.jsp" %>
 
     <%if (publicOldSurveyList.getSurveys()==null || publicOldSurveyList.getSurveys().size()==0){%>
-        <font class="normalfont">No old conversations listed right now... check back soon.</font>
+        <font class="normalfont">No old <%=Pagez._Surveys()%> listed right now... check back soon.</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("Conversation Name", "<a href=\"/surveyresults.jsp?surveyid=<$surveyid$>\"><$title$></a><br/><font class=\"tinyfont\"><$description$></font>", false, "", "normalfont", "", "font-weight: bold;"));
+            cols.add(new GridCol(Pagez._Survey()+" Name", "<a href=\"/surveyresults.jsp?surveyid=<$surveyid$>\"><$title$></a><br/><font class=\"tinyfont\"><$description$></font>", false, "", "normalfont", "", "font-weight: bold;"));
             //cols.add(new GridCol("Respondents Earned Up To", "<$maxearning$>", true, "", "smallfont"));
             //cols.add(new GridCol("Number of Respondents", "<$numberofrespondents$>", true, "", "smallfont"));
         %>

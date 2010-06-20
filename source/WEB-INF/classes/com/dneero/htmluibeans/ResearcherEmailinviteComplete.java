@@ -1,22 +1,18 @@
 package com.dneero.htmluibeans;
 
-import org.apache.log4j.Logger;
-
-import com.dneero.util.Str;
-import com.dneero.util.Num;
-import com.dneero.dao.User;
-import com.dneero.dao.Survey;
 import com.dneero.dao.Emailinvitebatch;
 import com.dneero.dao.Emailinvitebatchaddress;
+import com.dneero.dao.Survey;
 import com.dneero.email.EmailTemplateProcessor;
-import com.dneero.ui.SurveyEnhancer;
-import com.dneero.systemprops.BaseUrl;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.systemprops.BaseUrl;
+import com.dneero.ui.SurveyEnhancer;
+import org.apache.log4j.Logger;
 
-import java.util.Iterator;
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * User: Joe Reger Jr
@@ -65,7 +61,7 @@ public class ResearcherEmailinviteComplete implements Serializable {
                 //Get vars from session
                 String subject = Pagez.getUserSession().getEmailinvitesubject();
                 if (subject==null || subject.equals("")){
-                    subject = "You've Been Invited to Join a Sponsored Conversation";
+                    subject = "You've Been Invited to Join";
                 }
                 String message = Pagez.getUserSession().getEmailinvitemessage();
                 if (message==null){

@@ -1,4 +1,5 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="com.dneero.review.Reviewable" %>
 <%@ page import="com.dneero.review.ReviewableFactory" %>
 <%
@@ -32,7 +33,7 @@ String acl = "account";
         <tr>
             <td valign="top">
                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                    <font class="mediumfont">Conversation Creator</font><br/>
+                    <font class="mediumfont"><%=Pagez._Survey()%> Creator</font><br/>
                     <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                         <%
                         String ciStatus = "Not Yet Reviewed";
@@ -49,7 +50,7 @@ String acl = "account";
                         <center><font class="mediumfont" style="color: #cccccc;"><%=ciStatus%></font></center>
                     </div>
                     <%if (review.getResearchernotes().length()>0){%>
-                        <font class="normalfont" style="font-weight: bold;">Conversation Creator Comments:</font><br/>
+                        <font class="normalfont" style="font-weight: bold;"><%=Pagez._Survey()%> Creator Comments:</font><br/>
                         <font class="tinyfont"><%=review.getResearchernotes()%></font><br/>
                     <%}%>
                 </div>

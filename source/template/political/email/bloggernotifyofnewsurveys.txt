@@ -1,4 +1,4 @@
-New conversations have been created!
+New surveys have been created!
 
 <$args.2$>
 <$args.4$>

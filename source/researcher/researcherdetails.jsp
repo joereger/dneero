@@ -77,7 +77,7 @@ String acl = "account";
                     <td valign="top">
                         <font class="formfieldnamefont">Phone (Optional)</font>
                         <br/>
-                        <font class="tinyfont">So we can contact you regarding<br/>billing and conversation issues.</font>
+                        <font class="tinyfont">So we can contact you regarding<br/>billing and <%=Pagez._survey()%> issues.</font>
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("phone", researcherDetails.getPhone(), 255, 35, "", "")%>

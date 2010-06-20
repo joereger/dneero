@@ -1,12 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.ResearcherIndex" %>
-<%@ page import="com.dneero.htmluibeans.BloggerIndex" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
-<%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.cachedstuff.RecentSurveyResponses" %>
-<%@ page import="com.dneero.cachedstuff.GetCachedStuff" %>
-<%@ page import="com.dneero.util.Time" %>
-<%@ page import="com.dneero.cachedstuff.*" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -26,7 +21,7 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
     if (request.getParameter("action") != null && request.getParameter("action").equals("enteraccesscode")) {
         try {
             publicIndex.enterAccessCode();
-            Pagez.getUserSession().setMessage("Sorry, no conversations were found for that Access Code.");
+            Pagez.getUserSession().setMessage("Sorry, no "+ Pagez._surveys()+" were found for that Access Code.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }

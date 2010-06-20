@@ -47,7 +47,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
             } else if (request.getParameter("action").equals("previous")) {
@@ -68,7 +68,7 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
                 researcherTwitaskDetail06.setResellercode(Textbox.getValueFromRequest("resellercode", "Reseller Code", false, DatatypeString.DATATYPEID));
                 researcherTwitaskDetail06.applyResellerCode();
             } else {
-                Pagez.getUserSession().setMessage("Reseller Codes can only be applied to conversations in the draft state... before they launch.");
+                Pagez.getUserSession().setMessage("Reseller Codes can only be applied to "+Pagez._surveys()+" in the draft state... before they launch.");
             }
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());

@@ -38,7 +38,7 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
     <a href="#" id="helplink"><img src="/images/helpswitch.gif" alt="Help" border="0" align="right"/></a>
     <div id="togglehelp">
         <div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
-        In a Range question type respondents choose from low to high numbers at some interval.  This is also known as a Lichert Scale.  Choose Min and Max Titles to tell conversation participants what the scale represents.  Then choose the Min and Max values as the lowest and highest possible choices. Finally, choose the Step value which determines the numerical distance between option.  For example, Step of 1 means that the scale will simply step from Min to Max like this: 1, 2, 3, 4, etc.  Step of 2 would give you: 2, 4, 6, 8, etc.
+        In a Range question type respondents choose from low to high numbers at some interval.  This is also known as a Lichert Scale.  Choose Min and Max Titles to tell <%=Pagez._survey()%> participants what the scale represents.  Then choose the Min and Max values as the lowest and highest possible choices. Finally, choose the Step value which determines the numerical distance between option.  For example, Step of 1 means that the scale will simply step from Min to Max like this: 1, 2, 3, 4, etc.  Step of 2 would give you: 2, 4, 6, 8, etc.
         <br/><br/>
         Here's what a Range question looks like:
         <center><img src="/images/questiontypes/range.gif" border="0"></img></center>

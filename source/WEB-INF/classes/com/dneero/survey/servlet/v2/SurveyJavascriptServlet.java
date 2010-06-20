@@ -160,15 +160,15 @@ public class SurveyJavascriptServlet extends HttpServlet {
                 pl = Pl.get(user.getPlid());
             }
             String baseurl = BaseUrl.get(makeHttpsIfSSLIsOn, pl);
-            out.append("<!-- Start Conversation -->\n" +
+            out.append("<!-- Start -->\n" +
                     "<div style=\"border: 5px solid #cccccc; width: 415px\">"+
                     "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" width=\"415\">\n" +
                     "\t<tr>\n" +
                     "\t\t<td valign=\"top\" align=\"left\" colspan=\"7\" height=\"215\">\n" +
-                    "\t\t\t<!-- Start Conversation Questions -->\n" +
+                    "\t\t\t<!-- Start Questions -->\n" +
                     in +
                     "\n" +
-                    "\t\t\t<!-- End Conversation Questions -->\n" +
+                    "\t\t\t<!-- End Questions -->\n" +
                     "\t\t</td>\n" +
                     "\t</tr>\n");
              if(includeFooter){
@@ -186,7 +186,7 @@ public class SurveyJavascriptServlet extends HttpServlet {
             }
             out.append("</table>\n" +
                     "</div>"+
-                    "<!-- End Conversation -->");
+                    "<!-- End -->");
 
              return out.toString();
         }

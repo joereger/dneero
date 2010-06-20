@@ -18,7 +18,7 @@ import java.util.Date;
 public class ReviewableSurveydiscuss implements Reviewable {
 
     public static int TYPE = 1;
-    public static String TYPENAME = "Conversation Comment";
+    public static String TYPENAME = "Comment";
     public Surveydiscuss surveydiscuss;
 
     public ReviewableSurveydiscuss(int id){
@@ -48,7 +48,7 @@ public class ReviewableSurveydiscuss implements Reviewable {
 
     public String getTypeDescription(){
         StringBuffer out = new StringBuffer();
-        out.append("This is an issue a comment made on a survey.  There is no remedy for this.  Content is simply removed.");
+        out.append("This is an issue a comment made.  There is no remedy for this.  Content is simply removed.");
         return out.toString();
     }
 
@@ -70,7 +70,7 @@ public class ReviewableSurveydiscuss implements Reviewable {
 
     public String getShortSummary() {
         StringBuffer out = new StringBuffer();
-        out.append("Survey Comment: "+Str.truncateString(Str.cleanForHtml(surveydiscuss.getSubject()), 50));
+        out.append("Comment: "+Str.truncateString(Str.cleanForHtml(surveydiscuss.getSubject()), 50));
         return out.toString();
     }
 
@@ -78,7 +78,7 @@ public class ReviewableSurveydiscuss implements Reviewable {
         StringBuffer out = new StringBuffer();
         Survey survey = Survey.get(surveydiscuss.getSurveyid());
         out.append("<font class=\"mediumfont\">");
-        out.append("This is a comment made on a survey discussion.");
+        out.append("This is a comment made on a discussion.");
         out.append("</font>");
         out.append("<br/>");
         out.append("<font class=\"smallfont\"><b>");
@@ -86,7 +86,7 @@ public class ReviewableSurveydiscuss implements Reviewable {
         out.append("</b></font>");
         out.append("<br/>");
         out.append("<font class=\"tinyfont\"><b>");
-        out.append("From Survey: "+Str.cleanForHtml(survey.getTitle()));
+        out.append("From: "+Str.cleanForHtml(survey.getTitle()));
         out.append("</b></font>");
         out.append("<br/>");
         out.append(Str.cleanForHtml(surveydiscuss.getComment()));

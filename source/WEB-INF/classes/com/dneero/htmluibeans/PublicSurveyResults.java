@@ -121,7 +121,7 @@ public class PublicSurveyResults implements Serializable {
                 DbcacheexpirableCache.put(resultsHtmlKey, group, resultsHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }
         } else {
-            resultsHtml = "<font class=\"smallfont\">The conversation creator has chosen to hide overall aggregate results.  However, we don't allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
+            resultsHtml = "<font class=\"smallfont\">The creator has chosen to hide overall aggregate results.  However, we don't allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
 
         //Results user questions html
@@ -176,7 +176,7 @@ public class PublicSurveyResults implements Serializable {
 //                resultsUserquestionsHtml = HtmlCache.getFromCache(resultsHtmlKey);
 //            }
         }  else {
-            resultsUserquestionsHtml = "<font class=\"smallfont\">The conversation creator has chosen to hide overall aggregate results.  However, we don't allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this conversation is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
+            resultsUserquestionsHtml = "<font class=\"smallfont\">The creator has chosen to hide overall aggregate results.  However, we don't allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
 
         //Determine which of the results tabs is on
@@ -204,7 +204,7 @@ public class PublicSurveyResults implements Serializable {
 //                resultsHtmlForUserWhoTookSurvey = HtmlCache.getFromCache(resultsHtmlForUserWhoTookSurveyKey);
 //            }
         } else {
-            //resultsHtmlForUserWhoTookSurvey = "<font class='mediumfont'>Nobody who learned of this conversation from "+userwhotooksurvey.getFirstname()+" "+userwhotooksurvey.getLastname()+" has answered... yet.  You could be the first!</font>";
+            //resultsHtmlForUserWhoTookSurvey = "<font class='mediumfont'>Nobody who learned of this from "+userwhotooksurvey.getFirstname()+" "+userwhotooksurvey.getLastname()+" has answered... yet.  You could be the first!</font>";
             resultsHtmlForUserWhoTookSurvey = "";
         }
 
@@ -247,7 +247,7 @@ public class PublicSurveyResults implements Serializable {
                     }
                     resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids, null, true, false);
                 } else {
-                    resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this conversation... yet.</font>";
+                    resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this one... yet.</font>";
                 }
                 //Update cache
                 DbcacheexpirableCache.put(resultsYourFriendsKey, group, resultsYourFriends, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
@@ -278,7 +278,7 @@ public class PublicSurveyResults implements Serializable {
 //                    }
 //                    resultsYourFriends = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, onlyincluderesponsesfromtheseuserids, null, true, false);
 //                } else {
-//                    resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this conversation... yet.</font>";
+//                    resultsYourFriends = "<font class='mediumfont'>None of your friends have joined this one... yet.</font>";
 //                }
 //                //Update the cache
 //                HtmlCache.updateCache(resultsYourFriendsKey, 6000, resultsYourFriends);
@@ -320,7 +320,7 @@ public class PublicSurveyResults implements Serializable {
                 sql.append(" ) ");
                 List users = HibernateUtil.getSession().createQuery("from User WHERE "+sql).setCacheable(true).list();
                 //Now I have a list of all friends from facebook and a list of users who are friends from dNeero
-                //I need to create lists of those who've joined the conversation (and therefore must be dNeero users) and a list of those who haven't (and may be dneero users)
+                //I need to create lists of those who've joined (and therefore must be dNeero users) and a list of those who haven't (and may be dneero users)
                 //Iterate all facebook users because they'll fall into one of the two camps
                 for (Iterator<FacebookUser> iterator = friends.iterator(); iterator.hasNext();) {
                     FacebookUser facebookUser = iterator.next();

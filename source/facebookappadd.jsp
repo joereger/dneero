@@ -1,9 +1,9 @@
-<%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicFacebookAppAdd" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Conversations";
+String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" "+Pagez._Surveys();
 String navtab = "home";
 String acl = "public";
 %>
@@ -27,7 +27,7 @@ String acl = "public";
                             </div>
                         </td>
                         <td>
-                            <font class="normalfont" style="font-weight: bold;">You need to <a href="<%=((PublicFacebookAppAdd)Pagez.getBeanMgr().get("PublicFacebookAppAdd")).getAddurl()%>" target="_top">add the <%=Pagez.getUserSession().getPl().getNameforui()%> Facebook application</a> before you can take part in conversations.  Conversations allow you to earn real money joining conversations and posting links to your answers on your profile.  There are no gimmicks, tricks or abusive processes to follow.</font><br/>
+                            <font class="normalfont" style="font-weight: bold;">You need to <a href="<%=((PublicFacebookAppAdd)Pagez.getBeanMgr().get("PublicFacebookAppAdd")).getAddurl()%>" target="_top">add the <%=Pagez.getUserSession().getPl().getNameforui()%> Facebook application</a> before you can take part in <%=Pagez._surveys()%>.  <%=Pagez._Surveys()%> allow you to earn real money joining <%=Pagez._surveys()%> and posting links to your answers on your profile.  There are no gimmicks, tricks or abusive processes to follow.</font><br/>
                         </td>
                         </tr>
                         </table>

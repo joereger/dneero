@@ -2,17 +2,14 @@ package com.dneero.htmlui;
 
 
 import com.dneero.cache.providers.CacheFactory;
+import com.dneero.privatelabel.PlUtil;
 import com.dneero.systemprops.SystemProperty;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.ServletOutputStream;
-
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -72,6 +69,20 @@ public class Pagez {
         }
         userSessionLocal.set(userSession);
     }
+
+    public static String _survey(){
+        return PlUtil.surveyCalled(getUserSession().getPl(), false, false);
+    }
+    public static String _surveys(){
+        return PlUtil.surveyCalled(getUserSession().getPl(), false, true);
+    }
+    public static String _Survey(){
+        return PlUtil.surveyCalled(getUserSession().getPl(), true, false);    
+    }
+    public static String _Surveys(){
+        return PlUtil.surveyCalled(getUserSession().getPl(), true, true);
+    }
+
 
     public static void setUserSession(UserSession userSession){
         userSessionLocal.set(userSession);

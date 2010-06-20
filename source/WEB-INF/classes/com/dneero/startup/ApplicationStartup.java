@@ -313,6 +313,8 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setTemplatedirectory("");
             pl.setGoogleanalyticsidweb("");
             pl.setGoogleanalyticsidflash("");
+            pl.setSurveycalled("");
+            pl.setSurveycalledplural("");
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }

@@ -17,9 +17,9 @@ String acl = "public";
 <table cellpadding="10" cellspacing="2" border="0" width="100%">
     <tr>
         <td valign="top">
-            <font class="mediumfont" style="color: #999999">It's Easy to Target Your Conversation</font>
+            <font class="mediumfont" style="color: #999999">It's Easy to Target Your <%=Pagez._Survey()%></font>
             <br/>
-            When people sign up to join conversations they tell us a number of things about themselves.  When you create a conversation you can limit it to certain demographics.  People who don't fit your target can't take it.  The current list of demographic fields is:
+            When people sign up to join <%=Pagez._surveys()%> they tell us a number of things about themselves.  When you create a <%=Pagez._survey()%> you can limit it to certain demographics.  People who don't fit your target can't take it.  The current list of demographic fields is:
             <ul>
                 <li>Age</li>
                 <li>Gender</li>
@@ -36,12 +36,12 @@ String acl = "public";
 
             <font class="mediumfont" style="color: #999999">Access Code</font>
             <br/>
-            Access Code Only conversations require that everybody who takes the conversation first enter an access code that you somehow communicate to them. In this way you can limit and control who join your conversation. Great for point-of-sale and real-world ties to the online world.
+            Access Code Only <%=Pagez._surveys()%> require that everybody who takes the <%=Pagez._survey()%> first enter an access code that you somehow communicate to them. In this way you can limit and control who join your <%=Pagez._survey()%>. Great for point-of-sale and real-world ties to the online world.
             <br clear="all"/><br/><br/>
 
             <font class="mediumfont" style="color: #999999">Standing Panels for Longitudinal Studies</font>
             <br/>
-            It's easy to build a panel of people to join repeated conversations.  In this way you can measure a fixed group's opinion over time.
+            It's easy to build a panel of people to join repeated <%=Pagez._surveys()%>.  In this way you can measure a fixed group's opinion over time.
             <br clear="all"/><br/><br/>
 
             <font class="mediumfont" style="color: #999999">Target Facebook Only, Blogger Only or Both</font>

@@ -49,8 +49,8 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
             researcherTwitaskDetail04.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
             researcherTwitaskDetail04.setMinsocialinfluencepercentile(Dropdown.getIntFromRequest("minsocialinfluencepercentile", "Min Social Influence", false));
             researcherTwitaskDetail04.setDayssincelastsurvey(Textbox.getIntFromRequest("dayssincelastsurvey", "Days Since Last Survey", true, DatatypeInteger.DATATYPEID));
-            researcherTwitaskDetail04.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total Conversations Joined of At Least", true, DatatypeInteger.DATATYPEID));
-            researcherTwitaskDetail04.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total Conversations Joined of At Most", true, DatatypeInteger.DATATYPEID));
+            researcherTwitaskDetail04.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total "+Pagez._Surveys()+" Joined of At Least", true, DatatypeInteger.DATATYPEID));
+            researcherTwitaskDetail04.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total "+Pagez._Surveys()+" Joined of At Most", true, DatatypeInteger.DATATYPEID));
             researcherTwitaskDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
             researcherTwitaskDetail04.setSuperpanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("superpanels", "SuperPanels", false)));
             researcherTwitaskDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
@@ -65,7 +65,7 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 researcherTwitaskDetail04.save();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;
@@ -128,7 +128,7 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
                         <td valign="top">
                             <font class="formfieldnamefont">Social Influence Rating (TM)</font>
                             <br/>
-                            <font class="smallfont">Social Influence Rating takes site traffic, conversation referrals and a number of other metrics into account to give you some measure of this social person's influence with his/her readership.</font>
+                            <font class="smallfont">Social Influence Rating takes site traffic, <%=Pagez._survey()%> referrals and a number of other metrics into account to give you some measure of this social person's influence with his/her readership.</font>
                         </td>
                         <td valign="top">
                             <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherTwitaskDetail04.getMinsocialinfluencepercentile()), StaticVariables.getPercentiles(), "", "")%>
@@ -149,9 +149,9 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
 
                     <tr>
                         <td valign="top">
-                            <font class="formfieldnamefont">Number of Conversations Joined</font>
+                            <font class="formfieldnamefont">Number of <%=Pagez._Surveys()%> Joined</font>
                             <br/>
-                            <font class="smallfont">Reflects the experience level of the respondent.  Enter a minimum and maximum number of conversations that qualified respondents are allowed to have joined.</font>
+                            <font class="smallfont">Reflects the experience level of the respondent.  Enter a minimum and maximum number of <%=Pagez._surveys()%> that qualified respondents are allowed to have joined.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("totalsurveystakenatleast", String.valueOf(researcherTwitaskDetail04.getTotalsurveystakenatleast()), 5, 4, "", "")%>
@@ -160,9 +160,9 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
                         </td>
 
                         <td valign="top">
-                            <font class="formfieldnamefont">Days Since Taking Last Conversation of At Least</font>
+                            <font class="formfieldnamefont">Days Since Taking Last <%=Pagez._Survey()%> of At Least</font>
                             <br/>
-                            <font class="smallfont">A qualifying respondent must have not taken another conversation in at least this many days.</font>
+                            <font class="smallfont">A qualifying respondent must have not taken another <%=Pagez._survey()%> in at least this many days.</font>
                         </td>
                         <td valign="top">
                             <%=Textbox.getHtml("dayssincelastsurvey", String.valueOf(researcherTwitaskDetail04.getDayssincelastsurvey()), 5, 3, "", "")%>

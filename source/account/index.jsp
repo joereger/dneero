@@ -1,8 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.AccountIndex" %>
-<%@ page import="com.dneero.htmluibeans.AccountBalance" %>
-<%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.dao.hibernate.NumFromUniqueResult" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmluibeans.AccountIndex" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -58,7 +57,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                     <br/><font class="largefont hdr"><%=accountIndex.getCurrentbalance()%></font>
                                     <% if (accountIndex.getPendingearningsDbl()>0){ %>
                                         <br/><font class="formfieldnamefont" style="color: #666666;">Pending: <%=accountIndex.getPendingearnings()%></font>
-                                        <br/><font class="tinyfont" style="color: #666666;">Remember, your conversations must generate impressions for 10 days after you take them to get paid.</font><br/>
+                                        <br/><font class="tinyfont" style="color: #666666;">Remember, your <%=Pagez._surveys()%> must generate impressions for 10 days after you take them to get paid.</font><br/>
                                     <% } %>
                                     <br/><font class="tinyfont" style="color: #666666;"><a href="/account/balancefaq.jsp">Balance Questions?</a></font>
                                     <br/><font class="tinyfont" style="color: #666666;"><a href="/account/awards.jsp">Your Awards</a></font>
@@ -127,7 +126,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 <a href="/account/awards.jsp"><font class="mediumfont">Awards</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Sometimes conversations include an incentive like a coupon or charitable donation.</font>
+                                <font class="smallfont">Sometimes <%=Pagez._surveys()%> include an incentive like a coupon or charitable donation.</font>
                             </td></tr></table>
 
                             <br/><br/>
@@ -144,7 +143,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 <a href="/account/reseller.jsp"><font class="mediumfont">Reseller Program</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Sell conversations and make money!</font>
+                                <font class="smallfont">Sell <%=Pagez._surveys()%> and make money!</font>
                             </td></tr></table>
                             <%}%>
 
@@ -167,7 +166,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                             <td valign="top" width="33%">
                                 <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
                                     <form action="/publicsurveylist.jsp" method="get">
-                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Enter Conversations">
+                                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Enter <%=Pagez._Surveys()%>">
                                     </form>
                                     <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
                                         <%
@@ -186,7 +185,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 <%if (Pagez.getUserSession().getPl().getIsanybodyallowedtocreatesurveys() || Pagez.getUserSession().getIsCreateSurveys()){%>
                                     <div class="rounded" style="background: #e6e6e6; text-align:center; height: 75px;">
                                         <form action="/researcher/researchersurveydetail_01.jsp" method="get">
-                                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Create a Conversation">
+                                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexymedium" value="Create a <%=Pagez._Survey()%>">
                                         </form>
                                         <%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>
                                             <%
@@ -228,7 +227,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
 
 
                     <%--<%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>--%>
-                        <%--<font class="largefont hdr">Conversations for You</font>--%>
+                        <%--<font class="largefont hdr"><%=Pagez._Surveys()%> for You</font>--%>
                         <%--<br/>--%>
                         <%--<%--%>
                         <%--PublicSurveyList publicSurveyList = new PublicSurveyList();--%>
@@ -236,7 +235,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                         <%--publicSurveyList.initBean();--%>
                         <%--%>--%>
                         <%--<%if (publicSurveyList.getSurveys()==null || publicSurveyList.getSurveys().size()==0){%>--%>
-                            <%--<font class="smallfont">No conversations right now.  Please check back soon... we're always adding new ones!</font>--%>
+                            <%--<font class="smallfont">No <%=Pagez._surveys()%> right now.  Please check back soon... we're always adding new ones!</font>--%>
                         <%--<%} else {%>--%>
                             <%--<%--%>
                                 <%--StringBuffer srv = new StringBuffer();--%>
@@ -258,17 +257,17 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 <%--cols.add(new GridCol("", srv.toString(), false, "", "", "background: #ffffff;", ""));--%>
                             <%--%>--%>
                             <%--<%=Grid.render(publicSurveyList.getSurveys(), cols, 100, "/account/index.jsp", "pagesurveys")%>--%>
-                            <%--<br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations for You</font></a>--%>
+                            <%--<br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">See All <%=Pagez._surveys()%> for You</font></a>--%>
                         <%--<%}%>--%>
                     <%--<%} else {%>--%>
-                        <%--<font class="largefont hdr">Conversations for You</font>--%>
-                        <%--<br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">Find Conversations to Enter</font></a>--%>
+                        <%--<font class="largefont hdr"><%=Pagez._Surveys()%> for You</font>--%>
+                        <%--<br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">Find <%=Pagez._Surveys()%> to Enter</font></a>--%>
                     <%--<%}%>--%>
 
 
                     <%if (Pagez.getUserSession().getUser().getBloggerid()>0){%>
                         <br/><br/><br/>
-                        <font class="largefont hdr">Conversations You've Joined</font>
+                        <font class="largefont hdr"><%=Pagez._Surveys()%> You've Joined</font>
                         <br/>
                         <%
                             BloggerCompletedsurveys bloggerCompletedsurveys = new BloggerCompletedsurveys();
@@ -304,15 +303,15 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
     "                    </div>");
                         %>
                         <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
-                            <font class="smallfont">You haven't joined any conversations.</font>
-                            <br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">Find Conversations to Join</font></a>
+                            <font class="smallfont">You haven't joined any <%=Pagez._surveys()%>.</font>
+                            <br/><a href="/publicsurveylist.jsp"><font class="smallfont" style="font-weight: bold;">Find <%=Pagez._Surveys()%> to Join</font></a>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols = new ArrayList<GridCol>();
                                 cols.add(new GridCol("", template.toString(), false, "", "", "", ""));
                             %>
                             <%=Grid.render(bloggerCompletedsurveys.getList(), cols, 3, "/account/index.jsp", "pageyourconvos")%>
-                            <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Joined</font></a>
+                            <br/><a href="/blogger/index.jsp"><font class="smallfont" style="font-weight: bold;">See All <%=Pagez._Surveys()%> You've Joined</font></a>
                         <%}%>
                     <%}%>
 
@@ -359,7 +358,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                     <%--ResearcherSurveyList researcherSurveyList = null;--%>
                     <%--%>--%>
                     <%--<%if (Pagez.getUserSession().getUser().getResearcherid()>0){%>--%>
-                        <%--<font class="largefont hdr">Conversations You've Created</font>--%>
+                        <%--<font class="largefont hdr"><%=Pagez._Surveys()%> You've Created</font>--%>
                         <%--<br/>--%>
                         <%--<%--%>
                         <%--researcherSurveyList = new ResearcherSurveyList();--%>
@@ -367,7 +366,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                         <%--researcherSurveyList.initBean();--%>
                         <%--%>--%>
                         <%--<%if (researcherSurveyList.getSurveys()==null || researcherSurveyList.getSurveys().size()==0){%>--%>
-                            <%--<font class="smallfont">You haven't yet created any conversations.</font>--%>
+                            <%--<font class="smallfont">You haven't yet created any <%=Pagez._surveys()%>.</font>--%>
                         <%--<%} else {%>--%>
                             <%--<%--%>
                                 <%--ArrayList<GridCol> cols=new ArrayList<GridCol>();--%>
@@ -380,11 +379,11 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                                 <%--cols.add(new GridCol("", "<$deletelink$>", false, "background: #ffffff;", "smallfont"));--%>
                             <%--%>--%>
                             <%--<%=Grid.render(researcherSurveyList.getSurveys(), cols, 50, "/account/index.jsp", "pageresearcherconvos")%>--%>
-                            <%--<br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All Conversations You've Created</font></a><font class="smallfont"> or </font><a href="/researcher/researchersurveydetail_01.jsp"><font class="smallfont" style="font-weight: bold;">Create a New One</font></a>--%>
+                            <%--<br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">See All <%=Pagez._Surveys()%> You've Created</font></a><font class="smallfont"> or </font><a href="/researcher/researchersurveydetail_01.jsp"><font class="smallfont" style="font-weight: bold;">Create a New One</font></a>--%>
                         <%--<%}%>--%>
                     <%--<%} else {%>--%>
-                        <%--<font class="largefont hdr">Conversations You've Created</font>--%>
-                        <%--<br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started Creating a Conversation</font></a>--%>
+                        <%--<font class="largefont hdr"><%=Pagez._Surveys()%> You've Created</font>--%>
+                        <%--<br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started Creating a <%=Pagez._Survey()%></font></a>--%>
                     <%--<%}%>--%>
 
 
@@ -408,7 +407,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                         <%--<%}%>--%>
                     <%--<%} else {%>--%>
                         <%--<font class="largefont hdr">Twitter Questions You've Asked</font>--%>
-                        <%--<br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a Conversation Creator</font></a>--%>
+                        <%--<br/><a href="/researcher/index.jsp"><font class="smallfont" style="font-weight: bold;">Get Started as a <%=Pagez._Survey()%> Creator</font></a>--%>
                     <%--<%}%>--%>
 
 

@@ -1,14 +1,13 @@
 package com.dneero.survey.servlet.v1;
 
+import com.dneero.session.UrlSplitter;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
 import java.io.IOException;
-
-import com.dneero.session.UrlSplitter;
 
 /**
  * User: Joe Reger Jr
@@ -31,7 +30,7 @@ public class SurveyHtmlpageServlet extends HttpServlet {
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview){
-        return getEmbedSyntax(baseurl, surveyid, userid, responseid, ispreview, "Show Conversation");
+        return getEmbedSyntax(baseurl, surveyid, userid, responseid, ispreview, "Show");
     }
 
     public static String getEmbedSyntax(String baseurl, int surveyid, int userid, int responseid, boolean ispreview, String linktext){

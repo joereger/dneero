@@ -41,7 +41,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         long timestart = new java.util.Date().getTime();
-        logger.debug("Looking for flash conversation via servlet");
+        logger.debug("Looking for flash via servlet");
         logger.debug("request.getParameter(\"s\")="+request.getParameter("s"));
         logger.debug("request.getParameter(\"u\")="+request.getParameter("u"));
         logger.debug("request.getParameter(\"p\")="+request.getParameter("p"));
@@ -119,7 +119,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
                 surveyasxhtml.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
                 surveyasxhtml.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
                 surveyasxhtml.append("<head>");
-                surveyasxhtml.append("<title>Conversation</title>");
+                surveyasxhtml.append("<title></title>");
                 surveyasxhtml.append("<style>");
                 surveyasxhtml.append(".questiontitle{");
                 surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; border: 0px solid #8d8d8d; padding: 0px; text-align: left; background: #e6e6e6;");
@@ -166,7 +166,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
                     }
                 }
             } catch (Exception ex){
-                logger.error("Error getting conversation from cache", ex);
+                logger.error("Error getting from cache", ex);
             }
         }
 
@@ -181,7 +181,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
         } catch (ClientAbortException cex){
             logger.debug("Client aborted", cex);
         } catch (Exception e){
-            logger.error("Error getting conversation from cache");
+            logger.error("Error getting from cache");
         }
 
         //Performance recording
@@ -201,7 +201,7 @@ public class SurveyFlashFacebookServlet extends HttpServlet {
             SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
             xmpp.send();
         } else {
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: unknown conversation or user");
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_DEBUG, "Facebook Flash Click: unknown surveyid or user");
             xmpp.send();
         }
     }

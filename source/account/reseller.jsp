@@ -1,10 +1,6 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.ChangePassword" %>
-<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.AccountReseller" %>
-<%@ page import="com.dneero.money.SurveyMoneyStatus" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
@@ -65,12 +61,12 @@ String acl = "account";
 
             <br/>
             <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
-                <font class="mediumfont" style="color: #666666;"><b>Conversations</b></font>
+                <font class="mediumfont" style="color: #666666;"><b><%=Pagez._Surveys()%></b></font>
                 <br/>
                 <%if (accountReseller.getSurveys()==null || accountReseller.getSurveys().size()==0){%>
-                    <font class="smallfont" style="color: #666666;"><b>No conversations have been created using your Reseller Code.</b></font>
+                    <font class="smallfont" style="color: #666666;"><b>No <%=Pagez._surveys()%> have been created using your Reseller Code.</b></font>
                 <%} else {%>
-                    <font class="smallfont" style="color: #666666;"><b>These are the conversations that were created with your Reseller Code.</b></font>
+                    <font class="smallfont" style="color: #666666;"><b>These are the <%=Pagez._surveys()%> that were created with your Reseller Code.</b></font>
                     <br/>
                     <%
                         ArrayList<GridCol> cols = new ArrayList<GridCol>();
@@ -100,7 +96,7 @@ String acl = "account";
             <div class="rounded" style="background: #e6e6e6; text-align: left; padding: 15px;">
                 <font class="mediumfont" style="color: #666666;"><b>Work Together</b></font>
                 <br/>
-                <font class="smallfont" style="color: #666666;"><b>We recently set up a <a href="http://www.facebook.com/group.php?gid=8641922193">dNeero Conversation Resellers Group</a> on Facebook where you can meet others using the program.  Ask questions, share sales strategies, learn more.</b></font>
+                <font class="smallfont" style="color: #666666;"><b>We recently set up a <a href="http://www.facebook.com/group.php?gid=8641922193">dNeero <%=Pagez._Surveys()%> Resellers Group</a> on Facebook where you can meet others using the program.  Ask questions, share sales strategies, learn more.</b></font>
             </div>
 
             <br/>

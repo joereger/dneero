@@ -1,20 +1,13 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.PublicSurveyList" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="com.dneero.facebook.FacebookSurveyThatsBeenTaken" %>
-<%@ page import="com.dneero.facebook.FacebookSurveyTaker" %>
-<%@ page import="com.dneero.htmluibeans.PublicSurveyFacebookFriendListitem" %>
-<%@ page import="com.dneero.facebook.FacebookApiWrapper" %>
-<%@ page import="com.dneero.facebook.FacebookUser" %>
-<%@ page import="com.dneero.systemprops.SystemProperty" %>
-<%@ page import="com.dneero.htmlui.*" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.htmlui.Textbox" %>
+<%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
+<%@ page import="com.dneero.htmluibeans.PublicSurveyList" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%@ page import="java.util.ArrayList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Active Conversations";
+String pagetitle = "Active "+ Pagez._Surveys();
 String navtab = "home";
 String acl = "public";
 %>
@@ -32,7 +25,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
         try {
             PublicIndex publicIndex=new PublicIndex();
             publicIndex.enterAccessCode();
-            Pagez.getUserSession().setMessage("Sorry, no conversations were found for that Access Code.");
+            Pagez.getUserSession().setMessage("Sorry, no "+Pagez._surveys()+" were found for that Access Code.");
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -65,7 +58,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
         <tr>
             <td valign="top">
                 <%if (publicSurveyList.getSurveys()==null || publicSurveyList.getSurveys().size()==0){%>
-                    <font class="normalfont">There are currently no active conversations.  Please check back soon.</font>
+                    <font class="normalfont">There are currently no active <%=Pagez._surveys()%>.  Please check back soon.</font>
                 <%} else {%>
                     <%
                         StringBuffer srv = new StringBuffer();
@@ -91,7 +84,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                     %>
                     <%=Grid.render(publicSurveyList.getSurveys(), cols, 100, "/publicsurveylist.jsp", "pagesurveys")%>
                     <br/><br/>
-                    <a href="/publicoldsurveylist.jsp">See Older Conversations</a>
+                    <a href="/publicoldsurveylist.jsp">See Older <%=Pagez._Surveys()%></a>
                 <%}%>
                 
             </td>
@@ -127,7 +120,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                         <%--<br/><br/>--%>
                         <%--<font class="mediumfont">Surveys Friends Have Taken:</font><br/>--%>
                         <%--<% if (publicSurveyList.getFacebookSurveyThatsBeenTakens()==null || publicSurveyList.getFacebookSurveyThatsBeenTakens().size()==0){ %>--%>
-                            <%--<font class="tinyfont">Your friends haven't joined any conversations yet.</font>--%>
+                            <%--<font class="tinyfont">Your friends haven't joined any <%=Pagez._surveys()%> yet.</font>--%>
                         <%--<% } else { %>--%>
                             <%--<%--%>
                                 <%--for (Iterator<FacebookSurveyThatsBeenTaken> iterator=publicSurveyList.getFacebookSurveyThatsBeenTakens().iterator(); iterator.hasNext();){--%>

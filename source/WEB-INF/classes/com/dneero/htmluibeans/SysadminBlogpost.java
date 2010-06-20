@@ -89,7 +89,7 @@ public class SysadminBlogpost implements Serializable {
         GetCachedStuff.flush(new BlogPostsFull(), Pl.get(plid));
         try{
             if (doPingomatic && BaseUrl.get(false).indexOf("localhost")<=-1){
-                //Pingomatic.ping("dNeero Conversations Blog", BaseUrl.get(false)+"blog.jsp", BaseUrl.get(false)+"rss.xml");
+                //Pingomatic.ping("dNeero Blog", BaseUrl.get(false)+"blog.jsp", BaseUrl.get(false)+"rss.xml");
             }
         } catch (Exception ex){
             logger.error("",ex);

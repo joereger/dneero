@@ -3,7 +3,7 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Invite People to Join Your Conversation";
+String pagetitle = "Invite People to Join Your "+Pagez._Survey();
 String navtab = "researchers";
 String acl = "researcher";
 %>
@@ -17,7 +17,7 @@ String acl = "researcher";
             researcherEmailinvite.setManuallyenteredemailaddresses(Textbox.getValueFromRequest("manuallyenteredemailaddresses", "Email Addresses", true, DatatypeString.DATATYPEID));
             researcherEmailinvite.setMessage(Textarea.getValueFromRequest("message", "Message", false));
             researcherEmailinvite.setSubject(Textbox.getValueFromRequest("subject", "Subject", false, DatatypeString.DATATYPEID));
-            researcherEmailinvite.setSurveyiduserisinvitedto(Dropdown.getIntFromRequest("surveyiduserisinvitedto", "Conversation to Invite To", true));
+            researcherEmailinvite.setSurveyiduserisinvitedto(Dropdown.getIntFromRequest("surveyiduserisinvitedto", Pagez._Survey()+" to Invite To", true));
             researcherEmailinvite.invite();
             Pagez.sendRedirect("/researcher/emailinvite-complete.jsp");
             return;
@@ -37,7 +37,7 @@ String acl = "researcher";
         <%if (!researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>
             <center><div class="rounded" style="background: #F2FFBF; text-align: left; padding: 20px;"><font class="smallfont">
             <img src="/images/lightbulb_on.png" alt="" align="right"/>
-            You must have at least one conversation with a status of Live to invite people to.  Check <a href="/researcher/index.jsp">Your List of Conversations</a>.  Create a conversation first and then come back to invite people to it.  If you just created a conversation, sometimes it takes a few minutes for the financial system to process and mark the conversation as Live... check back soon.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
+            You must have at least one <%=Pagez._survey()%> with a status of Live to invite people to.  Check <a href="/researcher/index.jsp">Your List of <%=Pagez._Surveys()%></a>.  Create a <%=Pagez._survey()%> first and then come back to invite people to it.  If you just created a <%=Pagez._survey()%>, sometimes it takes a few minutes for the financial system to process and mark the <%=Pagez._survey()%> as Live... check back soon.  You'll be able to upload a list of email addresses or manually enter them.  You'll be able to set a custom message and email subject.
             <br/><br/><br/></font></div></center>
         <%}%>
         <%if (researcherEmailinvite.getResearcherhasatleastonelivesurvey()){%>
@@ -53,7 +53,7 @@ String acl = "researcher";
 
 
 
-                                   <font class="formfieldnamefont">Conversations that are Live now:</font>
+                                   <font class="formfieldnamefont"><%=Pagez._Surveys()%> that are Live now:</font>
                                    <br/>
                                    <%=Dropdown.getHtml("surveyiduserisinvitedto", String.valueOf(researcherEmailinvite.getSurveyiduserisinvitedto()), researcherEmailinvite.getSurveyids(), "","")%>
                                    <br/><br/>
@@ -62,7 +62,7 @@ String acl = "researcher";
                                    <%=Textbox.getHtml("subject", researcherEmailinvite.getSubject(), 255, 35, "", "")%>
 
                                    <br/><br/>
-                                   <font class="formfieldnamefont">Message (we'll add links to the conversation):</font>
+                                   <font class="formfieldnamefont">Message (we'll add links to the <%=Pagez._survey()%>):</font>
                                    <br/>
                                    <%=Textarea.getHtml("message", researcherEmailinvite.getMessage(), 3, 35, "", "")%>
 
@@ -93,7 +93,7 @@ String acl = "researcher";
                                     <br/>
                                     <textarea rows="3" cols="25" readonly="readonly" onClick="javascript:this.select();"><a href="<%=researcherEmailinvite.getUrl()%>"><%=researcherEmailinvite.getSurvey().getTitle()%></a></textarea>
                                     <br/><br/>
-                                    <a href="<%=researcherEmailinvite.getUrl()%>"><font class="mediumfont">See Your Conversation Here</font></a>
+                                    <a href="<%=researcherEmailinvite.getUrl()%>"><font class="mediumfont">See Your <%=Pagez._Survey()%> Here</font></a>
                                     <br/><br/>
                                 </div>
                             <%}%>

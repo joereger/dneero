@@ -2,20 +2,18 @@ package com.dneero.finders;
 
 import com.dneero.constants.*;
 import com.dneero.dao.*;
-import com.dneero.util.Num;
-import com.dneero.util.Util;
-import com.dneero.util.Time;
-import com.dneero.util.DateDiff;
-import com.dneero.sir.SocialInfluenceRatingPercentile;
 import com.dneero.scheduledjobs.SystemStats;
+import com.dneero.sir.SocialInfluenceRatingPercentile;
+import com.dneero.util.DateDiff;
+import com.dneero.util.Num;
+import com.dneero.util.Time;
+import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
 
-import java.io.ByteArrayOutputStream;
 import java.util.*;
 
 /**
@@ -540,7 +538,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Days Since Last Conversation Participation");
+        out.append("Days Since Last Participation");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");
@@ -553,7 +551,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Total Conversations Joined of at Least");
+        out.append("Total Joins of at Least");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");
@@ -566,7 +564,7 @@ public class SurveyCriteriaXML {
         out.append("<tr>");
         out.append("<td valign=\"top\">");
         out.append("<font class=\"formfieldnamefont\">");
-        out.append("Total Conversations Joined of at Most");
+        out.append("Total Joins of at Most");
         out.append("</font>");
         out.append("</td>");
         out.append("<td valign=\"top\">");

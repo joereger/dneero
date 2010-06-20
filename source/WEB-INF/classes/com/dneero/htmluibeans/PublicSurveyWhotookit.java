@@ -112,7 +112,7 @@ public class PublicSurveyWhotookit implements Serializable {
             }
         }
         if (respondents==null || respondents.size()==0){
-                out.append("<font class=\"normalfont\">Nobody has joined this conversation... yet.</font>");
+                out.append("<font class=\"normalfont\">Nobody has joined this one... yet.</font>");
             } else {
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 cols.add(new GridCol("Date", "<$response.responsedate|"+ Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));

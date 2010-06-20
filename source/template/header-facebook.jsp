@@ -23,7 +23,7 @@
         <tr>
             <td bgcolor="#dadada" style="text-align: left; vertical-align: bottom; border-bottom: 1px solid #666666;" colspan="5" height="45">
                 <div width="100%" style="background: #cccccc">
-                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 6px; padding-right: 6px; color: #000000; font-size: 12px; background: #00ff00;">Conversations for You</font></a>
+                    <a href="/publicsurveylist.jsp"><font class="subnavfont" style="padding-left: 6px; padding-right: 6px; color: #000000; font-size: 12px; background: #00ff00;"><%=Pagez._Surveys()%> for You</font></a>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggercompletedsurveys.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">Completed</font></a><%}%>
                     <%if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getBloggerid()>0){%><a href="/blogger/bloggerdetails.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">Profile</font></a><%}%>
                     <%if (Pagez.getUserSession().getIsloggedin()){%><a href="/account/accountbalance.jsp"><font class="subnavfont" style="padding-left: 5px; color: #000000; background: #cccccc;">Balance</font></a><%}%>

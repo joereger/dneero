@@ -5,6 +5,7 @@ import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
 import com.dneero.email.EmailTemplateProcessor;
 import com.dneero.finders.FindSurveysForBlogger;
+import com.dneero.privatelabel.PlUtil;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.InstanceProperties;
 import com.dneero.systemprops.SystemProperty;
@@ -175,7 +176,7 @@ public class NotifyBloggersOfNewOffers implements Job {
                                         args[3] = userquestionsansweredHtml.toString();
                                         args[4] = userquestionsansweredTxt.toString();
                                         //Send the email
-                                        EmailTemplateProcessor.sendMail("New "+pl.getNameforui()+" Conversations for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
+                                        EmailTemplateProcessor.sendMail("New "+pl.getNameforui()+" "+ PlUtil.surveyCalled(pl, true, true) + " for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
                                         debug.append("\n"+"email sent to "+user.getNickname());
                                         //Update blogger last sent date
                                         user.setNotifyofnewsurveyslastsent(new Date());

@@ -1,10 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.PublicSurveyDiscuss" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.htmluibeans.PublicSurveyDiscuss" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%@ page import="java.util.ArrayList" %>
 <%
 PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss");
 %>
@@ -53,14 +50,14 @@ String acl = "public";
         <tr>
             <td valign="top">
                 <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                Discuss this conversation here.  Thoughts on the questions?  Thoughts on the results?  Thoughts on the people who are posting it to their blogs? Thoughts on anything else related to this conversation?
+                Discuss this <%=Pagez._survey()%> here.  Thoughts on the questions?  Thoughts on the results?  Thoughts on the people who are posting it to their blogs? Thoughts on anything else related to this <%=Pagez._survey()%>?
                 </font></div></center>
                 <% if (!Pagez.getUserSession().getIsloggedin()){ %>
                     <br/><br/>
                     <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                         <font class="mediumfont">You must be logged-in to take part in the discussion.</font>
                     <% } else { %>
-                        <font class="mediumfont">You must join at least one conversation before you can take part in the discussion.</font>
+                        <font class="mediumfont">You must join at least one <%=Pagez._survey()%> before you can take part in the discussion.</font>
                     <% } %>
                 <% } %>
             </td>

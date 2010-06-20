@@ -41,11 +41,11 @@ public class BlogRss extends HttpServlet {
         feed.setFeedType("rss_2.0");
 
         //Channel Title
-        String channelTitle = "Conversations Blog";
+        String channelTitle = "Blog";
         feed.setTitle(channelTitle);
 
         //Channel Description
-        String channelDesc = "Conversations Blog";
+        String channelDesc = "Blog";
         feed.setDescription(channelDesc);
 
         //Channel Link

@@ -1,6 +1,6 @@
-<%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshare" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Facebook App FAQ";
@@ -23,17 +23,17 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Ok, I've joined a conversation... when do I get paid?</font>
+    <font class="mediumfont" color="#333333">Ok, I've joined a <%=Pagez._survey()%>... when do I get paid?</font>
     <br/>
     <font class="smallfont">
-    Our advertisers and market researchers pay for answers (from you) and clicks (from your friends). To qualify for payment, as described many places on the app, you must generate 5 days with clicks in the first 10 after you join the conversation. A click is generated when a friend sees the conversations listed on your profile box or mini feed and clicks on it. On your joined conversations page you'll see a list of conversations you've taken and a day-by-day status report telling you how close you are to being paid. Once you get paid for a number of conversations and accrue more than $20 we'll pay your PayPal account. We pay people every day and are generally regarded as one of the few apps that does actually pay.
+    Our advertisers and market researchers credit and sometimes provide incentives for answers (from you) and clicks (from your friends). To qualify for payment, as described many places on the app, you must generate 5 days with clicks in the first 10 after you join the <%=Pagez._survey()%>. A click is generated when a friend sees the <%=Pagez._surveys()%> listed on your profile box or mini feed and clicks on it. On your joined <%=Pagez._surveys()%> page you'll see a list of <%=Pagez._surveys()%> you've taken and a day-by-day status report telling you how close you are to being paid. Once you get paid for a number of <%=Pagez._surveys()%> and accrue more than $20 we'll pay your PayPal account. We pay people every day and are generally regarded as one of the few apps that does actually pay.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
 
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Do I need to have friends join the conversation to get paid?</font>
+    <font class="mediumfont" color="#333333">Do I need to have friends join the <%=Pagez._survey()%> to get paid?</font>
     <br/>
     <font class="smallfont">
     No, they don't need to join it.  But they do need to see your answers.
@@ -54,7 +54,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">What actually gets posted to my profile?</font>
     <br/>
     <font class="smallfont">
-    A link to your mini-feed that says something like "Joe Reger joined the conversation 'Some Cool Conversation' and earned $3.45."  We also list your conversations in a profile box.
+    A link to your mini-feed that says something like "Joe Reger joined the <%=Pagez._survey()%> 'Some Cool <%=Pagez._Survey()%>' and earned $3.45."  We also list your <%=Pagez._surveys()%> in a profile box.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -63,7 +63,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">How long does my post need to stay up?</font>
     <br/>
     <font class="smallfont">
-    To get paid for a conversation you must accrue at least one impression (one person needs to click from your profile) for 5 of the first 10 days following the date that you join the conversation.   Of course, you want to keep your conversation up at all times because the more impressions you get the more money you make.  We also reserve the right to not pay you if we believe that you're gaming the system, only putting conversations up once a day, automating impressions, etc.  By taking money for a conversation you're committing to generate some exposure for it.
+    To get paid for a <%=Pagez._survey()%> you must accrue at least one impression (one person needs to click from your profile) for 5 of the first 10 days following the date that you join the <%=Pagez._survey()%>.   Of course, you want to keep your <%=Pagez._survey()%> up at all times because the more impressions you get the more money you make.  We also reserve the right to not pay you if we believe that you're gaming the system, only putting <%=Pagez._surveys()%> up once a day, automating impressions, etc.  By taking money for a <%=Pagez._survey()%> you're committing to generate some exposure for it.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -72,7 +72,7 @@ String acl = "public";
     <font class="mediumfont" color="#333333">Will my friends/readers know I was paid?</font>
     <br/>
     <font class="smallfont">
-    Yes, they will.  Disclosure is an important element of conversations that we're is committed to.  Whenever somebody sees your answers we'll include an unobtrusive but clear note that this conversation was sponsored.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
+    Yes, they will.  Disclosure is an important element of <%=Pagez._surveys()%> that we're is committed to.  Whenever somebody sees your answers we'll include an unobtrusive but clear note that this <%=Pagez._survey()%> was sponsored.  Of course, you can also have us give your earnings to charity which removes any concerns over money.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->
@@ -142,7 +142,7 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">Does <%=Pagez.getUserSession().getPl().getNameforui()%> pay me for my friends' conversations and impressions?</font>
+    <font class="mediumfont" color="#333333">Does <%=Pagez.getUserSession().getPl().getNameforui()%> pay me for my friends' <%=Pagez._surveys()%> and impressions?</font>
     <br/>
     <font class="smallfont">
     All of it.
@@ -179,7 +179,7 @@ String acl = "public";
 
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">How do I get notified of new conversation opportunities?</font>
+    <font class="mediumfont" color="#333333">How do I get notified of new <%=Pagez._survey()%> opportunities?</font>
     <br/>
     <font class="smallfont">
     We'll tell you about them.  In your Account Settings you can turn on notifications via email, Twitter and/or XMPP/Jabber.
@@ -215,7 +215,7 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">How many conversations a day can I take?</font>
+    <font class="mediumfont" color="#333333">How many <%=Pagez._surveys()%> a day can I take?</font>
     <br/>
     <font class="smallfont">
     Five.
@@ -224,10 +224,10 @@ String acl = "public";
     <!-- End FAQ Question -->
 
     <!-- Start FAQ Question -->
-    <font class="mediumfont" color="#333333">How long do I get paid for conversation displays/impressions?</font>
+    <font class="mediumfont" color="#333333">How long do I get paid for <%=Pagez._survey()%> displays/impressions?</font>
     <br/>
     <font class="smallfont">
-    You get paid until you reach the limit set by the conversation creator (shown when you decide whether to join the conversation).  Or until 30 days have elapsed since the end of the conversation.
+    You get paid until you reach the limit set by the <%=Pagez._survey()%> creator (shown when you decide whether to join the <%=Pagez._survey()%>).  Or until 30 days have elapsed since the end of the <%=Pagez._survey()%>.
     </font>
     <br/><br/><br/>
     <!-- End FAQ Question -->

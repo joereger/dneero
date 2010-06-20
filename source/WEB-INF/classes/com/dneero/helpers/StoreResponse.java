@@ -49,21 +49,21 @@ public class StoreResponse {
         for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
             Response rsp = iterator.next();
             if (rsp.getSurveyid()==survey.getSurveyid()){
-                //allCex.addValidationError("You have already joined this conversation.");
+                //allCex.addValidationError("You have already joined.");
                 //Person's already joined the convo... so use that response
                 response = rsp;
             }
         }
         //Make sure blogger is qualified to take
         if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(blogger, survey)){
-            allCex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Marketers determine their intended audience when they create a conversation.");
+            allCex.addValidationError("Sorry, you're not qualified to join.  Your qualification is determined by your Profile.");
         }
         //Userquestion validation
         //@todo One problem with user question validation is that there really isn't any requirement to answer... test it... ignore some user questions... it'll let you... this code only kicks in on questions that are answered but fail somehow
         if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
             String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
             if (uqArr[0].equals("")){
-                allCex.addValidationError("You must add your own question to the conversation.");
+                allCex.addValidationError("You must add your own question.");
             }
             if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
                 String[] uqctArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype");
@@ -90,10 +90,10 @@ public class StoreResponse {
                     //No more val needed
                 }
             } else {
-                allCex.addValidationError("You must tell us how people can answer the question you added to the conversation.");
+                allCex.addValidationError("You must tell us how people can answer the question you added.");
             }
         } else {
-            allCex.addValidationError("You must add your own question to the conversation.");
+            allCex.addValidationError("You must add your own question.");
         }
 
         //Create Response
@@ -328,7 +328,7 @@ public class StoreResponse {
         //Notify
         if (allCex.getErrors().length<=0){
             //Notify debug group
-            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Conversation Joined: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Pagez.getUserSession().getUser().getNickname()+" ("+Pagez.getUserSession().getUser().getEmail()+")");
+            SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "Join: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+") by "+Pagez.getUserSession().getUser().getNickname()+" ("+Pagez.getUserSession().getUser().getEmail()+")");
             xmpp.send();
         } else {
             throw allCex;

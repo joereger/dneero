@@ -1,9 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmluibeans.BloggerDetails" %>
-<%@ page import="com.dneero.htmlui.*" %>
-<%@ page import="com.dneero.util.Util" %>
-<%@ page import="com.dneero.constants.*" %>
 <%@ page import="com.dneero.finders.UserProfileCompletenessChecker" %>
+<%@ page import="com.dneero.htmluibeans.BloggerDetails" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%@ page import="com.dneero.util.Util" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Your Profile";
@@ -307,16 +305,13 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                     </div>
                     <font class="smallfont">
                         <br/><br/><b>Why do you collect this information?</b><br/>
-                        For two reasons. First, to present you with the most relevant conversations.  Second, because market researchers need to be able to target conversations to particular demographics
+                        For two reasons. First, to present you with the most relevant <%=Pagez._surveys()%>.  Second, because market researchers need to be able to target <%=Pagez._surveys()%> to particular demographics
 
                         <br/><br/><b>Will this data ever be made available to others?</b><br/>
-                        Posting Venues and geographic information will be shared on your profile.  Other information will not be made available in a way that can be tied back to you.  However, we may create aggregate results on conversations that say things like "people aged 23-25 answered this way."  When we do this we're using the information from this page but it's in a way that your particular identity isn't shared.
+                        Posting Venues and geographic information will be shared on your profile.  Other information will not be made available in a way that can be tied back to you.  However, we may create aggregate results on <%=Pagez._surveys()%> that say things like "people aged 23-25 answered this way."  When we do this we're using the information from this page but it's in a way that your particular identity isn't shared.
 
-                        <br/><br/><b>Are international users welcome?</b><br/>
-                        Of course!  We love you!  Please join the conversation!
-
-                        <br/><br/><b>Check the conversation criteria</b><br/>
-                        If a conversation has a sufficiently limited demographic target it's possible that conversation readers can infer demographic data about you.  For example, if somebode creates a conversation targeted only to individuals with an income of between $30,000 and $40,000 per year and you join the conversation then people can infer what your salary is.  When a conversation is displayed both the criteria and who joined in are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
+                        <br/><br/><b>Check the <%=Pagez._survey()%> criteria</b><br/>
+                        If a <%=Pagez._survey()%> has a sufficiently limited demographic target it's possible that <%=Pagez._survey()%> readers can infer demographic data about you.  For example, if somebode creates a <%=Pagez._survey()%> targeted only to individuals with an income of between $30,000 and $40,000 per year and you join the <%=Pagez._survey()%> then people can infer what your salary is.  When a <%=Pagez._survey()%> is displayed both the criteria and who joined in are visible.  Take this into account and if you're not comfortable with the scope of the demographic criteria that the researcher has chosen, tell them... they may choose to widen it.
                     </font>
                     <br/><br/>
                 </div>

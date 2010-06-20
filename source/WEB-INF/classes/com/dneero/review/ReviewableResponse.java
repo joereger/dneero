@@ -18,7 +18,7 @@ import java.util.List;
 public class ReviewableResponse implements Reviewable {
 
     public static int TYPE = 2;
-    public static String TYPENAME = "Conversation Response";
+    public static String TYPENAME = "Response";
     public Response response;
 
     public ReviewableResponse(int id){
@@ -29,7 +29,7 @@ public class ReviewableResponse implements Reviewable {
 
     public String getTypeDescription(){
         StringBuffer out = new StringBuffer();
-        out.append("This is an issue with the content you've added to the conversation.  Answers must be relevant to the conversation and required questions must be answered thoughtfully. If your content is flagged you will not accrue impressions or be able to earn any money for this conversation until it is fixed.  Warnings do not affect earnings but should be fixed.  This sort of issue can be resolved by editing the question that you added to the conversation.  Do this by editing your conversation answers.  Once you save your edits the content will automatically be placed into the queue for approval.");
+        out.append("This is an issue with the content you've added.  Answers must be relevant to the topic and required questions must be answered thoughtfully. If your content is flagged you will not accrue impressions until it is fixed.   This sort of issue can be resolved by editing the question that you added.  Do this by editing your answers.  Once you save your edits the content will automatically be placed into the queue for approval.");
         return out.toString();
     }
 

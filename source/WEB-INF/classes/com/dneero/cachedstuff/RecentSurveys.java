@@ -1,16 +1,17 @@
 package com.dneero.cachedstuff;
 
-import com.dneero.dao.Survey;
 import com.dneero.dao.Pl;
+import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.helpers.SlotsRemainingInConvo;
 import com.dneero.htmlui.PercentCompleteBar;
 import com.dneero.incentive.IncentiveCash;
 import com.dneero.incentive.IncentiveCoupon;
+import com.dneero.privatelabel.PlPeers;
+import com.dneero.privatelabel.PlUtil;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
-import com.dneero.privatelabel.PlPeers;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -36,7 +37,7 @@ public class RecentSurveys implements CachedStuff, Serializable {
         int totalSurveysAdded = 0;
         out.append("<table cellpadding='2' cellspacing='1' border='0' width='100%'>");
         out.append("<tr>");
-        out.append("<td><font class=\"mediumfont\" style=\"color: #999999;\">Conversations</font></td>");
+        out.append("<td><font class=\"mediumfont\" style=\"color: #999999;\">"+PlUtil.surveyCalled(pl, true, true)+"</font></td>");
         out.append("<td bgcolor='#cccccc' nowrap><font class='tinyfont' style='color: #666666;'>Ends In</font></td>");
         out.append("<td bgcolor='#cccccc' nowrap><font class='tinyfont' style='color: #666666;'>&nbsp;</font></td>");
         out.append("<td bgcolor='#cccccc' nowrap><font class='tinyfont' style='color: #666666;'>Slots Available</font></td>");

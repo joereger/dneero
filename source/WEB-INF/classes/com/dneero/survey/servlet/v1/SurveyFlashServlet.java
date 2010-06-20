@@ -122,7 +122,7 @@ public class SurveyFlashServlet extends HttpServlet {
                 surveyasxhtml.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
                 surveyasxhtml.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
                 surveyasxhtml.append("<head>");
-                surveyasxhtml.append("<title>Conversation</title>");
+                surveyasxhtml.append("<title></title>");
                 surveyasxhtml.append("<style>");
                 surveyasxhtml.append(".questiontitle{");
                 surveyasxhtml.append("font-family: Arial, Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; margin: 0px; border: 0px solid #8d8d8d; padding: 0px; text-align: left; background: #e6e6e6;");
@@ -174,7 +174,7 @@ public class SurveyFlashServlet extends HttpServlet {
                                     logger.debug("Setting the text of the search engine textbox");
                                     textfield.setHTML(true);
                                     //Set the search engine text... note that this is using surveyashtml to avoid all the wrapper xml/doc stuff
-                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">Conversation</a></h1>.<br/><br/>"+surveyashtml);
+                                    textfield.setInitialText("This is a <h1><a href=\"http://www.dneero.com/survey.jsp?surveyid="+surveyid+"\">survey</a></h1>.<br/><br/>"+surveyashtml);
                                 }
                                 if (textfield.getVariableName().equals("flashhtmlvar")){
                                     logger.debug("Setting the text of the html textbox");

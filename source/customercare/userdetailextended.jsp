@@ -99,7 +99,7 @@ CustomercareUserDetailExtended customercareUserDetailExtended= (CustomercareUser
                 <%
                     ArrayList<GridCol> cols=new ArrayList<GridCol>();
                     cols.add(new GridCol("Id", "<$impressionid$>", true, "", "tinyfont"));
-                    cols.add(new GridCol("Conversation", "<$surveyid$>", false, "", "tinyfont"));
+                    cols.add(new GridCol(Pagez._Survey(), "<$surveyid$>", false, "", "tinyfont"));
                     cols.add(new GridCol("Response", "<$responseid$>", false, "", "tinyfont"));
                     cols.add(new GridCol("Date", "<$firstseen|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "", "background: #e6e6e6;"));
                     cols.add(new GridCol("Total Impr", "<$impressionstotal$>", false, "", "tinyfont"));

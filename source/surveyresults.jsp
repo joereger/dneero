@@ -1,7 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyResults" %>
-<%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults");
 %>
@@ -53,7 +53,7 @@ String acl = "public";
         <div id="tabs-2">
             <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/><br/>
             <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: left;">
-                <font class="smallfont" style="font-weight: bold;">All the questions on this page were added by social people involved in the conversation.  Their question appears when somebody visits their blog or social network and then joins in the conversation.</font>
+                <font class="smallfont" style="font-weight: bold;">All the questions on this page were added by social people involved in the <%=Pagez._survey()%>.  Their question appears when somebody visits their blog or social network and then joins in the <%=Pagez._survey()%>.</font>
             </div>
             <br/>
             <%=publicSurveyResults.getResultsUserquestionsHtml()%>

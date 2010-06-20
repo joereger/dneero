@@ -44,7 +44,7 @@ String acl="public";
             </td>
             <td valign="top">
                 <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                People who joined the conversation and where it's been posted.
+                People who joined the <%=Pagez._survey()%> and where it's been posted.
                 </font></div></center>
             </td>
         </tr>

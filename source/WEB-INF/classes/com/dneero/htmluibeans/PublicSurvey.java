@@ -415,14 +415,14 @@ public class PublicSurvey implements Serializable {
         //If the user's logged in and is a blogger make sure they're qualified for this survey
         if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             if (!FindSurveysForBlogger.isBloggerQualifiedToTakeSurvey(Blogger.get(Pagez.getUserSession().getUser().getBloggerid()), survey)){
-                vex.addValidationError("Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  Marketers determine their intended audience when they create a conversation.");
+                vex.addValidationError("Sorry, you're not qualified to join.  Your qualification is determined by your Profile..");
                 throw vex;
             }
         }
 
         //If the user's already taken too many surveys
         if (!loggedinuserhasalreadytakensurvey && Pagez.getUserSession().getSurveystakentoday()>SurveysTakenToday.MAXSURVEYSPERDAY){
-            vex.addValidationError("Sorry, you've already joined the maximum number of conversations today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
+            vex.addValidationError("Sorry, you've already joined the maximum number of joins today ("+SurveysTakenToday.MAXSURVEYSPERDAY+").  Wait until tomorrow (defined in U.S. Eastern Standard Time) and try again.");
             throw vex;
         }
 
@@ -432,7 +432,7 @@ public class PublicSurvey implements Serializable {
             if (!loggedinuserhasalreadytakensurvey){
                 //If the access code isn't there
                 if (Pagez.getUserSession().getAccesscode()==null || !Pagez.getUserSession().getAccesscode().equalsIgnoreCase(survey.getAccesscode())){
-                    vex.addValidationError("Sorry, this conversation requires an Access Code.");
+                    vex.addValidationError("Sorry, this requires an Access Code.");
                     throw vex;
                 }
             }

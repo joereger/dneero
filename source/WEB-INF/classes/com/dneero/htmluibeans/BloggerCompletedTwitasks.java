@@ -1,15 +1,16 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
+import com.dneero.dao.Twitanswer;
+import com.dneero.dao.Twitask;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
-import com.dneero.util.*;
-import com.dneero.scheduledjobs.UpdateResponsePoststatus;
+import com.dneero.htmlui.UserSession;
+import com.dneero.util.Str;
 
-import java.util.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -111,7 +112,7 @@ public class BloggerCompletedTwitasks implements Serializable {
             htmlpayform.append("<font class=\"formfieldnamefont\">Don't Pay Me. Give My Earnings to this Charity:</font>");
             }
             if (twitask.getIscharityonly()){
-            htmlpayform.append("<font class=\"formfieldnamefont\">Earnings From This Conversation Must be Given to Charity:</font>");
+            htmlpayform.append("<font class=\"formfieldnamefont\">Earnings Must be Given to Charity:</font>");
             }
             htmlpayform.append("<br/>");
             htmlpayform.append("<select name=\"charity-charityname\">");
@@ -129,7 +130,7 @@ public class BloggerCompletedTwitasks implements Serializable {
             htmlpayform.append("</select>");
             htmlpayform.append("<br/>");
             htmlpayform.append("<font class=\"tinyfont\">");
-            htmlpayform.append("If you check the box we'll donate all of your earnings for this conversation to the charity of your choice.");
+            htmlpayform.append("If you check the box we'll donate your earnings to the charity of your choice.");
             htmlpayform.append("</font>");
             htmlpayform.append("</td>");
             htmlpayform.append("<td valign=\"top\" align=\"left\">");

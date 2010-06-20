@@ -121,12 +121,12 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
                 //Coupon validation
                 if (isaccesscodeonly && accesscode.equals("")){
-                    throw new ValidationException("If you choose to do a Access Code conversation then you must enter an Access Code.");
+                    throw new ValidationException("If you choose Access Code then you must enter an Access Code.");
                 }
                 if (isaccesscodeonly){
                     int numsurveyswithsameaccesscode = NumFromUniqueResult.getInt("select count(*) from Survey where accesscode='"+ UserInputSafe.clean(accesscode)+"' and surveyid<>'"+survey.getSurveyid()+"'");
                     if (numsurveyswithsameaccesscode>0){
-                        throw new ValidationException("Another conversation with that Access Code already exists.  Please choose another.");
+                        throw new ValidationException("That Access Code already exists in the system.  Please choose another.");
                     }
                 }
 

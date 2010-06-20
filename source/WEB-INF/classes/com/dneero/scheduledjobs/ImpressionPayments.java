@@ -1,22 +1,21 @@
 package com.dneero.scheduledjobs;
 
+import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.money.MoveMoneyInAccountBalance;
+import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.systemprops.InstanceProperties;
+import com.dneero.util.Str;
+import com.dneero.util.Time;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
-import com.dneero.systemprops.InstanceProperties;
-import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.hibernate.HibernateUtilImpressions;
-import com.dneero.money.MoveMoneyInAccountBalance;
-import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.util.Time;
-import com.dneero.util.Str;
 
-import java.util.*;
-import java.text.NumberFormat;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -108,7 +107,7 @@ public class ImpressionPayments implements Job {
             if (amtToChargeResearcher>0){
                 Researcher researcher = Researcher.get(survey.getResearcherid());
                 User user = User.get(researcher.getUserid());
-                MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for impressions on conversation '"+survey.getTitle()+"'", true, false, false, false);
+                MoveMoneyInAccountBalance.charge(user, amtToChargeResearcher, "Charge for impressions on '"+survey.getTitle()+"'", true, false, false, false);
             }
 
             //Affect balance for reseller

@@ -45,7 +45,7 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
                 return;
             } else if (request.getParameter("action").equals("saveasdraft")) {
                 logger.debug("Saveasdraft was clicked");
-                Pagez.getUserSession().setMessage("Your conversation has been saved.");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been saved.");
                 researcherTwitaskDetail01.save();
                 Pagez.sendRedirect("/researcher/index.jsp");
                 return;

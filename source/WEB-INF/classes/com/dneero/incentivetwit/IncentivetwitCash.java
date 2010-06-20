@@ -181,7 +181,7 @@ public class IncentivetwitCash implements Incentivetwit {
 
     public String getInstructions() {
         StringBuffer out = new StringBuffer();
-        out.append("Upon successful joining of the conversation and posting to your social space (blog or social network) we'll credit your account balance with the earnings amount.");
+        out.append("Upon successful joining and posting to your social space (blog or social network) we'll credit your account balance with the earnings amount.");
         return out.toString();
     }
 

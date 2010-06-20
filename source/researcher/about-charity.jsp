@@ -21,13 +21,13 @@ String acl = "public";
             <br/>
             Money introduces the argument that responses are biased.  While we require full disclosure and argue that since people are posting their answers in front of their peers the bias is limited, we do understand that for some campaigns you simply can't have any questionable bias.
             <br/><br/><br/>
-            <font class="mediumfont" style="color: #999999">Charity Only Conversations</font>
+            <font class="mediumfont" style="color: #999999">Charity Only <%=Pagez._Surveys()%></font>
             <br/>
-            With a single check box you can designate a conversation as Charity Only.  Doing so means that only bloggers who agree to have all of their earnings from the conversation donated to a charity will be able to take it. Learn more about the program <a href="/charity.jsp">here</a>.
+            With a single check box you can designate a <%=Pagez._survey()%> as Charity Only.  Doing so means that only bloggers who agree to have all of their earnings from the <%=Pagez._survey()%> donated to a charity will be able to take it. Learn more about the program <a href="/charity.jsp">here</a>.
             <br/><br/><br/>
             <font class="mediumfont" style="color: #999999">Bloggers Can Give to Charity</font>
             <br/>
-            One concern from bloggers is that the money in this model presents possible bias, and that their readers will not want to feel 'monetized'. <%=Pagez.getUserSession().getPl().getNameforui()%> allows bloggers to give any of their earnings, from any conversation (Charity Only or not), to a good cause, avoid bias.
+            One concern from bloggers is that the money in this model presents possible bias, and that their readers will not want to feel 'monetized'. <%=Pagez.getUserSession().getPl().getNameforui()%> allows bloggers to give any of their earnings, from any <%=Pagez._survey()%> (Charity Only or not), to a good cause, avoid bias.
         </td>
         <td valign="top" width="30%">
             <%@ include file="/researcher/about-nav-include.jsp" %>

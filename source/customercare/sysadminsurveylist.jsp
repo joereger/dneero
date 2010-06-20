@@ -6,7 +6,7 @@
 <%@ page import="com.dneero.htmluibeans.CustomercareSurveyList" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Conversations";
+String pagetitle = Pagez._Surveys();
 String navtab = "customercare";
 String acl = "customercare";
 %>
@@ -19,7 +19,7 @@ String acl = "customercare";
 
 
     <%if (customercareSurveyListList.getSurveys()==null || customercareSurveyListList.getSurveys().size()==0){%>
-        <font class="normalfont">No conversations!</font>
+        <font class="normalfont">No <%=Pagez._surveys()%>!</font>
     <%} else {%>
         <%
             ArrayList<GridCol> cols=new ArrayList<GridCol>();

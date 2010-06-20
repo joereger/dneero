@@ -198,7 +198,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
                 if (isnewsurvey){
                     //Notify sales group
-                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "New Conversation Started: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
+                    SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "New Survey Started: "+ survey.getTitle()+" (surveyid="+survey.getSurveyid()+")");
                     xmpp.send();
                 }
 

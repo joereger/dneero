@@ -78,7 +78,7 @@ if (customercarePanelsAddpeople.getPanelid()<=0){
 
 <%if (request.getParameter("showonly")==null || (request.getParameter("showonly")!=null && request.getParameter("showonly").equals("addbysurvey"))){%>
 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-    <font class="mediumfont">Add By Conversation Participants</font>
+    <font class="mediumfont">Add By <%=Pagez._Survey()%> Participants</font>
     <br/>
     <form action="/customercare/panels-addpeopleconfirm.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/customercare/panels-addpeopleconfirm.jsp">
@@ -98,9 +98,9 @@ if (customercarePanelsAddpeople.getPanelid()<=0){
             </tr>
             <tr>
                 <td valign="top">
-                    <font class="formfieldnamefont">Conversation to Add From</font>
+                    <font class="formfieldnamefont"><%=Pagez._Survey()%> to Add From</font>
                     <br/>
-                    <font class="smallfont">The conversation you'd like to pull respondents from.</font>
+                    <font class="smallfont">The <%=Pagez._survey()%> you'd like to pull respondents from.</font>
                 </td>
                 <td valign="top">
                     <%=Dropdown.getHtml("surveyid", String.valueOf(customercarePanelsAddpeople.getSurveyid()), customercarePanelsAddpeople.getSurveys(), "", "")%>

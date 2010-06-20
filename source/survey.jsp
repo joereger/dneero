@@ -1,13 +1,10 @@
-<%@ page import="com.dneero.dao.*" %>
-<%@ page import="com.dneero.dao.hibernate.HibernateUtil" %>
-<%@ page import="com.dneero.dao.hibernate.NumFromUniqueResult" %>
+<%@ page import="com.dneero.dao.Pl" %>
+<%@ page import="com.dneero.dao.Researcher" %>
+<%@ page import="com.dneero.dao.Survey" %>
+<%@ page import="com.dneero.dao.User" %>
 <%@ page import="com.dneero.display.SurveyResponseParser" %>
-<%@ page import="com.dneero.display.components.def.Component" %>
-<%@ page import="com.dneero.rank.RankForSurveyThread" %>
-<%@ page import="org.hibernate.criterion.Order" %>
-<%@ page import="org.hibernate.criterion.Restrictions" %>
-<%@ page import="com.dneero.helpers.NicknameHelper" %>
 <%@ page import="com.dneero.privatelabel.PlPeers" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%
 if (request.getParameter("show")!=null && request.getParameter("show").equals("results")){
     //redirect to results
@@ -87,7 +84,7 @@ String acl = "public";
     <%if (!publicSurvey.getQualifiesforsurvey() && publicSurvey.getSurvey().getStatus()!=Survey.STATUS_CLOSED){%>
         <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                <font class="mediumfont">Sorry, you're not qualified to join this conversation.  Your qualification is determined by your Profile.  People determine their intended audience when they create a conversation.</font>
+                <font class="mediumfont">Sorry, you're not qualified to join this <%=Pagez._survey()%>.  Your qualification is determined by your Profile.  People determine their intended audience when they create a <%=Pagez._survey()%>.</font>
             </div>
             <br/>
         <%}%>
@@ -95,7 +92,7 @@ String acl = "public";
 
     <%if (publicSurvey.getBloggerhastakentoomanysurveysalreadytoday() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-            <font class="mediumfont">Sorry, you've already taken the maximum number of conversations today.  Wait until tomorrow (as defined by U.S. EST) and try again.</font>
+            <font class="mediumfont">Sorry, you've already taken the maximum number of <%=Pagez._surveys()%> today.  Wait until tomorrow (as defined by U.S. EST) and try again.</font>
         </div>
         <br/>
     <%}%>
@@ -136,7 +133,7 @@ String acl = "public";
                         <%if((publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getIsuserwhotooksurveysameasloggedinuser()) || !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                             <%if (Pagez.getUserSession().getIsfacebookui() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                                 <div class="rounded" style="background: #ffffff; text-align: center;">
-                                    <font class="mediumfont" style="font-weight: bold; color: #666666;">Join this conversation to earn</font>
+                                    <font class="mediumfont" style="font-weight: bold; color: #666666;">Join this <%=Pagez._survey()%> to earn</font>
                                     <br/>
                                     <font class="largefont" style="font-size: 20px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
                                     <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
@@ -167,7 +164,7 @@ String acl = "public";
                                 <div style="float:right;"><font class="smallfont" style="font-weight: bold; color: #666666;">All answers are public.</font></div>
                                 <br clear="all"/>
                                 <%--<%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>--%>
-                                    <%--<font class="mediumfont" style="font-weight: bold; color: #666666;">Enter the Conversation</font>--%>
+                                    <%--<font class="mediumfont" style="font-weight: bold; color: #666666;">Enter the <%=Pagez._Survey()%></font>--%>
                                 <%--<%}else{%>--%>
                                     <%--<font class="mediumfont" style="font-weight: bold; color: #666666;">Edit your Answers</font>--%>
                                 <%--<%}%>--%>
@@ -253,7 +250,7 @@ String acl = "public";
                             <%}%>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                    <font class="formfieldnamefont">What do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this conversation (unrelated/vulgar questions will be rejected). People who join the conversation after reading your answers will have to answer the question you ask.</font><br/>
+                                    <font class="formfieldnamefont">What do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this <%=Pagez._survey()%> (unrelated/vulgar questions will be rejected). People who join after reading your answers will have to answer the question you ask.</font><br/>
                                     <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="250"/>
                                     <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 
@@ -339,7 +336,7 @@ String acl = "public";
                                                         <font class="formfieldnamefont">Don't Pay Me. Give My Earnings to this Charity:</font>
                                                     <% } %>
                                                     <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
-                                                        <font class="formfieldnamefont">Earnings From This Conversation Must be Given to Charity:</font>
+                                                        <font class="formfieldnamefont">Earnings From This <%=Pagez._Survey()%> Must be Given to Charity:</font>
                                                     <% } %>
                                                     <br/>
                                                     <select name="<%=publicSurvey.getDNEERO_REQUEST_PARAM_IDENTIFIER()%>charity-charityname">
@@ -357,7 +354,7 @@ String acl = "public";
                                                     </select>
                                                     <br/>
                                                     <font class="tinyfont">
-                                                        If you check the box we'll donate all of your earnings for this conversation to the charity of your choice.
+                                                        If you check the box we'll donate all of your earnings for this <%=Pagez._survey()%> to the charity of your choice.
                                                     </font>
                                                 </td>
                                                 <td valign="top" align="left">
@@ -386,7 +383,7 @@ String acl = "public";
                             <br/>
                             <center>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
-                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Enter the Conversation">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Enter the <%=Pagez._Survey()%>">
                                 <%}else{%>
                                     <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Edit Your Answers">
                                 <%}%>
@@ -395,9 +392,9 @@ String acl = "public";
                         <% } %>
                     <% } %>
                     <% if (publicSurvey.getSurvey().getStatus()!=Survey.STATUS_OPEN && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                        <font class="mediumfont">This conversation is no longer open for respondents.  However, we still have many other conversations!  Click the Results tab to see how people answered!</font>
+                        <font class="mediumfont">This <%=Pagez._survey()%> is no longer open for respondents.  However, we still have many others!  Click the Results tab to see how people answered!</font>
                         <br/><br/>
-                        <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Another Conversation</font></a>
+                        <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Another <%=Pagez._Survey()%></font></a>
                     <% } %>
                     <%--<br/><br/><br/><br/>--%>
                     <%--<font class="smallfont"><%=publicSurvey.getSocialbookmarklinks()%></font>--%>
@@ -407,7 +404,7 @@ String acl = "public";
                             <%if (publicSurvey.getUserwhotooksurvey()!=null && publicSurvey.getUserwhotooksurvey().getUserid()>0 && publicSurvey.getSurveytakergavetocharity()){%>
                                 <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                                     <center>
-                                        <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getNickname()%> had us donate all earnings from this conversation to <%=publicSurvey.getCharityname()%>.</font>
+                                        <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getNickname()%> had us donate all earnings from this <%=Pagez._survey()%> to <%=publicSurvey.getCharityname()%>.</font>
                                     </center>
                                 </div>
                             <%}%>
@@ -424,7 +421,7 @@ String acl = "public";
                                 <br/><br/>
                             <%}%>
                             <% if (publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                                <font class="mediumfont" style="color: #cccccc;">You've Joined this Conversation:</font><br/>
+                                <font class="mediumfont" style="color: #cccccc;">You've Joined this <%=Pagez._Survey()%>:</font><br/>
                                 <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
                                 <br/><br/>
                             <%}%>
@@ -437,27 +434,27 @@ String acl = "public";
                                     <div class="rounded" style="background: #f6f6f6; text-align: center;">
                                         <center><img src="/images/stop-alt-48.png" width="48" height="48"/></center>
                                         <br/>
-                                        <font class="mediumfont">This conversation is closed.</font>
+                                        <font class="mediumfont">This <%=Pagez._survey()%> is closed.</font>
                                     </div>
                                     <br/>
                                 <% } %>
                                 <%if (publicSurvey.getSurvey().getIsaccesscodeonly() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                                     <div class="rounded" style="background: #f6f6f6; text-align: left;">
                                         <img src="/images/lock-48.png" alt="" width="48" height="48" align="right"/>
-                                        <font class="mediumfont" style="color: #666666;">This conversation requires an Access Code</font>
+                                        <font class="mediumfont" style="color: #666666;">This <%=Pagez._survey()%> requires an Access Code</font>
                                         <br/>
                                         <font class="formfieldnamefont" style="color: #666666;">Access Code: </font><%=Textbox.getHtml("accesscode", Pagez.getUserSession().getAccesscode(), 255, 10, "", "")%>
                                         <br/>
-                                        <font class="tinyfont" style="color: #666666;">Access Codes are used by marketers to limit the pool of respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this conversation isn't for you.</font>
+                                        <font class="tinyfont" style="color: #666666;">Access Codes are used by marketers to limit the pool of respondents in some way.  Sometimes Access Codes are handed out at an event.  Or at a point of sale.  Or sent out to a select group via email.  Generally speaking, if you don't have the Access Code, this <%=Pagez._survey()%> isn't for you.</font>
                                     </div>
                                     <br/>
                                 <%}%>
                                 <% if (publicSurvey.getSurvey().getIscharityonly()){ %>
                                     <div class="rounded" style="background: #f6f6f6; text-align: left;">
                                         <img src="/images/charity-32.png" alt="For Charity" width="32" height="32" align="right"/>
-                                        <font class="formfieldnamefont" style="color: #666666;">This is a Charity Only conversation.</font>
+                                        <font class="formfieldnamefont" style="color: #666666;">This is a Charity Only <%=Pagez._Survey()%>.</font>
                                         <br/>
-                                        <font class="tinyfont" style="color: #666666;">The conversation creator has decided that all earnings from this conversation must be given to charity.</font>
+                                        <font class="tinyfont" style="color: #666666;">The <%=Pagez._survey()%> creator has decided that all earnings from this <%=Pagez._survey()%> must be given to charity.</font>
                                     </div>
                                     <br/>
                                 <% } %>
@@ -466,17 +463,17 @@ String acl = "public";
                                     <%--<div class="rounded" style="background: #e6e6e6; text-align: center;">--%>
                                         <%--<img src="/images/charity-128.png" alt="For Charity" width="128" height="128"/>--%>
                                         <%--<br/>--%>
-                                        <%--<font class="mediumfont">This is a Charity Only conversation</font>--%>
+                                        <%--<font class="mediumfont">This is a Charity Only <%=Pagez._Survey()%></font>--%>
                                         <%--<br/>--%>
-                                        <%--<font class="tinyfont">The conversation creator requires that we donate all of your earnings from the conversation to a charity of your choice.  It's a chance to do some good!</font>--%>
+                                        <%--<font class="tinyfont">The <%=Pagez._survey()%> creator requires that we donate all of your earnings from the <%=Pagez._survey()%> to a charity of your choice.  It's a chance to do some good!</font>--%>
                                     <%--</div>--%>
                                 <%--<% } %>--%>
                                 <% if (publicSurvey.getSurvey().getIsfree()){ %>
                                     <div class="rounded" style="background: #f6f6f6; text-align: left;">
-                                        <img src="/images/free-32.png" alt="Free Conversation" width="32" height="32" align="right"/>
-                                        <font class="formfieldnamefont" style="color: #666666;">This is a Free conversation.</font>
+                                        <img src="/images/free-32.png" alt="Free <%=Pagez._Survey()%>" width="32" height="32" align="right"/>
+                                        <font class="formfieldnamefont" style="color: #666666;">This is a Free <%=Pagez._survey()%>.</font>
                                         <br/>
-                                        <font class="tinyfont" style="color: #666666;">The conversation creator has decided that there is no coupon, cash, charity or other incentive to participate.</font>
+                                        <font class="tinyfont" style="color: #666666;">The <%=Pagez._survey()%> creator has decided that there is no coupon, cash, charity or other incentive to participate.</font>
                                     </div>
                                     <br/>
                                 <% } %>
@@ -510,7 +507,7 @@ String acl = "public";
                                 <% } %>
                                 <% if (!publicSurvey.getSurvey().getIsfree() && !publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()<=Survey.STATUS_OPEN){ %>
                                     <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: center;">
-                                        <font class="mediumfont">Enter this conversation and earn</font>
+                                        <font class="mediumfont">Enter this <%=Pagez._survey()%> and earn</font>
                                         <br/>
                                         <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
                                         <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
@@ -520,12 +517,12 @@ String acl = "public";
                                             <br/><font class="smallfont" style="font-weight: bold; color: #666666;">You'll also earn up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on your blog traffic.</font>
                                         <% } %>
                                         <br/><br/>
-                                        <font class="smallfont">(just answer the questions to the left and click Join the Conversation... easy!)</font>
+                                        <font class="smallfont">(just answer the questions to the left and click Join the <%=Pagez._Survey()%>... easy!)</font>
                                     </div>
                                 <% } %>
                                 <% if (!publicSurvey.getSurvey().getIsfree() && !publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()>=Survey.STATUS_CLOSED){ %>
                                     <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: center;">
-                                        <font class="mediumfont">People who joined this conversation earned</font>
+                                        <font class="mediumfont">People who joined this <%=Pagez._survey()%> earned</font>
                                         <br/>
                                         <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
                                         <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
@@ -577,12 +574,12 @@ String acl = "public";
                                         <% if (!publicSurvey.getSurvey().getIsfree()){ %>
                                         <tr>
                                             <td valign="top">
-                                                <font class="formfieldnamefont">Possible Pay for Conversation Response</font>
+                                                <font class="formfieldnamefont">Possible Earnings for <%=Pagez._Survey()%> Response</font>
                                             </td>
                                             <td valign="top">
                                                 <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getWillingtopayforresponse()%></font>
                                                 <br/>
-                                                <font class="tinyfont">Assuming you post your conversation and it qualifies.</font>
+                                                <font class="tinyfont">Assuming you post your <%=Pagez._survey()%> and it qualifies.</font>
                                             </td>
                                         </tr>
                                         <%} %>
@@ -682,25 +679,25 @@ String acl = "public";
                                     <br/><br/>
                                     <font class="smallfont">
                                     <br/><br/><b>Get paid to share your opinion.</b><br/>
-                                    We pay people to fill out conversations and post their answers to their peers.
+                                    We pay people to fill out <%=Pagez._surveys()%> and post their answers to their peers.
 
                                     <br/><br/><b>Your answers appear on your blog</b><br/>
                                     However you answer, your friends will see it.  Express yourself!
 
                                     <br/><br/><b>You need to register and qualify to get paid</b><br/>
-                                    Once you answer the questions you'll need to register and fill out a short profile that asks some basic demographic questions.  If you qualify for this conversation then you'll get paid.
+                                    Once you answer the questions you'll need to register and fill out a short profile that asks some basic demographic questions.  If you qualify for this <%=Pagez._survey()%> then you'll get paid.
 
                                     <br/><br/><b>You need to be honest</b><br/>
                                     We aren't paying you for any particular opinion.  We're paying you for your time and for the exposure on your blog.  If you don't like a product or service you need to be honest about that fact.
 
-                                    <br/><br/><b>Stimulate conversation</b><br/>
+                                    <br/><br/><b>Stimulate <%=Pagez._survey()%></b><br/>
                                     Engage companies who are actively seeking your feedback on products and services.  At the same time, engage your blog readers in discussion of the same product.
 
                                     <br/><br/><b>No gimmicks.</b><br/>
                                     This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
 
-                                    <br/><br/><b>If you don't like this conversation</b><br/>
-                                    We have plenty more <a href="/publicsurveylist.jsp">conversations</a> for you to choose from.  And all of them pay!
+                                    <br/><br/><b>If you don't like this <%=Pagez._survey()%></b><br/>
+                                    We have plenty more <a href="/publicsurveylist.jsp"><%=Pagez._surveys()%></a> for you to choose from.
 
                                     <br/><br/>
                                <% } %>

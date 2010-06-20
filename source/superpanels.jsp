@@ -1,14 +1,7 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.dneero.htmlui.Pagez" %>
-<%@ page import="com.dneero.htmluibeans.BloggerCompletedsurveys" %>
-<%@ page import="com.dneero.htmluibeans.BloggerCompletedsurveysListitem" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="com.dneero.util.Num" %>
-<%@ page import="com.dneero.dao.Response" %>
-<%@ page import="com.dneero.dbgrid.GridCol" %>
-<%@ page import="com.dneero.dbgrid.Grid" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.helpers.IsBloggerInPanel" %>
+<%@ page import="com.dneero.htmlui.Pagez" %>
+<%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%@ page import="java.util.Iterator" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "SuperPanels";
@@ -72,7 +65,7 @@ String acl = "public";
                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
                     <font class="mediumfont" style="color: #cccccc;">What are SuperPanels?</font>
                     <br/>
-                    <font class="normalfont" style="font-weight: bold;">SuperPanels are groups of social people who focus on specific things.  These bloggers are the best of the best... the shining stars of social media who generate thoughtful conversation.  Marketers who work with SuperPanels opt for quality over quantity.  They want to make sure they're reaching high quality social media participants who invest time in their content and provide value every time.</font>
+                    <font class="normalfont" style="font-weight: bold;">SuperPanels are groups of social people who focus on specific things.  These bloggers are the best of the best... the shining stars of social media who generate thoughtful <%=Pagez._surveys()%>.  Marketers who work with SuperPanels opt for quality over quantity.  They want to make sure they're reaching high quality social media participants who invest time in their content and provide value every time.</font>
                 </div>
                 <br/>
                 <font class="smallfont">
@@ -90,7 +83,7 @@ String acl = "public";
                 <br/><br/>
 
                 <b>What are the benefits?</b>
-                <br/>Access to exclusive, targeted conversations.  Researchers who want to focus their efforts.  More earnings.  Increased Social Influence Rating.
+                <br/>Access to exclusive, targeted <%=Pagez._surveys()%>.  Researchers who want to focus their efforts.  More earnings.  Increased Social Influence Rating.
                 <br/><br/>
 
                 </font>

@@ -22,7 +22,7 @@ String acl = "public";
             <font class="mediumfont" style="color: #999999">The Hard-to-Reach Young Technology-Savvy Demographic</font>
             <br/>
             <img src="/images/demographics-by-age.jpg" alt="" align="right" width="200">
-            In today's hyper-connected world you'd think the youth market would be simple to reach.  But they're not.  While they are the early adopters of technological channels of communication, they also actively avoid one-way advertising and focus on personal recommendations and two-way engagements.  Our users are mostly within this youth demographic and seek empowering two-way relationships with the companies they join conversations from.
+            In today's hyper-connected world you'd think the youth market would be simple to reach.  But they're not.  While they are the early adopters of technological channels of communication, they also actively avoid one-way advertising and focus on personal recommendations and two-way engagements.  Our users are mostly within this youth demographic and seek empowering two-way relationships with the companies they join <%=Pagez._surveys()%> from.
             <br clear="all"/><br/><br/>
             <font class="mediumfont" style="color: #999999">The Educated Masses: Over 70% are In College or Graduated</font>
             <br/>

@@ -53,10 +53,10 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/publicsurveylist.jsp"><font class="mediumfont">Find Conversations<br/>to Enter</font></a>
+                                <a href="/publicsurveylist.jsp"><font class="mediumfont">Find <%=Pagez._Surveys()%><br/>to Enter</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Join conversations and share your answers with your social network.</font>
+                                <font class="smallfont">Join <%=Pagez._surveys()%> and share your answers with your social network.</font>
                             </td></tr></table>
                         </div>
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
@@ -66,7 +66,7 @@ String acl = "public";
                                 <a href="/blogger/bloggerearningsrevshare.jsp"><font class="mediumfont">Invite Friends</font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
-                                <font class="smallfont">Invite friends to join conversations!</font>
+                                <font class="smallfont">Invite friends to join <%=Pagez._surveys()%>!</font>
                             </td></tr></table>
                             <%}%>
 
@@ -76,7 +76,7 @@ String acl = "public";
                 </td>
                 <td valign="top">
                     
-                    <font class="largefont hdr">Conversations You've Joined</font>
+                    <font class="largefont hdr"><%=Pagez._Surveys()%> You've Joined</font>
 
                     <%
                             StringBuffer template = new StringBuffer();
@@ -100,7 +100,7 @@ String acl = "public";
 
 
                         <%if (bloggerCompletedsurveys.getList()==null || bloggerCompletedsurveys.getList().size()==0){%>
-                            <br/><font class="normalfont">You haven't yet entered any conversations... <a href="/publicsurveylist.jsp">find some!</a></font>
+                            <br/><font class="normalfont">You haven't yet entered any <%=Pagez._surveys()%>... <a href="/publicsurveylist.jsp">find some!</a></font>
                         <%} else {%>
                             <%
                                 ArrayList<GridCol> cols = new ArrayList<GridCol>();
