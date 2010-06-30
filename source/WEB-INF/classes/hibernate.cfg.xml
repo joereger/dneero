@@ -15,6 +15,7 @@
         <mapping resource="com/dneero/dao/Coupon.hbm.xml" />
         <mapping resource="com/dneero/dao/Couponredemption.hbm.xml" />
         <mapping resource="com/dneero/dao/Creditcard.hbm.xml" />
+        <mapping resource="com/dneero/dao/Demographic.hbm.xml" />
         <mapping resource="com/dneero/dao/Emailinvitebatch.hbm.xml" />
         <mapping resource="com/dneero/dao/Emailinvitebatchaddress.hbm.xml" />
         <mapping resource="com/dneero/dao/Error.hbm.xml" />

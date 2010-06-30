@@ -5,6 +5,7 @@
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.dneero.finders.CreateDefaultDemographics" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Private Label";
@@ -92,7 +93,13 @@ String acl = "sysadmin";
                 pl.setSurveycalledplural(Textbox.getValueFromRequest("surveycalledplural", "Survey Called Plural", false, DatatypeString.DATATYPEID));
                 //Validate data
                 if (PlVerification.isValid(pl)){
+                    //Save
                     pl.save();
+                    //If was new, create default demographic fields
+                    if (request.getParameter("plid")==null || !Num.isinteger(request.getParameter("plid"))){
+                        CreateDefaultDemographics.create(pl);
+                    }
+                    //Flush and redirect
                     CacheFactory.getCacheProvider().flush(PlFinder.CACHEGROUP);
                     Pagez.getUserSession().setMessage("Saved!");
                     Pagez.sendRedirect("/sysadmin/privatelabels.jsp");
@@ -287,6 +294,16 @@ String acl = "sysadmin";
                     </td>
                     <td valign="top">
                         <%=Textbox.getHtml("customdomain3", pl.getCustomdomain3(), 255, 35, "", "")%>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">Demographic Fields</font>
+                        <br/>
+                        <font class="tinyfont">Add/edit/delete fields like Age, Gender, Income, etc.</font>
+                    </td>
+                    <td valign="top">
+                        <a href="/sysadmin/privatelabel_demographics.jsp?plid=<%=pl.getPlid()%>">Edit</a>
                     </td>
                 </tr>
                 <tr>
