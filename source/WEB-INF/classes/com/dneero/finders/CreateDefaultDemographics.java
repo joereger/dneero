@@ -4,10 +4,11 @@ import com.dneero.constants.*;
 import com.dneero.dao.Demographic;
 import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -72,13 +73,8 @@ public class CreateDefaultDemographics {
     private static String convertTreeSetToString(TreeSet<String> in){
         StringBuffer out = new StringBuffer();
         if (in!=null && in.size()>0){
-            for (Iterator<String> iterator = in.iterator(); iterator.hasNext();) {
-                String s = iterator.next();
-                out.append(s);
-                if (iterator.hasNext()){
-                    out.append("\n");
-                }
-            }
+            ArrayList arr = Util.treeSetToArrayList(in);
+            out.append(DemographicsUtil.convert(arr));
         }
         return out.toString();
     }

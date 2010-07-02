@@ -23,6 +23,9 @@ public class CreateEmptyBloggerProfile {
         Blogger blogger = new Blogger();
         blogger.setUserid(user.getUserid());
         blogger.setBirthdate(Time.xYearsAgoStart(Calendar.getInstance(), 25).getTime());
+        blogger.setBlogfocus("NA");
+        blogger.setDemographicsxml("");
+
         blogger.setEducationlevel("NA");
         blogger.setEthnicity("NA");
         blogger.setGender("NA");
@@ -32,8 +35,9 @@ public class CreateEmptyBloggerProfile {
         blogger.setCity("NA");
         blogger.setProfession("NA");
         blogger.setPolitics("NA");
-        blogger.setBlogfocus("NA");
         blogger.setCountry("NA");
+
+
 
         try{
             blogger.save();

@@ -228,6 +228,48 @@ public class Util {
     }
 
 
+    public static String[] convertToArray(TreeMap tmap){
+        String[] out = new String[0];
+        if (tmap!=null){
+            out = new String[tmap.size()];
+            Iterator keyValuePairs = tmap.entrySet().iterator();
+            for (int i = 0; i < tmap.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                Object key = mapentry.getKey();
+                String value = (String)mapentry.getValue();
+                out[i] = value;
+            }
+        }
+        return out;
+    }
 
+    public static String[] convertToArray(TreeSet<String> tmap){
+        String[] out = new String[0];
+        if (tmap!=null){
+            out = new String[tmap.size()];
+            int i = 0;
+            for (Iterator<String> iterator=tmap.iterator(); iterator.hasNext();) {
+                String s=iterator.next();
+                out[i] = s;
+                i = i + 1;
+            }
 
+        }
+        return out;
+    }
+
+    public static String[] convertToArray(LinkedHashMap tmap){
+        String[] out = new String[0];
+        if (tmap!=null){
+            out = new String[tmap.size()];
+            Iterator keyValuePairs = tmap.entrySet().iterator();
+            for (int i = 0; i < tmap.size(); i++){
+                Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+                Object key = mapentry.getKey();
+                String value = (String)mapentry.getValue();
+                out[i] = value;
+            }
+        }
+        return out;
+    }
 }

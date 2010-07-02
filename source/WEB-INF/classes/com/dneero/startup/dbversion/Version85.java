@@ -2,6 +2,7 @@ package com.dneero.startup.dbversion;
 
 import com.dneero.dao.Pl;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.db.Db;
 import com.dneero.db.DbConfig;
 import com.dneero.finders.CreateDefaultDemographics;
 import com.dneero.startup.UpgradeDatabaseOneVersion;
@@ -39,6 +40,14 @@ public class Version85 implements UpgradeDatabaseOneVersion {
                 CreateDefaultDemographics.create(pl);
             }
         }
+
+
+
+        //-----------------------------------
+        //-----------------------------------
+        int count1 = Db.RunSQLUpdate("UPDATE blogger SET demographicsxml=''", dbConfig);
+        //-----------------------------------
+        //-----------------------------------
 
 
         logger.debug("doPostHibernateUpgrade() finish");

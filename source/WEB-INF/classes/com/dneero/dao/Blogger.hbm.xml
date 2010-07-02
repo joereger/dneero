@@ -31,6 +31,11 @@
         <property name="birthdate" type="timestamp">
             <column name="birthdate" not-null="true" />
         </property>
+        <property name="demographicsxml" type="text">
+            <column name="demographicsxml" not-null="true" />
+        </property>
+
+
         <property name="gender" type="string">
             <column name="gender" not-null="true" />
         </property>

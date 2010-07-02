@@ -65,6 +65,7 @@ public class BloggerDetails implements Serializable {
         if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(userSession.getUser().getBloggerid());
             birthdate = blogger.getBirthdate();
+
             gender = String.valueOf(blogger.getGender());
             ethnicity = String.valueOf(blogger.getEthnicity());
             income = String.valueOf(blogger.getIncomerange());
@@ -76,6 +77,7 @@ public class BloggerDetails implements Serializable {
             politics = String.valueOf(blogger.getPolitics());
             blogfocus = blogger.getBlogfocus();
             country = blogger.getCountry();
+
             venueurl = "";
             venuefocus = "";
             venuecount = 0;

@@ -1,6 +1,6 @@
 package com.dneero.finders;
 
-import com.dneero.constants.Dneerousagemethods;
+import com.dneero.constants.*;
 import com.dneero.dao.*;
 import com.dneero.scheduledjobs.SystemStats;
 import com.dneero.sir.SocialInfluenceRatingPercentile;
@@ -25,7 +25,7 @@ import java.util.Iterator;
  * Abstraction of the XML workings of the survey criteria xml field
  *
  */
-public class SurveyCriteriaXML {
+public class SurveyCriteriaXMLOld {
 
     private int agemin = 13;
     private int agemax = 100;
@@ -33,20 +33,30 @@ public class SurveyCriteriaXML {
     private int dayssincelastsurvey = 0;
     private int totalsurveystakenatleast = 0;
     private int totalsurveystakenatmost = 100000;
+
+    private String[] gender;
+    private String[] ethnicity;
+    private String[] maritalstatus;
+    private String[] income;
+    private String[] educationlevel;
+    private String[] state;
+    private String[] city;
+    private String[] country;
+    private String[] profession;
+    private String[] blogfocus;
+    private String[] politics;
+
     private String[] dneerousagemethods;
     private String[] panelids;
     private String[] superpanelids;
-    private DemographicsXML demographicsXML;
-    private int plid;
 
     private Document doc;
 
     Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public SurveyCriteriaXML(String criteriaxml, Pl pl){
-        logger.debug("SurveyCriteriaXML instanciated");
+    public SurveyCriteriaXMLOld(String criteriaxml){
 
-        this.plid = pl.getPlid();
+        logger.debug("SurveyCriteriaXML instanciated");
 
         preSelectAll();
 
@@ -54,29 +64,11 @@ public class SurveyCriteriaXML {
             SAXBuilder builder = new SAXBuilder();
             try{
                 doc = builder.build(new java.io.ByteArrayInputStream(criteriaxml.getBytes()));
-
             } catch (Exception ex){
                 logger.error("",ex);
             }
         }
-
         nullDocCheck();
-
-        try{
-            Element demNode = doc.getRootElement().getChild("demographics");
-            if (demNode!=null){
-                Document demoDoc = new Document();
-                Element el = new Element("demographics");
-                el.addContent(demNode);
-                demoDoc.addContent(el);
-                String asStr = Util.jdomXmlDocAsString(demoDoc);
-                logger.debug("asStr="+asStr);
-                demographicsXML = new DemographicsXML(asStr, pl);
-            }
-        } catch (Exception ex){
-            logger.error("",ex);
-        }
-
         if (Num.isinteger(loadValueOfStringFromXML("agemin"))){
             agemin = Integer.parseInt(loadValueOfStringFromXML("agemin"));
         }
@@ -95,14 +87,41 @@ public class SurveyCriteriaXML {
         if (Num.isinteger(loadValueOfStringFromXML("totalsurveystakenatmost"))){
             totalsurveystakenatmost = Integer.parseInt(loadValueOfStringFromXML("totalsurveystakenatmost"));
         }
-        String[] tmpArray = null;
+        String[] tmpArray;
+
+
+        tmpArray = loadValueOfArrayFromXML("gender");
+        if (tmpArray!=null){ gender = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("ethnicity");
+        if (tmpArray!=null){ ethnicity = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("maritalstatus");
+        if (tmpArray!=null){ maritalstatus = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("income");
+        if (tmpArray!=null){ income = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("educationlevel");
+        if (tmpArray!=null){ educationlevel = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("state");
+        if (tmpArray!=null){ state = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("city");
+        if (tmpArray!=null){ city = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("country");
+        if (tmpArray!=null){ country = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("profession");
+        if (tmpArray!=null){ profession = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("blogfocus");
+        if (tmpArray!=null){ blogfocus = tmpArray; }
+        tmpArray = loadValueOfArrayFromXML("politics");
+
+
+
+        if (tmpArray!=null){ politics = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("dneerousagemethods");
         if (tmpArray!=null){ dneerousagemethods = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("panelids");
         if (tmpArray!=null){ panelids = tmpArray; }
         tmpArray = loadValueOfArrayFromXML("superpanelids");
         if (tmpArray!=null){ superpanelids = tmpArray; }
-        
+
     }
 
     //Determine whether a particular user qualifies for this criteria
@@ -120,12 +139,46 @@ public class SurveyCriteriaXML {
         }
         if (blogger!=null){
             boolean surveyfitsblogger = true;
-
-            //Demographic fields
-            if (!demographicsXML.isUserQualified(user)){
+            if (surveyfitsblogger && !Util.arrayContains(gender, blogger.getGender())){
                 surveyfitsblogger = false;
+                logger.debug("does not qualify because of gender.");
             }
-
+            if (surveyfitsblogger && !Util.arrayContains(ethnicity, blogger.getEthnicity())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of ethnicity.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(maritalstatus, blogger.getMaritalstatus())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of maritalstatus.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(income, blogger.getIncomerange())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of incomerange.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(educationlevel, blogger.getEducationlevel())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of educationlevel.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(state, blogger.getState())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of state.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(city, blogger.getCity())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of city.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(country, blogger.getCountry())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of country.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(profession, blogger.getProfession())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of profession.");
+            }
+            if (surveyfitsblogger && !Util.arrayContains(politics, blogger.getPolitics())){
+                surveyfitsblogger = false;
+                logger.debug("does not qualify because of politics.");
+            }
             //Panel
             if (surveyfitsblogger && panelids!=null && panelids.length>0 && Util.stringArrayContainsInteger(panelids)){
                 boolean isuserinpanel = false;
@@ -190,30 +243,30 @@ public class SurveyCriteriaXML {
                 }
             }
             //Venue focus
-//            if (surveyfitsblogger){
-//                //Only consider focus for non-facebook users
-//                if (user.getFacebookuserid()<=0){
-//                    //Only do this check if not all of the focuses are selected
-//                    if (!areAllBlogfocusesSelected()){
-//                        //@todo eventually will want to remove this if/then loop because enough people will have logged in and setup their venues
-//                        if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
-//                            boolean fulfillsfocusreqs = false;
-//                            for (Iterator<Venue> iterator1=blogger.getVenues().iterator(); iterator1.hasNext();) {
-//                                Venue venue=iterator1.next();
-//                                //Does at least one blog from this user fall within the
-//                                if (Util.arrayContains(getBlogfocus(), venue.getFocus())){
-//                                    fulfillsfocusreqs = true;
-//                                    break;
-//                                }
-//                            }
-//                            if (!fulfillsfocusreqs){
-//                                surveyfitsblogger = false;
-//                                logger.debug("does not qualify because of focus.");
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            if (surveyfitsblogger){
+                //Only consider focus for non-facebook users
+                if (user.getFacebookuserid()<=0){
+                    //Only do this check if not all of the focuses are selected
+                    if (!areAllBlogfocusesSelected()){
+                        //@todo eventually will want to remove this if/then loop because enough people will have logged in and setup their venues
+                        if (blogger.getVenues()!=null && blogger.getVenues().size()>0){
+                            boolean fulfillsfocusreqs = false;
+                            for (Iterator<Venue> iterator1=blogger.getVenues().iterator(); iterator1.hasNext();) {
+                                Venue venue=iterator1.next();
+                                //Does at least one blog from this user fall within the
+                                if (Util.arrayContains(getBlogfocus(), venue.getFocus())){
+                                    fulfillsfocusreqs = true;
+                                    break;
+                                }
+                            }
+                            if (!fulfillsfocusreqs){
+                                surveyfitsblogger = false;
+                                logger.debug("does not qualify because of focus.");
+                            }
+                        }
+                    }
+                }
+            }
             //This next stuff is very database-heavy
             boolean needtodoexpensiveresponsecalculations = false;
             if (dayssincelastsurvey>0){
@@ -270,12 +323,39 @@ public class SurveyCriteriaXML {
     }
 
     public boolean areAllBlogfocusesSelected(){
-        //return areAllOfSomethingSelected(Util.convertToArray(Blogfocuses.get()), blogfocus);
+        return areAllOfSomethingSelected(Util.convertToArray(Blogfocuses.get()), blogfocus);
+    }
+
+    private boolean areAllOfSomethingSelected(String[] allvalues, String[] selectedvalues){
+        if (selectedvalues==null && allvalues!=null){
+            return false;
+        }
+        if (selectedvalues==null && allvalues==null){
+            return true;
+        }
+        if (selectedvalues!=null && allvalues!=null){
+            for (int i=0; i<allvalues.length; i++) {
+                String allvalue=allvalues[i];
+                if (!Util.arrayContains(selectedvalues, allvalue)){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
-
     private void preSelectAll(){
+        gender = Util.convertToArray(Genders.get());
+        ethnicity = Util.convertToArray(Ethnicities.get());
+        maritalstatus = Util.convertToArray(Maritalstatuses.get());
+        income = Util.convertToArray(Incomes.get());
+        educationlevel = Util.convertToArray(Educationlevels.get());
+        state = Util.convertToArray(States.get());
+        city = Util.convertToArray(Cities.get());
+        country = Util.convertToArray(Countries.get());
+        profession = Util.convertToArray(Professions.get());
+        blogfocus = Util.convertToArray(Blogfocuses.get());
+        politics = Util.convertToArray(Politics.get());
         dneerousagemethods = Util.convertToArray(Dneerousagemethods.get());
     }
 
@@ -302,14 +382,20 @@ public class SurveyCriteriaXML {
         setValueOfSimpleStringNode("dayssincelastsurvey", String.valueOf(dayssincelastsurvey));
         setValueOfSimpleStringNode("totalsurveystakenatleast", String.valueOf(totalsurveystakenatleast));
         setValueOfSimpleStringNode("totalsurveystakenatmost", String.valueOf(totalsurveystakenatmost));
+        setValueOfArrayNode("gender", gender);
+        setValueOfArrayNode("ethnicity", ethnicity);
+        setValueOfArrayNode("maritalstatus", maritalstatus);
+        setValueOfArrayNode("income", income);
+        setValueOfArrayNode("educationlevel", educationlevel);
+        setValueOfArrayNode("state", state);
+        setValueOfArrayNode("city", city);
+        setValueOfArrayNode("country", country);
+        setValueOfArrayNode("profession", profession);
+        setValueOfArrayNode("blogfocus", blogfocus);
+        setValueOfArrayNode("politics", politics);
         setValueOfArrayNode("dneerousagemethods", dneerousagemethods);
         setValueOfArrayNode("panelids", panelids);
         setValueOfArrayNode("superpanelids", superpanelids);
-
-        Document demDoc = demographicsXML.getXMLDoc();
-        Element demogRootEl = demDoc.getRootElement();
-        doc.getRootElement().addContent(demogRootEl);
-
         return Util.jdomXmlDocAsString(doc);
     }
 
@@ -451,11 +537,179 @@ public class SurveyCriteriaXML {
         out.append("</td>");
         out.append("</tr>");
 
-
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Gender");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < gender.length; i++) {
+            out.append(gender[i]);
+            if (gender.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
 
         out.append("<tr>");
-        out.append("<td valign=\"top\" colspan=\"2\">");
-        out.append(demographicsXML.getAsHtml());
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Ethnicity");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < ethnicity.length; i++) {
+            out.append(ethnicity[i]);
+            if (ethnicity.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Marital Status");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < maritalstatus.length; i++) {
+            out.append(maritalstatus[i]);
+            if (maritalstatus.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Income");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < income.length; i++) {
+            out.append(income[i]);
+            if (income.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Education Level");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < educationlevel.length; i++) {
+            out.append(educationlevel[i]);
+            if (educationlevel.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("State");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < state.length; i++) {
+            out.append(state[i]);
+            if (state.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Nearest City");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < city.length; i++) {
+            out.append(city[i]);
+            if (city.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Country");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < country.length; i++) {
+            out.append(country[i]);
+            if (country.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Profession");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < profession.length; i++) {
+            out.append(profession[i]);
+            if (profession.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Focus");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < blogfocus.length; i++) {
+            out.append(blogfocus[i]);
+            if (blogfocus.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
+        out.append("</td>");
+        out.append("</tr>");
+
+        out.append("<tr>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"formfieldnamefont\">");
+        out.append("Politics");
+        out.append("</font>");
+        out.append("</td>");
+        out.append("<td valign=\"top\">");
+        out.append("<font class=\"smallfont\">");
+        for (int i = 0; i < politics.length; i++) {
+            out.append(politics[i]);
+            if (politics.length>(i+1)){out.append(", ");}
+        }
+        out.append("</font>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -498,14 +752,88 @@ public class SurveyCriteriaXML {
         this.agemax = agemax;
     }
 
-
-    public DemographicsXML getDemographicsXML() {
-        return demographicsXML;
+    public String[] getGender() {
+        return gender;
     }
 
-    public void setDemographicsXML(DemographicsXML demographicsXML) {
-        this.demographicsXML = demographicsXML;
+    public void setGender(String[] gender) {
+        this.gender = gender;
     }
+
+    public String[] getEthnicity() {
+        return ethnicity;
+    }
+
+    public void setEthnicity(String[] ethnicity) {
+        this.ethnicity = ethnicity;
+
+    }
+
+    public String[] getMaritalstatus() {
+        return maritalstatus;
+    }
+
+    public void setMaritalstatus(String[] maritalstatus) {
+        this.maritalstatus = maritalstatus;
+    }
+
+    public String[] getIncome() {
+        return income;
+    }
+
+    public void setIncome(String[] income) {
+        this.income = income;
+    }
+
+    public String[] getEducationlevel() {
+        return educationlevel;
+    }
+
+    public void setEducationlevel(String[] educationlevel) {
+        this.educationlevel = educationlevel;
+    }
+
+    public String[] getState() {
+        return state;
+    }
+
+    public void setState(String[] state) {
+        this.state = state;
+    }
+
+    public String[] getCity() {
+        return city;
+    }
+
+    public void setCity(String[] city) {
+        this.city = city;
+    }
+
+    public String[] getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String[] profession) {
+        this.profession = profession;
+    }
+
+    public String[] getBlogfocus() {
+        return blogfocus;
+    }
+
+    public void setBlogfocus(String[] blogfocus) {
+        this.blogfocus = blogfocus;
+    }
+
+    public String[] getPolitics() {
+        return politics;
+    }
+
+    public void setPolitics(String[] politics) {
+        this.politics = politics;
+    }
+
+
 
     public int getMinsocialinfluencepercentile() {
         return minsocialinfluencepercentile;
@@ -549,7 +877,13 @@ public class SurveyCriteriaXML {
         this.totalsurveystakenatmost = totalsurveystakenatmost;
     }
 
+    public String[] getCountry() {
+        return country;
+    }
 
+    public void setCountry(String[] country) {
+        this.country=country;
+    }
 
     public String[] getPanelids() {
         return panelids;

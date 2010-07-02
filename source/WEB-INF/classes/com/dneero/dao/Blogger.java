@@ -23,17 +23,20 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
      private int bloggerid;
      private int userid;
      private Date birthdate;
-     private String gender;
-     private String ethnicity;
-     private String maritalstatus;
-     private String incomerange;
-     private String educationlevel;
-     private String state;
-     private String city;
-     private String profession;
-     private String politics;
-     private String blogfocus;
-     private String country;
+     private String demographicsxml;
+
+     private String gender; //to be deleted
+     private String ethnicity; //to be deleted
+     private String maritalstatus; //to be deleted
+     private String incomerange; //to be deleted
+     private String educationlevel; //to be deleted
+     private String state; //to be deleted
+     private String city; //to be deleted
+     private String profession; //to be deleted
+     private String politics; //to be deleted
+     private String blogfocus; //to be deleted
+     private String country; //to be deleted
+
      private Set<Response> responses = new HashSet<Response>();
      private Set<Panelmembership> panelmemberships = new HashSet<Panelmembership>();
      private Set<Venue> venues = new HashSet<Venue>();
@@ -99,6 +102,17 @@ public class Blogger extends BasePersistentClass implements java.io.Serializable
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
+
+    public String getDemographicsxml() {
+        return demographicsxml;
+    }
+
+    public void setDemographicsxml(String demographicsxml) {
+        this.demographicsxml = demographicsxml;
+    }
+
+
+    
 
     public String getGender() {
         return gender;
