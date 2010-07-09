@@ -53,7 +53,10 @@ public class ResearcherPanelsAddpeopleconfirm implements Serializable {
             SurveyCriteriaXML scXML = null;
             if (respondentfilterid>0){
                 Respondentfilter filter = Respondentfilter.get(respondentfilterid);
-                scXML = new SurveyCriteriaXML(filter.getCriteriaxml());
+                Researcher researcher = Researcher.get(panel.getResearcherid());
+                User user = User.get(researcher.getUserid());
+                Pl pl = Pl.get(user.getPlid());
+                scXML = new SurveyCriteriaXML(filter.getCriteriaxml(), pl);
             }
             //Go get the responses
             responses = FindResponses.find(Survey.get(surveyid), scXML);

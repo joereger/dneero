@@ -2,7 +2,6 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.finders.FindResponses;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
@@ -120,7 +119,10 @@ public class CustomercarePanelsAddpeopleByRankconfirm implements Serializable {
                     user = User.get(userid);
                     if (respondentfilterid>0){
                         Respondentfilter filter = Respondentfilter.get(respondentfilterid);
-                        SurveyCriteriaXML scXML = new SurveyCriteriaXML(filter.getCriteriaxml());
+                        Researcher researcher = Researcher.get(panel.getResearcherid());
+                        User userResearcher = User.get(researcher.getUserid());
+                        Pl pl = Pl.get(userResearcher.getPlid());
+                        SurveyCriteriaXML scXML = new SurveyCriteriaXML(filter.getCriteriaxml(), pl);
                         if (!scXML.isUserQualified(user)){
                             shouldadd=false;
                         }

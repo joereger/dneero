@@ -79,7 +79,7 @@ public class FindSurveysForBlogger {
                 if (survey.getIsopentoanybody()){
                     this.surveys.add(survey);
                 } else {
-                    SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
+                    SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getSurveycriteriaxml(), Pl.get(survey.getPlid()));
                     if (scXml.isUserQualified(User.get(blogger.getUserid()))){
                         this.surveys.add(survey);
                     }

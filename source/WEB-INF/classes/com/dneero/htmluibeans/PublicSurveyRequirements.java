@@ -1,15 +1,13 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
-
-
-import com.dneero.util.Num;
+import com.dneero.dao.Pl;
+import com.dneero.dao.Survey;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.htmlui.Pagez;
+import com.dneero.util.Num;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-
-import org.apache.log4j.Logger;
 
 
 /**
@@ -59,7 +57,7 @@ public class PublicSurveyRequirements implements Serializable {
 
 
         //Criteria for survey
-        SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+        SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getSurveycriteriaxml(), Pl.get(survey.getPlid()));
         surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
 
 

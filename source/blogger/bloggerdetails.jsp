@@ -15,17 +15,18 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
+
+            List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                           .add(Restrictions.eq("plid", Pagez.getUserSession().getPl().getPlid()))
+                           .addOrder(Order.asc("ordernum"))
+                           .setCacheable(true)
+                           .list();
+            for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                Demographic demographic = demographicIterator.next();
+                bloggerDetails.getDemographicsXML().setValue(demographic.getDemographicid(), Dropdown.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), false));
+            }
+
             bloggerDetails.setBirthdate(DateTime.getValueFromRequest("birthdate", "Birth Date", true).getTime());
-            bloggerDetails.setCity(Dropdown.getValueFromRequest("city", "City", true));
-            bloggerDetails.setEducationlevel(Dropdown.getValueFromRequest("educationlevel", "Education Level", true));
-            bloggerDetails.setEthnicity(Dropdown.getValueFromRequest("ethnicity", "Ethnicity", true));
-            bloggerDetails.setGender(Dropdown.getValueFromRequest("gender", "Gender", true));
-            bloggerDetails.setIncome(Dropdown.getValueFromRequest("income", "Income", true));
-            bloggerDetails.setMaritalstatus(Dropdown.getValueFromRequest("maritalstatus", "Marital Status", true));
-            bloggerDetails.setPolitics(Dropdown.getValueFromRequest("politics", "Politics", true));
-            bloggerDetails.setProfession(Dropdown.getValueFromRequest("profession", "Profession", true));
-            bloggerDetails.setState(Dropdown.getValueFromRequest("state", "State", true));
-            bloggerDetails.setCountry(Dropdown.getValueFromRequest("country", "Country", true));
             bloggerDetails.setUserid(Pagez.getUserSession().getUser().getUserid());
             bloggerDetails.setVenueurl(Textbox.getValueFromRequest("venueurl", "Venue URL", false, DatatypeString.DATATYPEID));
             bloggerDetails.setVenuefocus(Dropdown.getValueFromRequest("venuefocus", "Venue Focus", false));
@@ -93,7 +94,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
         <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
             <font class="mediumfont">Quick One-time Configuration Required</font>
             <br/>
-            <font class="smallfont">We need to collect a few pieces of information about you. You won't have to do this again on future visits.</font>
+            <font class="smallfont">We need to collect a few pieces of information about you. You won't have to do this again on future visits.  This information will be kept private.</font>
         </div>
     <%}%>
 
@@ -106,6 +107,38 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
 
                     <table cellpadding="3" cellspacing="0" border="0">
 
+
+                        <%
+                            List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                                           .add(Restrictions.eq("plid", Pagez.getUserSession().getPl().getPlid()))
+                                           .addOrder(Order.asc("ordernum"))
+                                           .setCacheable(true)
+                                           .list();
+                            for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                                Demographic demographic = demographicIterator.next();
+                                %>
+
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont"><%=demographic.getName()%></font>
+                                        <%if (demographic.getDescription().length()>0){ %>
+                                            <br/><font class="tinyfont"><%=demographic.getDescription()%></font>
+                                        <%}%>
+                                    </td>
+                                    <td valign="top">
+                                        <%=Dropdown.getHtml("demographic_"+demographic.getDemographicid(),
+                                                            bloggerDetails.getDemographicsXML().getValue(demographic.getDemographicid()),
+                                                            Util.stringArrayToTreeMap(bloggerDetails.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid())),
+                                                            "",
+                                                            "")%>
+                                    </td>
+                                </tr>
+
+                                <%
+                            }
+                        %>
+
+
                         <tr>
                             <td valign="top">
                                 <font class="formfieldnamefont">Birthdate</font>
@@ -115,100 +148,6 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                             </td>
                         </tr>
 
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Gender</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("gender", bloggerDetails.getGender(), Util.treeSetToTreeMap(Genders.get()), "", "")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Ethnicity</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("ethnicity", bloggerDetails.getEthnicity(), Util.treeSetToTreeMap(Ethnicities.get()), "", "")%>
-                                <br/><font class="tinyfont">Or choose Not Specified.</font>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Marital Status</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("maritalstatus", bloggerDetails.getMaritalstatus(), Util.treeSetToTreeMap(Maritalstatuses.get()), "", "")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Income</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("income", bloggerDetails.getIncome(), Util.treeSetToTreeMap(Incomes.get()), "", "")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Education</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("educationlevel", bloggerDetails.getEducationlevel(), Util.treeSetToTreeMap(Educationlevels.get()), "", "")%>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Nearest City</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("city", bloggerDetails.getCity(), Util.treeSetToTreeMap(Cities.get()), "", "")%>
-                                <br/><font class="tinyfont">Make your best guess.  International users choose Non-US.</font>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">State</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("state", bloggerDetails.getState(), Util.treeSetToTreeMap(States.get()), "", "")%>
-                                <br/><font class="tinyfont">International users choose Non-US.</font>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Country</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("country", bloggerDetails.getCountry(), Util.treeSetToTreeMap(Countries.get()), "", "")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Profession</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("profession", bloggerDetails.getProfession(), Util.treeSetToTreeMap(Professions.get()), "", "")%>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Politics</font>
-                            </td>
-                            <td valign="top">
-                                <%=Dropdown.getHtml("politics", bloggerDetails.getPolitics(), Util.treeSetToTreeMap(Politics.get()), "", "")%>
-                            </td>
-                        </tr>
 
                         <%if (Pagez.getUserSession().getPl().getIsvenuerequired()){%>
                             <%if (!Pagez.getUserSession().getIsfacebookui()){%>

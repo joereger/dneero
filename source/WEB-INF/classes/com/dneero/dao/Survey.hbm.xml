@@ -51,6 +51,9 @@
         <property name="criteriaxml" type="text">
             <column name="criteriaxml"/>
         </property>
+        <property name="surveycriteriaxml" type="text">
+            <column name="surveycriteriaxml"/>
+        </property>
         <property name="numberofrespondentsrequested" type="int">
             <column name="numberofrespondentsrequested" not-null="true" />
         </property>

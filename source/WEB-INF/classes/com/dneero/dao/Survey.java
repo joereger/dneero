@@ -41,7 +41,8 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private int plid = 1;
      private String title;
      private String description;
-     private String criteriaxml;
+     private String criteriaxml; //@todo delete once in production
+     private String surveycriteriaxml;
      private int numberofrespondentsrequested  = 1000;
      private double willingtopaypercpm = 0;
      private int maxdisplaysperblog = 1000;
@@ -515,5 +516,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setIshighquality(boolean ishighquality) {
         this.ishighquality = ishighquality;
+    }
+
+    public String getSurveycriteriaxml() {
+        return surveycriteriaxml;
+    }
+
+    public void setSurveycriteriaxml(String surveycriteriaxml) {
+        this.surveycriteriaxml = surveycriteriaxml;
     }
 }

@@ -2,7 +2,6 @@ package com.dneero.htmluibeans;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.finders.FindResponses;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
@@ -11,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -57,7 +55,10 @@ public class CustomercarePanelsAddpeopleByPanelconfirm implements Serializable {
             SurveyCriteriaXML scXML = null;
             if (respondentfilterid>0){
                 Respondentfilter filter = Respondentfilter.get(respondentfilterid);
-                scXML = new SurveyCriteriaXML(filter.getCriteriaxml());
+                Researcher researcher = Researcher.get(panel.getResearcherid());
+                User user = User.get(researcher.getUserid());
+                Pl pl = Pl.get(user.getPlid());
+                scXML = new SurveyCriteriaXML(filter.getCriteriaxml(), pl);
             }
 
             numberofnewrespondents = 0;

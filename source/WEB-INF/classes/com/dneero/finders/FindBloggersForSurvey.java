@@ -9,7 +9,6 @@ import com.dneero.privatelabel.PlPeers;
 import com.dneero.util.Time;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
@@ -39,31 +38,31 @@ public class FindBloggersForSurvey {
         //Create the criteria
         Criteria crit = HibernateUtil.getSession().createCriteria(Blogger.class);
         //XML
-        SurveyCriteriaXML scXml = null;
+        SurveyCriteriaXML scXml = new SurveyCriteriaXML(survey.getSurveycriteriaxml(), Pl.get(survey.getPlid()));
         //If the survey isn't open to anybody
         if (!survey.getIsopentoanybody()){
-            //XML
-            scXml = new SurveyCriteriaXML(survey.getCriteriaxml());
-            //Gender
-            crit.add( Property.forName("gender").in( scXml.getGender() ) );
-            //Ethnicity
-            crit.add( Property.forName("ethnicity").in( scXml.getEthnicity() ) );
-            //Marital Status
-            crit.add( Property.forName("maritalstatus").in( scXml.getMaritalstatus() ) );
-            //Income Range
-            crit.add( Property.forName("incomerange").in( scXml.getIncome() ) );
-            //Education Level
-            crit.add( Property.forName("educationlevel").in( scXml.getEducationlevel() ) );
-            //State
-            crit.add( Property.forName("state").in( scXml.getState() ) );
-            //City
-            crit.add( Property.forName("city").in( scXml.getCity() ) );
-            //Country
-            crit.add( Property.forName("country").in( scXml.getCountry() ) );
-            //Profession
-            crit.add( Property.forName("profession").in( scXml.getProfession() ) );
-            //Politics
-            crit.add( Property.forName("politics").in( scXml.getPolitics() ) );
+//            //XML
+//            scXml = ;
+//            //Gender
+//            crit.add( Property.forName("gender").in( scXml.getGender() ) );
+//            //Ethnicity
+//            crit.add( Property.forName("ethnicity").in( scXml.getEthnicity() ) );
+//            //Marital Status
+//            crit.add( Property.forName("maritalstatus").in( scXml.getMaritalstatus() ) );
+//            //Income Range
+//            crit.add( Property.forName("incomerange").in( scXml.getIncome() ) );
+//            //Education Level
+//            crit.add( Property.forName("educationlevel").in( scXml.getEducationlevel() ) );
+//            //State
+//            crit.add( Property.forName("state").in( scXml.getState() ) );
+//            //City
+//            crit.add( Property.forName("city").in( scXml.getCity() ) );
+//            //Country
+//            crit.add( Property.forName("country").in( scXml.getCountry() ) );
+//            //Profession
+//            crit.add( Property.forName("profession").in( scXml.getProfession() ) );
+//            //Politics
+//            crit.add( Property.forName("politics").in( scXml.getPolitics() ) );
             //Birthdate
             crit.add(Restrictions.ge("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemax()).getTime() ));
             crit.add(Restrictions.le("birthdate", Time.subtractYear(Calendar.getInstance(), scXml.getAgemin()).getTime() ));

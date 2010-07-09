@@ -1,23 +1,22 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.dao.*;
+import com.dneero.display.SurveyTemplateProcessor;
+import com.dneero.finders.SurveyCriteriaXML;
+import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.ValidationException;
+import com.dneero.money.SurveyMoneyStatus;
+import com.dneero.survey.servlet.EmbedCacheFlusher;
+import com.dneero.survey.servlet.v1.SurveyFlashServlet;
+import com.dneero.ui.SurveyEnhancer;
+import com.dneero.util.DateDiff;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Time;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.*;
-
-
-import com.dneero.util.Time;
-import com.dneero.util.GeneralException;
-import com.dneero.util.DateDiff;
-import com.dneero.dao.*;
-import com.dneero.money.SurveyMoneyStatus;
-import com.dneero.ui.SurveyEnhancer;
-import com.dneero.finders.SurveyCriteriaXML;
-import com.dneero.survey.servlet.v1.SurveyFlashServlet;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
-import com.dneero.display.SurveyTemplateProcessor;
-import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.ValidationException;
+import java.util.Calendar;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -53,7 +52,7 @@ public class CustomercareSurveyDetail implements Serializable {
             sms = new SurveyMoneyStatus(survey);
             researcher = Researcher.get(survey.getResearcherid());
             user = User.get(researcher.getUserid());
-            SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+            SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getSurveycriteriaxml(), Pl.get(user.getPlid()));
             surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
             dayssinceclose = DateDiff.dateDiff("day", Calendar.getInstance(), Time.getCalFromDate(survey.getEnddate()));
         }

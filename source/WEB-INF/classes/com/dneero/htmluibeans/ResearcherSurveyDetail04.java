@@ -1,13 +1,14 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.dao.Panel;
+import com.dneero.dao.Pl;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.dao.hibernate.NumFromUniqueResult;
+import com.dneero.finders.DemographicsXML;
 import com.dneero.finders.SurveyCriteriaXML;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.util.GeneralException;
@@ -30,7 +31,8 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private String title;
     private Survey survey;
 
-    private String surveyCriteriaAsHtml;
+    private SurveyCriteriaXML surveyCriteriaXML;
+    private DemographicsXML demographicsXML;
 
     private int status;
     private int agemin = 13;
@@ -39,17 +41,6 @@ public class ResearcherSurveyDetail04 implements Serializable {
     private int dayssincelastsurvey = 0;
     private int totalsurveystakenatleast = 0;
     private int totalsurveystakenatmost = 100000;
-    private String[] gender;
-    private String[] ethnicity;
-    private String[] maritalstatus;
-    private String[] income;
-    private String[] educationlevel;
-    private String[] state;
-    private String[] city;
-    private String[] country;
-    private String[] profession;
-    private String[] blogfocus;
-    private String[] politics;
     private String[] dneerousagemethods;
     private String[] panels;
     private String panelsStr;
@@ -67,7 +58,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
     public void initBean(){
         Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.debug("loadSurvey called");
+        logger.debug("initBean called");
         if (Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
             Pagez.getUserSession().setCurrentSurveyid(Integer.parseInt(Pagez.getRequest().getParameter("surveyid")));
             survey = Survey.get((Integer.parseInt(Pagez.getRequest().getParameter("surveyid"))));
@@ -79,27 +70,15 @@ public class ResearcherSurveyDetail04 implements Serializable {
             accesscode = survey.getAccesscode();
             isopentoanybody = survey.getIsopentoanybody();
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
-                //Do it with XML
-                SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
-                surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
+                surveyCriteriaXML = new SurveyCriteriaXML(survey.getSurveycriteriaxml(), Pl.get(survey.getPlid()));
+                demographicsXML = surveyCriteriaXML.getDemographicsXML(); //This is set by the surveyCriteriaXML now... later it's set by the jsp
                 agemin = surveyCriteriaXML.getAgemin();
                 agemax = surveyCriteriaXML.getAgemax();
                 minsocialinfluencepercentile = surveyCriteriaXML.getMinsocialinfluencepercentile();
                 dayssincelastsurvey = surveyCriteriaXML.getDayssincelastsurvey();
                 totalsurveystakenatleast = surveyCriteriaXML.getTotalsurveystakenatleast();
                 totalsurveystakenatmost = surveyCriteriaXML.getTotalsurveystakenatmost();
-                gender = surveyCriteriaXML.getGender();
-                ethnicity = surveyCriteriaXML.getEthnicity();
-                maritalstatus = surveyCriteriaXML.getMaritalstatus();
-                income = surveyCriteriaXML.getIncome();
-                educationlevel = surveyCriteriaXML.getEducationlevel();
-                state = surveyCriteriaXML.getState();
-                city = surveyCriteriaXML.getCity();
-                country = surveyCriteriaXML.getCountry();
-                profession = surveyCriteriaXML.getProfession();
-                politics = surveyCriteriaXML.getPolitics();
                 dneerousagemethods = surveyCriteriaXML.getDneerousagemethods();
-                blogfocus = surveyCriteriaXML.getBlogfocus();
                 panels = surveyCriteriaXML.getPanelids();
                 superpanels = surveyCriteriaXML.getSuperpanelids();
             }
@@ -115,8 +94,6 @@ public class ResearcherSurveyDetail04 implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("saveSurvey() called.");
         if (status<=Survey.STATUS_DRAFT){
-            UserSession userSession = Pagez.getUserSession();
-
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
 
                 //Coupon validation
@@ -132,30 +109,20 @@ public class ResearcherSurveyDetail04 implements Serializable {
 
                 //Do it with XML
                 if (true){
-                    SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getCriteriaxml());
+                    surveyCriteriaXML = new SurveyCriteriaXML(survey.getSurveycriteriaxml(), Pl.get(survey.getPlid()));
+                    surveyCriteriaXML.setDemographicsXML(demographicsXML); //The jsp calls demographicsXML directly to set up values
                     surveyCriteriaXML.setAgemin(agemin);
                     surveyCriteriaXML.setAgemax(agemax);
                     surveyCriteriaXML.setMinsocialinfluencepercentile(minsocialinfluencepercentile);
                     surveyCriteriaXML.setDayssincelastsurvey(dayssincelastsurvey);
                     surveyCriteriaXML.setTotalsurveystakenatleast(totalsurveystakenatleast);
                     surveyCriteriaXML.setTotalsurveystakenatmost(totalsurveystakenatmost);
-                    surveyCriteriaXML.setGender(gender);
-                    surveyCriteriaXML.setEthnicity(ethnicity);
-                    surveyCriteriaXML.setMaritalstatus(maritalstatus);
-                    surveyCriteriaXML.setIncome(income);
-                    surveyCriteriaXML.setEducationlevel(educationlevel);
-                    surveyCriteriaXML.setState(state);
-                    surveyCriteriaXML.setCity(city);
-                    surveyCriteriaXML.setCountry(country);
-                    surveyCriteriaXML.setProfession(profession);
-                    surveyCriteriaXML.setBlogfocus(blogfocus);
-                    surveyCriteriaXML.setPolitics(politics);
                     surveyCriteriaXML.setDneerousagemethods(dneerousagemethods);
                     surveyCriteriaXML.setPanelids(panels);
                     surveyCriteriaXML.setSuperpanelids(superpanels);
                     //Put into survey
                     survey.setCriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
-                    surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();
+                    survey.setSurveycriteriaxml(surveyCriteriaXML.getSurveyCriteriaAsString());
                 }
                //Final save
                 try{
@@ -201,6 +168,9 @@ public class ResearcherSurveyDetail04 implements Serializable {
         return out;
     }
 
+    public DemographicsXML getDemographicsXML() {
+        return demographicsXML;
+    }
 
 
     public int getAgemin() {
@@ -219,85 +189,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
         this.agemax = agemax;
     }
 
-    public String[] getGender() {
-        return gender;
-    }
 
-    public void setGender(String[] gender) {
-        this.gender = gender;
-    }
-
-    public String[] getEthnicity() {
-        return ethnicity;
-    }
-
-    public void setEthnicity(String[] ethnicity) {
-        this.ethnicity = ethnicity;
-    }
-
-    public String[] getMaritalstatus() {
-        return maritalstatus;
-    }
-
-    public void setMaritalstatus(String[] maritalstatus) {
-        this.maritalstatus = maritalstatus;
-    }
-
-    public String[] getIncome() {
-        return income;
-    }
-
-    public void setIncome(String[] income) {
-        this.income = income;
-    }
-
-    public String[] getEducationlevel() {
-        return educationlevel;
-    }
-
-    public void setEducationlevel(String[] educationlevel) {
-        this.educationlevel = educationlevel;
-    }
-
-    public String[] getState() {
-        return state;
-    }
-
-    public void setState(String[] state) {
-        this.state = state;
-    }
-
-    public String[] getCity() {
-        return city;
-    }
-
-    public void setCity(String[] city) {
-        this.city = city;
-    }
-
-    public String[] getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String[] profession) {
-        this.profession = profession;
-    }
-
-    public String[] getBlogfocus() {
-        return blogfocus;
-    }
-
-    public void setBlogfocus(String[] blogfocus) {
-        this.blogfocus = blogfocus;
-    }
-
-    public String[] getPolitics() {
-        return politics;
-    }
-
-    public void setPolitics(String[] politics) {
-        this.politics = politics;
-    }
 
     public int getStatus() {
         return status;
@@ -344,13 +236,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
     }
 
 
-    public String getSurveyCriteriaAsHtml() {
-        return surveyCriteriaAsHtml;
-    }
 
-    public void setSurveyCriteriaAsHtml(String surveyCriteriaAsHtml) {
-        this.surveyCriteriaAsHtml = surveyCriteriaAsHtml;
-    }
 
     public Survey getSurvey() {
         return survey;
@@ -408,13 +294,7 @@ public class ResearcherSurveyDetail04 implements Serializable {
         this.dneerousagemethods = dneerousagemethods;
     }
 
-    public String[] getCountry() {
-        return country;
-    }
 
-    public void setCountry(String[] country) {
-        this.country=country;
-    }
 
     public String[] getSuperpanels() {
         return superpanels;

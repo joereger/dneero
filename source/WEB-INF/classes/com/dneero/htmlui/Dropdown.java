@@ -1,12 +1,11 @@
 package com.dneero.htmlui;
 
-import com.dneero.util.Str;
 import com.dneero.util.Num;
+import com.dneero.util.Str;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.TreeMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -37,7 +36,7 @@ public class Dropdown {
             String key = (String)mapentry.getKey();
             String val = (String)mapentry.getValue();
             String selected = "";
-            if (key.equals(value)){
+            if (key.trim().equals(value.trim())){
                 selected = " selected";
             }
             out.append("<option value=\""+Str.cleanForHtml(key.trim())+"\" "+selected+">" + Str.truncateString(val.trim(), 30) + "</option>");

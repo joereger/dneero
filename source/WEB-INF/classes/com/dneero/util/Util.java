@@ -1,14 +1,12 @@
 package com.dneero.util;
 
 import org.apache.log4j.Logger;
-import org.jdom.output.XMLOutputter;
 import org.jdom.Document;
+import org.jdom.output.XMLOutputter;
 
 import javax.servlet.http.Cookie;
-import java.util.*;
 import java.io.ByteArrayOutputStream;
-
-import sun.reflect.Reflection;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -24,6 +22,7 @@ public class Util {
             out.add(o);
         }
         return out;
+
     }
 
 
@@ -189,6 +188,17 @@ public class Util {
             tm.put(o,o);
         }
         return tm;   
+    }
+
+    public static TreeMap<String, String> stringArrayToTreeMap(ArrayList<String> in){
+        TreeMap<String, String> tm = new TreeMap<String, String>();
+        if (in!=null){
+            for (Iterator it = in.iterator(); it.hasNext(); ) {
+                String s = (String)it.next();
+                tm.put(s, s);
+            }
+        }
+        return tm;
     }
 
     public static ArrayList treeSetToArrayList(TreeSet ts){

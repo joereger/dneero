@@ -37,26 +37,27 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
                     return;
                 }
             }
+
+            List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                           .add(Restrictions.eq("plid", Pagez.getUserSession().getPl().getPlid()))
+                           .addOrder(Order.asc("ordernum"))
+                           .setCacheable(true)
+                           .list();
+            for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                Demographic demographic = demographicIterator.next();
+                researcherTwitaskDetail04.getDemographicsXML().setValues(demographic.getDemographicid(), DropdownMultiselect.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), false));
+            }
+
+
             researcherTwitaskDetail04.setAgemin(Textbox.getIntFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID));
             researcherTwitaskDetail04.setAgemax(Textbox.getIntFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID));
-            researcherTwitaskDetail04.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
-            researcherTwitaskDetail04.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
-            researcherTwitaskDetail04.setCountry(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("countries", "Countries", false)));
-            researcherTwitaskDetail04.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
-            researcherTwitaskDetail04.setEthnicity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("ethnicity", "Ethnicity", false)));
-            researcherTwitaskDetail04.setGender(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("gender", "Genders", false)));
-            researcherTwitaskDetail04.setIncome(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("income", "Incomes", false)));
-            researcherTwitaskDetail04.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
             researcherTwitaskDetail04.setMinsocialinfluencepercentile(Dropdown.getIntFromRequest("minsocialinfluencepercentile", "Min Social Influence", false));
             researcherTwitaskDetail04.setDayssincelastsurvey(Textbox.getIntFromRequest("dayssincelastsurvey", "Days Since Last Survey", true, DatatypeInteger.DATATYPEID));
             researcherTwitaskDetail04.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total "+Pagez._Surveys()+" Joined of At Least", true, DatatypeInteger.DATATYPEID));
             researcherTwitaskDetail04.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total "+Pagez._Surveys()+" Joined of At Most", true, DatatypeInteger.DATATYPEID));
             researcherTwitaskDetail04.setPanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("panels", "Panels", false)));
             researcherTwitaskDetail04.setSuperpanels(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("superpanels", "SuperPanels", false)));
-            researcherTwitaskDetail04.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
             researcherTwitaskDetail04.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "Usage Methods", false)));
-            researcherTwitaskDetail04.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
-            researcherTwitaskDetail04.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
             researcherTwitaskDetail04.setIsopentoanybody(CheckboxBoolean.getValueFromRequest("isopentoanybody"));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
@@ -175,103 +176,44 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
                         <td valign="top">
                             <font class="formfieldnamefont">Age Range</font>
                         </td>
-                        <td valign="top">
+                        <td valign="top" colspan="3">
                             <%=Textbox.getHtml("agemin", String.valueOf(researcherTwitaskDetail04.getAgemin()), 5, 3, "", "")%>
                             -
                             <%=Textbox.getHtml("agemax", String.valueOf(researcherTwitaskDetail04.getAgemax()), 5, 3, "", "")%>
                         </td>
 
-                        <td valign="top">
-                            <font class="formfieldnamefont">Gender</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("gender", Util.stringArrayToArrayList(researcherTwitaskDetail04.getGender()), Util.treeSetToTreeMap(Genders.get()), 6, "", "")%>
-                        </td>
                     </tr>
 
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">Ethnicity</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("ethnicity", Util.stringArrayToArrayList(researcherTwitaskDetail04.getEthnicity()), Util.treeSetToTreeMap(Ethnicities.get()), 6, "", "")%>
-                        </td>
+                    <%
+                            List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                                           .add(Restrictions.eq("plid", Pagez.getUserSession().getPl().getPlid()))
+                                           .addOrder(Order.asc("ordernum"))
+                                           .setCacheable(true)
+                                           .list();
+                            for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                                Demographic demographic = demographicIterator.next();
+                                %>
 
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont"><%=demographic.getName()%></font>
+                                        <%if (demographic.getDescription().length()>0){ %>
+                                            <br/><font class="tinyfont"><%=demographic.getDescription()%></font>
+                                        <%}%>
+                                    </td>
+                                    <td valign="top" colspan="3">
+                                        <%=DropdownMultiselect.getHtml("demographic_"+demographic.getDemographicid(),
+                                                            researcherTwitaskDetail04.getDemographicsXML().getValues(demographic.getDemographicid()),
+                                                            Util.stringArrayToTreeMap(researcherTwitaskDetail04.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid())),
+                                                            5,
+                                                            "",
+                                                            "")%>
+                                    </td>
+                                </tr>
 
-                        <td valign="top">
-                            <font class="formfieldnamefont">Marital Status</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("maritalstatus", Util.stringArrayToArrayList(researcherTwitaskDetail04.getMaritalstatus()), Util.treeSetToTreeMap(Maritalstatuses.get()), 6, "", "")%>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">Income</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("income", Util.stringArrayToArrayList(researcherTwitaskDetail04.getIncome()), Util.treeSetToTreeMap(Incomes.get()), 6, "", "")%>
-                        </td>
-
-                        <td valign="top">
-                            <font class="formfieldnamefont">Education</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("educationlevel", Util.stringArrayToArrayList(researcherTwitaskDetail04.getEducationlevel()), Util.treeSetToTreeMap(Educationlevels.get()), 6, "", "")%>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">State</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("states", Util.stringArrayToArrayList(researcherTwitaskDetail04.getState()), Util.treeSetToTreeMap(States.get()), 6, "", "")%>
-                        </td>
-
-                        <td valign="top">
-                            <font class="formfieldnamefont">City</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("cities", Util.stringArrayToArrayList(researcherTwitaskDetail04.getCity()), Util.treeSetToTreeMap(Cities.get()), 6, "", "")%>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">Country</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("countries", Util.stringArrayToArrayList(researcherTwitaskDetail04.getCountry()), Util.treeSetToTreeMap(Countries.get()), 6, "", "")%>
-                        </td>
-
-                        <td valign="top">
-                            <font class="formfieldnamefont">Politics</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("politics", Util.stringArrayToArrayList(researcherTwitaskDetail04.getPolitics()), Util.treeSetToTreeMap(Politics.get()), 6, "", "")%>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td valign="top">
-                            <font class="formfieldnamefont">Profession</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("professions", Util.stringArrayToArrayList(researcherTwitaskDetail04.getProfession()), Util.treeSetToTreeMap(Professions.get()), 6, "", "")%>
-                        </td>
-
-
-                        <td valign="top">
-                            <font class="formfieldnamefont">Blog Focus</font>
-                        </td>
-                        <td valign="top">
-                            <%=DropdownMultiselect.getHtml("blogfocus", Util.stringArrayToArrayList(researcherTwitaskDetail04.getBlogfocus()), Util.treeSetToTreeMap(Blogfocuses.get()), 6, "", "")%>
-                        </td>
-                    </tr>
-
-
+                                <%
+                            }
+                    %>
 
 
                     <tr>

@@ -153,6 +153,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
             survey.setEmbedversion(embedversion);
             survey.setIsfree(isfree);
             survey.setIsopentoanybody(isopentoanybody);
+            logger.debug("isopentoanybody="+isopentoanybody);
 
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){

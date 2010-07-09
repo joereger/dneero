@@ -23,24 +23,25 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
     if (request.getParameter("action")!=null && (request.getParameter("action").equals("viewthroughfilter"))) {
         try {
 
+
+            List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                           .add(Restrictions.eq("plid", Pagez.getUserSession().getPl()))
+                           .addOrder(Order.asc("ordernum"))
+                           .setCacheable(true)
+                           .list();
+            for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                Demographic demographic = demographicIterator.next();
+                researcherResultsAnswersAdvanced.getDemographicsXML().setValues(demographic.getDemographicid(), DropdownMultiselect.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), false));
+            }
+
+
             researcherResultsAnswersAdvanced.setAgemin(Textbox.getIntFromRequest("agemin", "Age Min", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setAgemax(Textbox.getIntFromRequest("agemax", "Age Max", true, DatatypeInteger.DATATYPEID));
-            researcherResultsAnswersAdvanced.setBlogfocus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("blogfocus", "Blog Focus", false)));
-            researcherResultsAnswersAdvanced.setCity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("cities", "Cities", false)));
-            researcherResultsAnswersAdvanced.setCountry(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("countries", "Countries", false)));
-            researcherResultsAnswersAdvanced.setEducationlevel(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("educationlevel", "Education Levels", false)));
-            researcherResultsAnswersAdvanced.setEthnicity(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("ethnicity", "Ethnicity", false)));
-            researcherResultsAnswersAdvanced.setGender(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("gender", "Genders", false)));
-            researcherResultsAnswersAdvanced.setIncome(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("income", "Incomes", false)));
-            researcherResultsAnswersAdvanced.setMaritalstatus(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("maritalstatus", "Marital Statuses", false)));
             researcherResultsAnswersAdvanced.setMinsocialinfluencepercentile(Dropdown.getIntFromRequest("minsocialinfluencepercentile", "Min Social Influence", false));
             researcherResultsAnswersAdvanced.setDayssincelastsurvey(Textbox.getIntFromRequest("dayssincelastsurvey", "Days Since Last Participation", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setTotalsurveystakenatleast(Textbox.getIntFromRequest("totalsurveystakenatleast", "Total "+Pagez._Surveys()+" Joined of At Least", true, DatatypeInteger.DATATYPEID));
             researcherResultsAnswersAdvanced.setTotalsurveystakenatmost(Textbox.getIntFromRequest("totalsurveystakenatmost", "Total "+Pagez._Surveys()+" Joined of At Most", true, DatatypeInteger.DATATYPEID));
-            researcherResultsAnswersAdvanced.setPolitics(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("politics", "Politics", false)));
             researcherResultsAnswersAdvanced.setDneerousagemethods(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("dneerousagemethods", "Usage Methods", false)));
-            researcherResultsAnswersAdvanced.setProfession(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("professions", "Professions", false)));
-            researcherResultsAnswersAdvanced.setState(Util.arrayListToStringArray(DropdownMultiselect.getValueFromRequest("states", "States", false)));
             researcherResultsAnswersAdvanced.setFiltername(Textbox.getValueFromRequest("filtername", "Filter Name", false, DatatypeString.DATATYPEID));
 
             researcherResultsAnswersAdvanced.viewThroughFilter();
@@ -151,11 +152,6 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                                 <%=Dropdown.getHtml("minsocialinfluencepercentile", String.valueOf(researcherResultsAnswersAdvanced.getMinsocialinfluencepercentile()), StaticVariables.getPercentiles(), "", "")%>
                             </td>
 
-
-                            <td valign="top">
-                            </td>
-                            <td valign="top">
-                            </td>
                         </tr>
 
 
@@ -196,104 +192,46 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                                 -
                                 <%=Textbox.getHtml("agemax", String.valueOf(researcherResultsAnswersAdvanced.getAgemax()), 5, 3, "", "font-size: 8px;")%>
                             </td>
-
-                            <td valign="top">
-                                <font class="formfieldnamefont">Gender</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("gender", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getGender()), Util.treeSetToTreeMap(Genders.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Ethnicity</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("ethnicity", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getEthnicity()), Util.treeSetToTreeMap(Ethnicities.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-
-
-                            <td valign="top">
-                                <font class="formfieldnamefont">Marital Status</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("maritalstatus", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getMaritalstatus()), Util.treeSetToTreeMap(Maritalstatuses.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Income</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("income", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getIncome()), Util.treeSetToTreeMap(Incomes.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-
-                            <td valign="top">
-                                <font class="formfieldnamefont">Education</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("educationlevel", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getEducationlevel()), Util.treeSetToTreeMap(Educationlevels.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">State</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("states", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getState()), Util.treeSetToTreeMap(States.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-
-                            <td valign="top">
-                                <font class="formfieldnamefont">City</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("cities", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getCity()), Util.treeSetToTreeMap(Cities.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Country</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("countries", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getCountry()), Util.treeSetToTreeMap(Countries.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-
-                            <td valign="top">
-                                <font class="formfieldnamefont"></font>
-                            </td>
-                            <td valign="top">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Profession</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("professions", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getProfession()), Util.treeSetToTreeMap(Professions.get()), 6, "", "font-size: 8px;")%>
-                            </td>
-
-
-                            <td valign="top">
-                                <font class="formfieldnamefont">Blog Focus</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("blogfocus", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getBlogfocus()), Util.treeSetToTreeMap(Blogfocuses.get()), 6, "", "font-size: 8px;")%>
-                            </td>
                         </tr>
 
 
+
+                        <%
+                            List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                                           .add(Restrictions.eq("plid", Pagez.getUserSession().getPl()))
+                                           .addOrder(Order.asc("ordernum"))
+                                           .setCacheable(true)
+                                           .list();
+                            for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                                Demographic demographic = demographicIterator.next();
+                                %>
+
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont"><%=demographic.getName()%></font>
+                                        <%if (demographic.getDescription().length()>0){ %>
+                                            <br/><font class="tinyfont"><%=demographic.getDescription()%></font>
+                                        <%}%>
+                                    </td>
+                                    <td valign="top">
+                                        <%=DropdownMultiselect.getHtml("demographic_"+demographic.getDemographicid(),
+                                                            researcherResultsAnswersAdvanced.getDemographicsXML().getValues(demographic.getDemographicid()),
+                                                            Util.stringArrayToTreeMap(researcherResultsAnswersAdvanced.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid())),
+                                                            15,
+                                                            "",
+                                                            "")%>
+                                    </td>
+                                </tr>
+
+                                <%
+                            }
+                        %>
+
+
+
+
+
                         <tr>
-                            <td valign="top">
-                                <font class="formfieldnamefont">Politics</font>
-                            </td>
-                            <td valign="top">
-                                <%=DropdownMultiselect.getHtml("politics", Util.stringArrayToArrayList(researcherResultsAnswersAdvanced.getPolitics()), Util.treeSetToTreeMap(Politics.get()), 6, "", "font-size: 8px;")%>
-                            </td>
 
                             <td valign="top">
                                 <font class="formfieldnamefont">Usage Method</font>
@@ -309,7 +247,7 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
                             <td valign="top">
                                 <font class="formfieldnamefont">Name Your Filter to Save It (Optional)</font>
                             </td>
-                            <td valign="top" colspan="3">
+                            <td valign="top">
                                 <%=Textbox.getHtml("filtername", String.valueOf(researcherResultsAnswersAdvanced.getFiltername()), 50, 30, "", "")%>
                                 <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Show Results">
                             </td>

@@ -158,7 +158,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                 </td>
                                 <td valign="top">
                                     <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                        <%=CheckboxBoolean.getHtml("isopentoeverybody", !researcherSurveyDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate (recommendation: keep unchecked)
+                                        <%=CheckboxBoolean.getHtml("isopentoanybody", !researcherSurveyDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate (recommendation: keep unchecked)
                                     <%} else {%>
                                         <font class="normalfont"></font>
                                     <%}%>

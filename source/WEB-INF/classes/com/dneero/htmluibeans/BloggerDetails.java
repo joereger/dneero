@@ -3,11 +3,11 @@ package com.dneero.htmluibeans;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Userrole;
 import com.dneero.dao.Venue;
+import com.dneero.finders.DemographicsXML;
 import com.dneero.finders.UserProfileCompletenessChecker;
 import com.dneero.helpers.TwitanswerFinderAfterAccountInfoChange;
 import com.dneero.helpers.VenueUtils;
 import com.dneero.htmlui.Pagez;
-import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.util.GeneralException;
 import com.dneero.util.Time;
@@ -26,31 +26,13 @@ import java.util.Iterator;
  */
 public class BloggerDetails implements Serializable {
 
-    //Form props
+    private int userid;
     private Date birthdate;
-    private String gender;
-    private String ethnicity;
-    private String income;
-    private String maritalstatus;
-    private String educationlevel;
-    private String state;
-    private String city;
-    private String profession;
-    private String blogfocus;
-    private String politics;
-    private String country;
+    private DemographicsXML demographicsXML;
     private String venueurl;
     private String venuefocus;
     private int venuecount = 0;
-
     private boolean isnewblogger;
-
-
-
-
-    //Other props
-    private int userid;
-
 
 
     public BloggerDetails(){
@@ -59,25 +41,10 @@ public class BloggerDetails implements Serializable {
 
 
     public void initBean(){
-        UserSession userSession = Pagez.getUserSession();
-
-        //Pl requires bloggerdemographics
-        if (userSession.getUser()!=null && userSession.getUser().getBloggerid()>0){
-            Blogger blogger = Blogger.get(userSession.getUser().getBloggerid());
+        if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+            Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+            demographicsXML = new DemographicsXML(blogger.getDemographicsxml(), Pagez.getUserSession().getPl());
             birthdate = blogger.getBirthdate();
-
-            gender = String.valueOf(blogger.getGender());
-            ethnicity = String.valueOf(blogger.getEthnicity());
-            income = String.valueOf(blogger.getIncomerange());
-            maritalstatus = String.valueOf(blogger.getMaritalstatus());
-            educationlevel = String.valueOf(blogger.getEducationlevel());
-            state = String.valueOf(blogger.getState());
-            city = String.valueOf(blogger.getCity());
-            profession = String.valueOf(blogger.getProfession());
-            politics = String.valueOf(blogger.getPolitics());
-            blogfocus = blogger.getBlogfocus();
-            country = blogger.getCountry();
-
             venueurl = "";
             venuefocus = "";
             venuecount = 0;
@@ -90,10 +57,10 @@ public class BloggerDetails implements Serializable {
                 }
             }
         } else {
+            //WTF is this here?
             birthdate = new Date();
         }
     }
-
 
 
     public void saveAction() throws ValidationException {
@@ -159,18 +126,8 @@ public class BloggerDetails implements Serializable {
 
             blogger.setUserid(Pagez.getUserSession().getUser().getUserid());
             blogger.setBirthdate(birthdate);
-            blogger.setEducationlevel(educationlevel);
-            blogger.setEthnicity(ethnicity);
-            blogger.setGender(gender);
-            blogger.setIncomerange(income);
-            blogger.setMaritalstatus(maritalstatus);
-            blogger.setState(state);
-            blogger.setCity(city);
-            blogger.setProfession(profession);
-            blogger.setPolitics(politics);
-            blogger.setBlogfocus("");
-            blogger.setCountry(country);
-
+            //@todo Validation of Demographic input???
+            blogger.setDemographicsxml(demographicsXML.getAsString());
             try{
                 blogger.save();
             } catch (GeneralException gex){
@@ -290,86 +247,13 @@ public class BloggerDetails implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public String getGender() {
-        return gender;
+    public DemographicsXML getDemographicsXML() {
+        return demographicsXML;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setDemographicsXML(DemographicsXML demographicsXML) {
+        this.demographicsXML = demographicsXML;
     }
-
-    public String getEthnicity() {
-        return ethnicity;
-    }
-
-    public void setEthnicity(String ethnicity) {
-        this.ethnicity = ethnicity;
-    }
-
-    public String getMaritalstatus() {
-        return maritalstatus;
-    }
-
-    public void setMaritalstatus(String maritalstatus) {
-        this.maritalstatus = maritalstatus;
-    }
-
-    public String getEducationlevel() {
-        return educationlevel;
-    }
-
-    public void setEducationlevel(String educationlevel) {
-        this.educationlevel = educationlevel;
-    }
-
-    public String getIncome() {
-        return income;
-    }
-
-    public void setIncome(String income) {
-        this.income = income;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String profession) {
-        this.profession = profession;
-    }
-
-    public String getBlogfocus() {
-        return blogfocus;
-    }
-
-    public void setBlogfocus(String blogfocus) {
-        this.blogfocus = blogfocus;
-    }
-
-    public String getPolitics() {
-        return politics;
-    }
-
-    public void setPolitics(String politics) {
-        this.politics = politics;
-    }
-
 
     public boolean getIsnewblogger() {
         return isnewblogger;
@@ -379,13 +263,6 @@ public class BloggerDetails implements Serializable {
         this.isnewblogger=isnewblogger;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country=country;
-    }
 
     public String getVenueurl() {
         return venueurl;

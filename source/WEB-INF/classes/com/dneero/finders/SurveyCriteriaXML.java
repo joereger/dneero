@@ -72,6 +72,9 @@ public class SurveyCriteriaXML {
                 String asStr = Util.jdomXmlDocAsString(demoDoc);
                 logger.debug("asStr="+asStr);
                 demographicsXML = new DemographicsXML(asStr, pl);
+            } else {
+                logger.debug("creating demographicsXML with blank string");
+                demographicsXML = new DemographicsXML("", pl);
             }
         } catch (Exception ex){
             logger.error("",ex);
@@ -296,6 +299,11 @@ public class SurveyCriteriaXML {
 
     public String getSurveyCriteriaAsString(){
         nullDocCheck();
+
+        //logger.debug("__________");
+        //logger.debug("getSurveyCriteriaAsString()----- doc after null doc check");
+        //logger.debug("doc="+Util.jdomXmlDocAsString(doc));
+
         setValueOfSimpleStringNode("agemin", String.valueOf(agemin));
         setValueOfSimpleStringNode("agemax", String.valueOf(agemax));
         setValueOfSimpleStringNode("minsocialinfluencepercentile", String.valueOf(minsocialinfluencepercentile));
@@ -306,9 +314,19 @@ public class SurveyCriteriaXML {
         setValueOfArrayNode("panelids", panelids);
         setValueOfArrayNode("superpanelids", superpanelids);
 
+        //logger.debug("getSurveyCriteriaAsString()----- doc after setting basic fields");
+        //logger.debug("doc="+Util.jdomXmlDocAsString(doc));
+
         Document demDoc = demographicsXML.getXMLDoc();
-        Element demogRootEl = demDoc.getRootElement();
-        doc.getRootElement().addContent(demogRootEl);
+        //logger.debug("getSurveyCriteriaAsString()----- demographicsXML");
+        //logger.debug("demDoc="+Util.jdomXmlDocAsString(demDoc));
+        Element demoEl = new Element("demographics");
+        demoEl.addContent(demDoc.getRootElement().cloneContent());
+        //logger.debug("getSurveyCriteriaAsString()----- demoEl");
+        //logger.debug("demoEl="+demoEl.toString());
+        doc.getRootElement().addContent(demoEl);
+        //logger.debug("getSurveyCriteriaAsString()----- doc at end");
+        //logger.debug("doc="+Util.jdomXmlDocAsString(doc));
 
         return Util.jdomXmlDocAsString(doc);
     }

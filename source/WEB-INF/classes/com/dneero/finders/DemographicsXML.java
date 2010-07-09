@@ -115,7 +115,7 @@ public class DemographicsXML {
         }
     }
 
-    public String getAsString(){
+    private void buildDocFromDMG(){
         Logger logger = Logger.getLogger(this.getClass().getName());
         nullDocCheck();
         //Build XML from the dmg object
@@ -127,6 +127,11 @@ public class DemographicsXML {
             //Set the XML node... node name is demographicid
             setValueOfArrayNode("demographicid_"+demographic.getDemographicid(), Util.arrayListToStringArray(values));
         }
+    }
+
+    public String getAsString(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        buildDocFromDMG();
         return Util.jdomXmlDocAsString(doc);
     }
 
@@ -246,6 +251,7 @@ public class DemographicsXML {
     }
 
     public Document getXMLDoc() {
+        buildDocFromDMG();
         return doc;
     }
 
@@ -300,6 +306,29 @@ public class DemographicsXML {
         return out;
     }
 
+    public String getValue(int demographicid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        ArrayList<String> vals = getValues(demographicid);
+        if (vals!=null){
+            for (Iterator it = vals.iterator(); it.hasNext(); ) {
+                String s = (String)it.next();
+                return s;
+            }
+        }
+        return "";
+    }
+
+    public ArrayList<String> getAllPossibleValues(int demographicid){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        ArrayList<String> out = new ArrayList<String>();
+        Demographic d = Demographic.get(demographicid);
+        if (d!=null && d.getDemographicid()==demographicid){
+            return DemographicsUtil.convert(d.getPossiblevalues());
+        }
+        return out;
+    }
+
+
 
     public void setValues(int demographicid, ArrayList<String> values){
         Logger logger = Logger.getLogger(this.getClass().getName());
@@ -309,6 +338,14 @@ public class DemographicsXML {
             //Put values to dmg using the demographic as the key
             dmg.put(d, values);
         }
+    }
+
+    public void setValue(int demographicid, String value){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (value==null){value = "";}
+        ArrayList<String> vals = new ArrayList<String>();
+        vals.add(value);
+        setValues(demographicid, vals);
     }
 
 

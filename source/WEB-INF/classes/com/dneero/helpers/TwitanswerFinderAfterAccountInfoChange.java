@@ -1,15 +1,16 @@
 package com.dneero.helpers;
 
-import com.dneero.dao.User;
+import com.dneero.dao.Pl;
 import com.dneero.dao.Twitanswer;
 import com.dneero.dao.Twitask;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.finders.SurveyCriteriaXML;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -40,7 +41,7 @@ public class TwitanswerFinderAfterAccountInfoChange {
                         boolean iscriteriaxmlqualified = false;
                         if (twitanswer.getTwitaskid()>0){
                             Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
-                            SurveyCriteriaXML scXML = new SurveyCriteriaXML(twitask.getCriteriaxml());
+                            SurveyCriteriaXML scXML = new SurveyCriteriaXML(twitask.getCriteriaxml(), Pl.get(twitask.getPlid()));
                             if (scXML.isUserQualified(user)){
                                 iscriteriaxmlqualified = true;
                             }
@@ -78,7 +79,7 @@ public class TwitanswerFinderAfterAccountInfoChange {
                     boolean iscriteriaxmlqualified = false;
                     if (twitanswer.getTwitaskid()>0){
                         Twitask twitask = Twitask.get(twitanswer.getTwitaskid());
-                        SurveyCriteriaXML scXML = new SurveyCriteriaXML(twitask.getCriteriaxml());
+                        SurveyCriteriaXML scXML = new SurveyCriteriaXML(twitask.getCriteriaxml(), Pl.get(twitask.getPlid()));
                         if (scXML.isUserQualified(user)){
                             iscriteriaxmlqualified = true;
                         }
