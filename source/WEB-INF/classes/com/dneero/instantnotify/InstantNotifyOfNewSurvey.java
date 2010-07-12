@@ -72,20 +72,22 @@ public class InstantNotifyOfNewSurvey implements Runnable {
         args[2] = listofsurveysTxt.toString();
 
         //Find bloggers who qualify
-        FindBloggersForSurvey sbfs = new FindBloggersForSurvey(survey);
-        List<Blogger> bloggers = sbfs.getBloggers();
-        for (Iterator<Blogger> iterator = bloggers.iterator(); iterator.hasNext();) {
-            Blogger blogger = iterator.next();
-            User user = User.get(blogger.getUserid());
-            if (user.getIsenabled()){
-                if (user.getInstantnotifybyemailison()){
-                    //Send email
-                    EmailTemplateProcessor.sendMail("Instant Notification for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
-                }
-                if (user.getInstantnotifyxmppison() && !user.getInstantnotifyxmppusername().equals("")){
-                    //Send XMPP
-                    SendXMPPMessage sxmppmsg = new SendXMPPMessage(user.getInstantnotifyxmppusername(), instantmessage);
-                    sxmppmsg.send();
+        if (1==2){  //Slow code right now, turned off
+            FindBloggersForSurvey sbfs = new FindBloggersForSurvey(survey);
+            List<Blogger> bloggers = sbfs.getBloggers();
+            for (Iterator<Blogger> iterator = bloggers.iterator(); iterator.hasNext();) {
+                Blogger blogger = iterator.next();
+                User user = User.get(blogger.getUserid());
+                if (user.getIsenabled()){
+                    if (user.getInstantnotifybyemailison()){
+                        //Send email
+                        EmailTemplateProcessor.sendMail("Instant Notification for "+ user.getNickname(), "bloggernotifyofnewsurveys", user, args);
+                    }
+                    if (user.getInstantnotifyxmppison() && !user.getInstantnotifyxmppusername().equals("")){
+                        //Send XMPP
+                        SendXMPPMessage sxmppmsg = new SendXMPPMessage(user.getInstantnotifyxmppusername(), instantmessage);
+                        sxmppmsg.send();
+                    }
                 }
             }
         }

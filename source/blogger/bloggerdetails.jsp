@@ -15,7 +15,7 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
 <%
     if (request.getParameter("action") != null && request.getParameter("action").equals("save")) {
         try {
-
+            boolean demographicsFieldsAreOK = true;
             List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
                            .add(Restrictions.eq("plid", Pagez.getUserSession().getPl().getPlid()))
                            .addOrder(Order.asc("ordernum"))
@@ -23,32 +23,39 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                            .list();
             for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
                 Demographic demographic = demographicIterator.next();
-                bloggerDetails.getDemographicsXML().setValue(demographic.getDemographicid(), Dropdown.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), false));
+                try{
+                    boolean requireField = demographic.getIsrequired();
+                    bloggerDetails.getDemographicsXML().setValue(demographic.getDemographicid(), Dropdown.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), requireField));
+                } catch (com.dneero.htmlui.ValidationException vex) {
+                    demographicsFieldsAreOK = false;
+                    Pagez.getUserSession().setMessage("If you don't want to answer a question please choose the non-answering value ('NA', 'Other', etc)");
+                }
             }
 
-            bloggerDetails.setBirthdate(DateTime.getValueFromRequest("birthdate", "Birth Date", true).getTime());
-            bloggerDetails.setUserid(Pagez.getUserSession().getUser().getUserid());
-            bloggerDetails.setVenueurl(Textbox.getValueFromRequest("venueurl", "Venue URL", false, DatatypeString.DATATYPEID));
-            bloggerDetails.setVenuefocus(Dropdown.getValueFromRequest("venuefocus", "Venue Focus", false));
-            bloggerDetails.saveAction();
-            if (Pagez.getUserSession().getIsfacebookui()){
-                Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again?</a>");
-            } else {
-                Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again or add more Posting Venues.</a>");
-            }
-            if (Pagez.getUserSession().getIsfacebookui()){
-                if (bloggerDetails.getIsnewblogger()){
+            if (demographicsFieldsAreOK){
+                bloggerDetails.setBirthdate(DateTime.getValueFromRequest("birthdate", "Birth Date", true).getTime());
+                bloggerDetails.setUserid(Pagez.getUserSession().getUser().getUserid());
+                bloggerDetails.setVenueurl(Textbox.getValueFromRequest("venueurl", "Venue URL", false, DatatypeString.DATATYPEID));
+                bloggerDetails.setVenuefocus(Dropdown.getValueFromRequest("venuefocus", "Venue Focus", false));
+                bloggerDetails.saveAction();
+                if (Pagez.getUserSession().getIsfacebookui()){
+                    Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again?</a>");
+                } else {
+                    Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again?</a>");
+                }
+                if (Pagez.getUserSession().getIsfacebookui()){
+                    if (bloggerDetails.getIsnewblogger()){
+                        Pagez.sendRedirect("/blogger/index.jsp");
+                        return;
+                    } else {
+                        Pagez.sendRedirect("/publicsurveylist.jsp");
+                        return;
+                    }
+                } else {
                     Pagez.sendRedirect("/blogger/index.jsp");
                     return;
-                } else {
-                    Pagez.sendRedirect("/publicsurveylist.jsp");
-                    return;
                 }
-            } else {
-                Pagez.sendRedirect("/blogger/index.jsp");
-                return;
             }
-
         } catch (com.dneero.htmlui.ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
         }
@@ -121,6 +128,9 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                 <tr>
                                     <td valign="top">
                                         <font class="formfieldnamefont"><%=demographic.getName()%></font>
+                                        <%if (!demographic.getIsrequired()){ %>
+                                            <font class="formfieldnamefont">(Optional)</font>
+                                        <%}%>
                                         <%if (demographic.getDescription().length()>0){ %>
                                             <br/><font class="tinyfont"><%=demographic.getDescription()%></font>
                                         <%}%>

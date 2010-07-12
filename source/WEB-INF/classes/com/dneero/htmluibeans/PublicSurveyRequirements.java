@@ -54,8 +54,6 @@ public class PublicSurveyRequirements implements Serializable {
             return;
         }
 
-
-
         //Criteria for survey
         SurveyCriteriaXML surveyCriteriaXML = new SurveyCriteriaXML(survey.getSurveycriteriaxml(), Pl.get(survey.getPlid()));
         surveyCriteriaAsHtml = surveyCriteriaXML.getAsHtml();

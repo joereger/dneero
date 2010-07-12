@@ -54,7 +54,6 @@ public class SurveyCriteriaXML {
             SAXBuilder builder = new SAXBuilder();
             try{
                 doc = builder.build(new java.io.ByteArrayInputStream(criteriaxml.getBytes()));
-
             } catch (Exception ex){
                 logger.error("",ex);
             }
@@ -67,14 +66,14 @@ public class SurveyCriteriaXML {
             if (demNode!=null){
                 Document demoDoc = new Document();
                 Element el = new Element("demographics");
-                el.addContent(demNode);
+                el.addContent(demNode.cloneContent());
                 demoDoc.addContent(el);
                 String asStr = Util.jdomXmlDocAsString(demoDoc);
                 logger.debug("asStr="+asStr);
-                demographicsXML = new DemographicsXML(asStr, pl);
+                demographicsXML = new DemographicsXML(asStr, pl, true);
             } else {
                 logger.debug("creating demographicsXML with blank string");
-                demographicsXML = new DemographicsXML("", pl);
+                demographicsXML = new DemographicsXML("", pl, true);
             }
         } catch (Exception ex){
             logger.error("",ex);

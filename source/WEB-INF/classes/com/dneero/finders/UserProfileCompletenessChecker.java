@@ -1,6 +1,5 @@
 package com.dneero.finders;
 
-import com.dneero.constants.*;
 import com.dneero.dao.Blogger;
 import com.dneero.dao.Pl;
 import com.dneero.dao.User;
@@ -33,46 +32,12 @@ public class UserProfileCompletenessChecker {
         if (blogger!=null && blogger.getBloggerid()>0){
             //We've got a blogger... let's see if the profile's up to date, using accurate info, etc
 
-            if (blogger.getGender()==null || !Genders.get().contains(blogger.getGender())){
-                logger.debug("returning false because Gender not a valid value");
+            if (!DemographicsXML.isDemographicProfileOK(user)){
+                logger.debug("return false because blogger's demographic fields aren't complete");
                 return false;
             }
-            if (blogger.getEthnicity()==null || !Ethnicities.get().contains(blogger.getEthnicity())){
-                logger.debug("returning false because Ethnicity not a valid value");
-                return false;
-            }
-            if (blogger.getMaritalstatus()==null || !Maritalstatuses.get().contains(blogger.getMaritalstatus())){
-                logger.debug("returning false because Marital Status not a valid value");
-                return false;
-            }
-            if (blogger.getIncomerange()==null || !Incomes.get().contains(blogger.getIncomerange())){
-                logger.debug("returning false because Income Range not a valid value");
-                return false;
-            }
-            if (blogger.getEducationlevel()==null || !Educationlevels.get().contains(blogger.getEducationlevel())){
-                logger.debug("returning false because Education Level not a valid value");
-                return false;
-            }
-            if (blogger.getCity()==null || !Cities.get().contains(blogger.getCity())){
-                logger.debug("returning false because City not a valid value");
-                return false;
-            }
-            if (blogger.getState()==null || !States.get().contains(blogger.getState())){
-                logger.debug("returning false because State not a valid value");
-                return false;
-            }
-            if (blogger.getCountry()==null || !Countries.get().contains(blogger.getCountry())){
-                logger.debug("returning false because Country not a valid value");
-                return false;
-            }
-            if (blogger.getProfession()==null || !Professions.get().contains(blogger.getProfession())){
-                logger.debug("returning false because Profession not a valid value");
-                return false;
-            }
-//            if (blogger.getBlogfocus()==null || !Blogfocuses.get().contains(blogger.getBlogfocus())){
-//                logger.debug("returning false because Blog Focus not a valid value");
-//                return false;
-//            }
+
+
             if (user.getFacebookuserid()<=0){
                 if (Pagez.getUserSession().getPl().getIsvenuerequired()){
                     int venuecount = 0;

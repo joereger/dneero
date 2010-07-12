@@ -43,7 +43,7 @@ public class BloggerDetails implements Serializable {
     public void initBean(){
         if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
             Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
-            demographicsXML = new DemographicsXML(blogger.getDemographicsxml(), Pagez.getUserSession().getPl());
+            demographicsXML = new DemographicsXML(blogger.getDemographicsxml(), Pagez.getUserSession().getPl(), false);
             birthdate = blogger.getBirthdate();
             venueurl = "";
             venuefocus = "";
