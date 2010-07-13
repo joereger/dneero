@@ -122,16 +122,16 @@ String acl = "public";
                                 <font class="smallfont"><%=publicProfile.getConvosjoined()%></font>
                             </td>
                         </tr>
-                        <%if (publicProfile.getBlogger()!=null){%>
-                            <tr>
-                                <td valign="top" align="right">
-                                    <font class="formfieldnamefont">Location</font>
-                                </td>
-                                <td valign="top">
-                                    <font class="smallfont"><%=publicProfile.getBlogger().getCity()%>, <%=publicProfile.getBlogger().getState()%>, <%=publicProfile.getBlogger().getCountry()%></font>
-                                </td>
-                            </tr>
-                        <%}%>
+                        <%--<%if (publicProfile.getBlogger()!=null){%>--%>
+                            <%--<tr>--%>
+                                <%--<td valign="top" align="right">--%>
+                                    <%--<font class="formfieldnamefont">Location</font>--%>
+                                <%--</td>--%>
+                                <%--<td valign="top">--%>
+                                    <%--<font class="smallfont"><%=publicProfile.getBlogger().getCity()%>, <%=publicProfile.getBlogger().getState()%>, <%=publicProfile.getBlogger().getCountry()%></font>--%>
+                                <%--</td>--%>
+                            <%--</tr>--%>
+                        <%--<%}%>--%>
                         <tr>
                             <td valign="top" align="right">
                                 <font class="formfieldnamefont">Amt Earned for Charity</font>

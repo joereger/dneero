@@ -68,7 +68,7 @@ public class Version86 implements UpgradeDatabaseOneVersion {
                             String politics = rstBlog[j][9];
                             String blogfocus = rstBlog[j][10];
                             //Convert these values into XML
-                            DemographicsXML dXML = new DemographicsXML(Pl.get(plid));
+                            DemographicsXML dXML = new DemographicsXML(Pl.get(plid), false);
                             //Set each value
                             if (1==1){
                                 String name = "Gender";

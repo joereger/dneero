@@ -1,15 +1,18 @@
 package com.dneero.reports;
 
 import com.dneero.dao.Blogger;
+import com.dneero.dao.Demographic;
+import com.dneero.dao.Pl;
 import com.dneero.dao.User;
-import com.dneero.util.Time;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.finders.DemographicsXML;
 import com.dneero.util.DateDiff;
+import com.dneero.util.Time;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-import java.util.Iterator;
-import java.util.Calendar;
 import java.io.Serializable;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -19,53 +22,67 @@ import java.io.Serializable;
 public class FieldAggregator implements Serializable {
 
     private ArrayList<Blogger> bloggers;
-
+    private Pl pl;
     private TreeMap<String, Integer> age = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> gender = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> ethnicity = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> maritalstatus = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> income = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> educationlevel = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> state = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> city = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> country = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> profession = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> blogfocus = new TreeMap<String, Integer>();
-    private TreeMap<String, Integer> politics = new TreeMap<String, Integer>();
     private TreeMap<String, Integer> dneerousagemethods = new TreeMap<String, Integer>();
+    private TreeMap<Integer, TreeMap<String, Integer>> demographicDataCounts = new TreeMap<Integer, TreeMap<String, Integer>>();
 
-
-    public FieldAggregator(ArrayList<Blogger> bloggers){
+    public FieldAggregator(ArrayList<Blogger> bloggers, Pl pl){
         this.bloggers = bloggers;
+        this.pl = pl;
         process();
     }
 
     private void process(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         for (Iterator<Blogger> iterator = bloggers.iterator(); iterator.hasNext();) {
             Blogger blogger = iterator.next();
             User user = User.get(blogger.getUserid());
-
-            addData(gender, blogger.getGender());
-            addData(ethnicity, blogger.getEthnicity());
-            addData(maritalstatus, blogger.getMaritalstatus());
-            addData(income, blogger.getIncomerange());
-            addData(educationlevel, blogger.getEducationlevel());
-            addData(state, blogger.getState());
-            addData(city, blogger.getCity());
-            addData(country, blogger.getCountry());
-            addData(profession, blogger.getProfession());
-            addData(blogfocus, blogger.getBlogfocus());
-            addData(politics, blogger.getPolitics());
-            //dneerousagemethod
-            String dneerousagemethod = "dNeero.com";
-            if (user.getFacebookuserid()>0){
-                dneerousagemethod = "Facebook App";
+            //Only include for the current pl
+            if (user.getPlid()==pl.getPlid() || pl==null){
+                DemographicsXML demographicsXML = new DemographicsXML(blogger.getDemographicsxml(), Pl.get(user.getPlid()), false);
+                try{
+                    List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                                                   .add(Restrictions.eq("plid", user.getPlid()))
+                                                   .setCacheable(true)
+                                                   .list();
+                    for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                        Demographic demographic = demographicIterator.next();
+                        String value = demographicsXML.getValue(demographic.getDemographicid());
+                        addDemographicData(demographic.getDemographicid(), value);
+                    }
+                } catch (Exception ex){
+                    logger.error("", ex);
+                }
+                //dneerousagemethod
+                String dneerousagemethod = "Web";
+                if (user.getFacebookuserid()>0){
+                    dneerousagemethod = "Facebook App";
+                }
+                addData(dneerousagemethods, dneerousagemethod);
+                //age
+                int ageinyears = DateDiff.dateDiff("year", Calendar.getInstance(), Time.getCalFromDate(blogger.getBirthdate()));
+                addData(age, String.valueOf(ageinyears));
             }
-            addData(dneerousagemethods, dneerousagemethod);
-            //age
-            int ageinyears = DateDiff.dateDiff("year", Calendar.getInstance(), Time.getCalFromDate(blogger.getBirthdate()));
-            addData(age, String.valueOf(ageinyears));
         }
+    }
+
+    private void addDemographicData(int demographicid, String value){
+        //Temp map
+        TreeMap<String, Integer> map = new TreeMap<String, Integer>();
+        //If there's already a map keyed to demographicid, use it
+        if (demographicDataCounts.containsKey(demographicid)){
+            map = demographicDataCounts.get(demographicid);
+        }
+        //If in the map there's already a count for value, increment
+        if (map.containsKey(value)){
+            map.put(value, map.get(value)+1);
+        } else {
+            //Otherwise start the count for this value at 1
+            map.put(value, 1);
+        }
+        //Put the map back into the data treemap
+        demographicDataCounts.put(demographicid, map);
     }
 
     private void addData(TreeMap<String, Integer> map, String data){
@@ -84,44 +101,11 @@ public class FieldAggregator implements Serializable {
         return bloggers;
     }
 
-    public TreeMap<String, Integer> getGender() {
-        return gender;
-    }
-
-    public TreeMap<String, Integer> getEthnicity() {
-        return ethnicity;
-    }
-
-    public TreeMap<String, Integer> getMaritalstatus() {
-        return maritalstatus;
-    }
-
-    public TreeMap<String, Integer> getIncome() {
-        return income;
-    }
-
-    public TreeMap<String, Integer> getEducationlevel() {
-        return educationlevel;
-    }
-
-    public TreeMap<String, Integer> getState() {
-        return state;
-    }
-
-    public TreeMap<String, Integer> getCity() {
-        return city;
-    }
-
-    public TreeMap<String, Integer> getProfession() {
-        return profession;
-    }
-
-    public TreeMap<String, Integer> getBlogfocus() {
-        return blogfocus;
-    }
-
-    public TreeMap<String, Integer> getPolitics() {
-        return politics;
+    public TreeMap<String, Integer> getDemographicResults(int demographicid){
+        if (demographicDataCounts.containsKey(demographicid)){
+            return demographicDataCounts.get(demographicid);
+        }
+        return new TreeMap<String, Integer>();
     }
 
     public TreeMap<String, Integer> getDneerousagemethods() {
@@ -132,11 +116,6 @@ public class FieldAggregator implements Serializable {
         return age;
     }
 
-    public TreeMap<String, Integer> getCountry() {
-        return country;
-    }
 
-    public void setCountry(TreeMap<String, Integer> country) {
-        this.country=country;
-    }
+
 }

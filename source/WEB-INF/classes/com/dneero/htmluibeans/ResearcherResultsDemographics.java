@@ -76,8 +76,8 @@ public class ResearcherResultsDemographics implements Serializable {
                 bloggers.add(blogger);
             }
             if (bloggers.size()>=10){
-                FieldAggregator fa = new FieldAggregator((ArrayList)bloggers);
-                SimpleTableOutput sto = new SimpleTableOutput(fa);
+                FieldAggregator fa = new FieldAggregator((ArrayList)bloggers, Pagez.getUserSession().getPl());
+                SimpleTableOutput sto = new SimpleTableOutput(fa, Pagez.getUserSession().getPl());
                 html = sto.getHtml();
                 ResearcherResultsDemographicsCacheitem ci = new ResearcherResultsDemographicsCacheitem(sto.getHtml(), Calendar.getInstance());
                 CacheFactory.getCacheProvider().put(key, group, ci);

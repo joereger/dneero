@@ -53,16 +53,16 @@
 ##
 ##               <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                   <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
-                   $donationsMiniReport.html
-                   <br/>
-                   <div class="rounded" style="background: #ffffff; padding: 10px;">
-                        <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  You can create conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
-                   </div>
-               </div>
-
-               <br/>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                   <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
+##                   $donationsMiniReport.html
+##                   <br/>
+##                   <div class="rounded" style="background: #ffffff; padding: 10px;">
+##                        <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  You can create conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
+##                   </div>
+##               </div>
+##
+##               <br/>
 
 ##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
 ##                    <font class="mediumfont" style="color: #999999;">Recent Earners</font><br/>

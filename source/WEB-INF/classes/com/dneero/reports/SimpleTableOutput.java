@@ -1,10 +1,16 @@
 package com.dneero.reports;
 
+import com.dneero.dao.Demographic;
+import com.dneero.dao.Pl;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.util.Str;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.TreeMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * User: Joe Reger Jr
@@ -15,61 +21,46 @@ public class SimpleTableOutput {
 
     private String html;
     private FieldAggregator fa;
+    private Pl pl;
 
-    public SimpleTableOutput(FieldAggregator fa){
+    public SimpleTableOutput(FieldAggregator fa, Pl pl){
         this.fa = fa;
+        this.pl = pl;
         process("");
     }
 
-    public SimpleTableOutput(FieldAggregator fa, String onlyshow){
+    public SimpleTableOutput(FieldAggregator fa, Pl pl, String onlyshow){
         this.fa = fa;
+        this.pl = pl;
         process(onlyshow);
     }
 
     private void process(String onlyshow){
+        Logger logger = Logger.getLogger(this.getClass().getName());
         StringBuffer out = new StringBuffer();
 
         out.append("<table cellpadding='3' cellspacing='0' border='0'>");
-        if (onlyshow.equals("")||onlyshow.equals("dneerousagemethod")){
-            out.append(getHtmlForField(fa.getDneerousagemethods(), "Usage Method"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("gender")){
-            out.append(getHtmlForField(fa.getGender(), "Gender"));
-        }
+
         if (onlyshow.equals("")||onlyshow.equals("age")){
             out.append(getHtmlForField(fa.getAge(), "Age"));
         }
-        if (onlyshow.equals("")||onlyshow.equals("educationlevel")){
-            out.append(getHtmlForField(fa.getEducationlevel(), "Education Level"));
+        try{
+            List<Demographic> demographics = HibernateUtil.getSession().createCriteria(Demographic.class)
+                                           .add(Restrictions.eq("plid", pl.getPlid()))
+                                           .setCacheable(true)
+                                           .list();
+            for (Iterator<Demographic> demographicIterator = demographics.iterator(); demographicIterator.hasNext();) {
+                Demographic demographic = demographicIterator.next();
+                if (onlyshow.equals("")||onlyshow.equals(String.valueOf(demographic.getDemographicid()))){
+                    out.append(getHtmlForField(fa.getDemographicResults(demographic.getDemographicid()), demographic.getName()));
+                }
+            }
+        } catch (Exception ex){
+            logger.error("", ex);
         }
-        if (onlyshow.equals("")||onlyshow.equals("ethnicity")){
-            out.append(getHtmlForField(fa.getEthnicity(), "Ethnicity"));
+        if (onlyshow.equals("")||onlyshow.equals("dneerousagemethod")){
+            out.append(getHtmlForField(fa.getDneerousagemethods(), "Usage Method"));
         }
-        if (onlyshow.equals("")||onlyshow.equals("income")){
-            out.append(getHtmlForField(fa.getIncome(), "Income"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("maritalstatus")){
-            out.append(getHtmlForField(fa.getMaritalstatus(), "Marital Status"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("politics")){
-            out.append(getHtmlForField(fa.getPolitics(), "Politics"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("blogfocus")){
-            out.append(getHtmlForField(fa.getBlogfocus(), "Blog Focus"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("profession")){
-            out.append(getHtmlForField(fa.getProfession(), "Profession"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("city")){
-            out.append(getHtmlForField(fa.getCity(), "City"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("state")){
-            out.append(getHtmlForField(fa.getState(), "State"));
-        }
-        if (onlyshow.equals("")||onlyshow.equals("country")){
-            out.append(getHtmlForField(fa.getCountry(), "Country"));
-        }
-
         out.append("</table>");
 
         html = out.toString();
