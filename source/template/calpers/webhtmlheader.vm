@@ -3,9 +3,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     #if ($pagetitle!="")
-        <title>dNeero: $pagetitle</title>
+##        <title>Calpers: $pagetitle</title>
+        <title>Calpers: Values Jam</title>
     #else
-        <title>dNeero: Social Network Currency</title>
+        <title>Calpers: Values Jam</title>
     #end
     <meta name="description" content="connects advertisers and market researchers with a large pool of qualified and motivated social network users. Marketers initiate offers to blog (i.e. We'll pay $2 for a blogged review of our latest movie.), dNeero publishes those offers in a Yahoo-style directory and social people earn money (for themselves or for charity) joining conversations and posting their own results to their blogs. " />
     <meta name="keywords" content="conversation,market research,survey,blog,web 2.0,startup,money,market intelligence" />
