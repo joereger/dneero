@@ -35,6 +35,10 @@ public class PlTemplate {
         return out;
     }
 
+    public static String getFileFromPlTemplateDir(Pl pl, String filename){
+        return getFileOrPlProp(filename, pl.getTemplatedirectory(), "");
+    }
+
     public static String getWebhtmlheader(Pl pl){
         String filename = "webhtmlheader.vm";
         if (pl!=null){

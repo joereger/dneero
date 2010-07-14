@@ -251,7 +251,7 @@ public class PublicSurveyPostit implements Serializable {
         this.surveyEnhancer=surveyEnhancer;
     }
 
-    public boolean isLoggedinuserhasalreadytakensurvey() {
+    public boolean getLoggedinuserhasalreadytakensurvey() {
         return loggedinuserhasalreadytakensurvey;
     }
 
