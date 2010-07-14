@@ -219,7 +219,7 @@
 ##                    <%--<%}%>--%>
 
 
-                    #if ($userSession.user.bloggerid()>0)
+                    #if ($userSession.user.bloggerid>0)
                         <br/><br/><br/>
                         <font class="largefont hdr">$_Surveys You've Joined</font>
                         <br/>
