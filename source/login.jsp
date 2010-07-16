@@ -42,7 +42,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
                     } else {
                         //Normal login
                         logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp?"+keepmeloggedinStr);
-                        Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp"+keepmeloggedinStr);
+                        Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp?"+keepmeloggedinStr);
                         return;
                     }
                 } catch (Exception ex) {
@@ -61,7 +61,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
                 } else {
                     //Normal login
                     logger.debug("redirecting to http - /account/index.jsp?"+keepmeloggedinStr);
-                    Pagez.sendRedirect("/account/index.jsp"+keepmeloggedinStr);
+                    Pagez.sendRedirect("/account/index.jsp?"+keepmeloggedinStr);
                     return;
                 }
             }

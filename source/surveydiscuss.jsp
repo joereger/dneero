@@ -62,7 +62,7 @@ String acl = "public";
                 <% } %>
             </td>
             <td valign="top" width="150">
-                <img src="/images/wireless-green.png" width="32" height="32"/>
+                
             </td>
         </tr>
     </table>
@@ -80,9 +80,9 @@ String acl = "public";
             co.append("<font class=\"smallfont\"><$surveydiscuss.comment$></font>");
             co.append("<br/><br/>");
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("", "<img src=\"/images/user-48.png\" width=\"48\" height=\"48\"/>", false, "", ""));
-            cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", false, "", "normalfont", "", "font-weight: bold;"));
-            cols.add(new GridCol("", co.toString(), false, "", ""));
+            cols.add(new GridCol("", "<img src=\"/images/user-48.png\" width=\"48\" height=\"48\"/>", false, "", "", "background:#ffffff;", ""));
+            cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", false, "", "normalfont", "background:#ffffff;", "font-weight: bold;"));
+            cols.add(new GridCol("", co.toString(), false, "", "", "background:#ffffff;", ""));
         %>
         <%=Grid.render(publicSurveyDiscuss.getSurveydiscusses(), cols, 50, "/surveydiscuss.jsp", "page")%>
     <%}%>

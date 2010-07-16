@@ -47,6 +47,14 @@ String acl = "public";
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
 
+
+    <% if (!publicSurveyPostit.getLoggedinuserhasalreadytakensurvey()){ %>
+        <font class="mediumfont" style="color: #666666;">Join the Conversation!</font>
+        <br/>
+        <font class="normalfont" style="color: #666666;">Once you <a href="/survey.jsp?surveyid=<%=surveyInTabs.getSurveyid()%>">join the conversation</a> you'll be able to share it with others.</font>
+    <%}%>
+
+
     <% if (publicSurveyPostit.getLoggedinuserhasalreadytakensurvey()){ %>
 
         <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
