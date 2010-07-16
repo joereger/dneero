@@ -87,6 +87,7 @@ public class Login implements Serializable {
                 userSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
                 userSession.setIsfacebookui(Pagez.getUserSession().getIsfacebookui());
                 userSession.setFacebookSessionKey(Pagez.getUserSession().getFacebookSessionKey());
+                userSession.setPl(Pagez.getUserSession().getPl());
                 //Check the eula
                 if (!EulaHelper.isUserUsingMostRecentEula(user)){
                     userSession.setIseulaok(false);
@@ -137,7 +138,6 @@ public class Login implements Serializable {
                 //Record Iptrack Activity
                 RecordIptrackUtil.record(Pagez.getRequest(), Pagez.getUserSession().getUser().getUserid(), Activitytype.LOGIN);
 
-
             } else {
                 vex.addValidationError("This account is not active.  Please contact the system administrator if you feel this is an error.");
                 throw vex;
@@ -146,8 +146,11 @@ public class Login implements Serializable {
     }
 
     public void logout() throws ValidationException{
-        Pagez.setUserSession(new UserSession());
-        Pagez.setUserSessionAndUpdateCache(new UserSession());
+        UserSession userSession = new UserSession();
+        userSession.setPl(Pagez.getUserSession().getPl());
+        userSession.setIsloggedin(false);
+        Pagez.setUserSession(userSession);
+        Pagez.setUserSessionAndUpdateCache(userSession);
         //Persistent Logout
         Pagez.getResponse().addCookie(PersistentLogin.createCookieToClearPersistentLogin(Pagez.getRequest()));
     }

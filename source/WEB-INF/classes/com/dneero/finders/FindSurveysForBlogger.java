@@ -84,6 +84,8 @@ public class FindSurveysForBlogger {
                         this.surveys.add(survey);
                     }
                 }
+            } else {
+                logger.debug("!PlPeers.isThereATwoWayTrustRelationship(plOfSurvey="+plOfSurvey.getPlid()+", plOfUser="+plOfUser.getPlid()+")");    
             }
         }
     }

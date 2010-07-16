@@ -56,7 +56,7 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
                 if (Num.isinteger(request.getParameter("redirtosurveyid"))) {
                     //Redir to a specific survey after link-login
                     logger.debug("redirecting to http - "+"/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&"+keepmeloggedinStr);
-                    Pagez.sendRedirect("/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&"+keepmeloggedinStr);
+                    Pagez.sendRedirect("/survey.jsp?surveyid="+request.getParameter("redirtosurveyid"));
                     return;
                 } else {
                     //Normal login

@@ -214,10 +214,10 @@ public class DemographicsXML {
                                 for (Iterator<String> it = allPossibleValues.iterator(); it.hasNext();) {
                                     String possibleValue = it.next();
                                     if (userDemographicsXML.isValueSelected(demographic, possibleValue)){
-                                        logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" found in userDemographicsXML");
+                                        //logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" found in userDemographicsXML");
                                         foundAnAcceptableValueInUserXML = true;
                                     } else {
-                                        logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" NOT found in userDemographicsXML");   
+                                        //logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" NOT found in userDemographicsXML");   
                                     }
                                 }
                             } else {
