@@ -230,4 +230,22 @@ public class Str {
         return sbTemp.toString () ;
     }
 
+
+
+    public static boolean lastCharsOfStringAreXxx(String str, String xxx){
+        Logger logger = Logger.getLogger(Str.class);
+        str = str.trim();
+        xxx = xxx.trim();
+        if (str==null || xxx==null){
+            return false;
+        }
+        if (str.indexOf(xxx)<=-1){
+            return false;
+        }
+        if (str.substring(str.length()-xxx.length(), str.length()).equals(xxx)){
+            return true;
+        }
+        return false;
+    }
+
 }

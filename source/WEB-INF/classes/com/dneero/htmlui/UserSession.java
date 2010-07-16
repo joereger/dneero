@@ -125,6 +125,11 @@ public class UserSession implements Serializable {
         }
     }
 
+    
+
+
+
+
     public Pl getPl() {
         return Pl.get(plid);
     }

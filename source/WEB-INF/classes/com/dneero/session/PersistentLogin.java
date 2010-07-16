@@ -1,18 +1,19 @@
 package com.dneero.session;
 
+import com.dneero.dao.Userpersistentlogin;
+import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.systemprops.SystemProperty;
 import com.dneero.util.Num;
 import com.dneero.util.Util;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.dao.User;
-import com.dneero.dao.Userpersistentlogin;
-import com.dneero.systemprops.SystemProperty;
-
-import javax.servlet.http.Cookie;
-import java.util.*;
-
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.apache.log4j.Logger;
+
+import javax.servlet.http.Cookie;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Handles functions regarding persistent login via a browser cookie.
@@ -78,7 +79,6 @@ public class PersistentLogin {
     public static Cookie createPersistentCookie(int userid, javax.servlet.http.HttpServletRequest request, String domainToSetCookieOn){
         Logger logger = Logger.getLogger(PersistentLogin.class);
         String randomString = Util.truncateString(request.getSession().getId(), 240);
-
         Cookie userCookie = new Cookie(cookieName, userid+"-"+randomString);
         userCookie.setMaxAge(31536000);  //One Year
         if (!domainToSetCookieOn.equals("")){
@@ -97,7 +97,6 @@ public class PersistentLogin {
         userpersistentlogin.setRandomstring(randomString);
         userpersistentlogin.setUserid(userid);
         try{userpersistentlogin.save();}catch(Exception ex){logger.error("",ex);};
-
         return userCookie;
     }
 

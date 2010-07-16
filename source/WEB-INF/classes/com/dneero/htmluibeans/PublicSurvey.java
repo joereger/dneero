@@ -20,6 +20,7 @@ import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
+import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
@@ -35,6 +36,7 @@ import com.dneero.sir.SocialInfluenceRating;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
 import java.util.*;
 
@@ -84,6 +86,17 @@ public class PublicSurvey implements Serializable {
         //Set up logger
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("Instanciated.");
+        
+        //Set persistent login cookie, if necessary
+        //Needs to be done because Pagez.sendRedirect() flushes cookies and that code is used after login
+        if (Pagez.getRequest().getParameter("keepmeloggedin")!=null && Pagez.getRequest().getParameter("keepmeloggedin").equals("1")){
+            //Get all possible cookies to set
+            Cookie[] cookies = PersistentLogin.getPersistentCookies(Pagez.getUserSession().getUser().getUserid(), Pagez.getRequest());
+            //Add a cookies to the response
+            for (int j = 0; j < cookies.length; j++) {
+                Pagez.getResponse().addCookie(cookies[j]);
+            }
+        }
 
         //Surveyid from session or url
         int surveyid = Pagez.getUserSession().getCurrentSurveyid();

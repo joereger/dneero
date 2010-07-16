@@ -46,15 +46,7 @@ public class AccountIndex implements Serializable {
             currentbalance = "$"+Str.formatForMoney(currentbalanceDbl);
             pendingearnings = "$"+Str.formatForMoney(pendingearningsDbl);
 
-            //Set persistent login cookie, if necessary
-            if (Pagez.getRequest().getParameter("keepmeloggedin")!=null && Pagez.getRequest().getParameter("keepmeloggedin").equals("1")){
-                //Get all possible cookies to set
-                Cookie[] cookies = PersistentLogin.getPersistentCookies(Pagez.getUserSession().getUser().getUserid(), Pagez.getRequest());
-                //Add a cookies to the response
-                for (int j = 0; j < cookies.length; j++) {
-                    Pagez.getResponse().addCookie(cookies[j]);
-                }
-            }
+            
 
             List<Responsepending> responsependings = HibernateUtil.getSession().createCriteria(Responsepending.class)
                                    .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))

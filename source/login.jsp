@@ -29,19 +29,19 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
             //Redir if https is on
             String keepmeloggedinStr = "";
             if (login.getKeepmeloggedin()){
-                keepmeloggedinStr = "?keepmeloggedin=1";
+                keepmeloggedinStr = "&keepmeloggedin=1";
             }
             if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
                 //Is SSL
                 try {
                     if (Num.isinteger(request.getParameter("redirtosurveyid"))) {
                         //Redir to a specific survey after link-login
-                        logger.debug("redirecting to https survey - " + "/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&"+keepmeloggedinStr);
-                        Pagez.sendRedirect(BaseUrl.get(true) + "/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&"+keepmeloggedinStr);
+                        logger.debug("redirecting to https survey - " + "/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
+                        Pagez.sendRedirect(BaseUrl.get(true) + "/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
                         return;
                     } else {
                         //Normal login
-                        logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp"+keepmeloggedinStr);
+                        logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp?"+keepmeloggedinStr);
                         Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp"+keepmeloggedinStr);
                         return;
                     }
@@ -55,12 +55,12 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
                 //Not SSL
                 if (Num.isinteger(request.getParameter("redirtosurveyid"))) {
                     //Redir to a specific survey after link-login
-                    logger.debug("redirecting to http - "+"/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&"+keepmeloggedinStr);
-                    Pagez.sendRedirect("/survey.jsp?surveyid="+request.getParameter("redirtosurveyid"));
+                    logger.debug("redirecting to http - "+"/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
+                    Pagez.sendRedirect("/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
                     return;
                 } else {
                     //Normal login
-                    logger.debug("redirecting to http - /account/index.jsp"+keepmeloggedinStr);
+                    logger.debug("redirecting to http - /account/index.jsp?"+keepmeloggedinStr);
                     Pagez.sendRedirect("/account/index.jsp"+keepmeloggedinStr);
                     return;
                 }

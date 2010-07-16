@@ -3,20 +3,21 @@ package com.dneero.htmlui;
 import com.dneero.cache.providers.CacheFactory;
 import com.dneero.dao.Pl;
 import com.dneero.dao.User;
+import com.dneero.db.Db;
 import com.dneero.eula.EulaHelper;
 import com.dneero.facebook.FacebookAuthorizationJsp;
+import com.dneero.finders.UserProfileCompletenessChecker;
+import com.dneero.iptrack.Activitytype;
+import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.privatelabel.PlFinder;
 import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.session.UrlSplitter;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.systemprops.SystemProperty;
+import com.dneero.util.Str;
 import com.dneero.util.Time;
 import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.privatelabel.PlFinder;
-import com.dneero.db.Db;
-import com.dneero.iptrack.RecordIptrackUtil;
-import com.dneero.iptrack.Activitytype;
-import com.dneero.finders.UserProfileCompletenessChecker;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -53,7 +54,10 @@ public class FilterMain implements Filter {
         Pagez.setResponse(httpServletResponse);
         Pagez.setBeanMgr(new BeanMgr());
         try{
-            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
+            String url = httpServletRequest.getRequestURL().toString();
+            logger.debug("httpServletRequest.getRequestURL()="+httpServletRequest.getRequestURL());
+            if (!Str.lastCharsOfStringAreXxx(url, "jpg") && !Str.lastCharsOfStringAreXxx(url, "css") && !Str.lastCharsOfStringAreXxx(url, "gif") && !Str.lastCharsOfStringAreXxx(url, "png") && !Str.lastCharsOfStringAreXxx(url, "js")){
+            //if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 logger.debug("Start FilterMain");
                 logger.debug("");
                 logger.debug("");
@@ -70,6 +74,7 @@ public class FilterMain implements Filter {
                 //If the database is ready
                 if (Db.getHaveValidConfig()){
                     try{
+                        //Go to the cache to get a usersession
                         Object obj = CacheFactory.getCacheProvider().get(httpServletRequest.getSession().getId(), "userSession");
                         if (obj!=null && (obj instanceof UserSession)){
                             logger.debug("found a userSession in the cache");
@@ -115,6 +120,7 @@ public class FilterMain implements Filter {
                             return;
                         }
                     }
+                    
 
                     //Set the pl
                     Pagez.getUserSession().setPl(pl);
@@ -122,6 +128,7 @@ public class FilterMain implements Filter {
                     //Facebook start
                     FacebookAuthorizationJsp.doAuth();
                     logger.debug("before persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
+                    logger.debug("before persistent login and isloggedin="+Pagez.getUserSession().getIsloggedin());
                     //Facebook end
 
                     //Decide whether to wrap/override the HttpServletRequest
@@ -214,6 +221,7 @@ public class FilterMain implements Filter {
                         }
                     }
                     logger.debug("after persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
+                    logger.debug("after persistent login and isloggedin="+Pagez.getUserSession().getIsloggedin());
                     //Persistent login end
 
 
@@ -276,7 +284,9 @@ public class FilterMain implements Filter {
         chain.doFilter(request, response);
 
         try{
-            if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
+            String url = httpServletRequest.getRequestURL().toString();
+            if (!Str.lastCharsOfStringAreXxx(url, "jpg") && !Str.lastCharsOfStringAreXxx(url, "css") && !Str.lastCharsOfStringAreXxx(url, "gif") && !Str.lastCharsOfStringAreXxx(url, "png") && !Str.lastCharsOfStringAreXxx(url, "js")){
+            //if (httpServletRequest.getRequestURL().indexOf("jpg")==-1 && httpServletRequest.getRequestURL().indexOf("css")==-1 && httpServletRequest.getRequestURL().indexOf("gif")==-1 && httpServletRequest.getRequestURL().indexOf("png")==-1){
                 logger.debug("---------------------------END REQUEST: "+httpServletRequest.getRequestURL());
                 logger.debug("-------------");
                 logger.debug("------");
