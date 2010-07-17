@@ -209,7 +209,7 @@ if(true){
                             <%if (publicSurvey.getOptionaluserquestionlistitems()!=null && publicSurvey.getOptionaluserquestionlistitems().size()>0){%>
                                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                     <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                        <font class="formfieldnamefont">Questions by other Values Jammers... answer those that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
+                                        <font class="formfieldnamefont">Questions by other Values Super Jammers... answer those that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
                                         <font class="tinyfont"></font><br/><br/>
                                         <div style="background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; height: 150px; overflow : auto;">
                                         <%
@@ -257,7 +257,7 @@ if(true){
                             <%}%>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                    <font class="formfieldnamefont">Ask Other Values Jammers a Question</font> <font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask other Values Jammers anything related to this <%=Pagez._survey()%>. Those who join after you will have the opportunity to answer your question.</font><br/>
+                                    <font class="formfieldnamefont">Ask Other Values Super Jammers a Question</font> <font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask other Values Super Jammers anything related to this <%=Pagez._survey()%>. Those who join after you will have the opportunity to answer your question.</font><br/>
                                     <br/><font class="formfieldnamefont">Type a Question in the Box Below</font><br/>
                                     <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="250"/>
                                     <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
@@ -470,7 +470,7 @@ if(true){
                            <br/><br/>
                            <b>We Will Know We are Successful When</b>
                                <br/>
-                               In the first ever Values Jam we
+                               In the first ever Values Super Jam we
                                will measure success by the:
                                <ul>
                                <li>

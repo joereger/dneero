@@ -81,7 +81,7 @@ String acl = "public";
                                 <ul>
                                     <li>See the <a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">results</a> unfold in realtime!<br/><br/></li>
                                     <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discuss</a> the conversation and results with your fellow CalPERS team members.<br/><br/></li>
-                                    <li>The <a href="/">Values Jam Blog</a> will be updated with new conversations and results analysis... check back soon! Or subscribe via <a href="/rss.xml">rss</a>.<br/><br/></li>
+                                    <li>The <a href="/">Values Super Jam Blog</a> will be updated with new conversations and results analysis... check back soon! Or subscribe via <a href="/rss.xml">rss</a>.<br/><br/></li>
                                     <li>Optionally, <a href="#" id="togglepagelink">share your answers</a> within the organization by posting them to a webpage, blog, intranet or forum (conversations will only be visible from the CalPERS network even if you post to the web at large.)<br/><br/></li>
                                 </ul>
 

@@ -65,6 +65,11 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
 %>
 <%@ include file="/template/header.jsp" %>
 
+
+        <font class="tinyfont"><a href="/login.jsp" target="_new">(already have an account? log in here.)</a></font>
+        <br/><br/>
+
+
         <%if (registration.getDisplaytempresponsesavedmessage()){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
                 <table cellpadding="5">
@@ -183,7 +188,7 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
                         <td valign="top">
                             <br/><br/>
                             <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Sign Up">
-                            <br/><br/><font class="tinyfont"><a href="/login.jsp" target="_new">already have an account?</a></font>
+                            <br/><br/>
                         </td>
                     </tr>
 

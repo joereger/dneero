@@ -50,7 +50,7 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
                     <br/><br/>
                     <a href="/"><img src="/images/play-128.png" alt="" width="128" height="128" border="0"/></a>
                     <br/>
-                    <font class="smallfont">See a <a href="/">list of active conversations</a> and the CalPERS Values Jam Blog.</font>
+                    <font class="smallfont">See a <a href="/">list of active conversations</a> and the Values Super Jam Blog.</font>
                     </center>
                 </td>
                 <td width="67%" valign="top">

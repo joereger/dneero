@@ -73,8 +73,6 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
- MOO
-
 
     <% Survey surveyInTabs = publicSurvey.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
@@ -460,13 +458,13 @@ String acl = "public";
                                 <% } %>
 
                                 <% if (publicSurvey.getSurvey().getIsfree()){ %>
-                                    <div class="rounded" style="background: #f6f6f6; text-align: left;">
-                                        <img src="/images/free-32.png" alt="Free <%=Pagez._Survey()%>" width="32" height="32" align="right"/>
-                                        <font class="formfieldnamefont" style="color: #666666;">This is a Free <%=Pagez._survey()%>.</font>
-                                        <br/>
-                                        <font class="tinyfont" style="color: #666666;">The <%=Pagez._survey()%> creator has decided that there is no coupon, cash, charity or other incentive to participate.</font>
-                                    </div>
-                                    <br/>
+                                    <%--<div class="rounded" style="background: #f6f6f6; text-align: left;">--%>
+                                        <%--<img src="/images/free-32.png" alt="Free <%=Pagez._Survey()%>" width="32" height="32" align="right"/>--%>
+                                        <%--<font class="formfieldnamefont" style="color: #666666;">This is a Free <%=Pagez._survey()%>.</font>--%>
+                                        <%--<br/>--%>
+                                        <%--<font class="tinyfont" style="color: #666666;">The <%=Pagez._survey()%> creator has decided that there is no coupon, cash, charity or other incentive to participate.</font>--%>
+                                    <%--</div>--%>
+                                    <%--<br/>--%>
                                 <% } %>
 
 
@@ -587,48 +585,49 @@ String acl = "public";
                                         <%} %>
 
                                         <% if (!publicSurvey.getSurvey().getIsfree()){ %>
-                                        <tr>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">Max Paid Hits on Your Blog</font>
-                                            </td>
-                                            <td valign="top">
-                                                <font class="smallfont"><%=publicSurvey.getSurvey().getMaxdisplaysperblog()%></font>
-                                            </td>
-                                        </tr>
+                                        <%--<tr>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="formfieldnamefont">Max Paid Hits on Your Blog</font>--%>
+                                            <%--</td>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="smallfont"><%=publicSurvey.getSurvey().getMaxdisplaysperblog()%></font>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
                                         <%} %>
 
-                                         <tr>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">Slots</font>
-                                            </td>
-                                            <td valign="top">
-                                                <% if (!publicSurvey.getSurvey().getIsfree()){ %>
-                                                    <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurvey().getNumberofrespondentsrequested()), String.valueOf(publicSurvey.getSurveyEnhancer().getSlotsremaining()), "", "", "75")%>
-                                                    <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may join.</font>
-                                                    <br/><br/>
-                                                <%}else{%>
-                                                    <font class="smallfont">Unlimited</font>
-                                                    <br/><br/>
-                                                <%}%>
-                                            </td>
-                                        </tr>
+                                        <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                             <tr>
+                                                <td valign="top">
+                                                    <font class="formfieldnamefont">Slots</font>
+                                                </td>
+                                                <td valign="top">
+                                                    <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                                        <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurvey().getNumberofrespondentsrequested()), String.valueOf(publicSurvey.getSurveyEnhancer().getSlotsremaining()), "", "", "75")%>
+                                                        <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may join.</font>
+                                                        <br/><br/>
+                                                    <%}else{%>
+                                                        <font class="smallfont">Unlimited</font>
+                                                        <br/><br/>
+                                                    <%}%>
+                                                </td>
+                                            </tr>
+                                        <%} %>
 
-
-                                        <tr>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">Displays to Date</font>
-                                            </td>
-                                            <td valign="top">
-                                                <% if (!publicSurvey.getSurvey().getIsfree()){ %>
-                                                    <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()), String.valueOf(publicSurvey.getSurvey().getMaxdisplaystotal()), "", "", "75")%>
-                                                    <font class="smallfont">We'll pay for the first <%=publicSurvey.getSurvey().getMaxdisplaystotal()%> displays in blogs.</font>
-                                                    <br/><br/>
-                                                <%}else{%>
-                                                    <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()%> displays to date</font>
-                                                    <br/><br/>
-                                                <%}%>
-                                            </td>
-                                        </tr>
+                                        <%--<tr>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="formfieldnamefont">Displays to Date</font>--%>
+                                            <%--</td>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<% if (!publicSurvey.getSurvey().getIsfree()){ %>--%>
+                                                    <%--<%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()), String.valueOf(publicSurvey.getSurvey().getMaxdisplaystotal()), "", "", "75")%>--%>
+                                                    <%--<font class="smallfont">We'll pay for the first <%=publicSurvey.getSurvey().getMaxdisplaystotal()%> displays in blogs.</font>--%>
+                                                    <%--<br/><br/>--%>
+                                                <%--<%}else{%>--%>
+                                                    <%--<font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()%> displays to date</font>--%>
+                                                    <%--<br/><br/>--%>
+                                                <%--<%}%>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
 
                                         <%if (1==2){%>
                                         <tr>

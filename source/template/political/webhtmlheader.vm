@@ -6,9 +6,9 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         #if ($pagetitle!="")
-            <title>Politics: $pagetitle</title>
+            <title>Matter of Opinion: $pagetitle</title>
         #else
-            <title>Politics</title>
+            <title>Matter of Opinion</title>
         #end
         <meta name="description" content="political discussion" />
         <meta name="keywords" content="politics" />
@@ -40,10 +40,10 @@
                         <img src="/images/clear.gif" width="1" height="1" border="0"/>
                         <div class="subnavinner">
                             #if (!$userSession.isloggedin)
-                                <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/registration.jsp">Sign Up</a></font>
+                                <font class="subnavfont"><a href="http://www.matterofopinion.com">Home</a> | <a href="/index.jsp">Conversations</a> | <a href="/registration.jsp">My Account</a></font>
                             #end
                             #if ($userSession.isloggedin)
-                                <font class="subnavfont">Hi, $userSession.user.nickname | <a href="/publicsurveylist.jsp">All Surveys</a> | <a href="/account/index.jsp">My Account</a> 
+                                <font class="subnavfont">Hi, $userSession.user.nickname | <a href="http://www.matterofopinion.com">Home</a> | <a href="/index.jsp">Conversations</a> | <a href="/account/index.jsp">My Account</a> 
                                 #if ($userSession.isCustomerCare)
                                     | <a href="/customercare/index.jsp">Customer Care</a>
                                 #end
