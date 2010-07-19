@@ -6,9 +6,9 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         #if ($pagetitle!="")
-            <title>Matter of Opinion: $pagetitle</title>
+            <title>MatterOfOpinion: $pagetitle</title>
         #else
-            <title>Matter of Opinion</title>
+            <title>MatterOfOpinion</title>
         #end
         <meta name="description" content="political discussion" />
         <meta name="keywords" content="politics" />
@@ -27,7 +27,7 @@
 				<div class="mast_wrap">
 
                     <div class="logo">
-                        <a href="http://www.matterofopinion.com/"><img src="/template/political/images/logo-v01.png" alt="logo" title="" id="logo" width="300" height="75"  border="0"></a>
+                        <a href="http://www.matterofopinion.com/"><img src="/template/political/images/logo-v01.png" alt="logo" title="" id="logo" width="294" height="69"  border="0"></a>
                     </div>
 ##                    <div class="block" id="block-4">
 ##                        <div class="content">
