@@ -2,6 +2,7 @@ package com.dneero.cachedstuff;
 
 import com.dneero.cache.html.DbcacheexpirableCache;
 import com.dneero.dao.Pl;
+import com.dneero.htmlui.Pagez;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 import org.apache.log4j.Logger;
@@ -21,9 +22,13 @@ public class GetCachedStuff {
         String key = cs.getKey();
         String group = "CachedStuff-plid="+pl.getPlid();
         try{
+            boolean forceRefreshByURL = false;
+            if (Pagez.getRequest()!=null && Pagez.getRequest().getParameter("refresh")!=null && Pagez.getRequest().getParameter("refresh").equals("1")){
+                forceRefreshByURL = true;
+            }
             //Note third argument which tells cache to return object instead of null even if expired
             Object obj = DbcacheexpirableCache.get(key, group, false);
-            if (obj!=null && (obj instanceof CachedStuff)){
+            if (obj!=null && !forceRefreshByURL && (obj instanceof CachedStuff)){
                 CachedStuff cachedCs = (CachedStuff)obj;
                 int minago = DateDiff.dateDiff("minute", Calendar.getInstance(), cachedCs.refreshedTimestamp());
                 if (minago>cs.maxAgeInMinutes()){

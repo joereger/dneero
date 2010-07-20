@@ -22,6 +22,7 @@ String acl = "customercare";
             customercareSurveyDetail.getSurvey().setDescription(Textarea.getValueFromRequest("description", "Description", true));
             customercareSurveyDetail.getSurvey().setTemplate(Textarea.getValueFromRequest("template", "Template", false));
             customercareSurveyDetail.getSurvey().setIsspotlight(CheckboxBoolean.getValueFromRequest("isspotlight"));
+            customercareSurveyDetail.getSurvey().setIshiddenfromhomepage(CheckboxBoolean.getValueFromRequest("ishiddenfromhomepage"));
             customercareSurveyDetail.getSurvey().setIsaggressiveslotreclamationon(CheckboxBoolean.getValueFromRequest("isaggressiveslotreclamationon"));
             customercareSurveyDetail.getSurvey().setStartdate(DateTime.getValueFromRequest("startdate", "Start Date", true).getTime());
             customercareSurveyDetail.getSurvey().setEnddate(DateTime.getValueFromRequest("enddate", "End Date", true).getTime());
@@ -146,6 +147,14 @@ String acl = "customercare";
                         </td>
                         <td valign="top">
                             <%=CheckboxBoolean.getHtml("isspotlight", customercareSurveyDetail.getSurvey().getIsspotlight(), "", "")%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">Hidden From Homepage?</font>
+                        </td>
+                        <td valign="top">
+                            <%=CheckboxBoolean.getHtml("ishiddenfromhomepage", customercareSurveyDetail.getSurvey().getIshiddenfromhomepage(), "", "")%>
                         </td>
                     </tr>
                     <tr>

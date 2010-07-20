@@ -141,5 +141,8 @@
         <property name="ishighquality" type="boolean">
             <column name="ishighquality" />
         </property>
+        <property name="ishiddenfromhomepage" type="boolean">
+            <column name="ishiddenfromhomepage" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -84,7 +84,10 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
 %>
 <%@ include file="/template/header.jsp" %>
 
+    <font class="tinyfont"><a href="/publicsurveylist.jsp">(don't have an account? join a <%=Pagez._survey()%> to create one.)</a></font>
     <br/><br/>
+
+    
     <form action="/login.jsp" method="post" class="niceform">
         <input type="hidden" name="dpage" value="/login.jsp">
         <input type="hidden" name="action" value="login">

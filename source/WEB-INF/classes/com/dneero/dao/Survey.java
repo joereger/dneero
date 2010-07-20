@@ -73,6 +73,7 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private boolean isfree=true;
      private boolean isopentoanybody=true;
      private boolean ishighquality=false;
+     private boolean ishiddenfromhomepage=false;
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -524,5 +525,13 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setSurveycriteriaxml(String surveycriteriaxml) {
         this.surveycriteriaxml = surveycriteriaxml;
+    }
+
+    public boolean getIshiddenfromhomepage() {
+        return ishiddenfromhomepage;
+    }
+
+    public void setIshiddenfromhomepage(boolean ishiddenfromhomepage) {
+        this.ishiddenfromhomepage = ishiddenfromhomepage;
     }
 }

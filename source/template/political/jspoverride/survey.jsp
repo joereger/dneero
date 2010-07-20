@@ -75,9 +75,7 @@ String acl = "public";
 
 
     <% Survey surveyInTabs = publicSurvey.getSurvey();%>
-    <%@ include file="/surveytabs.jsp" %>
-
-    MOO JSPOVERRIDE
+    <%@ include file="/template/political/jspoverride/surveytabs.jsp" %>
 
     <%if (!publicSurvey.getQualifiesforsurvey() && publicSurvey.getSurvey().getStatus()!=Survey.STATUS_CLOSED){%>
         <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
@@ -381,7 +379,7 @@ String acl = "public";
                             <br/>
                             <center>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
-                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Enter the <%=Pagez._Survey()%>">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Join the <%=Pagez._Survey()%>">
                                 <%}else{%>
                                     <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Edit Your Answers">
                                 <%}%>

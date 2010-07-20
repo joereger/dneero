@@ -37,8 +37,6 @@ public class CreateEmptyBloggerProfile {
         blogger.setPolitics("NA");
         blogger.setCountry("NA");
 
-
-
         try{
             blogger.save();
         } catch (Exception ex){

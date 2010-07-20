@@ -113,6 +113,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setIshighquality(false);
         survey.setIsfree(true);
         survey.setIsopentoanybody(true);
+        survey.setIshiddenfromhomepage(false);
     }
 
 

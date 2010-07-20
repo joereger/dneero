@@ -6,7 +6,7 @@
 <%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
-String pagetitle = "Your Profile";
+String pagetitle = "Demographic Information";
 String navtab = "bloggers";
 String acl = "public";
 %>
@@ -40,21 +40,16 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                 bloggerDetails.setVenueurl(Textbox.getValueFromRequest("venueurl", "Venue URL", false, DatatypeString.DATATYPEID));
                 bloggerDetails.setVenuefocus(Dropdown.getValueFromRequest("venuefocus", "Venue Focus", false));
                 bloggerDetails.saveAction();
-                if (Pagez.getUserSession().getIsfacebookui()){
+                if (!bloggerDetails.getIsnewblogger()){
                     Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again?</a>");
                 } else {
-                    Pagez.getUserSession().setMessage("Profile Saved Successfully. <a href=\"/blogger/bloggerdetails.jsp\">Edit again?</a>");
+                    //Pagez.getUserSession().setMessage("");
                 }
-                if (Pagez.getUserSession().getIsfacebookui()){
-                    if (bloggerDetails.getIsnewblogger()){
-                        Pagez.sendRedirect("/blogger/index.jsp");
-                        return;
-                    } else {
-                        Pagez.sendRedirect("/publicsurveylist.jsp");
-                        return;
-                    }
-                } else {
+                if (bloggerDetails.getIsnewblogger()){
                     Pagez.sendRedirect("/blogger/index.jsp");
+                    return;
+                } else {
+                    Pagez.sendRedirect("/publicsurveylist.jsp");
                     return;
                 }
             }

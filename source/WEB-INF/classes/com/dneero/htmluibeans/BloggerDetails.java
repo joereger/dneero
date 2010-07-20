@@ -59,6 +59,7 @@ public class BloggerDetails implements Serializable {
         } else {
             //WTF is this here?
             birthdate = new Date();
+            demographicsXML = new DemographicsXML("", Pagez.getUserSession().getPl(), false);
         }
     }
 
@@ -74,6 +75,17 @@ public class BloggerDetails implements Serializable {
         } else {
             blogger = new Blogger();
             isnewblogger = true;
+            blogger.setBlogfocus("NA"); //@todo Delete once in production
+            blogger.setGender("NA"); //@todo Delete once in production
+            blogger.setCity("NA"); //@todo Delete once in production
+            blogger.setCountry("NA"); //@todo Delete once in production
+            blogger.setEducationlevel("NA"); //@todo Delete once in production
+            blogger.setEthnicity("NA"); //@todo Delete once in production
+            blogger.setIncomerange("NA"); //@todo Delete once in production
+            blogger.setMaritalstatus("NA"); //@todo Delete once in production
+            blogger.setState("NA"); //@todo Delete once in production
+            blogger.setPolitics("NA"); //@todo Delete once in production
+            blogger.setProfession("NA"); //@todo Delete once in production
         }
 
         if (Pagez.getUserSession().getUser()!=null){

@@ -134,14 +134,14 @@ String acl = "public";
                                 <%--</td>--%>
                             <%--</tr>--%>
                         <%--<%}%>--%>
-                        <tr>
-                            <td valign="top" align="right">
-                                <font class="formfieldnamefont">Amt Earned for Charity</font>
-                            </td>
-                            <td valign="top">
-                                <font class="smallfont"><%=publicProfile.getCharityamtdonatedForscreen()%></font>
-                            </td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td valign="top" align="right">--%>
+                                <%--<font class="formfieldnamefont">Amt Earned for Charity</font>--%>
+                            <%--</td>--%>
+                            <%--<td valign="top">--%>
+                                <%--<font class="smallfont"><%=publicProfile.getCharityamtdonatedForscreen()%></font>--%>
+                            <%--</td>--%>
+                        <%--</tr>--%>
                         <tr>
                             <td valign="top" align="right">
                                 <font class="formfieldnamefont">People Referred</font>

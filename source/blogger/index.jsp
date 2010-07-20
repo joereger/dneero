@@ -31,9 +31,6 @@ String acl = "public";
 
 
 
-
-    
-
     <% if (Pagez.getUserSession().getIsloggedin() && (Pagez.getUserSession().getUser().getBloggerid() > 0)){ %>
         <%if (bloggerIndex.getMsg()!=null && !bloggerIndex.getMsg().equals("")){%>
             <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
@@ -55,7 +52,7 @@ String acl = "public";
                     <div class="rounded" style="padding: 5px; margin: 5px; background: #e6e6e6;">
                         <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                             <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                <a href="/publicsurveylist.jsp"><font class="mediumfont">Find <%=Pagez._Surveys()%><br/>to Enter</font></a>
+                                <a href="/publicsurveylist.jsp"><font class="mediumfont">Find <%=Pagez._Surveys()%></font></a>
                             </td></tr>
                             <tr><td valign="top"></td><td valign="top">
                                 <font class="smallfont">Join <%=Pagez._surveys()%> and share your answers with your social network.</font>

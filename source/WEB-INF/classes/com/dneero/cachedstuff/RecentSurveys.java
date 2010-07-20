@@ -9,7 +9,6 @@ import com.dneero.incentive.IncentiveCash;
 import com.dneero.incentive.IncentiveCoupon;
 import com.dneero.privatelabel.PlPeers;
 import com.dneero.privatelabel.PlUtil;
-import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
 
@@ -43,7 +42,7 @@ public class RecentSurveys implements CachedStuff, Serializable {
         out.append("<td bgcolor='#cccccc' nowrap><font class='tinyfont' style='color: #666666;'>Slots Available</font></td>");
         out.append("</tr>");
         //ArrayList<SurveyListItem> surveys = new ArrayList<SurveyListItem>();
-        List openSurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN+"' order by surveyid desc").list();
+        List openSurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_OPEN+"' and ishiddenfromhomepage=false order by startdate desc").list();
         for (Iterator iterator = openSurveys.iterator(); iterator.hasNext();) {
             Survey survey = (Survey) iterator.next();
             Pl plOfSurvey = Pl.get(survey.getPlid());
@@ -52,7 +51,7 @@ public class RecentSurveys implements CachedStuff, Serializable {
                 totalSurveysAdded = totalSurveysAdded + 1;
             }
         }
-        List closedSurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_CLOSED+"' order by surveyid desc").setMaxResults(50).list();
+        List closedSurveys = HibernateUtil.getSession().createQuery("from Survey where status='"+ Survey.STATUS_CLOSED+"' and ishiddenfromhomepage=false order by startdate desc").setMaxResults(50).list();
         for (Iterator iterator = closedSurveys.iterator(); iterator.hasNext();) {
             Survey survey = (Survey) iterator.next();
             if (totalSurveysAdded<13){
@@ -71,7 +70,7 @@ public class RecentSurveys implements CachedStuff, Serializable {
 
     private String formatSurvey(Survey survey){
         StringBuffer out = new StringBuffer();
-        SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
+        //SurveyEnhancer surveyEnhancer = new SurveyEnhancer(survey);
 
         String daysleftStr = "";
         int daysleft = DateDiff.dateDiff("day", Time.getCalFromDate(survey.getEnddate()), Calendar.getInstance());

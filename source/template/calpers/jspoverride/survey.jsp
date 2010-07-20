@@ -448,48 +448,139 @@ if(true){
                            <img src="/images/info-128.png" alt="" width="128" height="128"/>
                            </center>
                            <br/>
-                           <font class="normalfont" style="color: #000000;"><b>Welcome to the conversation!</b>  These survey-based conversations are done transparently and openly. They build community and discussion while putting our collective finger on the pulse of our organization.
-                               <br/><br/><b>Your answers will be posted publicly within the CalPERS network.  We ask you to observe the following guidelines for participation</b>:
+                                <!-- Stats -->
+                                <div class="rounded" style="background: #f6f6f6; text-align: left;">
+                                    <table cellpadding="0" cellspacing="5" border="0">
+
+
+
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Start Date</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getStartdate()%></font>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">End Date</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getEnddate()%></font>
+                                            </td>
+                                        </tr>
+
+
+
+                                         <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Respondents</font>
+                                            </td>
+                                            <td valign="top">
+                                                <%if (publicSurvey.getSurvey()!=null && publicSurvey.getSurvey().getResponses()!=null){%>
+                                                    <font class="smallfont"><%=publicSurvey.getSurvey().getResponses().size()%></font>
+                                                    <br/><br/>
+                                                <%} else {%>
+                                                    <font class="smallfont">0</font>
+                                                    <br/><br/>
+                                                <%}%>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Displays to Date</font>
+                                            </td>
+                                            <td valign="top">
+                                                    <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()%></font>
+                                                    <br/><br/>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">This Page Displayed</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurvey().getPublicsurveydisplays()%> times</font>
+                                            </td>
+                                        </tr>
+
+
+                                     </table>
+                                </div>
+                                <!-- End Stats -->
+
+
+                           <br/>
+                           <font class="normalfont" style="color: #000000;">
+                               <%--<b>Welcome to the conversation!</b>  These survey-based conversations are done transparently and openly. They build community and discussion while putting our collective finger on the pulse of our organization.--%>
+
+                               <br/><br/>
+                               <b>Core Values</b>
                                <ul>
-                               <li>
-                               when responding/participating please follow our CalPERS'
-                               values: quality, respect, integrity, openness, accountability
-                               </li>
-                               <li>
-                               respond with an open mind and listen to understand
-                               </li>
-                               <li>
-                               assume that people have positive intent toward the future of
-                               the organization and that they seek to do what's best for our
-                               members -- as you do also
-                               </li>
-                               <li>
-                               be nice, play fair
-                               </li>
+                                   <li><b>Quality</b> - Strive to meet internal and external customers' needs through innovation, competence and teamwork. Seek to "do it right" the first time.</li>
+                                   <li><b>Respect</b> - Be sensitive to the needs of others, both within the organization and outside of the organization. Be courteous, considerate, responsive, and professional.</li>
+                                   <li><b>Integrity</b> - In all endeavors, act in an ethical, honest, and professional manner.</li>
+                                   <li><b>Openness</b> - Be willing to listen to and share information with others. Be trusting and receptive to new ideas. Trusting.</li>
+                                   <li><b>Accountability</b> - Take ownership and responsibility for actions and their results. Accept both risks and rewards, trusting that good-faith risks will not be punished.</li>
                                </ul>
-                           <br/><br/>
-                           <b>We Will Know We are Successful When</b>
-                               <br/>
-                               In the first ever Values Super Jam we
-                               will measure success by the:
-                               <ul>
-                               <li>
-                               level of participation - in particular, how many of us engage in
-                               the conversation
-                               </li>
-                               <li>
-                               learning - what we learn from the conversation itself, and from the questions we ask each other
-                               </li>
-                               <li>
-                               how the experience is rated - near the end of the
-                               2 days, we will ask you to provide feedback on the experience
-                               and process... please give us five stars!
-                               </li>
-                               </ul>
-                           <br/><br/>
-                           We want you to engage.  We want you to shape the future.  We want you to inspire each other with hope, optimism and action.
-                           <br/><br/>
-                           Innovation.  Synergy.  Teamwork.  Collaboration.  ROI.
+
+
+                               <br/><br/>
+                               <font class="mediumfont" style="color: #000000;"><b>Instructions</b></font>
+                               <ol>
+                                   <li>Give your thoughts - Answer the questions to the left</li>
+                                   <li>Create new ideas - Ask questions you want others to consider</li>
+                                   <li>Tap in to what people think - Go to the Answers tab to see how people reply</li>
+                               </ol>
+
+                               <%--<br/><br/>--%>
+                               <%--<b>Your answers will be posted publicly within the CalPERS network.  We ask you to observe the following guidelines for participation</b>:--%>
+                               <%--<ul>--%>
+                               <%--<li>--%>
+                               <%--when responding/participating please follow our CalPERS'--%>
+                               <%--values: quality, respect, integrity, openness, accountability--%>
+                               <%--</li>--%>
+                               <%--<li>--%>
+                               <%--respond with an open mind and listen to understand--%>
+                               <%--</li>--%>
+                               <%--<li>--%>
+                               <%--assume that people have positive intent toward the future of--%>
+                               <%--the organization and that they seek to do what's best for our--%>
+                               <%--members -- as you do also--%>
+                               <%--</li>--%>
+                               <%--<li>--%>
+                               <%--be nice, play fair--%>
+                               <%--</li>--%>
+                               <%--</ul>--%>
+                           <%--<br/><br/>--%>
+                           <%--<b>We Will Know We are Successful When</b>--%>
+                               <%--<br/>--%>
+                               <%--In the first ever Values Super Jam we--%>
+                               <%--will measure success by the:--%>
+                               <%--<ul>--%>
+                               <%--<li>--%>
+                               <%--level of participation - in particular, how many of us engage in--%>
+                               <%--the conversation--%>
+                               <%--</li>--%>
+                               <%--<li>--%>
+                               <%--learning - what we learn from the conversation itself, and from the questions we ask each other--%>
+                               <%--</li>--%>
+                               <%--<li>--%>
+                               <%--how the experience is rated - near the end of the--%>
+                               <%--2 days, we will ask you to provide feedback on the experience--%>
+                               <%--and process... please give us five stars!--%>
+                               <%--</li>--%>
+                               <%--</ul>--%>
+                           <%--<br/><br/>--%>
+                           <%--We want you to engage.  We want you to shape the future.  We want you to inspire each other with hope, optimism and action.--%>
+                           <%--<br/><br/>--%>
+                           <%--Innovation.  Synergy.  Teamwork.  Collaboration.  ROI.--%>
 
                            </font>
 
@@ -497,72 +588,7 @@ if(true){
                     </div>
 
 
-                    <div class="rounded" style="background: #f6f6f6; text-align: left;">
-                        <table cellpadding="0" cellspacing="5" border="0">
 
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font class="formfieldnamefont">Start Date</font>
-                                </td>
-                                <td valign="top">
-                                    <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getStartdate()%></font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font class="formfieldnamefont">End Date</font>
-                                </td>
-                                <td valign="top">
-                                    <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getEnddate()%></font>
-                                </td>
-                            </tr>
-
-
-
-                             <tr>
-                                <td valign="top">
-                                    <font class="formfieldnamefont">Respondents</font>
-                                </td>
-                                <td valign="top">
-                                    <%if (publicSurvey.getSurvey()!=null && publicSurvey.getSurvey().getResponses()!=null){%>
-                                        <font class="smallfont"><%=publicSurvey.getSurvey().getResponses().size()%></font>
-                                        <br/><br/>
-                                    <%} else {%>
-                                        <font class="smallfont">0</font>
-                                        <br/><br/>
-                                    <%}%>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font class="formfieldnamefont">Displays to Date</font>
-                                </td>
-                                <td valign="top">
-                                        <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()%></font>
-                                        <br/><br/>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font class="formfieldnamefont">This Page Displayed</font>
-                                </td>
-                                <td valign="top">
-                                    <font class="smallfont"><%=publicSurvey.getSurvey().getPublicsurveydisplays()%> times</font>
-                                </td>
-                            </tr>
-
-
-
-
-                         </table>
-                    </div>
 
 
                 </td>

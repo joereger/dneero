@@ -38,7 +38,11 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
             ReCaptchaResponse capResp = captcha.checkAnswer(request.getRemoteAddr(), request.getParameter("recaptcha_challenge_field"), request.getParameter("recaptcha_response_field"));
             if (capResp.isValid()) {
                 registration.registerAction();
-                Pagez.getUserSession().setMessage("Welcome!  We've sent you a confirmation email (you have 3 days to confirm.)");
+                if (Pagez.getUserSession().getPl().getIsemailactivationrequired()){
+                    Pagez.getUserSession().setMessage("Your account has been created.  We've sent you a confirmation email.");
+                } else {
+                    Pagez.getUserSession().setMessage("Your account has been created.");
+                }
                 //Note that Pagez.getUserSession().getWhereToRedirectToAfterSignup() is handled in /account/index.jsp because survey processing must supercede
                 //Redir if https is on
                 if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
@@ -68,7 +72,7 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
 <%@ include file="/template/header.jsp" %>
 
 
-        <font class="tinyfont"><a href="/login.jsp" target="_new">(already have an account? log in here.)</a></font>
+        <font class="tinyfont"><a href="/login.jsp">(already have an account? log in here.)</a></font>
         <br/><br/>
 
 
@@ -81,7 +85,7 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
                         </td>
                         <td valign="top">
                             <font class="mediumfont">Almost done... we've temporarily saved your response.</font><br/>
-                            <font class="smallfont"><b>Please log in or sign up below.</b></font>
+                            <font class="smallfont"><b>Please <a href="/login.jsp">log in</a> or sign up below.</b></font>
                         </td>
                     </tr>
                 </table>
