@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02range" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/researchersurveydetail_02_range.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02range) Pagez.getBeanMgr().get("ResearcherSurveyDetail02range")).getSurvey().getTitle() + "</font>\n" +
@@ -193,4 +195,4 @@ ResearcherSurveyDetail02range researcherSurveyDetail02range = (ResearcherSurveyD
         $('#tabs').tabs();
 </script>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

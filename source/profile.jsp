@@ -4,6 +4,8 @@
 <%@ page import="com.dneero.htmluibeans.PublicProfile" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/profile.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
     PublicProfile publicProfile=(PublicProfile) Pagez.getBeanMgr().get("PublicProfile");
 %>
@@ -259,4 +261,4 @@ String acl = "public";
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

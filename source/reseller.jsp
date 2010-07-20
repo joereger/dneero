@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.money.SurveyMoneyStatus" %>
+<%String jspPageName="/reseller.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Reseller Program";
@@ -37,4 +39,4 @@ String acl = "public";
 </table>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

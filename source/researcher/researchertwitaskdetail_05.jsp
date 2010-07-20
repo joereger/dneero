@@ -3,6 +3,8 @@
 <%@ page import="com.dneero.incentive.IncentiveCash" %>
 <%@ page import="com.dneero.incentive.IncentiveCoupon" %>
 <%@ page import="com.dneero.incentivetwit.IncentivetwitNone" %>
+<%String jspPageName="/researcher/researchertwitaskdetail_05.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="" +
@@ -380,4 +382,4 @@ ResearcherTwitaskDetail05 researcherTwitaskDetail05= (ResearcherTwitaskDetail05)
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

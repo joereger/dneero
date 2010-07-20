@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.htmluibeans.PublicSurveyList" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/publicsurveylist.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Active "+ Pagez._Surveys();
@@ -270,7 +272,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 
 

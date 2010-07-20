@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmluibeans.BloggerDetails" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="com.dneero.util.Util" %>
+<%String jspPageName="/blogger/bloggerdetails.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Your Profile";
@@ -269,5 +271,5 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
     </table>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

@@ -11,6 +11,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
+<%String jspPageName="/researcher/rank-addquestion.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Ranking";
@@ -103,5 +105,5 @@ if (researcherRankAddquestion.getRank()!=null && researcherRankAddquestion.getSu
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

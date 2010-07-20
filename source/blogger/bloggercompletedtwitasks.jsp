@@ -8,6 +8,8 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/blogger/bloggercompletedtwitasks.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Twitter Questions You've Answered";
@@ -111,5 +113,5 @@ String acl = "blogger";
             <%=Grid.render(bloggerCompletedTwitasks.getTwitanswers(), cols, 100, "/blogger/bloggercompletedtwitasks.jsp", "pagetwitanswers")%>
         <%}%>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

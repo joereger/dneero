@@ -6,6 +6,8 @@
 <%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
 <%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/blogpost.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -133,4 +135,4 @@ if (publicBlogPost==null || publicBlogPost.getBlogpost()==null || publicBlogPost
          </form>
      <%}%>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

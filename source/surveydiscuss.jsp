@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmluibeans.PublicSurveyDiscuss" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/surveydiscuss.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 PublicSurveyDiscuss publicSurveyDiscuss = (PublicSurveyDiscuss)Pagez.getBeanMgr().get("PublicSurveyDiscuss");
 %>
@@ -135,6 +137,6 @@ String acl = "public";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 

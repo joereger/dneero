@@ -1,6 +1,8 @@
 <%@ page import="com.dneero.helpers.ResearcherCreateIfNeeded" %>
 <%@ page import="com.dneero.review.Reviewable" %>
 <%@ page import="com.dneero.review.ReviewableUtil" %>
+<%String jspPageName="/researcher/index.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -128,4 +130,4 @@ String acl = "public";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

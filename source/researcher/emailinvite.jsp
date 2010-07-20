@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherEmailinvite" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/emailinvite.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Invite People to Join Your "+Pagez._Survey();
@@ -105,5 +107,5 @@ String acl = "researcher";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

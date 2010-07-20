@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02checkboxes" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/researchersurveydetail_02_checkboxes.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02checkboxes) Pagez.getBeanMgr().get("ResearcherSurveyDetail02checkboxes")).getSurvey().getTitle() + "</font>\n" +
@@ -151,4 +153,4 @@ ResearcherSurveyDetail02checkboxes researcherSurveyDetail02checkboxes = (Researc
         $('#tabs').tabs();
 </script>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

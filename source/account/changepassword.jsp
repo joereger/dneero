@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ChangePassword" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/account/changepassword.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Change Password";
@@ -66,5 +68,5 @@ ChangePassword changePassword = (ChangePassword) Pagez.getBeanMgr().get("ChangeP
             </table>
        </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/researcher/researchertwitaskdetail_06.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="" +
@@ -313,4 +315,4 @@ ResearcherTwitaskDetail06 researcherTwitaskDetail06= (ResearcherTwitaskDetail06)
 
 </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

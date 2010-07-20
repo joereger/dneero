@@ -73,21 +73,11 @@ String acl = "public";
 <%@ include file="/template/header.jsp" %>
 
 
-<%
-if(true){
-    logger.error("pre-surveyintabs!!!!!");
-}
-%>
-
 
     <% Survey surveyInTabs = publicSurvey.getSurvey();%>
     <%@ include file="/surveytabs.jsp" %>
 
-<%
-if(true){
-    logger.error("post-surveyintabs!!!!!");    
-}
-%>
+    MOO JSPOVERRIDE
 
     <%if (!publicSurvey.getQualifiesforsurvey() && publicSurvey.getSurvey().getStatus()!=Survey.STATUS_CLOSED){%>
         <%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
@@ -126,7 +116,7 @@ if(true){
                                 <center>
                                     <font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getNickname()%>'s answers.</font><br/>
                                     <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                                        <a href="#joinconvo"><font class="tinyfont">How would you answer?</font></a>
+                                        <a href="survey.jsp#joinconvo"><font class="tinyfont">How would you answer?</font></a>
                                     <% } %>
                                 </center>
                                 <br/>
@@ -169,6 +159,7 @@ if(true){
                                 <input type="hidden" name="referredbyuserid" value="<%=request.getParameter("referredbyuserid")%>">
 
                             <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+                                <div style="float:right;"><font class="smallfont" style="font-weight: bold; color: #666666;">All answers are public.</font></div>
                                 <br clear="all"/>
                                 <%--<%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>--%>
                                     <%--<font class="mediumfont" style="font-weight: bold; color: #666666;">Enter the <%=Pagez._Survey()%></font>--%>
@@ -209,8 +200,8 @@ if(true){
                             <%if (publicSurvey.getOptionaluserquestionlistitems()!=null && publicSurvey.getOptionaluserquestionlistitems().size()>0){%>
                                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                     <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                        <font class="formfieldnamefont">Questions by other Values Super Jammers... answer those that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
-                                        <font class="tinyfont"></font><br/><br/>
+                                        <font class="formfieldnamefont">Answer other questions that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
+                                        <font class="tinyfont">(These questions are from other users.)</font><br/><br/>
                                         <div style="background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; height: 150px; overflow : auto;">
                                         <%
                                             try{
@@ -257,8 +248,7 @@ if(true){
                             <%}%>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                    <font class="formfieldnamefont">Ask Other Values Super Jammers a Question</font> <font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask other Values Super Jammers anything related to this <%=Pagez._survey()%>. Those who join after you will have the opportunity to answer your question.</font><br/>
-                                    <br/><font class="formfieldnamefont">Type a Question in the Box Below</font><br/>
+                                    <font class="formfieldnamefont">What do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this <%=Pagez._survey()%> (unrelated/vulgar questions will be rejected). People who join after reading your answers will have to answer the question you ask.</font><br/>
                                     <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="250"/>
                                     <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 
@@ -407,7 +397,34 @@ if(true){
                     <%--<br/><br/><br/><br/>--%>
                     <%--<font class="smallfont"><%=publicSurvey.getSocialbookmarklinks()%></font>--%>
                 </td>
-
+                    <% if (Pagez.getUserSession().getIsfacebookui()){ %>
+                        <td valign="top" align="left">
+                            <%if (publicSurvey.getUserwhotooksurvey()!=null && publicSurvey.getUserwhotooksurvey().getUserid()>0 && publicSurvey.getSurveytakergavetocharity()){%>
+                                <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+                                    <center>
+                                        <font class="tinyfont" style="font-weight: bold;"><%=publicSurvey.getUserwhotooksurvey().getNickname()%> had us donate all earnings from this <%=Pagez._survey()%> to <%=publicSurvey.getCharityname()%>.</font>
+                                    </center>
+                                </div>
+                            <%}%>
+                            <% if (publicSurvey.getFacebookuserswhotooksurvey()!=null){ %>
+                                <font class="mediumfont" style="color: #cccccc;">Friends Who Took It:</font><br/>
+                                <%
+                                    for (Iterator<PublicSurveyFacebookFriendListitem> iterator=publicSurvey.getFacebookuserswhotooksurvey().iterator(); iterator.hasNext();){
+                                        PublicSurveyFacebookFriendListitem publicSurveyFacebookFriendListitem= iterator.next();
+                                        %>
+                                        <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=publicSurveyFacebookFriendListitem.getUserid()%>&responseid=<%=publicSurveyFacebookFriendListitem.getResponseid()%>"><font class="tinyfont" style="color: #0000ff;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font></a><br/>
+                                        <%
+                                    }
+                                %>
+                                <br/><br/>
+                            <%}%>
+                            <% if (publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
+                                <font class="mediumfont" style="color: #cccccc;">You've Joined this <%=Pagez._Survey()%>:</font><br/>
+                                <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
+                                <br/><br/>
+                            <%}%>
+                        </td>
+                    <% } %>
                     <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
                         <td valign="top" align="left">
                             <div class="rounded" style="background: #e6e6e6;">
@@ -439,60 +456,243 @@ if(true){
                                     </div>
                                     <br/>
                                 <% } %>
+
+                                <% if (publicSurvey.getSurvey().getIsfree()){ %>
+                                    <%--<div class="rounded" style="background: #f6f6f6; text-align: left;">--%>
+                                        <%--<img src="/images/free-32.png" alt="Free <%=Pagez._Survey()%>" width="32" height="32" align="right"/>--%>
+                                        <%--<font class="formfieldnamefont" style="color: #666666;">This is a Free <%=Pagez._survey()%>.</font>--%>
+                                        <%--<br/>--%>
+                                        <%--<font class="tinyfont" style="color: #666666;">The <%=Pagez._survey()%> creator has decided that there is no coupon, cash, charity or other incentive to participate.</font>--%>
+                                    <%--</div>--%>
+                                    <%--<br/>--%>
+                                <% } %>
+
+
+                                <% if (!publicSurvey.getSurvey().getIsfree() && publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
+                                    <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: center;">
+                                        <font class="mediumfont">You're on your way to earning</font>
+                                        <br/>
+                                        <font class="tinyfont">(pending posting verification)</font>
+                                        <br/>
+                                        <%
+                                        if (publicSurvey.getSurveyEnhancer()==null){
+                                            logger.debug("publicSurvey.getSurveyEnhancer() is null!!!");
+                                        }
+                                        %>
+                                        <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
+                                        <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
+                                            <br/>
+                                            <font class="mediumfont">for charity</font>
+                                        <% } %>
+                                        <% if (publicSurvey.getSurveytakergavetocharity()){ %>
+                                            <br/>
+                                            <font class="mediumfont">(<%=publicSurvey.getCharityname()%>)</font>
+                                        <% } %>
+                                        <br/>
+                                        <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
+                                            <font class="smallfont" style="font-weight: bold; color: #666666;">You'll also earn up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on your blog traffic.</font>
+                                        <% } %>
+                                    </div>
+                                <% } %>
+                                <% if (!publicSurvey.getSurvey().getIsfree() && !publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()<=Survey.STATUS_OPEN){ %>
+                                    <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: center;">
+                                        <font class="mediumfont">Enter this <%=Pagez._survey()%> and earn</font>
+                                        <br/>
+                                        <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
+                                        <% if (publicSurvey.getSurveytakergavetocharity() || publicSurvey.getSurvey().getIscharityonly()){ %>
+                                            <br/><font class="mediumfont">for charity</font>
+                                        <% } %>
+                                        <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
+                                            <br/><font class="smallfont" style="font-weight: bold; color: #666666;">You'll also earn up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on your blog traffic.</font>
+                                        <% } %>
+                                        <br/><br/>
+                                        <font class="smallfont">(just answer the questions to the left and click Join the <%=Pagez._Survey()%>... easy!)</font>
+                                    </div>
+                                <% } %>
+                                <% if (!publicSurvey.getSurvey().getIsfree() && !publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getSurvey().getStatus()>=Survey.STATUS_CLOSED){ %>
+                                    <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: center;">
+                                        <font class="mediumfont">People who joined this <%=Pagez._survey()%> earned</font>
+                                        <br/>
+                                        <font class="largefont" style="font-size: 24px; color: #666666;"><%=publicSurvey.getSurvey().getIncentive().getFullSummaryHtml()%></font>
+                                        <% if (publicSurvey.getSurveyEnhancer().getMaxEarningCPMDbl()>0){ %>
+                                            <br/><font class="smallfont" style="font-weight: bold; color: #666666;">They also earned up to an additional <%=publicSurvey.getSurveyEnhancer().getMaxEarningCPM()%> depending on their blog traffic.</font>
+                                        <% } %>
+                                    </div>
+                                <% } %>
+
+
+
+
+
+
+
+                                <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: left;">
+                                    <table cellpadding="0" cellspacing="5" border="0">
+
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Created By</font>
+                                            </td>
+                                            <td valign="top">
+                                                <%
+                                                Researcher researcher = Researcher.get(publicSurvey.getSurvey().getResearcherid());
+                                                User researcherUser = User.get(researcher.getUserid());
+                                                %>
+                                                <a href="/profile.jsp?userid=<%=researcherUser.getUserid()%>"><font class="smallfont"><%=researcherUser.getNickname()%></font></a>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Start Date</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getStartdate()%></font>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">End Date</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getEnddate()%></font>
+                                            </td>
+                                        </tr>
+
+                                        <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Possible Earnings for <%=Pagez._Survey()%> Response</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getWillingtopayforresponse()%></font>
+                                                <br/>
+                                                <font class="tinyfont">Assuming you post your <%=Pagez._survey()%> and it qualifies.</font>
+                                            </td>
+                                        </tr>
+                                        <%} %>
+
+                                        <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Pay for 1000 Hits on Your Blog</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getWillingtopayforcpm()%></font>
+                                            </td>
+                                        </tr>
+                                        <%} %>
+
+                                        <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                        <%--<tr>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="formfieldnamefont">Max Paid Hits on Your Blog</font>--%>
+                                            <%--</td>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="smallfont"><%=publicSurvey.getSurvey().getMaxdisplaysperblog()%></font>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
+                                        <%} %>
+
+                                        <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                             <tr>
+                                                <td valign="top">
+                                                    <font class="formfieldnamefont">Slots</font>
+                                                </td>
+                                                <td valign="top">
+                                                    <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                                        <%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurvey().getNumberofrespondentsrequested()), String.valueOf(publicSurvey.getSurveyEnhancer().getSlotsremaining()), "", "", "75")%>
+                                                        <font class="smallfont">Up to <%=publicSurvey.getSurvey().getNumberofrespondentsrequested()%> people may join.</font>
+                                                        <br/><br/>
+                                                    <%}else{%>
+                                                        <font class="smallfont">Unlimited</font>
+                                                        <br/><br/>
+                                                    <%}%>
+                                                </td>
+                                            </tr>
+                                        <%} %>
+
+                                        <%--<tr>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="formfieldnamefont">Displays to Date</font>--%>
+                                            <%--</td>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<% if (!publicSurvey.getSurvey().getIsfree()){ %>--%>
+                                                    <%--<%=PercentCompleteBar.get(String.valueOf(publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()), String.valueOf(publicSurvey.getSurvey().getMaxdisplaystotal()), "", "", "75")%>--%>
+                                                    <%--<font class="smallfont">We'll pay for the first <%=publicSurvey.getSurvey().getMaxdisplaystotal()%> displays in blogs.</font>--%>
+                                                    <%--<br/><br/>--%>
+                                                <%--<%}else{%>--%>
+                                                    <%--<font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()%> displays to date</font>--%>
+                                                    <%--<br/><br/>--%>
+                                                <%--<%}%>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
+
+                                        <%if (1==2){%>
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">This Page Displayed</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurvey().getPublicsurveydisplays()%> times</font>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+
+                                        <%if (1==2){%>
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">ID</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=publicSurvey.getSurvey().getSurveyid()%></font>
+                                            </td>
+                                        </tr>
+                                        <%} %>
+
+                                        <%if (1==2){%>
+                                        <tr>
+                                            <td valign="top">
+                                                <font class="formfieldnamefont">Referred by</font>
+                                            </td>
+                                            <td valign="top">
+                                                <font class="smallfont"><%=Pagez.getUserSession().getPendingSurveyReferredbyuserid()%></font>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+
+                                     </table>
+                                </div>
+
+                                <% if (!publicSurvey.getSurvey().getIsfree()){ %>
+                                    <br/><br/>
+                                    <font class="smallfont">
+                                    <br/><br/><b>Get paid to share your opinion.</b><br/>
+                                    We pay people to fill out <%=Pagez._surveys()%> and post their answers to their peers.
+
+                                    <br/><br/><b>Your answers appear on your blog</b><br/>
+                                    However you answer, your friends will see it.  Express yourself!
+
+                                    <br/><br/><b>You need to register and qualify to get paid</b><br/>
+                                    Once you answer the questions you'll need to register and fill out a short profile that asks some basic demographic questions.  If you qualify for this <%=Pagez._survey()%> then you'll get paid.
+
+                                    <br/><br/><b>You need to be honest</b><br/>
+                                    We aren't paying you for any particular opinion.  We're paying you for your time and for the exposure on your blog.  If you don't like a product or service you need to be honest about that fact.
+
+                                    <br/><br/><b>Stimulate <%=Pagez._survey()%></b><br/>
+                                    Engage companies who are actively seeking your feedback on products and services.  At the same time, engage your blog readers in discussion of the same product.
+
+                                    <br/><br/><b>No gimmicks.</b><br/>
+                                    This is the real deal.  A simple model that respects your privacy and allows you to control what you blog about and when.  We pay for activity you choose to engage in.
+
+                                    <br/><br/><b>If you don't like this <%=Pagez._survey()%></b><br/>
+                                    We have plenty more <a href="/publicsurveylist.jsp"><%=Pagez._surveys()%></a> for you to choose from.
+
+                                    <br/><br/>
+                               <% } %>
+
                             <% } %>
-
-
-
-
-                           <center>
-                           <img src="/images/info-128.png" alt="" width="128" height="128"/>
-                           </center>
-                           <br/>
-                           <font class="normalfont" style="color: #000000;"><b>Welcome to the conversation!</b>  These survey-based conversations are done transparently and openly. They build community and discussion while putting our collective finger on the pulse of our organization.
-                               <br/><br/><b>Your answers will be posted publicly within the CalPERS network.  We ask you to observe the following guidelines for participation</b>:
-                               <ul>
-                               <li>
-                               when responding/participating please follow our CalPERS'
-                               values: quality, respect, integrity, openness, accountability
-                               </li>
-                               <li>
-                               respond with an open mind and listen to understand
-                               </li>
-                               <li>
-                               assume that people have positive intent toward the future of
-                               the organization and that they seek to do what's best for our
-                               members -- as you do also
-                               </li>
-                               <li>
-                               be nice, play fair
-                               </li>
-                               </ul>
-                           <br/><br/>
-                           <b>We Will Know We are Successful When</b>
-                               <br/>
-                               In the first ever Values Super Jam we
-                               will measure success by the:
-                               <ul>
-                               <li>
-                               level of participation - in particular, how many of us engage in
-                               the conversation
-                               </li>
-                               <li>
-                               learning - what we learn from the conversation itself, and from the questions we ask each other
-                               </li>
-                               <li>
-                               how the experience is rated - near the end of the
-                               2 days, we will ask you to provide feedback on the experience
-                               and process... please give us five stars!
-                               </li>
-                               </ul>
-                           <br/><br/>
-                           We want you to engage.  We want you to shape the future.  We want you to inspire each other with hope, optimism and action.
-                           <br/><br/>
-                           Innovation.  Synergy.  Teamwork.  Collaboration.  ROI.
-
-                           </font>
-
                         </font>
                     </div>
                 </td>

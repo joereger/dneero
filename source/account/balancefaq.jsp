@@ -1,5 +1,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%String jspPageName="/account/balancefaq.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Balance FAQ";
@@ -77,4 +79,4 @@ String acl = "account";
     <!-- End FAQ Question -->
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

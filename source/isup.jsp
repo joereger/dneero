@@ -226,7 +226,7 @@ String reason = "";
 <%}%>
 </font>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 <%System.out.println("ISUP: End: "+Time.dateformatcompactwithtime(Time.nowInUserTimezone("EST")));%>
 <%System.out.println("ISUP: ----------");%>
 <%System.out.println("ISUP: -----");%>

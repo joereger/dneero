@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.helpers.NicknameHelper" %>
+<%String jspPageName="/profileimpressions.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 PublicProfileImpressions publicProfileImpressions = (PublicProfileImpressions) Pagez.getBeanMgr().get("PublicProfileImpressions");
 %>
@@ -41,4 +43,4 @@ String acl = "public";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

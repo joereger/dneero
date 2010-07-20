@@ -4,6 +4,8 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.htmluibeans.CustomercareSurveyList" %>
+<%String jspPageName="/researcher/reviewables.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Reviewable Items";
@@ -57,7 +59,7 @@ String acl = "researcher";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 
 

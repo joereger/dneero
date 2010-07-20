@@ -9,6 +9,8 @@
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
+<%String jspPageName="/researcher/rank-people.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Ranking";
@@ -76,5 +78,5 @@ if (researcherRankPeople.getRank()==null){
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

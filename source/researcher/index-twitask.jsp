@@ -1,4 +1,6 @@
 <%@ page import="com.dneero.helpers.ResearcherCreateIfNeeded" %>
+<%String jspPageName="/index-twitask.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -115,4 +117,4 @@ String acl = "public";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

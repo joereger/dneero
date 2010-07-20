@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02dropdown" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/researchersurveydetail_02_dropdown.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02dropdown) Pagez.getBeanMgr().get("ResearcherSurveyDetail02dropdown")).getSurvey().getTitle() + "</font>\n" +
@@ -152,4 +154,4 @@ ResearcherSurveyDetail02dropdown researcherSurveyDetail02dropdown = (ResearcherS
         $('#tabs').tabs();
 </script>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

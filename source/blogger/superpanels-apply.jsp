@@ -9,6 +9,8 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.helpers.IsBloggerInPanel" %>
+<%String jspPageName="/blogger/superpanels-apply.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Apply for SuperPanel";
@@ -102,5 +104,5 @@ if (panel==null || panel.getPanelid()<=0 || !panel.getIssystempanel()){
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

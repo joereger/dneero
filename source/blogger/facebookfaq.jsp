@@ -1,6 +1,8 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.BloggerEarningsRevshare" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%String jspPageName="/blogger/facebookfaq.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Facebook App FAQ";
@@ -233,4 +235,4 @@ String acl = "public";
     <!-- End FAQ Question -->
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

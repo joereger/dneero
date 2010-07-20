@@ -4,6 +4,8 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/researcher/results_impressions.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Results";
@@ -60,4 +62,4 @@ String acl = "researcher";
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

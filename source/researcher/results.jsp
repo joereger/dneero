@@ -3,6 +3,8 @@
 <%@ page import="com.dneero.dao.Survey" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.util.Str" %>
+<%String jspPageName="/researcher/results.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = Pagez._Survey()+" Results";
@@ -150,4 +152,4 @@ String acl = "researcher";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

@@ -10,6 +10,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.dneero.incentivetwit.Incentivetwit" %>
 <%@ page import="com.dneero.incentivetwit.IncentivetwitFactory" %>
+<%String jspPageName="/account/awardtwit-detail.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Award Detail";
@@ -53,4 +55,4 @@ Incentivetwit incentive = IncentivetwitFactory.getById(si.getType(), si);
 <br/><font class="tinyfont"><b>Date:</b> <%=Time.dateformatcompactwithtime(Time.getCalFromDate(incentivetwitaward.getDate()))%></font>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

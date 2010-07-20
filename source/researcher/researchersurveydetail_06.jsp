@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/researcher/researchersurveydetail_06.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail06) Pagez.getBeanMgr().get("ResearcherSurveyDetail06")).getTitle() + "</font>\n" +
@@ -443,4 +445,4 @@ ResearcherSurveyDetail06 researcherSurveyDetail06 = (ResearcherSurveyDetail06)Pa
         $('#tabs').tabs();
 </script>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

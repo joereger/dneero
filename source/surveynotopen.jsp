@@ -1,5 +1,7 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%String jspPageName="/surveynotopen.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = Pagez._Survey()+" Not Available";
@@ -25,6 +27,6 @@ String acl = "public";
     </center>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 

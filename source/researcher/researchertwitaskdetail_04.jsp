@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.htmluibeans.StaticVariables" %>
 <%@ page import="com.dneero.util.Util" %>
 <%@ page import="com.dneero.constants.*" %>
+<%String jspPageName="/researcher/researchertwitaskdetail_04.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="" +
@@ -277,4 +279,4 @@ ResearcherTwitaskDetail04 researcherTwitaskDetail04= (ResearcherTwitaskDetail04)
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

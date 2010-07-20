@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
+<%String jspPageName="/blog.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Blog";
@@ -45,4 +47,4 @@ PublicBlog publicBlog = (PublicBlog)Pagez.getBeanMgr().get("PublicBlog");
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

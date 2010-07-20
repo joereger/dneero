@@ -9,6 +9,8 @@
 <%@ page import="com.dneero.util.Util" %>
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/researcher/results_answers_advanced.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Results";
@@ -299,4 +301,4 @@ ResearcherResultsAnswersAdvanced researcherResultsAnswersAdvanced = (ResearcherR
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

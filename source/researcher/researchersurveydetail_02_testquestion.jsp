@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02textbox" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail02testquestion" %>
+<%String jspPageName="/researcher/researchersurveydetail_02_testquestion.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02testquestion) Pagez.getBeanMgr().get("ResearcherSurveyDetail02testquestion")).getSurvey().getTitle() + "</font>\n" +
@@ -152,4 +154,4 @@ String acl="researcher";
         $('#tabs').tabs();
 </script>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

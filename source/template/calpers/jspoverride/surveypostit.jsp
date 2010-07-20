@@ -39,7 +39,7 @@ String acl = "public";
 
 
     <% Survey surveyInTabs = publicSurveyPostit.getSurvey();%>
-    <%@ include file="/surveytabs.jsp" %>
+    <%@ include file="/template/calpers/jspoverride/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyPostit.getSurvey().getTitle()%></font></a>
     <br/><br/><br/>
@@ -51,7 +51,7 @@ String acl = "public";
     <% if (!publicSurveyPostit.getLoggedinuserhasalreadytakensurvey()){ %>
         <font class="mediumfont" style="color: #666666;">Join the Conversation!</font>
         <br/>
-        <font class="normalfont" style="color: #666666;">Once you <a href="/survey.jsp?surveyid=<%=surveyInTabs.getSurveyid()%>">join the conversation</a> you'll be able to share it with others.</font>
+        <font class="normalfont" style="color: #666666;">Once you <a href="/survey.jsp?surveyid=<%=surveyInTabs.getSurveyid()%>">join the conversation</a>, we'll guide your next steps.</font>
     <%}%>
 
 
@@ -82,7 +82,7 @@ String acl = "public";
                                     <li>See the <a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">results</a> unfold in realtime!<br/><br/></li>
                                     <li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discuss</a> the conversation and results with your fellow CalPERS team members.<br/><br/></li>
                                     <li>The <a href="/">Values Super Jam Blog</a> will be updated with new conversations and results analysis... check back soon! Or subscribe via <a href="/rss.xml">rss</a>.<br/><br/></li>
-                                    <li>Optionally, <a href="#" id="togglepagelink">share your answers</a> within the organization by posting them to a webpage, blog, intranet or forum (conversations will only be visible from the CalPERS network even if you post to the web at large.)<br/><br/></li>
+                                    <li>Optionally, <a href="surveypostit.jsp#" id="togglepagelink">share your answers</a> within the organization by posting them to a webpage, blog, intranet or forum (conversations will only be visible from the CalPERS network even if you post to the web at large.)<br/><br/></li>
                                 </ul>
 
                             </font>

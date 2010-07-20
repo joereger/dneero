@@ -4,6 +4,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmluibeans.BloggerImpressions" %>
+<%String jspPageName="/blogger/impressions.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = ((BloggerImpressions) Pagez.getBeanMgr().get("BloggerImpressions")).getSurveytitle();
@@ -34,5 +36,5 @@ String acl = "blogger";
         <%=Grid.render(bloggerImpressions.getList(), cols, 50, "/blogger/impressions.jsp", "page")%>
     <%}%>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

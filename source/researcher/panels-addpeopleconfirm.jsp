@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherPanelsEdit" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/addpeopleconfirm.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Add People to Panel";
@@ -78,5 +80,5 @@ ResearcherPanelsAddpeopleconfirm researcherPanelsAddpeopleconfirm = (ResearcherP
 
     </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

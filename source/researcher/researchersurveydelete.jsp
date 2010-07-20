@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDelete" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/researchersurveydelete.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Delete "+Pagez._Survey();
@@ -37,4 +39,4 @@ ResearcherSurveyDelete researcherSurveyDelete = (ResearcherSurveyDelete) Pagez.g
     </form>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

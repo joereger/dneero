@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.Iterator" %>
+<%String jspPageName="/superpanels.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "SuperPanels";
@@ -94,5 +96,5 @@ String acl = "public";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

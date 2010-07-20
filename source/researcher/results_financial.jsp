@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherResultsFinancial" %>
 <%@ page import="com.dneero.util.Str" %>
+<%String jspPageName="/researcher/results_financial.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Results";
@@ -104,4 +106,4 @@ String acl = "researcher";
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

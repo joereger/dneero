@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmluibeans.AccountReseller" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/account/reseller.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = Pagez.getUserSession().getPl().getNameforui()+" Reseller Program";
@@ -113,5 +115,5 @@ String acl = "account";
 </table>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

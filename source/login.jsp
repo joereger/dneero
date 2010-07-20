@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmluibeans.Login" %>
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.systemprops.SystemProperty" %>
+<%String jspPageName="/login.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Log In";
@@ -130,4 +132,4 @@ Login login = (Login) Pagez.getBeanMgr().get("Login");
 
     </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

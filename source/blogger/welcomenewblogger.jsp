@@ -1,5 +1,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
+<%String jspPageName="/blogger/welcomenewblogger.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "One-Time Configuration is Complete!";
@@ -13,4 +15,4 @@ String acl = "blogger";
     <br/><br/>
     <a href="/blogger/index.jsp"><font class="mediumfont" style="color: #0000ff;">Click Here to Continue</font></a>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

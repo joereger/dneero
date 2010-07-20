@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.htmlui.*" %>
 <%@ page import="com.dneero.mail.Mailtype" %>
 <%@ page import="com.dneero.mail.MailtypeFactory" %>
+<%String jspPageName="/account/inboxdetail.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Inbox";
@@ -83,5 +85,5 @@ AccountInboxDetail accountInboxDetail = (AccountInboxDetail)Pagez.getBeanMgr().g
 
     </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

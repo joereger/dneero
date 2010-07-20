@@ -37,24 +37,7 @@ public class PlTemplate {
         return out;
     }
 
-    public static String getIncludeDirectiveFileName(String filename, Pl pl){
-        Logger logger = Logger.getLogger(PlTemplate.class);
-        //If Pl has a templatedirectory defined
-        if (pl!=null && pl.getTemplatedirectory()!=null && pl.getTemplatedirectory().length()>0){
-            try{
-                //Test to make sure it exists
-                File f = new File(WebAppRootDir.getWebAppRootPath()+"template/"+pl.getTemplatedirectory()+"/"+filename);
-                if (f.exists()){
-                    return "/template/"+pl.getTemplatedirectory()+"/"+filename;
-                } else {
-                    return "/template/default/"+filename;
-                }
-            } catch (Exception ex){
-                logger.error("", ex);
-            }
-        }
-        return "/template/default/"+filename;
-    }
+    
 
     public static String getFileFromPlTemplateDir(Pl pl, String filename){
         return getFileOrPlProp(filename, pl.getTemplatedirectory(), "");

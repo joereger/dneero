@@ -3,6 +3,8 @@
 <%@ page import="com.dneero.incentive.IncentiveCash" %>
 <%@ page import="com.dneero.incentive.IncentiveCoupon" %>
 <%@ page import="com.dneero.incentive.IncentiveNone" %>
+<%String jspPageName="/researcher/researchersurveydetail_05.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail05) Pagez.getBeanMgr().get("ResearcherSurveyDetail05")).getTitle() + "</font>\n" +
@@ -477,4 +479,4 @@ ResearcherSurveyDetail05 researcherSurveyDetail05 = (ResearcherSurveyDetail05)Pa
     <!-- End Bottom Nav -->
 </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

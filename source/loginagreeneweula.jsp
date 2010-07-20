@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.LoginAgreeNewEula" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/loginagreeneweula.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "End User License Agreement";
@@ -46,4 +48,4 @@ LoginAgreeNewEula loginAgreeNewEula = (LoginAgreeNewEula)Pagez.getBeanMgr().get(
     </form>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

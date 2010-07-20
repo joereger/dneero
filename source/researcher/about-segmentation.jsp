@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyList" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/about-segmentation.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Segmentation and Targeting";
@@ -59,4 +61,4 @@ String acl = "public";
 </table>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

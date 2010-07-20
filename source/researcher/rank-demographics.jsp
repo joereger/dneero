@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.htmluibeans.ResearcherRankDemographics" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
+<%String jspPageName="/researcher/rank-demographics.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Results";
@@ -30,4 +32,4 @@ String acl = "researcher";
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

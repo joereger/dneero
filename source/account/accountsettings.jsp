@@ -1,5 +1,7 @@
 <%@ page import="com.dneero.htmluibeans.AccountSettings" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%String jspPageName="/account/accountsettings.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Account Settings";
@@ -163,6 +165,6 @@ AccountSettings accountSettings = (AccountSettings) Pagez.getBeanMgr().get("Acco
     </form>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 

@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmluibeans.PublicOldSurveyList" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="java.util.ArrayList" %>
+<%String jspPageName="/publicoldsurveylist.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Old "+ Pagez._Surveys();
@@ -26,7 +28,7 @@ PublicOldSurveyList publicOldSurveyList = (PublicOldSurveyList) Pagez.getBeanMgr
         <%=Grid.render(publicOldSurveyList.getSurveys(), cols, 50, "/publicoldsurveylist.jsp", "page")%>
     <%}%>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 
 

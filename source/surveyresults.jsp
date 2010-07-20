@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.PublicSurveyResults" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
+<%String jspPageName="/surveyresults.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 PublicSurveyResults publicSurveyResults = (PublicSurveyResults)Pagez.getBeanMgr().get("PublicSurveyResults");
 %>
@@ -87,6 +89,6 @@ String acl = "public";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 

@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherEmailinviteComplete" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/emailinvite-complete.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Please Confirm Email Invite";
@@ -44,5 +46,5 @@ ResearcherEmailinviteComplete researcherEmailinviteComplete = (ResearcherEmailin
         </form>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

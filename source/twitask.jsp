@@ -7,6 +7,8 @@
 <%@ page import="com.dneero.helpers.NicknameHelper" %>
 <%@ page import="com.dneero.helpers.IsBloggerInPanel" %>
 <%@ page import="com.dneero.privatelabel.PlPeers" %>
+<%String jspPageName="/twitask.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
     PublicTwitask publicTwitask = new PublicTwitask(); //Manually creating bean because had problem with redirect from TwitterQuestionServlet.java
     int twitaskid = 0;
@@ -150,4 +152,4 @@ String acl = "public";
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

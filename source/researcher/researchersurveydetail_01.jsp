@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.helpers.ResearcherCreateIfNeeded" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetail01" %>
 <%@ page import="com.dneero.util.Time" %>
+<%String jspPageName="/researcher/researchersurveydetail_01.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<font class=\"pagetitlefont\">"+((ResearcherSurveyDetail01) Pagez.getBeanMgr().get("ResearcherSurveyDetail01")).getTitle()+"</font>\n" +
@@ -224,4 +226,4 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
 </form>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

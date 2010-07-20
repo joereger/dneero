@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
 <%@ page import="com.dneero.review.Reviewable" %>
 <%@ page import="com.dneero.review.ReviewableFactory" %>
+<%String jspPageName="/account/reviewabledetail.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Flagged Content";
@@ -97,6 +99,6 @@ String acl = "account";
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 

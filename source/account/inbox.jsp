@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.dbgrid.Grid" %>
 <%@ page import="com.dneero.htmluibeans.AccountNewInboxMessage" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/account/inbox.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Inbox";
@@ -83,6 +85,6 @@ AccountNewInboxMessage accountNewInboxMessage= (AccountNewInboxMessage) Pagez.ge
         </form>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 

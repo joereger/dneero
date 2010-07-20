@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.survey.servlet.v1.SurveyJavascriptServlet" %>
 <%@ page import="com.dneero.systemprops.BaseUrl" %>
 <%@ page import="com.dneero.util.Num" %>
+<%String jspPageName="/surveytest.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 //Hide from snooping eyes... only sysadmins can play
 UserSession userSession = (UserSession) session.getAttribute("userSession");

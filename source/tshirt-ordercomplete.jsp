@@ -1,4 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
+<%String jspPageName="/tshirt-ordercomplete.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Your T-Shirt Order is Complete";
@@ -14,4 +16,4 @@ Your order is complete!  Just send Joe an email at joe.reger@dneero.com with you
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

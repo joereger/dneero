@@ -5,6 +5,8 @@
 <%@ page import="com.dneero.htmluibeans.StaticVariables" %>
 <%@ page import="com.dneero.util.Util" %>
 <%@ page import="com.dneero.constants.*" %>
+<%String jspPageName="/researcher/researchersurveydetail_04.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail04) Pagez.getBeanMgr().get("ResearcherSurveyDetail04")).getTitle() + "</font>\n" +
@@ -309,4 +311,4 @@ ResearcherSurveyDetail04 researcherSurveyDetail04 = (ResearcherSurveyDetail04)Pa
     <!-- End Bottom Nav -->
 </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

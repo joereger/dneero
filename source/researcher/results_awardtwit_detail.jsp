@@ -11,6 +11,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.dneero.incentivetwit.Incentivetwit" %>
 <%@ page import="com.dneero.incentivetwit.IncentivetwitFactory" %>
+<%String jspPageName="/researcher/results_awardtwit_detail.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Results";
@@ -81,4 +83,4 @@ Incentivetwit incentive = IncentivetwitFactory.getById(si.getType(), si);
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

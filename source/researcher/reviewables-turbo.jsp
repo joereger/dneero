@@ -7,6 +7,8 @@
 <%@ page import="com.dneero.review.ReviewableUtil" %>
 <%@ page import="com.dneero.review.Reviewable" %>
 <%@ page import="com.dneero.review.ReviewableFactory" %>
+<%String jspPageName="/researcher/reviewables-turbo.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Turbo Reviewer";
@@ -327,7 +329,7 @@ if (request.getParameter("action")!=null && request.getParameter("action").equal
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 
 

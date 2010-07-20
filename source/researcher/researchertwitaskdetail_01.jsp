@@ -3,6 +3,8 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmlui.Textarea" %>
 <%@ page import="com.dneero.htmlui.ValidationException" %>
+<%String jspPageName="/researcher/researchertwitaskdetail_01.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "" +
@@ -180,4 +182,4 @@ ResearcherTwitaskDetail01 researcherTwitaskDetail01= (ResearcherTwitaskDetail01)
 </form>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

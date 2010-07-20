@@ -4,6 +4,8 @@
 <%@ page import="com.dneero.dbgrid.GridCol" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dneero.dbgrid.Grid" %>
+<%String jspPageName="/account/accountbalance.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Account Balance: "+((AccountBalance)Pagez.getBeanMgr().get("AccountBalance")).getCurrentbalance();
@@ -46,4 +48,4 @@ AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountB
     <a href="/account/accounttransactions.jsp"><font class="smallfont">View Transfer Details</font></a>
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

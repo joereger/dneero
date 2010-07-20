@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherBilling" %>
 <%@ page import="com.dneero.htmlui.*" %>
+<%String jspPageName="/researcher/researcherbilling.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Researcher Billing Details";
@@ -147,6 +149,6 @@ ResearcherBilling researcherBilling = (ResearcherBilling)Pagez.getBeanMgr().get(
 
     </form>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 
 

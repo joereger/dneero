@@ -1,6 +1,8 @@
 <%@ page import="org.apache.log4j.Logger" %>
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherSurveyDetailPostlaunch" %>
+<%String jspPageName="/researcher/researchersurveydetail_postlaunch.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "<br clear=\"all\"/>";
@@ -72,4 +74,4 @@ if (researcherSurveyDetailPostlaunch.getSurvey().getStatus()==Survey.STATUS_OPEN
 
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

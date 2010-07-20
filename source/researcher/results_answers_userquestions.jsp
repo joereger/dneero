@@ -2,6 +2,8 @@
 <%@ page import="com.dneero.htmlui.Pagez" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherResultsAnswers" %>
 <%@ page import="com.dneero.htmluibeans.ResearcherResultsAnswersCsv" %>
+<%String jspPageName="/researcher/results_answers_userquestions.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Results";
@@ -43,4 +45,4 @@ ResearcherResultsAnswersUserquestions researcherResultsAnswers = (ResearcherResu
     
 
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>

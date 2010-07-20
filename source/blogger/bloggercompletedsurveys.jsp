@@ -6,6 +6,8 @@
 <%@ page import="com.dneero.util.Num" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
+<%String jspPageName="/blogger/bloggercompletedsurveys.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "Joined "+ Pagez._Surveys();
@@ -135,5 +137,5 @@ String acl = "blogger";
         </font></div></center>
     <%}%>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
 

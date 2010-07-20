@@ -14,6 +14,8 @@
 <%@ page import="com.dneero.htmlui.Checkboxes" %>
 <%@ page import="com.dneero.htmlui.Dropdown" %>
 <%@ page import="com.dneero.htmlui.Textbox" %>
+<%String jspPageName="/researcher/researchersurveydetail_02.jsp";%>
+<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger=Logger.getLogger(this.getClass().getName());
 String pagetitle="<font class=\"pagetitlefont\">" + ((ResearcherSurveyDetail02) Pagez.getBeanMgr().get("ResearcherSurveyDetail02")).getTitle() + "</font>\n" +
@@ -256,4 +258,4 @@ String acl="researcher";
         $('#tabs').tabs();
 </script>
 
-<%@ include file="/template/footer.jsp" %>
+<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
