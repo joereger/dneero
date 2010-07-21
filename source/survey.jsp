@@ -242,7 +242,7 @@ if(true){
                                                 for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getOptionaluserquestionlistitems().iterator(); iterator.hasNext();){
                                                     PublicSurveyUserquestionListitem psli=iterator.next();
                                                     indexCurrentlyShowing = indexCurrentlyShowing + 1;
-                                                    if (indexCurrentlyShowing>minIndexToDisplay && indexCurrentlyShowing<maxIndexToDisplay){
+                                                    if (indexCurrentlyShowing>=minIndexToDisplay && indexCurrentlyShowing<=maxIndexToDisplay){
                                                         %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getNickname()%> wants to know:</font><br/><%
                                                         %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
                                                         if (iterator.hasNext()){
