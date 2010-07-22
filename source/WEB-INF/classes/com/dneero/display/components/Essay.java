@@ -68,7 +68,7 @@ public class Essay implements Component {
             }
         }
 
-        out.append("<textarea cols=\"20\" rows=\"3\" style=\"width:95%;\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">"+value+"</textarea>");
+        out.append("<textarea cols=\"20\" rows=\"3\" style=\"width:95%;\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_\">"+value+"</textarea>");
 
         return out.toString();
     }

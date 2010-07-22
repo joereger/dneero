@@ -67,7 +67,7 @@ public class TestQuestion implements Component {
         out.append("<br/>");
         out.append("<font class=\"tinyfont\" style=\"color: #ff0000;\">You must answer this question correctly to qualify.</font>");
         out.append("<br/>");
-        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+ Str.cleanForHtml(value)+"\">");
+        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_\" value=\""+ Str.cleanForHtml(value)+"\">");
 
         return out.toString();
     }

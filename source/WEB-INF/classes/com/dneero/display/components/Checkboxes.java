@@ -2,22 +2,18 @@ package com.dneero.display.components;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Str;
+import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
-import com.dneero.display.SurveyResponseParser;
 import com.dneero.rank.RankUnit;
-import com.dneero.rank.NormalizedpointsUtil;
-
-import java.util.*;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
-
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 import org.jdom.Element;
 import org.jdom.Text;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -98,7 +94,7 @@ public class Checkboxes implements Component {
                 checked = " checked=\"yes\"";
             }
 
-            out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\" "+checked+">" + Str.removeLeftBrackets(s));
+            out.append("<input type=\"checkbox\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_\" value=\""+com.dneero.util.Str.cleanForHtml(s)+"\" "+checked+">" + Str.removeLeftBrackets(s));
             if (optionsSplit.length>i+1){
                 out.append("<br/>");
             }

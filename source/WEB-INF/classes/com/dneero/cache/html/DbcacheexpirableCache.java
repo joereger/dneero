@@ -3,6 +3,7 @@ package com.dneero.cache.html;
 import com.dneero.dao.Dbcacheexpirable;
 import com.dneero.dao.Survey;
 import com.dneero.dao.hibernate.HibernateUtilDbcache;
+import com.dneero.htmlui.Pagez;
 import com.dneero.money.SurveyMoneyStatus;
 import com.dneero.util.DateDiff;
 import com.dneero.util.Time;
@@ -32,6 +33,14 @@ public class DbcacheexpirableCache {
 
     public static Object get(String key, String group, boolean returnNullIfExpired) {
         Logger logger = Logger.getLogger(DbcacheexpirableCache.class);
+        boolean forceRefresh = false;
+        try{
+            if (Pagez.getRequest()!=null && Pagez.getRequest().getParameter("refresh")!=null && Pagez.getRequest().getParameter("refresh").equals("1")){
+                forceRefresh = true;
+            }
+        } catch (Exception ex){
+            logger.error("", ex);
+        }
         try{
             List<Dbcacheexpirable> dbcaches = HibernateUtilDbcache.getSession().createCriteria(Dbcacheexpirable.class)
                                                .add(Restrictions.eq("grp", group))
@@ -42,10 +51,10 @@ public class DbcacheexpirableCache {
                 Dbcacheexpirable dbcache = dbcaches.get(0);
                 Object obj = dbcache.getVal();
                 //If it's expired delete and return null
-                if (dbcache.getExpirationdate().before(Calendar.getInstance().getTime())){
+                if (forceRefresh || dbcache.getExpirationdate().before(Calendar.getInstance().getTime())){
                     logger.debug("deleting Dbcacheexpirable because it's expired, returning null to force refresh");
                     dbcache.delete();
-                    if (returnNullIfExpired){
+                    if (returnNullIfExpired || forceRefresh){
                         return null;
                     } else {
                         return obj;

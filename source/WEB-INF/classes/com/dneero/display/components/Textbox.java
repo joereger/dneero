@@ -2,20 +2,18 @@ package com.dneero.display.components;
 
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Str;
+import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
-import com.dneero.display.SurveyResponseParser;
 import com.dneero.rank.RankUnit;
-
-import java.util.*;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
-
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.Text;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.*;
 
 /**
  * User: Joe Reger Jr
@@ -70,7 +68,7 @@ public class Textbox implements Component {
             }
         }
 
-        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\" value=\""+Str.cleanForHtml(value)+"\">");
+        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_\" value=\""+Str.cleanForHtml(value)+"\">");
 
         return out.toString();
     }

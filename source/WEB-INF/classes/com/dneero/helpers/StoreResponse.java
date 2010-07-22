@@ -195,6 +195,7 @@ public class StoreResponse {
 
 
                 //Userquestion processing
+                logger.debug("start processing userquestion... note that this is the addition of a userquestion, not the answering of other userquestions");
                 if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
                     String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
                     if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
@@ -294,6 +295,7 @@ public class StoreResponse {
 
                     }
                 }
+                logger.debug("end processing userquestion... note that this is the addition of a userquestion, not the answering of other userquestions");
 
                 //Handle rankings in a thread
                 try{

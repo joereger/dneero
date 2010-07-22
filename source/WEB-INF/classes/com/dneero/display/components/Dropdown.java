@@ -75,7 +75,7 @@ public class Dropdown implements Component {
         }
         String[] optionsSplit = options.split("\\n");
 
-        out.append("<select name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"\">");
+        out.append("<select name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_\">");
         out.append("<option value=\"\"></option>");
         for (int i = 0; i < optionsSplit.length; i++) {
             String s = optionsSplit[i];

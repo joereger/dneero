@@ -1,11 +1,9 @@
 package com.dneero.display;
 
+import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 
 import java.util.*;
-import java.io.Serializable;
-
-import com.dneero.util.Util;
 
 /**
  * User: Joe Reger Jr
@@ -106,7 +104,7 @@ public class SurveyResponseParser {
             Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
             String name = (String)mapentry.getKey();
             String[] values = (String[])mapentry.getValue();
-            if (name.indexOf("questionid_"+questionid)>-1){
+            if (name.indexOf("questionid_"+questionid+"_")>-1){
                 //Trim all values and hold in valuesTmp
                 ArrayList<String> valuesTmp = new ArrayList<String>();
                 for (int j = 0; j < values.length; j++) {
