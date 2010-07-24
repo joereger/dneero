@@ -68,7 +68,7 @@ String acl = "public";
                         <br/>
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">
-                    <div class="rounded" style="background: #e6e6e6;">
+                    <div class="rounded" style="background: #e6e6e6; width: 535px;">
 
 
 
