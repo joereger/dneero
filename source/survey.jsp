@@ -62,7 +62,7 @@ String acl = "public";
                 return;
             }
             if (!Pagez.getUserSession().getIsfacebookui() && !Pagez.getUserSession().getIsloggedin()){
-                Pagez.sendRedirect("/registration.jsp");
+                Pagez.sendRedirect("/login.jsp");
                 return;
             }
             Pagez.sendRedirect("/surveypostit.jsp?surveyid="+publicSurvey.getSurvey().getSurveyid()+"&justcompletedsurvey=1");

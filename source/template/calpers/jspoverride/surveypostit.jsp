@@ -51,7 +51,7 @@ String acl = "public";
     <% if (!publicSurveyPostit.getLoggedinuserhasalreadytakensurvey()){ %>
         <font class="mediumfont" style="color: #666666;">Join the Conversation!</font>
         <br/>
-        <font class="normalfont" style="color: #666666;">Once you <a href="/survey.jsp?surveyid=<%=surveyInTabs.getSurveyid()%>">join the conversation</a>, we'll guide your next steps.</font>
+        <font class="normalfont" style="color: #666666;">Once you <a href="/survey.jsp?surveyid=<%=surveyInTabs.getSurveyid()%>">join the conversation</a>, we'll provide guidance for your next steps.</font>
     <%}%>
 
 

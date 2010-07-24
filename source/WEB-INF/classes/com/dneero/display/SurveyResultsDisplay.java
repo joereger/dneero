@@ -7,6 +7,7 @@ import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.finders.FindResponses;
 import com.dneero.finders.SurveyCriteriaXML;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
@@ -118,6 +119,7 @@ public class SurveyResultsDisplay {
                         questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
                            .add(Restrictions.eq("questionid", question.getQuestionid()))
                            .add(Restrictions.in("responseid", responseidstodisplay))
+                           .addOrder(Order.desc("questionresponseid"))
                            .setCacheable(true)
                            .list();
                     }

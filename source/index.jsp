@@ -38,7 +38,7 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
                 return;
             }  else {
                 Pagez.getUserSession().setWhereToRedirectToAfterSignup("/researcher/researchertwitaskdetail_01.jsp");
-                Pagez.sendRedirect("/registration.jsp");
+                Pagez.sendRedirect("/login.jsp");
                 return;
             }
         } catch (Exception ex) {
@@ -57,7 +57,7 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
                 return;
             }  else {
                 Pagez.getUserSession().setWhereToRedirectToAfterSignup("/researcher/researchersurveydetail_01.jsp");
-                Pagez.sendRedirect("/registration.jsp");
+                Pagez.sendRedirect("/login.jsp");
                 return;   
             }
         } catch (Exception ex) {

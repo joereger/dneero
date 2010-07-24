@@ -84,7 +84,7 @@
 ##        <a href="/reseller.jsp">Reseller Program</a>
 ##        <a href="/superpanels.jsp">SuperPanels</a>
         #if (!$userSession.isloggedin)
-##            <a href="/registration.jsp">Sign Up</a>
+##            <a href="/login.jsp">Sign Up</a>
         #end
         #if (!$userSession.isloggedin)
 ##            <a href="/login.jsp">Log In</a>
@@ -161,7 +161,7 @@
     <img src="/images/clear.gif" width="1" height="1" border="0"/>
     <div class="subnavinner">
     #if (!$userSession.isloggedin)
-        <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/registration.jsp">Sign Up</a></font>
+        <font class="subnavfont"><a href="/login.jsp">Log In</a> | <a href="/login.jsp">Sign Up</a></font>
     #end
     #if ($userSession.isloggedin)
         <font class="subnavfont">Hi, $userSession.user.nickname | <a href="/account/index.jsp">Account</a> | <a href="/account/inbox.jsp">Help</a>

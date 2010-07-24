@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.Text;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -122,87 +120,38 @@ public class Essay implements Component {
         }
     }
 
-
-
     public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
         out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         out.append("<tr>");
-        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
-        out.append(" ");
+        out.append("<td valign=\"top\" align=\"left\" bgcolor=\"#ffffff\" colspan=\"1\">");
+        out.append("<br/><br/>");
+        int i = 0;
+        int numToDisplay = 15;
+        for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
+            Questionresponse questionresponse = (Questionresponse)it.next();
+            if (i<=numToDisplay){
+                if (questionresponse.getName().equals("response")){
+                    i = i + 1;
+                    Blogger blogger = Blogger.get(questionresponse.getBloggerid());
+                    User user = User.get(blogger.getUserid());
+                    out.append("<font class=\"tinyfont\"><b><a href=\"/results_respondents_profile.jsp?responseid="+questionresponse.getResponseid()+"\">"+ user.getNickname()+"</a></b></font>");
+                    out.append("<br/>");
+                    out.append(questionresponse.getValue());
+                    out.append("<br/>");
+                    out.append("<br/>");
+                }
+            }
+        }
         out.append("</td>");
-        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
-        out.append("<b class=\"smallfont\">Response Percent</b>");
-        out.append("</td>");
-        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
-        out.append("<b class=\"smallfont\">Response Total</b>");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
         out.append("</td>");
         out.append("</tr>");
 
-        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
-        answers.put("Less than 100 characters", 0);
-        answers.put("Between 100 and 1000 characters", 0);
-        answers.put("Between 1000 and 2000 characters", 0);
-        answers.put("Between 2000 and 5000 characters", 0);
-        answers.put("More than 5000 characters", 0);
-        for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
-            Questionresponse questionresponse = (Questionresponse)it.next();
-            if (questionresponse.getName().equals("response")){
-                String lengthInChars = "";
-                if (questionresponse.getValue().length()<100){
-                    lengthInChars = "Less than 100 characters";
-                } else if (questionresponse.getValue().length()>=100 && questionresponse.getValue().length()<1000){
-                    lengthInChars = "Between 100 and 1000 characters";
-                }  else if (questionresponse.getValue().length()>=1000 && questionresponse.getValue().length()<2000){
-                    lengthInChars = "Between 1000 and 2000 characters";
-                }  else if (questionresponse.getValue().length()>=2000 && questionresponse.getValue().length()<5000){
-                    lengthInChars = "Between 2000 and 5000 characters";
-                }  else if (questionresponse.getValue().length()>=5000){
-                    lengthInChars = "More than 5000 characters";
-                }
-
-                if (answers.containsKey(lengthInChars)){
-                    int currcount = (Integer)answers.get(lengthInChars);
-                    answers.put(lengthInChars, currcount+1);
-                } else {
-                    answers.put(lengthInChars, 1);
-                }
-            }
-        }
-
-        Iterator keyValuePairs = answers.entrySet().iterator();
-        for (int i = 0; i < answers.size(); i++){
-            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-            String answer = (String)mapentry.getKey();
-            int count = (Integer)mapentry.getValue();
-
-            double percentage = 0;
-            if (count>0 && questionresponses!=null && questionresponses.size()>0){
-                percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
-            }
-            NumberFormat formatter = DecimalFormat.getInstance();
-            formatter.setMaximumFractionDigits(0);
-
-            out.append("<tr>");
-            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
-            out.append(answer);
-            out.append("</td>");
-            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
-            out.append("<img src=\"/images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
-            out.append("</td>");
-            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
-            out.append(String.valueOf(formatter.format(percentage)) + "%");
-            out.append("</td>");
-            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
-            out.append(count);
-            out.append("</td>");
-            out.append("</tr>");
-
-        }
 
         out.append("<tr>");
-        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"1\">");
         out.append("<b>Total</b>");
         out.append("</td>");
         out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
@@ -210,15 +159,114 @@ public class Essay implements Component {
         out.append("</td>");
         out.append("</tr>");
 
-        out.append("<tr>");
-        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
-        out.append("<a href=\"/results_answers_details.jsp?questionid="+question.getQuestionid()+"\"><b>All Essay Responses</b></a>");
-        out.append("</td>");
-        out.append("</tr>");
+        int remainingResponses = questionresponses.size() - i;
+        if (remainingResponses>0){
+            out.append("<tr>");
+            out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
+            out.append("<a href=\"/results_answers_details.jsp?questionid="+question.getQuestionid()+"\"><b>See All ("+remainingResponses+" More)</b></a>");
+            out.append("</td>");
+            out.append("</tr>");
+        }
 
         out.append("</table>");
         return out.toString();
     }
+
+//    public String getHtmlForResult(List<Questionresponse> questionresponses){
+//        StringBuffer out = new StringBuffer();
+//        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
+//
+//        out.append("<tr>");
+//        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
+//        out.append(" ");
+//        out.append("</td>");
+//        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+//        out.append("<b class=\"smallfont\">Response Percent</b>");
+//        out.append("</td>");
+//        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+//        out.append("<b class=\"smallfont\">Response Total</b>");
+//        out.append("</td>");
+//        out.append("</tr>");
+//
+//        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+//        answers.put("Less than 100 characters", 0);
+//        answers.put("Between 100 and 1000 characters", 0);
+//        answers.put("Between 1000 and 2000 characters", 0);
+//        answers.put("Between 2000 and 5000 characters", 0);
+//        answers.put("More than 5000 characters", 0);
+//        for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
+//            Questionresponse questionresponse = (Questionresponse)it.next();
+//            if (questionresponse.getName().equals("response")){
+//                String lengthInChars = "";
+//                if (questionresponse.getValue().length()<100){
+//                    lengthInChars = "Less than 100 characters";
+//                } else if (questionresponse.getValue().length()>=100 && questionresponse.getValue().length()<1000){
+//                    lengthInChars = "Between 100 and 1000 characters";
+//                }  else if (questionresponse.getValue().length()>=1000 && questionresponse.getValue().length()<2000){
+//                    lengthInChars = "Between 1000 and 2000 characters";
+//                }  else if (questionresponse.getValue().length()>=2000 && questionresponse.getValue().length()<5000){
+//                    lengthInChars = "Between 2000 and 5000 characters";
+//                }  else if (questionresponse.getValue().length()>=5000){
+//                    lengthInChars = "More than 5000 characters";
+//                }
+//
+//                if (answers.containsKey(lengthInChars)){
+//                    int currcount = (Integer)answers.get(lengthInChars);
+//                    answers.put(lengthInChars, currcount+1);
+//                } else {
+//                    answers.put(lengthInChars, 1);
+//                }
+//            }
+//        }
+//
+//        Iterator keyValuePairs = answers.entrySet().iterator();
+//        for (int i = 0; i < answers.size(); i++){
+//            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+//            String answer = (String)mapentry.getKey();
+//            int count = (Integer)mapentry.getValue();
+//
+//            double percentage = 0;
+//            if (count>0 && questionresponses!=null && questionresponses.size()>0){
+//                percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
+//            }
+//            NumberFormat formatter = DecimalFormat.getInstance();
+//            formatter.setMaximumFractionDigits(0);
+//
+//            out.append("<tr>");
+//            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
+//            out.append(answer);
+//            out.append("</td>");
+//            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
+//            out.append("<img src=\"/images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
+//            out.append("</td>");
+//            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
+//            out.append(String.valueOf(formatter.format(percentage)) + "%");
+//            out.append("</td>");
+//            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
+//            out.append(count);
+//            out.append("</td>");
+//            out.append("</tr>");
+//
+//        }
+//
+//        out.append("<tr>");
+//        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
+//        out.append("<b>Total</b>");
+//        out.append("</td>");
+//        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
+//        out.append(questionresponses.size());
+//        out.append("</td>");
+//        out.append("</tr>");
+//
+//        out.append("<tr>");
+//        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
+//        out.append("<a href=\"/results_answers_details.jsp?questionid="+question.getQuestionid()+"\"><b>See All</b></a>");
+//        out.append("</td>");
+//        out.append("</tr>");
+//
+//        out.append("</table>");
+//        return out.toString();
+//    }
 
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
@@ -229,7 +277,7 @@ public class Essay implements Component {
                 i = i + 1;
                 Blogger blogger = Blogger.get(questionresponse.getBloggerid());
                 User user = User.get(blogger.getUserid());
-                out.append("<b>Response from: <a href=\"/results_respondents_profile.jsp?responseid="+questionresponse.getResponseid()+"\">"+ user.getNickname()+"</a></b>");
+                out.append("<b><a href=\"/results_respondents_profile.jsp?responseid="+questionresponse.getResponseid()+"\">"+ user.getNickname()+"</a></b>");
                 out.append("<br/>");
                 out.append(questionresponse.getValue());
                 out.append("<br/>");

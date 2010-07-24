@@ -38,6 +38,8 @@ public class BlogPostsFull implements CachedStuff, Serializable {
             out.append("<tr>");
             out.append("<td>");
             out.append("<font class='tinyfont'>");
+            out.append(blogpost.getAuthor());
+            out.append(" - ");
             out.append(ago);
             out.append("</font>");
             out.append("<br/>");

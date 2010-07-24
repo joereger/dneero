@@ -68,7 +68,7 @@ public class Textbox implements Component {
             }
         }
 
-        out.append("<input type=\"text\" size=\"20\" maxlength=\"255\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_\" value=\""+Str.cleanForHtml(value)+"\">");
+        out.append("<input type=\"text\" size=\"40\" maxlength=\"500\" name=\""+ SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"questionid_"+question.getQuestionid()+"_\" value=\""+Str.cleanForHtml(value)+"\">");
 
         return out.toString();
     }
@@ -127,68 +127,33 @@ public class Textbox implements Component {
         out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
 
         out.append("<tr>");
-        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
-        out.append(" ");
-        out.append("</td>");
-        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
-        out.append("<b class=\"smallfont\">Response Percent</b>");
-        out.append("</td>");
-        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
-        out.append("<b class=\"smallfont\">Response Total</b>");
-        out.append("</td>");
-        out.append("</tr>");
-
-        //Get answers
-        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+        out.append("<td valign=\"top\" align=\"left\" bgcolor=\"#ffffff\" colspan=\"1\">");
+        out.append("<br/><br/>");
+        int i = 0;
+        int numToDisplay = 15;
         for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
             Questionresponse questionresponse = (Questionresponse)it.next();
-            if (questionresponse.getName().equals("response")){
-                if (answers.containsKey(questionresponse.getValue().trim())){
-                    int currcount = (Integer)answers.get(questionresponse.getValue().trim());
-                    answers.put(questionresponse.getValue(), currcount+1);
-                } else {
-                    answers.put(questionresponse.getValue(), 1);
+            if (i<=numToDisplay){
+                if (questionresponse.getName().equals("response")){
+                    i = i + 1;
+                    Blogger blogger = Blogger.get(questionresponse.getBloggerid());
+                    User user = User.get(blogger.getUserid());
+                    out.append("<font class=\"tinyfont\"><b><a href=\"/results_respondents_profile.jsp?responseid="+questionresponse.getResponseid()+"\">"+ user.getNickname()+"</a></b></font>");
+                    out.append("<br/>");
+                    out.append(questionresponse.getValue());
+                    out.append("<br/>");
+                    out.append("<br/>");
                 }
             }
         }
+        out.append("</td>");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
+        out.append("</td>");
+        out.append("</tr>");
 
-        //Display
-        int maxtodisplay = 10;
-        if (answers.size()<maxtodisplay){
-            maxtodisplay = answers.size();
-        }
-        Iterator keyValuePairs = answers.entrySet().iterator();
-        for (int i = 0; i < maxtodisplay; i++){
-            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-            String answer = (String)mapentry.getKey();
-            int count = (Integer)mapentry.getValue();
-
-            double percentage = 0;
-            if (count>0 && questionresponses!=null && questionresponses.size()>0){
-                percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
-            }
-            NumberFormat formatter = DecimalFormat.getInstance();
-            formatter.setMaximumFractionDigits(0);
-
-            out.append("<tr>");
-            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
-            out.append(answer);
-            out.append("</td>");
-            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
-            out.append("<img src=\"/images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
-            out.append("</td>");
-            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
-            out.append(String.valueOf(formatter.format(percentage)) + "%");
-            out.append("</td>");
-            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
-            out.append(count);
-            out.append("</td>");
-            out.append("</tr>");
-
-        }
 
         out.append("<tr>");
-        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
+        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"1\">");
         out.append("<b>Total</b>");
         out.append("</td>");
         out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
@@ -196,15 +161,102 @@ public class Textbox implements Component {
         out.append("</td>");
         out.append("</tr>");
 
-        out.append("<tr>");
-        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
-        out.append("<a href=\"/results_answers_details.jsp?questionid="+question.getQuestionid()+"\"><b>All Responses</b></a>");
-        out.append("</td>");
-        out.append("</tr>");
+        int remainingResponses = questionresponses.size() - i;
+        if (remainingResponses>0){
+            out.append("<tr>");
+            out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
+            out.append("<a href=\"/results_answers_details.jsp?questionid="+question.getQuestionid()+"\"><b>See All ("+remainingResponses+" More)</b></a>");
+            out.append("</td>");
+            out.append("</tr>");
+        }
 
         out.append("</table>");
         return out.toString();
     }
+
+//    public String getHtmlForResult(List<Questionresponse> questionresponses){
+//        StringBuffer out = new StringBuffer();
+//        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
+//
+//        out.append("<tr>");
+//        out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
+//        out.append(" ");
+//        out.append("</td>");
+//        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+//        out.append("<b class=\"smallfont\">Response Percent</b>");
+//        out.append("</td>");
+//        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
+//        out.append("<b class=\"smallfont\">Response Total</b>");
+//        out.append("</td>");
+//        out.append("</tr>");
+//
+//        //Get answers
+//        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+//        for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
+//            Questionresponse questionresponse = (Questionresponse)it.next();
+//            if (questionresponse.getName().equals("response")){
+//                if (answers.containsKey(questionresponse.getValue().trim())){
+//                    int currcount = (Integer)answers.get(questionresponse.getValue().trim());
+//                    answers.put(questionresponse.getValue(), currcount+1);
+//                } else {
+//                    answers.put(questionresponse.getValue(), 1);
+//                }
+//            }
+//        }
+//
+//        //Display
+//        int maxtodisplay = 10;
+//        if (answers.size()<maxtodisplay){
+//            maxtodisplay = answers.size();
+//        }
+//        Iterator keyValuePairs = answers.entrySet().iterator();
+//        for (int i = 0; i < maxtodisplay; i++){
+//            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+//            String answer = (String)mapentry.getKey();
+//            int count = (Integer)mapentry.getValue();
+//
+//            double percentage = 0;
+//            if (count>0 && questionresponses!=null && questionresponses.size()>0){
+//                percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
+//            }
+//            NumberFormat formatter = DecimalFormat.getInstance();
+//            formatter.setMaximumFractionDigits(0);
+//
+//            out.append("<tr>");
+//            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
+//            out.append(answer);
+//            out.append("</td>");
+//            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
+//            out.append("<img src=\"/images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
+//            out.append("</td>");
+//            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
+//            out.append(String.valueOf(formatter.format(percentage)) + "%");
+//            out.append("</td>");
+//            out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
+//            out.append(count);
+//            out.append("</td>");
+//            out.append("</tr>");
+//
+//        }
+//
+//        out.append("<tr>");
+//        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
+//        out.append("<b>Total</b>");
+//        out.append("</td>");
+//        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
+//        out.append(questionresponses.size());
+//        out.append("</td>");
+//        out.append("</tr>");
+//
+//        out.append("<tr>");
+//        out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=4>");
+//        out.append("<a href=\"/results_answers_details.jsp?questionid="+question.getQuestionid()+"\"><b>See All</b></a>");
+//        out.append("</td>");
+//        out.append("</tr>");
+//
+//        out.append("</table>");
+//        return out.toString();
+//    }
 
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();

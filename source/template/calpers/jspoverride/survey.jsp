@@ -60,7 +60,7 @@ String acl = "public";
                 return;
             }
             if (!Pagez.getUserSession().getIsfacebookui() && !Pagez.getUserSession().getIsloggedin()){
-                Pagez.sendRedirect("/registration.jsp");
+                Pagez.sendRedirect("/login.jsp");
                 return;
             }
             Pagez.sendRedirect("/surveypostit.jsp?surveyid="+publicSurvey.getSurvey().getSurveyid()+"&justcompletedsurvey=1");
@@ -189,7 +189,7 @@ if(true){
                                     <%=publicSurvey.getTakesurveyhtml()%>
                                 </div>
                             </div>
-                            <%if (publicSurvey.getUserquestionlistitems()!=null && publicSurvey.getUserquestionlistitems().size()>0){%>
+                            <%if (1==2 && publicSurvey.getUserquestionlistitems()!=null && publicSurvey.getUserquestionlistitems().size()>0){%>
                                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                     <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
                                         <font class="formfieldnamefont">Answer these questions from your friends:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><br/>
@@ -209,7 +209,7 @@ if(true){
                             <%if (publicSurvey.getOptionaluserquestionlistitems()!=null && publicSurvey.getOptionaluserquestionlistitems().size()>0){%>
                                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                     <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                        <font class="formfieldnamefont">Questions by other Values Super Jammers... answer those that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
+                                        <font class="formfieldnamefont">Questions by other Values Super Jammers... answer those that interest you:</font> <font class="formfieldnamefont" style="color: #000000;">(Optional)</font><br/>
                                         <font class="tinyfont"></font><br/><br/>
                                         <div style="background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; height: 150px; overflow : auto;">
                                         <%
@@ -257,7 +257,7 @@ if(true){
                             <%}%>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                    <font class="formfieldnamefont">Ask Other Values Super Jammers a Question</font> <font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask other Values Super Jammers anything related to this <%=Pagez._survey()%>. Those who join after you will have the opportunity to answer your question.</font><br/>
+                                    <font class="formfieldnamefont">Ask Other Values Super Jammers a Question</font> <font class="formfieldnamefont" style="color: #ff0000;"></font><br/><font class="tinyfont">You can ask other Values Super Jammers anything related to this <%=Pagez._survey()%>. Those who join after you will have the opportunity to answer your question.<br/><br/><i>Our Jam will only grow if you ask questions. Please share a question, even if it's been asked before. If you don't have a question right now, it's OK ... just enter "none at this time".</i></font><br/>
                                     <br/><font class="formfieldnamefont">Type a Question in the Box Below</font><br/>
                                     <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="250"/>
                                     <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
@@ -318,8 +318,8 @@ if(true){
                                                 islongtext = " checked";
                                             }
                                             %>
-                                            <td valign="top"><input type="radio" <%=islongtext%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="LongText"></td>
-                                            <td valign="top"><img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Long Text</font><br/><font class="tinyfont">People can answer whatever they want in a long essay format.</font></td>
+                                            <td valign="top"><!--<input type="radio" <%=islongtext%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="LongText">--></td>
+                                            <td valign="top"><!--<img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Long Text</font><br/><font class="tinyfont">People can answer whatever they want in a long essay format.</font>--></td>
                                         </tr>
                                         </table>
 
@@ -444,10 +444,10 @@ if(true){
 
 
 
-                           <center>
-                           <img src="/images/info-128.png" alt="" width="128" height="128"/>
-                           </center>
-                           <br/>
+                           <%--<center>--%>
+                           <%--<img src="/images/info-128.png" alt="" width="128" height="128"/>--%>
+                           <%--</center>--%>
+                           <%--<br/>--%>
                                 <!-- Stats -->
                                 <div class="rounded" style="background: #f6f6f6; text-align: left;">
                                     <table cellpadding="0" cellspacing="5" border="0">
