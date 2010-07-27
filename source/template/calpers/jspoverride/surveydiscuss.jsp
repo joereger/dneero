@@ -42,8 +42,13 @@ String acl = "public";
     <% Survey surveyInTabs = publicSurveyDiscuss.getSurvey();%>
     <%@ include file="/template/calpers/jspoverride/surveytabs.jsp" %>
 
+
+
     <a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyDiscuss.getSurvey().getTitle()%></font></a>
-    <br/><br/><br/>
+    <br/><br/>
+
+    <center><img src="/template/calpers/images/hp-calpers.png" width="950" height="250"/></center>
+    <br clear="all"/><br/>
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
     <table width="100%" cellpadding="5">
