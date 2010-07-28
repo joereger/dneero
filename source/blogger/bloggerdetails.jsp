@@ -27,7 +27,11 @@ BloggerDetails bloggerDetails = (BloggerDetails)Pagez.getBeanMgr().get("BloggerD
                 Demographic demographic = demographicIterator.next();
                 try{
                     boolean requireField = demographic.getIsrequired();
-                    bloggerDetails.getDemographicsXML().setValue(demographic.getDemographicid(), Dropdown.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), requireField));
+                    if (demographic.getType()==Demographic.TYPE_SELECT){
+                        bloggerDetails.getDemographicsXML().setValue(demographic.getDemographicid(), Dropdown.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), requireField));
+                    } else {
+                        bloggerDetails.getDemographicsXML().setValue(demographic.getDemographicid(), Textbox.getValueFromRequest("demographic_"+demographic.getDemographicid(), demographic.getName(), requireField, DatatypeString.DATATYPEID));    
+                    }
                 } catch (com.dneero.htmlui.ValidationException vex) {
                     demographicsFieldsAreOK = false;
                     Pagez.getUserSession().setMessage("If you don't want to answer a question please choose the non-answering value ('NA', 'Other', etc)");
@@ -133,11 +137,17 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                         <%}%>
                                     </td>
                                     <td valign="top">
-                                        <%=Dropdown.getHtml("demographic_"+demographic.getDemographicid(),
+                                        <%if (demographic.getType()==Demographic.TYPE_SELECT){%>
+                                            <%=Dropdown.getHtml("demographic_"+demographic.getDemographicid(),
                                                             bloggerDetails.getDemographicsXML().getValue(demographic.getDemographicid()),
                                                             Util.stringArrayToTreeMap(bloggerDetails.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid())),
                                                             "",
                                                             "")%>
+                                        <% } else { %>
+                                            <%=Textbox.getHtml("demographic_"+demographic.getDemographicid(),
+                                                    bloggerDetails.getDemographicsXML().getValue(demographic.getDemographicid()),
+                                                    255, 40,"","")%>
+                                        <% } %>
                                     </td>
                                 </tr>
 
