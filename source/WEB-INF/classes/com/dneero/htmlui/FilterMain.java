@@ -219,6 +219,19 @@ public class FilterMain implements Filter {
                                 }
                             }
                         }
+                        if (Pagez.getUserSession().getIsloggedin()){
+                            //Set persistent login cookie, if necessary
+                            //Needs to be done because Pagez.sendRedirect() flushes cookies and that code is used after login
+                            if (Pagez.getRequest().getParameter("keepmeloggedin")!=null && Pagez.getRequest().getParameter("keepmeloggedin").equals("1")){
+                                logger.debug("Setting persistent cookie(s)");
+                                //Get all possible cookies to set
+                                Cookie[] cookies = PersistentLogin.getPersistentCookies(Pagez.getUserSession().getUser().getUserid(), Pagez.getRequest());
+                                //Add a cookies to the response
+                                for (int j = 0; j < cookies.length; j++) {
+                                    Pagez.getResponse().addCookie(cookies[j]);
+                                }
+                            }
+                        }
                     }
                     logger.debug("after persistent login and isfacebookui="+Pagez.getUserSession().getIsfacebookui());
                     logger.debug("after persistent login and isloggedin="+Pagez.getUserSession().getIsloggedin());

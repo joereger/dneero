@@ -99,6 +99,13 @@ String acl = "public";
        </table>
        </div>
 
+        <font class="normalfont">
+            <ul>
+               <li>Below you see all the conversations that the named user has joined.</li>
+               <li>Click on'[name] Answers' to see his/her answers for any of the conversations listed.</li>
+               <li>Click on 'Results' to see "All Users' Answers" for the listed conversation.</li>
+            </ul>
+        </font>
 
        <br/><br/>
        <font class="mediumfont" style="color: #cccccc;"><%=Pagez._Surveys()%> <%=publicProfile.getUser().getNickname()%> Joined</font>

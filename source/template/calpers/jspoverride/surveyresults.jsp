@@ -30,7 +30,17 @@ String acl = "public";
     <%@ include file="/template/calpers/jspoverride/surveytabs.jsp" %>
 
     <a href="/survey.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyResults.getSurvey().getTitle()%></font></a>
-    <br/><br/><br/>
+    <br/><br/>
+
+        <font class="normalfont">
+            <ul>
+               <li>The two tabs below contain the answers to the questions we've used in this conversation.</li>
+               <li>Both of these tabs display the most recent 15 responses.</li>
+               <li>If there are more than 15 responses, click on the "See All" link.</li>
+            </ul>
+        </font>
+
+    <br/><br/>
 
 
     <div id="tabs">
@@ -53,7 +63,10 @@ String acl = "public";
         <div id="tabs-2">
             <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/><br/>
             <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: left;">
-                <font class="smallfont" style="font-weight: bold;">All the questions on this page were added by CalPERS people involved in the conversation.</font>
+                <font class="normalfont">
+                    Displayed below are the answers to questions that fellow Jammers entered into this conversation.
+                </font>
+
             </div>
             <br/>
             <%=publicSurveyResults.getResultsUserquestionsHtml()%>

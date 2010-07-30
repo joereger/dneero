@@ -48,7 +48,17 @@ String acl = "public";
     <br/><br/>
 
     <center><img src="/template/calpers/images/hp-calpers.png" width="950" height="250"/></center>
-    <br clear="all"/><br/>
+    <br clear="all"/>
+
+    <font class="normalfont">
+            <ul>
+               <li>Below you see all comments made by fellow jammers after they have joined this conversation.</li>
+               <li>The most recent comment is at the top of the list.</li>
+               <li>You may enter the discussion by posting your comment.</li>
+            </ul>
+        </font>
+
+
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
     <table width="100%" cellpadding="5">

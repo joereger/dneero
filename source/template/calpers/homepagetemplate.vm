@@ -1,7 +1,11 @@
 
 <center><img src="/template/calpers/images/hp-calpers.png" width="950" height="250"/></center>
-<br clear="all"/><br/>
-
+<ul>
+    <li>This is your Home page for all of conversations that will take place in the Jam. A conversation is a set of questions  to which we ask you to respond.  You may access conversations, whether Open or Closed, by clicking below.</li>
+    <li>The Jam Facilitation Team is made up of CalPERS and Senn Delaney folks who are tasked with analyzing the  conversations while they happen.  Their observations about trends, topics, and tribulations may interest you. </li>
+    <li>The "Recent Participants" shows you the activity of your fellow jammers.</li>
+</ul>
+<br clear="all"/>
 
     <table cellpadding="0" cellspacing="10" border="0" width="100%">
 

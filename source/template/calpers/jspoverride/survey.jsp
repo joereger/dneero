@@ -126,7 +126,7 @@ if(true){
                                 <center>
                                     <font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getNickname()%>'s answers.</font><br/>
                                     <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                                        <a href="survey.jsp#joinconvo"><font class="tinyfont">How would you answer?</font></a>
+                                        <!--<a href="survey.jsp#joinconvo"><font class="tinyfont">How would you answer?</font></a>-->
                                     <% } %>
                                 </center>
                                 <br/>
@@ -521,6 +521,15 @@ if(true){
                                <%--<b>Welcome to the conversation!</b>  These survey-based conversations are done transparently and openly. They build community and discussion while putting our collective finger on the pulse of our organization.--%>
 
                                <br/><br/>
+                               <b>Instructions</b>
+                               <ol>
+                                   <li>Give your thoughts - Answer the questions to the left</li>
+                                   <li>Create new ideas - Ask questions you want others to consider</li>
+                                   <li>Tap in to what people think - Go to the All Users' Answers tab to see how people reply</li>
+                               </ol>
+
+
+                               <br/><br/>
                                <b>Core Values</b>
                                <ul>
                                    <li><b>Quality</b> - Strive to meet internal and external customers' needs through innovation, competence and teamwork. Seek to "do it right" the first time.</li>
@@ -531,13 +540,7 @@ if(true){
                                </ul>
 
 
-                               <br/><br/>
-                               <font class="mediumfont" style="color: #000000;"><b>Instructions</b></font>
-                               <ol>
-                                   <li>Give your thoughts - Answer the questions to the left</li>
-                                   <li>Create new ideas - Ask questions you want others to consider</li>
-                                   <li>Tap in to what people think - Go to the Answers tab to see how people reply</li>
-                               </ol>
+
 
                                <%--<br/><br/>--%>
                                <%--<b>Your answers will be posted publicly within the CalPERS network.  We ask you to observe the following guidelines for participation</b>:--%>

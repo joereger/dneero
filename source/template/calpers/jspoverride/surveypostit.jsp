@@ -79,13 +79,13 @@ String acl = "public";
                             <br/>
                             <font class="normalfont">
                                 <ul>
-                                    <li>See the <a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">results</a> unfold in realtime!<br/><br/></li>
-                                    <!--<li><a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discuss</a> the conversation and results with your fellow CalPERS team members.<br/><br/></li>-->
-                                    <li>The <a href="/">Values Super Jam Blog</a> will be updated with new analysis and observations of conversations and results... check back soon! <!--Or subscribe via <a href="/rss.xml">rss</a>.--><br/><br/></li>
-                                    <li>See who has chosen to answer your question via the User Questions link in the <a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Answers tab</a>.<br/><br/></li>
-                                    <!--<li>Optionally, <a href="surveypostit.jsp#" id="togglepagelink">share your answers</a> within the organization by posting them to a webpage, blog, intranet or forum (conversations will only be visible from the CalPERS network even if you post to the web at large.)<br/><br/></li>-->
+                                   <li>Now that you've joined this conversation, we'd like you to  stay engaged.  The path that we suggest for this is that you take  a look at the "<a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">All Users' Answers</a>" tab ... in there you will see  what others are saying ... you'll see answers to both the main  questions we asked, and you'll also see the answers to questions that  you and other fellow jammers asked. </li>
+                                   <li>At the "<a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discuss</a>" tab you will see comments of other fellow  jammers, which they entered after they had joined the conversation.</li>
+                                   <li>As always, you may go to the "<a href="/">Home</a>" page to see what the  Values Jam Facilitation Team is saying. </li>
+                                   <li>When you find something at all or any of the above pages to  which you'd like to respond, please go to the "<a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discuss</a>" tab and  make a comment. </li>
+                                   <li>Additionally, if you'd like to edit your responses, go to the  "<a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Your Conversation</a>" tab. Please use this feature wisely. </li>
+                                   <li>And if you'd like to see a specific Jammer's answers,  use the "<a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Who's In</a>" tab.</li>
                                 </ul>
-
                             </font>
                         </td>
                     </tr>

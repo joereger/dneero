@@ -37,18 +37,16 @@ String acl="public";
 
 
     <img src="/images/clear.gif" width="700" height="1" class="survey_tabs_body_width"/><br/>
-    <table width="100%" cellpadding="5">
-        <tr>
-            <td valign="top" width="150">
-                <img src="/images/users-128.png" width="32" height="32"/>
-            </td>
-            <td valign="top">
-                <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                People who joined the <%=Pagez._survey()%>.
-                </font></div></center>
-            </td>
-        </tr>
-    </table>
+
+        <font class="normalfont">
+            <ul>
+               <li>Below you will see all fellow jammers who have joined this conversation.</li>
+               <li>When you click on the name in the "Person" field, you will see a page that lists all  conversations that he/she has joined.</li>
+               <li>When you click on the "[name] Answers", you will see his/her answers at the top of the  page in a You Tube like widget. Beneath that widget are the answers that you have provided  to this conversation. We display your answers here as a convenience for you to edit them  if you wish.</li>
+            </ul>
+        </font>
+
+    <br/><br/>
 
     <br/>
     <div id="tabs">
