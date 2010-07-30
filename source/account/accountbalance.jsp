@@ -19,6 +19,7 @@ AccountBalance accountBalance = (AccountBalance)Pagez.getBeanMgr().get("AccountB
 <%@ include file="/template/header.jsp" %>
 
     <!-- Pre-SVNRepositories Backup on July 29, 2010-->
+    <!-- Post-SVNRepositories Backup on July 30, 2010-->
 
     <div class="rounded" style="padding: 15px; margin: 5px; background: #F2FFBF;">
         <%if (accountBalance.getCurrentbalanceDbl()>0){%>
