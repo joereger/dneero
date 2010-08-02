@@ -46,7 +46,7 @@ String acl = "sysadmin";
                     while ((nextLine = reader.readNext()) != null) {
                         counter++;
                         System.out.println("First: [" + nextLine[0] + "] Nick: [" + nextLine[1] + "]"+ " Email: [" + nextLine[2] + "]"+ " Pass: [" + nextLine[3] + "]");
-                        if (nextLine[0]!=null && !nextLine[0].equals("NAME")){
+                        if (nextLine[0]!=null && !nextLine[0].equalsIgnoreCase("NAME")){
                             Bulkuser bulkuser = new Bulkuser(nextLine[0], nextLine[1], nextLine[2], nextLine[3]);
                             if (!bulkuser.getIsvalid()){errorcount++;}
                             bulkusers.add(bulkuser);

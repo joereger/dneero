@@ -206,30 +206,44 @@ public class DemographicsXML {
                     Demographic demographic = demographicIterator.next();
                     logger.debug("isDemographicProfileOK() demographic="+demographic.getName()+" isrequired="+demographic.getIsrequired());
                     if (demographic.getIsrequired()){
-                        //if (!plDemographicsXML.areAllPossibleValuesSelected(demographic)){
-                            //Iterate all values selected in this xml object (not the user's xml and not all possible values from the Demographic)
-                            ArrayList<String> allPossibleValues = userDemographicsXML.getAllPossibleValues(demographic.getDemographicid());
-                            boolean foundAnAcceptableValueInUserXML = false;
-                            if (allPossibleValues!=null){
-                                for (Iterator<String> it = allPossibleValues.iterator(); it.hasNext();) {
-                                    String possibleValue = it.next();
-                                    if (userDemographicsXML.isValueSelected(demographic, possibleValue)){
-                                        //logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" found in userDemographicsXML");
-                                        foundAnAcceptableValueInUserXML = true;
-                                    } else {
-                                        //logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" NOT found in userDemographicsXML");   
+                        //
+                        //Demographic.TYPE_SELECT
+                        //
+                        if (demographic.getType()==Demographic.TYPE_SELECT){
+                            //if (!plDemographicsXML.areAllPossibleValuesSelected(demographic)){
+                                //Iterate all values selected in this xml object (not the user's xml and not all possible values from the Demographic)
+                                ArrayList<String> allPossibleValues = userDemographicsXML.getAllPossibleValues(demographic.getDemographicid());
+                                boolean foundAnAcceptableValueInUserXML = false;
+                                if (allPossibleValues!=null){
+                                    for (Iterator<String> it = allPossibleValues.iterator(); it.hasNext();) {
+                                        String possibleValue = it.next();
+                                        if (userDemographicsXML.isValueSelected(demographic, possibleValue)){
+                                            //logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" found in userDemographicsXML");
+                                            foundAnAcceptableValueInUserXML = true;
+                                        } else {
+                                            //logger.debug("isDemographicProfileOK() possibleValue="+possibleValue+" NOT found in userDemographicsXML");
+                                        }
                                     }
+                                } else {
+                                    //No value selected in this object xml... now what?  Nobody qualifies?  Or everybody qualifies?
+                                    foundAnAcceptableValueInUserXML = false; //Nobody qualifies... survey was set up incorrectly
                                 }
-                            } else {
-                                //No value selected in this object xml... now what?  Nobody qualifies?  Or everybody qualifies?
-                                foundAnAcceptableValueInUserXML = false; //Nobody qualifies... survey was set up incorrectly
-                            }
-                            //Return
-                            if (!foundAnAcceptableValueInUserXML){
-                                logger.debug("isDemographicProfileOK() returning FALSE due to demographic="+demographic.getName());
+                                //Return
+                                if (!foundAnAcceptableValueInUserXML){
+                                    logger.debug("isDemographicProfileOK() returning FALSE due to demographic="+demographic.getName());
+                                    return false;
+                                }
+                            //}
+                        //
+                        //Demographic.TYPE_TEXT
+                        //
+                        } else if (demographic.getType()==Demographic.TYPE_TEXT){
+                            String value = userDemographicsXML.getValue(demographic.getDemographicid());
+                            if (value==null || value.length()==0){
+                                logger.debug("isDemographicProfileOK() returning FALSE due to demographic="+demographic.getName()+" being empty");
                                 return false;
                             }
-                        //}
+                        }
                     }
                 }
             }
