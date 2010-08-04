@@ -1,13 +1,12 @@
 package com.dneero.finders;
 
-import com.dneero.dao.Blogger;
-import com.dneero.dao.Response;
-import com.dneero.dao.Survey;
-import com.dneero.dao.User;
+import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -19,7 +18,11 @@ public class FindResponses {
     public static ArrayList<Response> find(Survey surveyTheyTook, SurveyCriteriaXML filterCriteriaXml){
         Logger logger = Logger.getLogger(FindResponses.class);
         ArrayList<Response> out = new ArrayList<Response>();
-        for (Iterator<Response> iterator = surveyTheyTook.getResponses().iterator(); iterator.hasNext();) {
+
+
+        List<Response> responses = HibernateUtil.getSession().createQuery("from Response where surveyid='"+surveyTheyTook.getSurveyid()+"'").setCacheable(true).list();
+        //for (Iterator<Response> iterator = surveyTheyTook.getResponses().iterator(); iterator.hasNext();) {
+        for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
             Response response = iterator.next();
             if (filterCriteriaXml!=null){
                 Blogger blogger = Blogger.get(response.getBloggerid());

@@ -118,10 +118,10 @@ public class PublicSurveyResults implements Serializable {
                 try{resultsHtml = (String)fromCache;}catch(Exception ex){logger.error("", ex);}
             } else {
                 resultsHtml = SurveyResultsDisplay.getHtmlForResults(survey, null, 0, new ArrayList<Integer>(), null, true, false);
-                DbcacheexpirableCache.put(resultsHtmlKey, group, resultsHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
+                DbcacheexpirableCache.put(resultsHtmlKey, group, resultsHtml, DbcacheexpirableCache.expireSurveyInXMin(survey, 60));
             }
         } else {
-            resultsHtml = "<font class=\"smallfont\">The creator has chosen to hide overall aggregate results.  However, we don't allow researchers to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
+            resultsHtml = "<font class=\"smallfont\">The creator has chosen to hide overall aggregate results.  However, we don't allow creators to hide aggregate results from individual blogs so those results are still available.  To see such results, find a place where this is posted and click the See How Others Voted link... you'll see how others from that blog answered.</font>";
         }
 
         //Results user questions html

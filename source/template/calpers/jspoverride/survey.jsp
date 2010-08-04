@@ -259,7 +259,7 @@ if(true){
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
                                     <font class="formfieldnamefont">Ask Other Values Super Jammers a Question</font> <font class="formfieldnamefont" style="color: #ff0000;"></font><br/><font class="tinyfont">You can ask other Values Super Jammers anything related to this <%=Pagez._survey()%>. Those who join after you will have the opportunity to answer your question.<br/><br/><i>Our Jam will only grow if you ask questions. Please share a question, even if it's been asked before. If you don't have a question right now, it's OK ... just enter "none at this time".</i></font><br/>
                                     <br/><font class="formfieldnamefont">Type a Question in the Box Below</font><br/>
-                                    <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="250"/>
+                                    <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="500"/>
                                     <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 
                                     <table cellspacing="0" cellpadding="0" border="0">
@@ -308,7 +308,7 @@ if(true){
                                             }
                                             %>
                                             <td valign="top"><input type="radio" <%=isshorttext%> name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-componenttype" value="ShortText"></td>
-                                            <td valign="top"><img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Short Text</font><br/><font class="tinyfont">People can answer whatever they want but it must be shorter than 250 characters.</font></td>
+                                            <td valign="top"><img src="/images/clear.gif" alt="" width="1" height="3"><br/><font class="smallfont" style="font-weight: bold;">Short Text</font><br/><font class="tinyfont">People can answer whatever they want but it must be shorter than 500 characters.</font></td>
 
                                         </tr>
                                         <tr>
@@ -490,25 +490,25 @@ if(true){
                                         </tr>
 
 
-                                        <tr>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">Displays to Date</font>
-                                            </td>
-                                            <td valign="top">
-                                                    <font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()%></font>
-                                                    <br/><br/>
-                                            </td>
-                                        </tr>
+                                        <%--<tr>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="formfieldnamefont">Displays to Date</font>--%>
+                                            <%--</td>--%>
+                                            <%--<td valign="top">--%>
+                                                    <%--<font class="smallfont"><%=publicSurvey.getSurveyEnhancer().getImpressionsalreadygotten()%></font>--%>
+                                                    <%--<br/><br/>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
 
 
-                                        <tr>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">This Page Displayed</font>
-                                            </td>
-                                            <td valign="top">
-                                                <font class="smallfont"><%=publicSurvey.getSurvey().getPublicsurveydisplays()%> times</font>
-                                            </td>
-                                        </tr>
+                                        <%--<tr>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="formfieldnamefont">This Page Displayed</font>--%>
+                                            <%--</td>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="smallfont"><%=publicSurvey.getSurvey().getPublicsurveydisplays()%> times</font>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
 
 
                                      </table>
@@ -525,7 +525,7 @@ if(true){
                                <ol>
                                    <li>Give your thoughts - Answer the questions to the left</li>
                                    <li>Create new ideas - Ask questions you want others to consider</li>
-                                   <li>Tap in to what people think - Go to the All Users' Answers tab to see how people reply</li>
+                                   <li>Tap in to what people think - Go to the What People Are Saying tab to see how people reply</li>
                                </ol>
 
 

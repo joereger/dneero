@@ -45,8 +45,8 @@ String acl = "public";
 
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Main Questions</a></li>
-            <li><a href="#tabs-2">User Questions</a></li>
+            <li><a href="#tabs-1"><b>Facilitators' Questions</b></a></li>
+            <li><a href="#tabs-2"><b>Jammers' Questions</b></a></li>
             <%if (!Pagez.getUserSession().getIsfacebookui()){%>
                 <%if (publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()!=null && !publicSurveyResults.getResultsHtmlForUserWhoTookSurvey().equals("")){%>
                     <li><a href="#tabs-3"><%=publicSurveyResults.getResultsfriendstabtext()%></a></li>
@@ -57,11 +57,11 @@ String acl = "public";
             <%}%>
         </ul>
         <div id="tabs-1">
-            <font class="mediumfont" style="color: #cccccc;">Main Questions</font><br/>
+            <font class="mediumfont" style="color: #666666;">Facilitators' Questions</font><br/>
             <%=publicSurveyResults.getResultsHtml()%>
         </div>
         <div id="tabs-2">
-            <font class="mediumfont" style="color: #cccccc;">User Questions</font><br/><br/>
+            <font class="mediumfont" style="color: #666666;">Jammers' Questions</font><br/><br/>
             <div class="rounded" style="background: #e6e6e6; padding: 10px; text-align: left;">
                 <font class="normalfont">
                     Displayed below are the answers to questions that fellow Jammers entered into this conversation.
@@ -74,7 +74,7 @@ String acl = "public";
         <%if (!Pagez.getUserSession().getIsfacebookui()){%>
             <%if (publicSurveyResults.getResultsHtmlForUserWhoTookSurvey()!=null && !publicSurveyResults.getResultsHtmlForUserWhoTookSurvey().equals("")){%>
                 <div id="tabs-3">
-                    <font class="mediumfont" style="color: #cccccc;"><%=publicSurveyResults.getResultsfriendstabtext()%></font><br/>
+                    <font class="mediumfont" style="color: #666666;"><%=publicSurveyResults.getResultsfriendstabtext()%></font><br/>
                     <table width="100%" cellpadding="10" cellspacing="0" border="0">
                         <tr>
                             <td valign="top">

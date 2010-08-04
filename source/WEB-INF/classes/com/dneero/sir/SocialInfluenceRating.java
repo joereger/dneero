@@ -300,14 +300,16 @@ public class SocialInfluenceRating {
                 Panel panel=panelIterator.next();
                 superpanelids.add(panel.getPanelid());
             }
-            //See if user's in any
-            List<Panelmembership> panelmemberships = HibernateUtil.getSession().createCriteria(Panelmembership.class)
-                                               .add(Restrictions.eq("bloggerid", user.getBloggerid()))
-                                               .add(Restrictions.in("panelid", superpanelids))
-                                               .setCacheable(true)
-                                               .list();
-            if (panelmemberships!=null){
-                return panelmemberships.size();
+            if (superpanelids.size()>0){
+                //See if user's in any
+                List<Panelmembership> panelmemberships = HibernateUtil.getSession().createCriteria(Panelmembership.class)
+                                                   .add(Restrictions.eq("bloggerid", user.getBloggerid()))
+                                                   .add(Restrictions.in("panelid", superpanelids))
+                                                   .setCacheable(true)
+                                                   .list();
+                if (panelmemberships!=null){
+                    return panelmemberships.size();
+                }
             }
         }
         return 0;

@@ -115,9 +115,9 @@ public class PublicSurveyWhotookit implements Serializable {
                 out.append("<font class=\"normalfont\">Nobody has joined this one... yet.</font>");
             } else {
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
-                cols.add(new GridCol("Date", "<$response.responsedate|"+ Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
-                cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$nameornickname$></font></a>", false, "", ""));
-                cols.add(new GridCol("", "<a href=\"/survey.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\"><$nameornickname$>'s Answers</font></a>", true, "", ""));
+                cols.add(new GridCol("Date", "<$response.responsedate|"+ Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "text-align:left;", "text-align:left;"));
+                cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$nameornickname$></font></a>", false, "", "", "text-align:left;", "text-align:left;"));
+                cols.add(new GridCol("", "<a href=\"/survey.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\"><$nameornickname$>'s Answers</font></a>", true, "", "", "text-align:left;", "text-align:left;"));
                 out.append(Grid.render(respondents, cols, 500, "/surveywhotookit.jsp?surveyid="+survey.getSurveyid(), "pagewhotookit"));
             }
         return out.toString();

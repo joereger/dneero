@@ -49,9 +49,9 @@ String acl = "public";
 
 
     <% if (!publicSurveyPostit.getLoggedinuserhasalreadytakensurvey()){ %>
-        <font class="mediumfont" style="color: #666666;">Join the Conversation!</font>
+        <font class="mediumfont" style="color: #666666;">You're (Not Quite) In!</font>
         <br/>
-        <font class="normalfont" style="color: #666666;">Once you <a href="/survey.jsp?surveyid=<%=surveyInTabs.getSurveyid()%>">join the conversation</a>, we'll provide guidance for your next steps.</font>
+        <font class="normalfont" style="color: #666666;">Once you <a href="/survey.jsp?surveyid=<%=surveyInTabs.getSurveyid()%>">join the conversation</a>, we'll provide guidance for your next steps.  Jump in!</font>
     <%}%>
 
 
@@ -63,7 +63,8 @@ String acl = "public";
                 <td valign="top" width="35%">
                         <div class="rounded" style="background: #ffffff; text-align: center;">
                             <img src="/images/ok-128.png" alt="" width="128" height="128"/><br/>
-                            <font class="mediumfont" style="color: #666666;">You've Entered this <%=Pagez._Survey()%>!  Your voice has been heard by all of CalPERS as we create our future!</font>
+                            <font class="largefont" style="color: #666666;"><b>Congratulations!</b></font><br/><br/>
+                            <font class="mediumfont" style="color: #666666;">You've entered the conversation.  Your voice has been heard and you are one step closer to helping shape the future of CalPERS.  Now it's time to explore. Check out some of the other features of the Super Jam.</font>
                         </div>
                         <br/>
                 </td>
@@ -79,10 +80,10 @@ String acl = "public";
                             <br/>
                             <font class="normalfont">
                                 <ul>
-                                   <li>Now that you've joined this conversation, we'd like you to  stay engaged.  The path that we suggest for this is that you take  a look at the "<a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">All Users' Answers</a>" tab ... in there you will see  what others are saying ... you'll see answers to both the main  questions we asked, and you'll also see the answers to questions that  you and other fellow jammers asked. </li>
-                                   <li>At the "<a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discuss</a>" tab you will see comments of other fellow  jammers, which they entered after they had joined the conversation.</li>
+                                   <li>Now that you've joined this conversation, we'd like you to  stay engaged.  The path that we suggest for this is that you take  a look at the "<a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">What People Are Saying</a>" tab ... in there you will see  what others are saying ... you'll see answers to both the main  questions we asked, and you'll also see the answers to questions that  you and other fellow jammers asked. </li>
+                                   <li>At the "<a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discussion</a>" tab you will see comments of other fellow  jammers, which they entered after they had joined the conversation.</li>
                                    <li>As always, you may go to the "<a href="/">Home</a>" page to see what the  Values Jam Facilitation Team is saying. </li>
-                                   <li>When you find something at all or any of the above pages to  which you'd like to respond, please go to the "<a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discuss</a>" tab and  make a comment. </li>
+                                   <li>When you find something at all or any of the above pages to  which you'd like to respond, please go to the "<a href="/surveydiscuss.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Discussion</a>" tab and  make a comment. </li>
                                    <li>Additionally, if you'd like to edit your responses, go to the  "<a href="/survey.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Your Conversation</a>" tab. Please use this feature wisely. </li>
                                    <li>And if you'd like to see a specific Jammer's answers,  use the "<a href="/surveywhotookit.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">Who's In</a>" tab.</li>
                                 </ul>

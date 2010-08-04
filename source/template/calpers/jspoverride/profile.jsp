@@ -103,7 +103,7 @@ String acl = "public";
             <ul>
                <li>Below you see all the conversations that the named user has joined.</li>
                <li>Click on'[name] Answers' to see his/her answers for any of the conversations listed.</li>
-               <li>Click on 'Results' to see "All Users' Answers" for the listed conversation.</li>
+               <li>Click on 'Results' to see "What People Are Saying" for the listed conversation.</li>
             </ul>
         </font>
 

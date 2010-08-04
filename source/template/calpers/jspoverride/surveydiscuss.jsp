@@ -47,13 +47,11 @@ String acl = "public";
     <a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyDiscuss.getSurvey().getTitle()%></font></a>
     <br/><br/>
 
-    <center><img src="/template/calpers/images/hp-calpers.png" width="950" height="250"/></center>
-    <br clear="all"/>
 
     <font class="normalfont">
             <ul>
                <li>Below you see all comments made by fellow jammers after they have joined this conversation.</li>
-               <li>The most recent comment is at the top of the list.</li>
+               <li>The most recent comment is at the bottom of the list.</li>
                <li>You may enter the discussion by posting your comment.</li>
             </ul>
         </font>

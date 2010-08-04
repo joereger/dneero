@@ -42,27 +42,31 @@ String acl="public";
             <ul>
                <li>Below you will see all fellow jammers who have joined this conversation.</li>
                <li>When you click on the name in the "Person" field, you will see a page that lists all  conversations that he/she has joined.</li>
-               <li>When you click on the "[name] Answers", you will see his/her answers at the top of the  page in a You Tube like widget. Beneath that widget are the answers that you have provided  to this conversation. We display your answers here as a convenience for you to edit them  if you wish.</li>
+               <li>When you click on the "[name] Answers", you will see his/her answers at the top of the  page in a You Tube like widget.</li>
             </ul>
         </font>
 
     <br/><br/>
 
     <br/>
-    <div id="tabs">
-        <ul>
-            <li><a href="#tabs-1">Who Took It?</a></li>
-            <%--<%if (!Pagez.getUserSession().getIsfacebookui()){%>--%>
-            <%--<li><a href="#tabs-2">Where It's Been Posted</a></li>--%>
-            <%--<% } %>--%>
-        </ul>
-        <div id="tabs-1">
+    <%--<div id="tabs">--%>
+        <%--<ul>--%>
+            <%--<li><a href="#tabs-1">Who Took It?</a></li>--%>
+            <%--&lt;%&ndash;<%if (!Pagez.getUserSession().getIsfacebookui()){%>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<li><a href="#tabs-2">Where It's Been Posted</a></li>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<% } %>&ndash;%&gt;--%>
+        <%--</ul>--%>
+        <%--<div id="tabs-1">--%>
+            <center>
+            <div class="rounded" style="background: #ffffff; width: 800px;">
             <%=publicSurveyWhotookit.getWhotookitHtml()%>
-        </div>
+            </div>
+            </center>
+        <%--</div>--%>
         <%--<div id="tabs-2">--%>
             <%--<%=publicSurveyWhotookit.getImpressionsHtml()%>--%>
         <%--</div>--%>
-    </div>
+    <%--</div>--%>
 
 
 <script>
