@@ -226,8 +226,11 @@ String acl = "public";
                             defaultBookmarkURL: '<%=BaseUrl.get(false)%>survey.jsp?s=<%=publicSurveyPostit.getSurvey().getSurveyid()%>&u=<%=publicSurveyPostit.getUserwhotooksurvey().getUserid()%>',
                             defaultPreviewURL: '<%=BaseUrl.get(false)%>template/political/images/widgetpreview.jpg',
                             useFacebookMystuff: 'false',
-                            emailSubject: '$sender$ Wants You to See a MatterOfOpinion.com Conversation',
-                            emailBody: 'Hi,<br /><br />$userMsg$<br /><br />I thought you\'d like to see this MatterOfOpinion.com conversation that I joined:<br />$URL$<br /><br />$sender$<br />',
+                            networksToShow: 'facebook,*',
+                            networksToHide: 'wordpress,pageflakes,vox,yahoo,eons,bebo,hi5,tagged',
+                            bookmarksToShow: 'twitter,*',
+                            emailSubject: '$sender$ Wants You to See a MatterOfOpinion.com Survey',
+                            emailBody: 'Hi,<br /><br />$userMsg$<br /><br />I thought you\'d like to see this MatterOfOpinion.com survey that I joined:<br />$URL$<br /><br />$sender$<br />',
                             companyName: 'MatterOfOpinion.com',
                             UIConfig: '<config baseTheme="v2"><display showEmail="true" showBookmark="true"></display></config>'
                         };

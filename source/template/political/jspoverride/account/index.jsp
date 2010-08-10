@@ -108,10 +108,10 @@ if (Pagez.getUserSession().getWhereToRedirectToAfterSignup()!=null && !Pagez.get
 
                             <%if (Pagez.getUserSession().getIsCreateSurveys()){ %>
                                 <table cellpadding="0" cellspacing="0" border="0"><tr><td valign="top"><img src="/images/wireless-green.png" alt="" border="0"/></td><td valign="top"><img src="/images/clear.gif" width="1" height="5"/><br/>
-                                    <a href="/researcher/index.jsp"><font class="mediumfont">Create/Edit Conversations</font></a>
+                                    <a href="/researcher/index.jsp"><font class="mediumfont">Create/Edit Surveys</font></a>
                                 </td></tr>
                                 <tr><td valign="top"></td><td valign="top">
-                                    <font class="smallfont">Not everybody has permission to create conversations... use it wisely!</font>
+                                    <font class="smallfont">Not everybody has permission to create surveys... use it wisely!</font>
                                 </td></tr></table>
                                 <br/><br/>
                             <%} %>

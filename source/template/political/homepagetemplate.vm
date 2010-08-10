@@ -8,22 +8,22 @@
            <td width="225">
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Convo Participants</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Survey Participants</font><br/>
                     <font class="largefont" style="color: #666666;">$totalConvoJoins.html</font>
                </div>
 
                <br/>
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Convo Embeds</font><br/>
+                    <font class="mediumfont" style="color: #999999;">Survey Embeds</font><br/>
                     <font class="largefont" style="color: #666666;">$totalConvoEmbeds.html</font><br/>
-                    <font class="tinyfont">Times a conversation has been displayed while embedded in a blog or social media profile.</font><br/>
+                    <font class="tinyfont">Times a survey has been displayed while embedded in a blog or social media profile.</font><br/>
                </div>
 
                <br/>
 
                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                   <font class="mediumfont" style="color: #999999;">Most Convos</font><br/>
+                   <font class="mediumfont" style="color: #999999;">Most Surveys</font><br/>
                    $usersWithMostConvos.html
                </div>
 
