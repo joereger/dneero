@@ -29,6 +29,8 @@ String acl = "public";
     <% Survey surveyInTabs = publicSurveyResults.getSurvey();%>
     <%@ include file="/template/calpers/jspoverride/surveytabs.jsp" %>
 
+    <font class="mediumfont" style="color: #cccccc;">What People are Saying</font>
+    <br/>
     <a href="/survey.jsp?surveyid=<%=publicSurveyResults.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyResults.getSurvey().getTitle()%></font></a>
     <br/><br/>
 

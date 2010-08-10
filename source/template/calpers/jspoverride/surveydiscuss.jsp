@@ -43,7 +43,8 @@ String acl = "public";
     <%@ include file="/template/calpers/jspoverride/surveytabs.jsp" %>
 
 
-
+    <font class="mediumfont" style="color: #cccccc;">Discussion</font>
+    <br/>
     <a href="/survey.jsp?surveyid=<%=publicSurveyDiscuss.getSurvey().getSurveyid()%>"><font class="largefont" style="color: #666666;"><%=publicSurveyDiscuss.getSurvey().getTitle()%></font></a>
     <br/><br/>
 

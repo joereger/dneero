@@ -82,7 +82,8 @@ if(true){
 
     <% Survey surveyInTabs = publicSurvey.getSurvey();%>
     <%@ include file="/template/calpers/jspoverride/surveytabs.jsp" %>
-
+    <%--<font class="mediumfont" style="color: #cccccc;">Your Conversation</font>--%>
+    <%--<br/>--%>
 <%
 if(true){
     logger.error("post-surveyintabs!!!!!");    
