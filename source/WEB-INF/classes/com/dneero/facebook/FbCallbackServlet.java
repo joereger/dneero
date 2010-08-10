@@ -105,7 +105,7 @@ public class FbCallbackServlet extends HttpServlet {
                 //If the user has the app added, redirect to the survey
                 String urltoredirectto = "";
                 if (Pagez.getUserSession().getIsfacebookui() &&  Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
-                    request.getRequestDispatcher("/survey.jsp?s="+split[1]+"&u="+split[2]+"&p=0").forward(request, response);
+                    request.getRequestDispatcher("/surveyresponse.jsp?s="+split[1]+"&u="+split[2]+"&p=0").forward(request, response);
                     return;
                 } else {
                     //If we see this code we may be displaying the app add page which means we'll need a link

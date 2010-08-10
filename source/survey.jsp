@@ -120,25 +120,25 @@ if(true){
         <table width="100%" cellpadding="2">
             <tr>
                 <td valign="top" width="65%">
-                <% if (publicSurvey.getUserwhotooksurvey()!=null){ %>
-                     <% if (publicSurvey.getUserwhotooksurvey().getUserid()>0){ %>
-                        <%if (!publicSurvey.getIsuserwhotooksurveysameasloggedinuser()){%>
-                            <center>
-                            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
-                                <center>
-                                    <font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getNickname()%>'s answers.</font><br/>
-                                    <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
-                                        <a href="#joinconvo"><font class="tinyfont">How would you answer?</font></a>
-                                    <% } %>
-                                </center>
-                                <br/>
-                                <center><%=publicSurvey.getSurveyResponseHtml()%></center>
-                            </div>
-                            </center>
-                            <br/><br/>
-                          <% } %>
-                       <% } %>
-                   <% } %>
+                <%--<% if (publicSurvey.getUserwhotooksurvey()!=null){ %>--%>
+                     <%--<% if (publicSurvey.getUserwhotooksurvey().getUserid()>0){ %>--%>
+                        <%--<%if (!publicSurvey.getIsuserwhotooksurveysameasloggedinuser()){%>--%>
+                            <%--<center>--%>
+                            <%--<div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">--%>
+                                <%--<center>--%>
+                                    <%--<font class="mediumfont"><%=publicSurvey.getUserwhotooksurvey().getNickname()%>'s answers.</font><br/>--%>
+                                    <%--<% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>--%>
+                                        <%--<a href="#joinconvo"><font class="tinyfont">How would you answer?</font></a>--%>
+                                    <%--<% } %>--%>
+                                <%--</center>--%>
+                                <%--<br/>--%>
+                                <%--<center><%=publicSurvey.getSurveyResponseHtml()%></center>--%>
+                            <%--</div>--%>
+                            <%--</center>--%>
+                            <%--<br/><br/>--%>
+                          <%--<% } %>--%>
+                       <%--<% } %>--%>
+                   <%--<% } %>--%>
                    <% if ((publicSurvey.getSurvey().getStatus()==Survey.STATUS_OPEN || (publicSurvey.getSurvey().getStatus()==Survey.STATUS_CLOSED && publicSurvey.getLoggedinuserhasalreadytakensurvey())) && ((Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()) || !Pagez.getUserSession().getIsfacebookui())){ %>
                         <%if((publicSurvey.getLoggedinuserhasalreadytakensurvey() && publicSurvey.getIsuserwhotooksurveysameasloggedinuser()) || !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                             <%if (Pagez.getUserSession().getIsfacebookui() && !publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
@@ -424,7 +424,7 @@ if(true){
                                     for (Iterator<PublicSurveyFacebookFriendListitem> iterator=publicSurvey.getFacebookuserswhotooksurvey().iterator(); iterator.hasNext();){
                                         PublicSurveyFacebookFriendListitem publicSurveyFacebookFriendListitem= iterator.next();
                                         %>
-                                        <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=publicSurveyFacebookFriendListitem.getUserid()%>&responseid=<%=publicSurveyFacebookFriendListitem.getResponseid()%>"><font class="tinyfont" style="color: #0000ff;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font></a><br/>
+                                        <a href="/surveyresponse.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=publicSurveyFacebookFriendListitem.getUserid()%>&responseid=<%=publicSurveyFacebookFriendListitem.getResponseid()%>"><font class="tinyfont" style="color: #0000ff;"><%=publicSurveyFacebookFriendListitem.getFacebookUser().getFirst_name()%> <%=publicSurveyFacebookFriendListitem.getFacebookUser().getLast_name()%></font></a><br/>
                                         <%
                                     }
                                 %>
@@ -432,7 +432,7 @@ if(true){
                             <%}%>
                             <% if (publicSurvey.getLoggedinuserhasalreadytakensurvey()){ %>
                                 <font class="mediumfont" style="color: #cccccc;">You've Joined this <%=Pagez._Survey()%>:</font><br/>
-                                <a href="/survey.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
+                                <a href="/surveyresponse.jsp?surveyid=<%=publicSurvey.getSurvey().getSurveyid()%>&userid=<%=Pagez.getUserSession().getUser().getUserid()%>"><font class="tinyfont" style="color: #0000ff;">Your Answers</font></a><br/><br/>
                                 <br/><br/>
                             <%}%>
                         </td>

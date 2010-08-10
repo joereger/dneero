@@ -44,7 +44,7 @@ String acl = "researcher";
             cols.add(new GridCol("Date", "<$responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", false, "", "smallfont"));
             cols.add(new GridCol("Name", "<$nickname$>", false, "", "smallfont"));
             cols.add(new GridCol("", "<a href=\"/profile.jsp?bloggerid=<$bloggerid$>\">Profile</a>", false, "", "smallfont"));
-            cols.add(new GridCol("", "<a href=\"/survey.jsp?surveyid="+researcherResultsRespondents.getSurvey().getSurveyid()+"&userid=<$user.userid$>\">Answers</a>", false, "", "smallfont"));
+            cols.add(new GridCol("", "<a href=\"/surveyresponse.jsp?surveyid="+researcherResultsRespondents.getSurvey().getSurveyid()+"&userid=<$user.userid$>\">Answers</a>", false, "", "smallfont"));
             cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$responseid$>\">Impressions</a>", false, "", "smallfont"));
         %>
         <%=Grid.render(researcherResultsRespondents.getList(), cols, 50, "/researcher/results_respondents.jsp?surveyid=" + researcherResultsRespondents.getSurvey().getSurveyid(), "page")%>

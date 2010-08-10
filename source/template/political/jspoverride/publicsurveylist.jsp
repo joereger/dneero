@@ -142,7 +142,7 @@ PublicSurveyList publicSurveyList = (PublicSurveyList)Pagez.getBeanMgr().get("Pu
                                             <%--for (Iterator<FacebookSurveyTaker> iterator1=facebookSurveyThatsBeenTaken.getFacebookSurveyTakers().iterator(); iterator1.hasNext();){--%>
                                                 <%--FacebookSurveyTaker facebookSurveyTaker=iterator1.next();--%>
                                                 <%--%>--%>
-                                                <%--<a href="/survey.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>&userid=<%=facebookSurveyTaker.getUserid()%>&responseid=<%=facebookSurveyTaker.getResponseid()%>"><font class=""><%=facebookSurveyTaker.getFacebookUser().getFirst_name()%> <%=facebookSurveyTaker.getFacebookUser().getLast_name()%></font></a>--%>
+                                                <%--<a href="/surveyresponse.jsp?surveyid=<%=facebookSurveyThatsBeenTaken.getSurvey().getSurveyid()%>&userid=<%=facebookSurveyTaker.getUserid()%>&responseid=<%=facebookSurveyTaker.getResponseid()%>"><font class=""><%=facebookSurveyTaker.getFacebookUser().getFirst_name()%> <%=facebookSurveyTaker.getFacebookUser().getLast_name()%></font></a>--%>
                                                 <%--<%--%>
                                             <%--}--%>
                                             <%--%>--%>

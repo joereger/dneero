@@ -191,7 +191,7 @@ String acl = "public";
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 //cols.add(new GridCol("Date", "<$response.responsedate|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont"));
                 cols.add(new GridCol("", "<font class=\"normalfont\"><b><$survey.title$></b></font><br/><font class=\"tinyfont\">"+publicProfile.getUser().getNickname()+" Asked: <$userquestion.question$></font><br/>", false, "", ""));
-                cols.add(new GridCol("", "<a href=\"/survey.jsp?s=<$response.surveyid$>&u="+publicProfile.getUser().getUserid()+"\">"+publicProfile.getUser().getNickname()+"'s Answers</a>", false, "", "smallfont"));
+                cols.add(new GridCol("", "<a href=\"/surveyresponse.jsp?s=<$response.surveyid$>&u="+publicProfile.getUser().getUserid()+"\">"+publicProfile.getUser().getNickname()+"'s Answers</a>", false, "", "smallfont"));
                 cols.add(new GridCol("", "<a href=\"/surveyresults.jsp?s=<$response.surveyid$>\">Results</a>", false, "", "smallfont"));
                 //cols.add(new GridCol("", "<a href=\"/profileimpressions.jsp?responseid=<$response.responseid$>\">Impressions</a>", false, "", "smallfont"));
             %>

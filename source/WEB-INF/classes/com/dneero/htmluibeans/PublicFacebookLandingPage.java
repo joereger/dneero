@@ -100,7 +100,7 @@ public class PublicFacebookLandingPage implements Serializable {
                 }
                 //If the user has the app added, redirect to the survey
                 if (Pagez.getUserSession().getIsfacebookui() &&  Pagez.getUserSession().getFacebookUser()!=null && Pagez.getUserSession().getFacebookUser().getHas_added_app()){
-                    urltoredirectto = appendFacebookStuff("/survey.jsp?s="+split[1]+"&u="+split[2]+"&p=0");
+                    urltoredirectto = appendFacebookStuff("/surveyresponse.jsp?s="+split[1]+"&u="+split[2]+"&p=0");
                     try{Pagez.sendRedirect(urltoredirectto);return;}catch(Exception ex){logger.error("",ex);}
                     return;
                 } else {
