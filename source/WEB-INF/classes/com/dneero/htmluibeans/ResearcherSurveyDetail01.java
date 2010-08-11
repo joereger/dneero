@@ -33,6 +33,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private Survey survey;
     private boolean isopentoanybody=true;
     private boolean isfree=true;
+    private boolean isuserrequiredtoaddquestion=true;
 
 
 
@@ -60,6 +61,10 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 embedversion = survey.getEmbedversion();
                 isfree = survey.getIsfree();
                 isopentoanybody = survey.getIsopentoanybody();
+                isuserrequiredtoaddquestion = survey.getIsuserrequiredtoaddquestion();
+                logger.debug("initbean() isuserrequiredtoaddquestion="+isuserrequiredtoaddquestion);
+                logger.debug("initbean() isfree="+isfree);
+                logger.debug("initbean() isopentoanybody="+isopentoanybody);
 
             }
             if (survey!=null && survey.getSurveyid()>0 && !survey.canEdit(Pagez.getUserSession().getUser())){
@@ -114,6 +119,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setIsfree(true);
         survey.setIsopentoanybody(true);
         survey.setIshiddenfromhomepage(false);
+        survey.setIsuserrequiredtoaddquestion(true);
     }
 
 
@@ -151,10 +157,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
             survey.setImpressionspaid(0);
             survey.setImpressionstobepaid(0);
             survey.setIsaggressiveslotreclamationon(false);
-            survey.setEmbedversion(embedversion);
-            survey.setIsfree(isfree);
-            survey.setIsopentoanybody(isopentoanybody);
-            logger.debug("isopentoanybody="+isopentoanybody);
+
+
 
             boolean isnewsurvey = true;
             if (userSession.getCurrentSurveyid()>0){
@@ -185,6 +189,12 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 survey.setStartdate(startdate);
                 survey.setEnddate(enddate);
                 survey.setEmbedversion(embedversion);
+                survey.setIsfree(isfree);
+                survey.setIsopentoanybody(isopentoanybody);
+                survey.setIsuserrequiredtoaddquestion(isuserrequiredtoaddquestion);
+                logger.debug("saveSurvey() isuserrequiredtoaddquestion="+isuserrequiredtoaddquestion);
+                logger.debug("saveSurvey() isfree="+isfree);
+                logger.debug("saveSurvey() isopentoanybody="+isopentoanybody);
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
@@ -297,5 +307,13 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
     public void setIsfree(boolean isfree) {
         this.isfree = isfree;
+    }
+
+    public boolean getIsuserrequiredtoaddquestion() {
+        return isuserrequiredtoaddquestion;
+    }
+
+    public void setIsuserrequiredtoaddquestion(boolean isuserrequiredtoaddquestion) {
+        this.isuserrequiredtoaddquestion = isuserrequiredtoaddquestion;
     }
 }

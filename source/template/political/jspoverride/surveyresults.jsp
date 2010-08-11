@@ -83,7 +83,12 @@ String acl = "public";
 
 
 <script>
-        $('#tabs').tabs();
+        <%if (request.getParameter("tab")!=null && request.getParameter("tab").equals("userquestions")){%>
+            $('#tabs').tabs();
+            $('#tabs').tabs("select", "tabs-2");
+        <% } else { %>
+            $('#tabs').tabs();
+        <% } %>
 </script>
 
 

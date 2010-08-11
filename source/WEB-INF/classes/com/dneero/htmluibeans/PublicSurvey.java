@@ -740,7 +740,12 @@ public class PublicSurvey implements Serializable {
     private ArrayList<Question> findOptionalUserQuestionsFor(ArrayList<Question> excludethesequestions){
         Logger logger = Logger.getLogger(this.getClass().getName());
         ArrayList<Question> optionaluserquestions = new ArrayList<Question>();
-        for (Iterator<Question> iterator=survey.getQuestions().iterator(); iterator.hasNext();) {
+        List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
+                                                       .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                                       .add(Restrictions.gt("isuserquestion", true))
+                                                       .setCacheable(true)
+                                                       .list();
+        for (Iterator<Question> iterator=questions.iterator(); iterator.hasNext();) {
             Question question=iterator.next();
             if (question.getIsuserquestion()){
                 boolean includequestion = true;

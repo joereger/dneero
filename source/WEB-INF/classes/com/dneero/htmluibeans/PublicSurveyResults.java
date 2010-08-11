@@ -150,7 +150,8 @@ public class PublicSurveyResults implements Serializable {
                 //Create a Grid rendering
                 ArrayList<GridCol> cols=new ArrayList<GridCol>();
                 cols.add(new GridCol("", template.toString(), false, "", "", "background: #ffffff;", ""));
-                resultsUserquestionsHtml = Grid.render(sruqli, cols, 25, "/surveyresults.jsp?surveyid="+survey.getSurveyid()+"&panel=panel1a", "userquestionspage");
+                resultsUserquestionsHtml = Grid.render(sruqli, cols, 1000, "/surveyresults.jsp?surveyid="+survey.getSurveyid()+"&tab=userquestions", "userquestionspage");
+                //Flush the cache for this group
                 //Put into cache
                 DbcacheexpirableCache.put(resultsHtmlKey, group, resultsUserquestionsHtml, DbcacheexpirableCache.expireSurveyInXHrs(survey, 3));
             }

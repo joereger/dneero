@@ -55,7 +55,7 @@ String acl = "public";
                 <% } %>
             <% } %>
             <%if (publicSurveyResults.getResultsshowyourfriendstab()){%>
-            <li><a href="#tabs-2">Your Friends</a></li>
+                <li><a href="#tabs-4">Your Friends</a></li>
             <%}%>
         </ul>
         <div id="tabs-1">
@@ -97,7 +97,12 @@ String acl = "public";
 
 
 <script>
-        $('#tabs').tabs();
+        <%if (request.getParameter("tab")!=null && request.getParameter("tab").equals("userquestions")){%>
+            $('#tabs').tabs();
+            $('#tabs').tabs("select", "tabs-2");        
+        <% } else { %>
+            $('#tabs').tabs();
+        <% } %>
 </script>
 
 

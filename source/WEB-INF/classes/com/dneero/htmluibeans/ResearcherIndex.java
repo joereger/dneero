@@ -53,21 +53,23 @@ public class ResearcherIndex implements Serializable {
             //Copy the questions
             for (Iterator<Question> iterator = origSurvey.getQuestions().iterator(); iterator.hasNext();) {
                 Question origQuestion = iterator.next();
-                Question newQuestion = new Question();
-                ArrayList fieldstoignore1 = new ArrayList();
-                fieldstoignore1.add("questionid");
-                newQuestion = (Question) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestion, newQuestion, fieldstoignore1);
-                newQuestion.setSurveyid(newSurvey.getSurveyid());
-                try{newQuestion.save();}catch(Exception ex){logger.error("",ex);}
-                //Copy the question configs
-                for (Iterator<Questionconfig> iterator1 = origQuestion.getQuestionconfigs().iterator(); iterator1.hasNext();){
-                    Questionconfig origQuestionconfig = iterator1.next();
-                    Questionconfig newQuestionconfig = new Questionconfig();
-                    ArrayList fieldstoignore2 = new ArrayList();
-                    fieldstoignore2.add("questionconfigid");
-                    newQuestionconfig = (Questionconfig) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestionconfig, newQuestionconfig, fieldstoignore2);
-                    newQuestionconfig.setQuestionid(newQuestion.getQuestionid());
-                    try{newQuestionconfig.save();}catch(Exception ex){logger.error("",ex);}
+                if (!origQuestion.getIsuserquestion()){
+                    Question newQuestion = new Question();
+                    ArrayList fieldstoignore1 = new ArrayList();
+                    fieldstoignore1.add("questionid");
+                    newQuestion = (Question) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestion, newQuestion, fieldstoignore1);
+                    newQuestion.setSurveyid(newSurvey.getSurveyid());
+                    try{newQuestion.save();}catch(Exception ex){logger.error("",ex);}
+                    //Copy the question configs
+                    for (Iterator<Questionconfig> iterator1 = origQuestion.getQuestionconfigs().iterator(); iterator1.hasNext();){
+                        Questionconfig origQuestionconfig = iterator1.next();
+                        Questionconfig newQuestionconfig = new Questionconfig();
+                        ArrayList fieldstoignore2 = new ArrayList();
+                        fieldstoignore2.add("questionconfigid");
+                        newQuestionconfig = (Questionconfig) CopyHibernateObject.shallowCopyIgnoreCertainFields(origQuestionconfig, newQuestionconfig, fieldstoignore2);
+                        newQuestionconfig.setQuestionid(newQuestion.getQuestionid());
+                        try{newQuestionconfig.save();}catch(Exception ex){logger.error("",ex);}
+                    }
                 }
             }
             //@todo don't copy user questions

@@ -266,6 +266,17 @@ if(true){
                                     <table cellspacing="0" cellpadding="0" border="0">
                                         <tr>
                                             <%
+                                            try{
+                                                if (publicSurvey.getYourquestionmultiplechoiceoptions()==null || publicSurvey.getYourquestionmultiplechoiceoptions().size()==0){
+                                                    publicSurvey.setYourquestionismultiplechoice(false);
+                                                    publicSurvey.setYourquestionislongtext(false);
+                                                    publicSurvey.setYourquestionisshorttext(true); 
+                                                }
+                                            } catch (Exception ex){
+                                                logger.error("", ex);
+                                            }
+                                            %>
+                                            <%
                                             String ismultchoice = "";
                                             if (publicSurvey.getYourquestionismultiplechoice()){
                                                 ismultchoice = " checked";
@@ -475,20 +486,20 @@ if(true){
 
 
 
-                                         <tr>
-                                            <td valign="top">
-                                                <font class="formfieldnamefont">Respondents</font>
-                                            </td>
-                                            <td valign="top">
-                                                <%if (publicSurvey.getSurvey()!=null && publicSurvey.getSurvey().getResponses()!=null){%>
-                                                    <font class="smallfont"><%=publicSurvey.getSurvey().getResponses().size()%></font>
-                                                    <br/><br/>
-                                                <%} else {%>
-                                                    <font class="smallfont">0</font>
-                                                    <br/><br/>
-                                                <%}%>
-                                            </td>
-                                        </tr>
+                                         <%--<tr>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<font class="formfieldnamefont">Respondents</font>--%>
+                                            <%--</td>--%>
+                                            <%--<td valign="top">--%>
+                                                <%--<%if (publicSurvey.getSurvey()!=null && publicSurvey.getSurvey().getResponses()!=null){%>--%>
+                                                    <%--<font class="smallfont"><%=publicSurvey.getSurvey().getResponses().size()%></font>--%>
+                                                    <%--<br/><br/>--%>
+                                                <%--<%} else {%>--%>
+                                                    <%--<font class="smallfont">0</font>--%>
+                                                    <%--<br/><br/>--%>
+                                                <%--<%}%>--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
 
 
                                         <%--<tr>--%>

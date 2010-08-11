@@ -63,7 +63,9 @@ public class StoreResponse {
         if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
             String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
             if (uqArr[0].equals("")){
-                allCex.addValidationError("You must add your own question.");
+                if (survey.getIsuserrequiredtoaddquestion()){
+                    allCex.addValidationError("You must add your own question.");
+                }
             }
             if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
                 String[] uqctArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype");
@@ -93,7 +95,9 @@ public class StoreResponse {
                 allCex.addValidationError("You must tell us how people can answer the question you added.");
             }
         } else {
-            allCex.addValidationError("You must add your own question.");
+            if (survey.getIsuserrequiredtoaddquestion()){
+                allCex.addValidationError("You must add your own question.");
+            }
         }
 
         //Create Response
@@ -200,99 +204,100 @@ public class StoreResponse {
                     String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
                     if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
                         String[] uqctArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype");
-                        int componenttype = 0;
-                        if (uqctArr[0].equals("MultipleChoice")){
-                            componenttype = Dropdown.ID;
-                        } else if (uqctArr[0].equals("ShortText")){
-                            componenttype = Textbox.ID;
-                        } else if (uqctArr[0].equals("LongText")){
-                            componenttype = Essay.ID;
-                        }
-                        //See if user already has a question out there
-                        Question question = new Question();
-                        boolean userhadquestionalready = false;
-                        boolean userchangedquestion = false;
-                        List<Question> uqs = HibernateUtil.getSession().createCriteria(Question.class)
-                                           .add(Restrictions.eq("surveyid", survey.getSurveyid()))
-                                           .add(Restrictions.eq("userid", blogger.getUserid()))
-                                           .add(Restrictions.eq("isuserquestion", true))
-                                           .setCacheable(true)
-                                           .list();
-                        for (Iterator<Question> iterator = uqs.iterator(); iterator.hasNext();) {
-                            Question q = iterator.next();
-                            userhadquestionalready = true;
-                            //Determine whether or not question was edited
-                            if (!q.getQuestion().equals(String.valueOf(uqArr[0]))){
-                                userchangedquestion = true;
+                        if (!String.valueOf(uqArr[0]).equals("")){
+                            int componenttype = 0;
+                            if (uqctArr[0].equals("MultipleChoice")){
+                                componenttype = Dropdown.ID;
+                            } else if (uqctArr[0].equals("ShortText")){
+                                componenttype = Textbox.ID;
+                            } else if (uqctArr[0].equals("LongText")){
+                                componenttype = Essay.ID;
                             }
-                            if (q.getComponenttype()!=componenttype){
-                                userchangedquestion = true;
+                            //See if user already has a question out there
+                            Question question = new Question();
+                            boolean userhadquestionalready = false;
+                            boolean userchangedquestion = false;
+                            List<Question> uqs = HibernateUtil.getSession().createCriteria(Question.class)
+                                               .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                               .add(Restrictions.eq("userid", blogger.getUserid()))
+                                               .add(Restrictions.eq("isuserquestion", true))
+                                               .setCacheable(true)
+                                               .list();
+                            for (Iterator<Question> iterator = uqs.iterator(); iterator.hasNext();) {
+                                Question q = iterator.next();
+                                userhadquestionalready = true;
+                                //Determine whether or not question was edited
+                                if (!q.getQuestion().equals(String.valueOf(uqArr[0]))){
+                                    userchangedquestion = true;
+                                }
+                                if (q.getComponenttype()!=componenttype){
+                                    userchangedquestion = true;
+                                }
+                                //Use this question
+                                question = q;
                             }
-                            //Use this question
-                            question = q;
-                        }
-                        //Delete existing answers if user changed
-                        if (userchangedquestion){
-                            survey.getQuestions().remove(question);
-                            try{question.delete();}catch(Exception ex){logger.error("", ex);}
-                            question = new Question();
-                        }
-                        question.setSurveyid(survey.getSurveyid());
-                        question.setQuestion(uqArr[0]);
-                        question.setIsrequired(false);
-                        question.setComponenttype(componenttype);
-                        question.setIsuserquestion(true);
-                        question.setUserid(blogger.getUserid());
-                        //Reset all review flags if it's been edited or if it's new
-                        if (userchangedquestion || question.getQuestionid()<=0){
-                            question.setIsresearcherreviewed(false);
-                            question.setIssysadminreviewed(false);
-                            question.setIsresearcherrejected(false);
-                            question.setIssysadminrejected(false);
-                            question.setScorebyresearcher(0);
-                            question.setScorebysysadmin(0);
-                        }
-                        //Set order if it's new
-                        question.setQuestionorder(QuestionOrder.calculateNewQuestionOrder(question));
-                        //if (!userhadquestionalready){
-                            survey.getQuestions().add(question);
-                        //}
-                        try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
+                            //Delete existing answers if user changed
+                            if (userchangedquestion){
+                                survey.getQuestions().remove(question);
+                                try{question.delete();}catch(Exception ex){logger.error("", ex);}
+                                question = new Question();
+                            }
+                            question.setSurveyid(survey.getSurveyid());
+                            question.setQuestion(uqArr[0]);
+                            question.setIsrequired(false);
+                            question.setComponenttype(componenttype);
+                            question.setIsuserquestion(true);
+                            question.setUserid(blogger.getUserid());
+                            //Reset all review flags if it's been edited or if it's new
+                            if (userchangedquestion || question.getQuestionid()<=0){
+                                question.setIsresearcherreviewed(false);
+                                question.setIssysadminreviewed(false);
+                                question.setIsresearcherrejected(false);
+                                question.setIssysadminrejected(false);
+                                question.setScorebyresearcher(0);
+                                question.setScorebysysadmin(0);
+                            }
+                            //Set order if it's new
+                            question.setQuestionorder(QuestionOrder.calculateNewQuestionOrder(question));
+                            //if (!userhadquestionalready){
+                                survey.getQuestions().add(question);
+                            //}
+                            try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
 
-                        if (componenttype==Dropdown.ID){
-                            if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
-                                StringBuffer options = new StringBuffer();
-                                String[] uqmcArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer");
-                                for (int i=0; i<uqmcArr.length; i++) {
-                                    String s=uqmcArr[i];
-                                    if (s!=null && !s.trim().equals("")){
-                                        options.append(s.trim());
-                                        options.append("\n");
+                            if (componenttype==Dropdown.ID){
+                                if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
+                                    StringBuffer options = new StringBuffer();
+                                    String[] uqmcArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer");
+                                    for (int i=0; i<uqmcArr.length; i++) {
+                                        String s=uqmcArr[i];
+                                        if (s!=null && !s.trim().equals("")){
+                                            options.append(s.trim());
+                                            options.append("\n");
+                                        }
                                     }
+                                    //See if user already has a questionconfig out there
+                                    Questionconfig qc1 = new Questionconfig();
+                                    boolean userhadquestionconfigalready = false;
+                                    List<Questionconfig> uqc = HibernateUtil.getSession().createCriteria(Questionconfig.class)
+                                                       .add(Restrictions.eq("questionid", question.getQuestionid()))
+                                                       .add(Restrictions.eq("name", "options"))
+                                                       .setCacheable(true)
+                                                       .list();
+                                    for (Iterator<Questionconfig> iterator = uqc.iterator(); iterator.hasNext();) {
+                                        Questionconfig qc = iterator.next();
+                                        qc1 = qc;
+                                        userhadquestionconfigalready = true;
+                                    }
+                                    qc1.setQuestionid(question.getQuestionid());
+                                    qc1.setName("options");
+                                    qc1.setValue(options.toString());
+                                    if (!userhadquestionconfigalready){
+                                        question.getQuestionconfigs().add(qc1);
+                                    }
+                                    try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
                                 }
-                                //See if user already has a questionconfig out there
-                                Questionconfig qc1 = new Questionconfig();
-                                boolean userhadquestionconfigalready = false;
-                                List<Questionconfig> uqc = HibernateUtil.getSession().createCriteria(Questionconfig.class)
-                                                   .add(Restrictions.eq("questionid", question.getQuestionid()))
-                                                   .add(Restrictions.eq("name", "options"))
-                                                   .setCacheable(true)
-                                                   .list();
-                                for (Iterator<Questionconfig> iterator = uqc.iterator(); iterator.hasNext();) {
-                                    Questionconfig qc = iterator.next();
-                                    qc1 = qc;
-                                    userhadquestionconfigalready = true;
-                                }
-                                qc1.setQuestionid(question.getQuestionid());
-                                qc1.setName("options");
-                                qc1.setValue(options.toString());
-                                if (!userhadquestionconfigalready){
-                                    question.getQuestionconfigs().add(qc1);
-                                }
-                                try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
                             }
                         }
-
                     }
                 }
                 logger.debug("end processing userquestion... note that this is the addition of a userquestion, not the answering of other userquestions");

@@ -144,5 +144,10 @@
         <property name="ishiddenfromhomepage" type="boolean">
             <column name="ishiddenfromhomepage" />
         </property>
+        <property name="isuserrequiredtoaddquestion" type="boolean">
+            <column name="isuserrequiredtoaddquestion" />
+        </property>
+
+
     </class>
 </hibernate-mapping>
