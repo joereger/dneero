@@ -8,7 +8,6 @@ import com.dneero.display.SurveyTemplateProcessor;
 import com.dneero.htmlui.Pagez;
 import com.dneero.survey.servlet.RecordImpression;
 import com.dneero.survey.servlet.SurveyAsHtml;
-import com.dneero.survey.servlet.v1.SurveyFlashServlet;
 import com.dneero.systemprops.BaseUrl;
 import com.dneero.ui.SurveyEnhancer;
 import com.dneero.util.Num;
@@ -35,7 +34,6 @@ public class PublicSurveyResponse implements Serializable {
     private boolean surveytakergavetocharity = false;
     private String charityname = "";
     private String surveyResponseHtml;
-    private String surveyResponseFlashEmbed;
     private Response response = null;
     private String htmltoposttoblogflash = "";
 
@@ -114,6 +112,9 @@ public class PublicSurveyResponse implements Serializable {
             }
         }
 
+        //Responseid
+        int responseid = 0;
+
         //Set userwhotooksurvey, first verifying that they've actually taken the survey
         userwhotooksurvey = null;
         if (userid>0){
@@ -125,6 +126,7 @@ public class PublicSurveyResponse implements Serializable {
                         Response response = iterator.next();
                         if (response.getSurveyid()==survey.getSurveyid()){
                             userwhotooksurvey = userTmp;
+                            responseid = response.getResponseid();
                             break;
                         }
                     }
@@ -160,13 +162,8 @@ public class PublicSurveyResponse implements Serializable {
             isuserwhotooksurveysameasloggedinuser = false;
         }
 
-        //Responseid
-        int responseid = 0;
 
-        //Responseid from userwhotooksurvey
-        if(userwhotooksurvey!=null && loggedinuserhasalreadytakensurvey){
-            responseid = responseidOfLoggedinUser;
-        }
+
 
         //Responseid from url line
         if (Num.isinteger(Pagez.getRequest().getParameter("responseid"))){
@@ -210,10 +207,6 @@ public class PublicSurveyResponse implements Serializable {
 
 
 
-        //The main survey flash embed
-        if (userwhotooksurvey!=null){
-            surveyResponseFlashEmbed = SurveyFlashServlet.getEmbedSyntax("/", survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, survey.getPlid(), true, true, false);
-        }
 
         //To display to those looking to take survey
         if (!loggedinuserhasalreadytakensurvey){
@@ -247,15 +240,12 @@ public class PublicSurveyResponse implements Serializable {
 
 
         //If blogger has taken the survey already
-        if (loggedinuserhasalreadytakensurvey){
-            if (survey.getEmbedversion()==Survey.EMBEDVERSION_01){
-                htmltoposttoblogflash = com.dneero.survey.servlet.v1.SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
-            } else {
-                htmltoposttoblogflash = com.dneero.survey.servlet.v2.SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), Pagez.getUserSession().getUser().getUserid(), responseidOfLoggedinUser, survey.getPlid(), false, true, false);
-            }
+        if (survey.getEmbedversion()==Survey.EMBEDVERSION_01){
+            htmltoposttoblogflash = com.dneero.survey.servlet.v1.SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, survey.getPlid(), false, true, false);
         } else {
-            htmltoposttoblogflash = "";
+            htmltoposttoblogflash = com.dneero.survey.servlet.v2.SurveyFlashServlet.getEmbedSyntax(BaseUrl.get(false, survey.getPlid()), survey.getSurveyid(), userwhotooksurvey.getUserid(), responseid, survey.getPlid(), false, true, false);
         }
+
 
 
 
@@ -334,13 +324,7 @@ public class PublicSurveyResponse implements Serializable {
         this.surveyResponseHtml = surveyResponseHtml;
     }
 
-    public String getSurveyResponseFlashEmbed() {
-        return surveyResponseFlashEmbed;
-    }
 
-    public void setSurveyResponseFlashEmbed(String surveyResponseFlashEmbed) {
-        this.surveyResponseFlashEmbed = surveyResponseFlashEmbed;
-    }
 
     public Response getResponse() {
         return response;
