@@ -89,7 +89,7 @@ String acl = "public";
             StringBuffer co = new StringBuffer();
             co.append("<font class=\"tinyfont\"><$surveydiscuss.date|"+Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$></font>");
             co.append("<br/>");
-            co.append("<font class=\"normalfont\"><$surveydiscuss.subject$></font>");
+            co.append("<font class=\"normalfont\" style=\"font-weight: bold;\"><$surveydiscuss.subject$></font>");
             co.append("<br/>");
             co.append("<font class=\"smallfont\"><$surveydiscuss.comment$></font>");
             co.append("<br/><br/>");

@@ -12,15 +12,16 @@ import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.facebook.FacebookApiWrapper;
 import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.htmlui.Pagez;
+import com.dneero.iptrack.Activitytype;
+import com.dneero.iptrack.RecordIptrackUtil;
 import com.dneero.rank.RankForResponseThread;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
-import com.dneero.xmpp.SendXMPPMessage;
-import com.dneero.iptrack.RecordIptrackUtil;
-import com.dneero.iptrack.Activitytype;
+import com.dneero.survey.servlet.SurveyDisplayCacheFlusher;
 import com.dneero.util.Str;
+import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
@@ -347,10 +348,11 @@ public class StoreResponse {
             logger.error("",ex);
         }
 
-        //Flush the embed cache
+        //Flush the embed cache and display cache
         try{
             if (survey!=null && blogger!=null){
                 EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());
+                SurveyDisplayCacheFlusher.flush(survey.getSurveyid());
             }
         } catch (Exception ex){
             logger.error("", ex);

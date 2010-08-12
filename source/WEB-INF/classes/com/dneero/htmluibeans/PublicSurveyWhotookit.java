@@ -118,7 +118,7 @@ public class PublicSurveyWhotookit implements Serializable {
                 cols.add(new GridCol("Date", "<$response.responsedate|"+ Grid.GRIDCOLRENDERER_DATETIMECOMPACT+"$>", true, "", "tinyfont", "text-align:left;", "text-align:left;"));
                 cols.add(new GridCol("Person", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><font class=\"normalfont\" style=\"font-weight: bold;\"><$nameornickname$></font></a>", false, "", "", "text-align:left;", "text-align:left;"));
                 cols.add(new GridCol("", "<a href=\"/surveyresponse.jsp?u=<$user.userid$>&p=0&r=<$response.responseid$>\"><font class=\"tinyfont\" style=\"font-weight: bold;\"><$nameornickname$>'s Answers</font></a>", true, "", "", "text-align:left;", "text-align:left;"));
-                out.append(Grid.render(respondents, cols, 500, "/surveywhotookit.jsp?surveyid="+survey.getSurveyid(), "pagewhotookit"));
+                out.append(Grid.render(respondents, cols, 1000, "/surveywhotookit.jsp?surveyid="+survey.getSurveyid(), "pagewhotookit"));
             }
         return out.toString();
     }

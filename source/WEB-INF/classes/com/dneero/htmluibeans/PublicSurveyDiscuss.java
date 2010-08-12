@@ -1,18 +1,21 @@
 package com.dneero.htmluibeans;
 
-import com.dneero.dao.*;
+import com.dneero.dao.Survey;
+import com.dneero.dao.Surveydiscuss;
+import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
-
-import com.dneero.util.Num;
-import com.dneero.util.GeneralException;
-import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
 import com.dneero.htmlui.ValidationException;
+import com.dneero.util.GeneralException;
+import com.dneero.util.Num;
+import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
-import java.util.*;
-
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -73,6 +76,8 @@ public class PublicSurveyDiscuss implements Serializable {
             psdli.setUser(User.get(surveydiscuss.getUserid()));
             surveydiscusses.add(psdli);
         }
+
+
     }
 
 
@@ -93,25 +98,50 @@ public class PublicSurveyDiscuss implements Serializable {
             throw vex;
         }
         if (Pagez.getUserSession().getIsloggedin()){
-            Surveydiscuss surveydiscuss = new Surveydiscuss();
-            surveydiscuss.setSurveyid(survey.getSurveyid());
-            surveydiscuss.setSubject(discussSubject);
-            surveydiscuss.setComment(discussComment);
-            surveydiscuss.setDate(new Date());
-            surveydiscuss.setUserid(Pagez.getUserSession().getUser().getUserid());
-            surveydiscuss.setIsresearcherrejected(false);
-            surveydiscuss.setIssysadminrejected(false);
-            surveydiscuss.setIsresearcherreviewed(false);
-            surveydiscuss.setIssysadminreviewed(false);
-            try{
-                surveydiscuss.save();
-            } catch (GeneralException gex){
-                vex.addValidationError("Sorry, there was an error: " + gex.getErrorsAsSingleString());
-                logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
-                throw vex;
+            if (!doesCommentAlreadyExist(discussSubject, discussComment, survey.getSurveyid())){
+                Surveydiscuss surveydiscuss = new Surveydiscuss();
+                surveydiscuss.setSurveyid(survey.getSurveyid());
+                surveydiscuss.setSubject(discussSubject);
+                surveydiscuss.setComment(discussComment);
+                surveydiscuss.setDate(new Date());
+                surveydiscuss.setUserid(Pagez.getUserSession().getUser().getUserid());
+                surveydiscuss.setIsresearcherrejected(false);
+                surveydiscuss.setIssysadminrejected(false);
+                surveydiscuss.setIsresearcherreviewed(false);
+                surveydiscuss.setIssysadminreviewed(false);
+                try{
+                    surveydiscuss.save();
+                } catch (GeneralException gex){
+                    vex.addValidationError("Sorry, there was an error: " + gex.getErrorsAsSingleString());
+                    logger.debug("newIssue failed: " + gex.getErrorsAsSingleString());
+                    throw vex;
+                }
+                //load();
             }
-            //load();
         }
+        //Reset
+        discussSubject = "";
+        discussComment = "";
+    }
+
+    private boolean doesCommentAlreadyExist(String subject, String comment, int surveyid){
+        List<Surveydiscuss> dscs = HibernateUtil.getSession().createCriteria(Surveydiscuss.class)
+                                           .add(Restrictions.eq("subject", subject))
+                                           .add(Restrictions.eq("comment", comment))
+                                           .add(Restrictions.eq("surveyid", surveyid))
+                                           .add(Restrictions.eq("userid", Pagez.getUserSession().getUser().getUserid()))
+                                           .setCacheable(true)
+                                           .list();
+        if (dscs!=null && dscs.size()>0){
+            for (Iterator<Surveydiscuss> surveydiscussIterator = dscs.iterator(); surveydiscussIterator.hasNext();) {
+                Surveydiscuss surveydiscuss = surveydiscussIterator.next();
+                long millisSinceComment = (new Date()).getTime() - surveydiscuss.getDate().getTime();
+                if (millisSinceComment < (1000*60*15)){ //Can't post same comment within 15 mins
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

@@ -140,9 +140,11 @@ public class PublicSurveyResults implements Serializable {
                 ArrayList<SurveyResultsUserQuestionsListitem> sruqli = SurveyResultsUserQuestions.getUserQuestionResults(survey, null, 0, new ArrayList<Integer>(), null);
                 //Create a template for the display
                 StringBuffer template = new StringBuffer();
-                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a> wanted to know:</b></font>");
+                template.append("<font class=\"smallfont\"><b><a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a> wanted to know</b></font>");
                 template.append("<br/>");
                 template.append("<b><$question.question$></b>");
+                template.append("<br/>");
+                template.append("<b><font class=\"tinyfont\"><a href=\"surveysingleuserquestion.jsp?surveyid="+survey.getSurveyid()+"&questionid=<$question.questionid$>\">Answer this Question</a></font></b>");
                 template.append("<br/>");
                 template.append("<$htmlForResult$>");
                 template.append("<br/>");
