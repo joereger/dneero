@@ -72,7 +72,14 @@
 
 
 
-
+    <servlet>
+        <servlet-name>ResearcherResultsAnswersCsv</servlet-name>
+        <servlet-class>com.dneero.htmluibeans.ResearcherResultsAnswersCsv</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResearcherResultsAnswersCsv</servlet-name>
+        <url-pattern>/results.csv</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>EmailActivationServlet</servlet-name>

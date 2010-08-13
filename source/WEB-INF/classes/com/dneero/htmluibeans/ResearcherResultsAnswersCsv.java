@@ -9,10 +9,13 @@ import com.dneero.util.Time;
 import com.dneero.util.Util;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.Iterator;
 
@@ -21,18 +24,16 @@ import java.util.Iterator;
  * Date: Nov 18, 2006
  * Time: 9:06:22 AM
  */
-public class ResearcherResultsAnswersCsv implements Serializable {
+public class ResearcherResultsAnswersCsv extends HttpServlet {
 
     private Survey survey;
     private String results;
 
-    public ResearcherResultsAnswersCsv(){
-
+    public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 
-
-
-    public void initBean(){
+    public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         survey = Survey.get(Pagez.getUserSession().getCurrentSurveyid());
         if (com.dneero.util.Num.isinteger(Pagez.getRequest().getParameter("surveyid"))){
@@ -45,15 +46,15 @@ public class ResearcherResultsAnswersCsv implements Serializable {
                 String[][] array = new String[survey.getResponses().size()][0];
                 int arrayindex = 0;
                 for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {
-                    Response response = iterator.next();
+                    Response resp = iterator.next();
                     //Choose how many cols this will have... later on this will get more complex and i'll have to call each component to get the sizing
                     String[] row = new String[survey.getQuestions().size() + 2];
-                    //Start out with the basic info for each response
-                    row[0]= User.get(Blogger.get(response.getBloggerid()).getUserid()).getNickname();
-                    row[1]= Time.dateformatcompactwithtime(Time.getCalFromDate(response.getResponsedate()));
+                    //Start out with the basic info for each resp
+                    row[0]= User.get(Blogger.get(resp.getBloggerid()).getUserid()).getNickname();
+                    row[1]= Time.dateformatcompactwithtime(Time.getCalFromDate(resp.getResponsedate()));
                     for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
                         Question question = iterator1.next();
-                        Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, Blogger.get(response.getBloggerid()));
+                        Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, Blogger.get(resp.getBloggerid()));
                         //Append each question to the end of the row
                         row = Util.appendToEndOfStringArray(row, component.getCsvForResult());
                     }
@@ -73,20 +74,21 @@ public class ResearcherResultsAnswersCsv implements Serializable {
                 } catch (Exception ex){
                     logger.error("",ex);
                 }
-                //Make sure something gets output
-                if (results==null || results.equals("")){
-                    results = "No data";
-                }
             }
         }
+        //Make sure something gets output
+        if (results==null || results.equals("")){
+            results = "No data";
+        }
+        //Write out
+        writeResponseOut(response);
     }
 
-    public void getCsv(){
+    public void writeResponseOut(HttpServletResponse response){
         Logger logger = Logger.getLogger(this.getClass().getName());
 
 
-        //Then we have to get the Response to write our file to
-        HttpServletResponse response = Pagez.getResponse();
+
 
         //Now we create some variables we will use for writting the file to the response
         int read = 0;
