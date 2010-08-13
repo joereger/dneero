@@ -68,6 +68,8 @@ public class PublicSurvey implements Serializable {
     private ArrayList<PublicSurveyUserquestionListitem> userquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
     private ArrayList<Question> optionaluserquestions = new ArrayList<Question>();
     private ArrayList<PublicSurveyUserquestionListitem> optionaluserquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
+    private ArrayList<Question> userquestionsalreadyanswered = new ArrayList<Question>();
+    private ArrayList<PublicSurveyUserquestionListitem> userquestionsalreadyansweredlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
     private ArrayList<Integer> useridswhohavebeencheckedforuserquestions = new ArrayList<Integer>();
     private Response response = null;
     private String yourquestion = "";
@@ -338,6 +340,8 @@ public class PublicSurvey implements Serializable {
             }
         }
 
+
+
         //Get optional userquestions
         optionaluserquestionlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
         optionaluserquestions = findOptionalUserQuestionsFor(userquestionsthatmustbeanswered);
@@ -353,6 +357,24 @@ public class PublicSurvey implements Serializable {
                 }
                 psli.setComponent(ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger));
                 optionaluserquestionlistitems.add(psli);
+            }
+        }
+
+        //Get userquestions already answered
+        userquestionsalreadyansweredlistitems = new ArrayList<PublicSurveyUserquestionListitem>();
+        userquestionsalreadyanswered = userQuestionsAlreadyAnswered();
+        for (Iterator<Question> uqIter=userquestionsalreadyanswered.iterator(); uqIter.hasNext();) {
+            Question question=uqIter.next();
+            if (question.getIsuserquestion() && question.getUserid()>0){
+                PublicSurveyUserquestionListitem psli = new PublicSurveyUserquestionListitem();
+                psli.setQuestion(question);
+                psli.setUser(User.get(question.getUserid()));
+                Blogger blogger = null;
+                if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
+                    blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                }
+                psli.setComponent(ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger));
+                userquestionsalreadyansweredlistitems.add(psli);
             }
         }
 
@@ -735,14 +757,31 @@ public class PublicSurvey implements Serializable {
         return false;
     }
 
-    
+    private ArrayList<Question> userQuestionsAlreadyAnswered(){
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        ArrayList<Question> out = new ArrayList<Question>();
+        if (loggedinuserhasalreadytakensurvey && Pagez.getUserSession().getUser()!=null){
+            List<Questionresponse> questionResponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+                                           .add(Restrictions.eq("responseid", response.getResponseid()))
+                                           .setCacheable(true)
+                                           .list();
+            for (Iterator<Questionresponse> questionresponseIterator = questionResponses.iterator(); questionresponseIterator.hasNext();) {
+                Questionresponse questionresponse = questionresponseIterator.next();
+                Question question = Question.get(questionresponse.getQuestionid());
+                if (question.getIsuserquestion()){
+                    out.add(question);
+                }
+            }
+        }
+        return out;
+    }
 
     private ArrayList<Question> findOptionalUserQuestionsFor(ArrayList<Question> excludethesequestions){
         Logger logger = Logger.getLogger(this.getClass().getName());
         ArrayList<Question> optionaluserquestions = new ArrayList<Question>();
         List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
                                                        .add(Restrictions.eq("surveyid", survey.getSurveyid()))
-                                                       .add(Restrictions.gt("isuserquestion", true))
+                                                       .add(Restrictions.eq("isuserquestion", true))
                                                        .setCacheable(true)
                                                        .list();
         for (Iterator<Question> iterator=questions.iterator(); iterator.hasNext();) {
@@ -767,6 +806,21 @@ public class PublicSurvey implements Serializable {
             }
         }
         return optionaluserquestions;
+    }
+
+    public static boolean hasUserAlreadyAnswered(ArrayList<Question> alreadyanswered, int questionid){
+        Logger logger = Logger.getLogger(PublicSurvey.class);
+        try{
+            for (Iterator<Question> questionIterator = alreadyanswered.iterator(); questionIterator.hasNext();) {
+                Question question = questionIterator.next();
+                if (question.getQuestionid()==questionid){
+                    return true;
+                }
+            }
+        } catch (Exception ex){
+            logger.error("", ex);
+        }
+        return false;
     }
 
 
@@ -996,5 +1050,21 @@ public class PublicSurvey implements Serializable {
 
     public void setYourquestionmultiplechoiceoptions(ArrayList<String> yourquestionmultiplechoiceoptions) {
         this.yourquestionmultiplechoiceoptions=yourquestionmultiplechoiceoptions;
+    }
+
+    public ArrayList<Question> getUserquestionsalreadyanswered() {
+        return userquestionsalreadyanswered;
+    }
+
+    public void setUserquestionsalreadyanswered(ArrayList<Question> userquestionsalreadyanswered) {
+        this.userquestionsalreadyanswered = userquestionsalreadyanswered;
+    }
+
+    public ArrayList<PublicSurveyUserquestionListitem> getUserquestionsalreadyansweredlistitems() {
+        return userquestionsalreadyansweredlistitems;
+    }
+
+    public void setUserquestionsalreadyansweredlistitems(ArrayList<PublicSurveyUserquestionListitem> userquestionsalreadyansweredlistitems) {
+        this.userquestionsalreadyansweredlistitems = userquestionsalreadyansweredlistitems;
     }
 }

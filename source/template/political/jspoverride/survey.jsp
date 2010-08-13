@@ -205,6 +205,21 @@ String acl = "public";
                                         <div style="background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; height: 150px; overflow : auto;">
                                         <%
                                             try{
+                                                //Pull up userquestions that've already been answered
+                                                for (Iterator<PublicSurveyUserquestionListitem> iterator=publicSurvey.getUserquestionsalreadyansweredlistitems().iterator(); iterator.hasNext();){
+                                                    PublicSurveyUserquestionListitem psli=iterator.next();
+                                                    %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getNickname()%> wants to know:</font><br/><%
+                                                    %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
+                                                    //if (iterator.hasNext()){
+                                                        %><br/><br/><%
+                                                    //}
+                                                }
+                                            } catch (Exception ex){
+                                                logger.error("", ex);
+                                            }
+                                        %>
+                                        <%
+                                            try{
                                                 //Don't want to pull up all questions so use a random offset
                                                 int numbertodisplay = 26;
                                                 int minIndexToDisplay = 0;
@@ -231,10 +246,12 @@ String acl = "public";
                                                     PublicSurveyUserquestionListitem psli=iterator.next();
                                                     indexCurrentlyShowing = indexCurrentlyShowing + 1;
                                                     if (indexCurrentlyShowing>=minIndexToDisplay && indexCurrentlyShowing<=maxIndexToDisplay){
-                                                        %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getNickname()%> wants to know:</font><br/><%
-                                                        %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
-                                                        if (iterator.hasNext()){
-                                                            %><br/><br/><%
+                                                        if (!PublicSurvey.hasUserAlreadyAnswered(publicSurvey.getUserquestionsalreadyanswered(), psli.getQuestion().getQuestionid())){
+                                                            %><font class="smallfont" style="font-weight: bold;"><%=psli.getUser().getNickname()%> wants to know:</font><br/><%
+                                                            %><%=psli.getComponent().getHtmlForInput(publicSurvey.getResponse())%><%
+                                                            if (iterator.hasNext()){
+                                                                %><br/><br/><%
+                                                            }
                                                         }
                                                     }
                                                 }

@@ -98,7 +98,7 @@ String acl = "public";
             cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", false, "", "normalfont", "background:#ffffff;", "font-weight: bold;"));
             cols.add(new GridCol("", co.toString(), false, "", "", "background:#ffffff;", ""));
         %>
-        <%=Grid.render(publicSurveyDiscuss.getSurveydiscusses(), cols, 50, "/surveydiscuss.jsp", "page")%>
+        <%=Grid.render(publicSurveyDiscuss.getSurveydiscusses(), cols, 1000, "/surveydiscuss.jsp", "page")%>
     <%}%>
 
 

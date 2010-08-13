@@ -68,7 +68,7 @@ String acl = "public";
                         <%
                             PublicSurveyUserquestionListitem psli = new PublicSurveyUserquestionListitem();
                             psli.setQuestion(publicSurveySingleUserquestion.getQuestion());
-                            psli.setUser(Pagez.getUserSession().getUser());
+                            psli.setUser(User.get(publicSurveySingleUserquestion.getQuestion().getUserid()));
                             Blogger blogger = null;
                             if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
                                 blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
