@@ -308,7 +308,7 @@ public class Essay implements Component {
         StringBuffer tmp = new StringBuffer();
         for (int i = 0; i < out.length; i++) {
             String s = out[i];
-            tmp.append(s + ";");
+            tmp.append(s);
         }
         String[] tmpOut = new String[1];
         tmpOut[0]=tmp.toString();

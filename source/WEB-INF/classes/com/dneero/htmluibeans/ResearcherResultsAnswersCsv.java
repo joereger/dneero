@@ -42,26 +42,48 @@ public class ResearcherResultsAnswersCsv extends HttpServlet {
         }
         if (survey!=null){
             if (Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
+                int numberOfNonQuestionColumns = 5;
                 results = "";
-                String[][] array = new String[survey.getResponses().size()][0];
-                int arrayindex = 0;
+                String[][] array = new String[survey.getResponses().size() + 1][0];
+                int currentRow = 0;
+                //Column Headers
+                String[] headerRow = new String[survey.getQuestions().size() + numberOfNonQuestionColumns];
+                headerRow[0]= "USERID";
+                headerRow[1]= "NAME";
+                headerRow[2]= "NICKNAME";
+                headerRow[3]= "RESPONSE DATE";
+                for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
+                    Question question = iterator1.next();
+                    String colHeader = question.getQuestion().toUpperCase();
+                    if (question.getIsuserquestion()){
+                        colHeader = "USERQUESTION " + colHeader;
+                    }
+                    String[] tmp = new String[1];
+                    tmp[0]= colHeader;
+                    headerRow = Util.appendToEndOfStringArray(headerRow, tmp);
+                }
+                array[currentRow] = headerRow;
+                currentRow++;
+                //Iterate responses
                 for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {
                     Response resp = iterator.next();
                     //Choose how many cols this will have... later on this will get more complex and i'll have to call each component to get the sizing
-                    String[] row = new String[survey.getQuestions().size() + 2];
+                    String[] row = new String[survey.getQuestions().size() + numberOfNonQuestionColumns];
                     //Start out with the basic info for each resp
-                    row[0]= User.get(Blogger.get(resp.getBloggerid()).getUserid()).getNickname();
-                    row[1]= Time.dateformatcompactwithtime(Time.getCalFromDate(resp.getResponsedate()));
+                    row[0]= String.valueOf(User.get(resp.getBloggerid()).getUserid());
+                    row[1]= User.get(Blogger.get(resp.getBloggerid()).getUserid()).getName();
+                    row[2]= User.get(Blogger.get(resp.getBloggerid()).getUserid()).getNickname();
+                    row[3]= Time.dateformatcompactwithtime(Time.getCalFromDate(resp.getResponsedate()));
                     for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
                         Question question = iterator1.next();
                         Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, Blogger.get(resp.getBloggerid()));
                         //Append each question to the end of the row
                         row = Util.appendToEndOfStringArray(row, component.getCsvForResult());
                     }
-                    array[arrayindex] = row;
-                    arrayindex = arrayindex + 1;
+                    array[currentRow] = row;
+                    currentRow++;
                 }
-                //Now I need to convert a String[][] to a string representing a csv file
+                //Convert a String[][] to a string representing a csv file
                 try{
                     StringWriter sw = new StringWriter();
                     CSVWriter writer = new CSVWriter(sw, '\t');

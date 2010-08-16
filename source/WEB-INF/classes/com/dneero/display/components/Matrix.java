@@ -1,21 +1,22 @@
 package com.dneero.display.components;
 
-import com.dneero.display.components.def.Component;
-import com.dneero.display.components.def.ComponentException;
-import com.dneero.display.SurveyResponseParser;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Str;
-import com.dneero.util.Util;
+import com.dneero.display.SurveyResponseParser;
+import com.dneero.display.components.def.Component;
+import com.dneero.display.components.def.ComponentException;
 import com.dneero.rank.RankUnit;
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.Text;
 
-import java.util.*;
-import java.text.NumberFormat;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -461,7 +462,7 @@ public class Matrix implements Component {
         StringBuffer tmp = new StringBuffer();
         for (int i = 0; i < out.length; i++) {
             String s = out[i];
-            tmp.append(s + ";");
+            tmp.append(s + ",");
         }
         String[] tmpOut = new String[1];
         tmpOut[0]=tmp.toString();
