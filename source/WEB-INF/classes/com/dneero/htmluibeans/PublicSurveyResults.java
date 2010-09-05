@@ -40,7 +40,7 @@ public class PublicSurveyResults implements Serializable {
     private String resultsUserquestionsHtml = "";
     private String resultsHtmlForUserWhoTookSurvey = "";
     private String resultsYourFriends = "";
-    private String resultsfriendstabtext = "People from site you were at";
+    private String resultsfriendstabtext = "";
     private boolean resultsshowyourfriendstab = false;
     private int resultstabselectedindex = 0;
     private List<PublicSurveyFacebookFriendListitem> facebookuserswhotooksurvey = new ArrayList<PublicSurveyFacebookFriendListitem>();

@@ -1,16 +1,15 @@
 package com.dneero.display.components.def;
 
+import com.dneero.dao.Question;
 import com.dneero.dao.Questionresponse;
 import com.dneero.dao.Rank;
 import com.dneero.dao.Response;
-import com.dneero.dao.Question;
 import com.dneero.display.SurveyResponseParser;
 import com.dneero.rank.RankUnit;
-
-import java.util.List;
-import java.util.ArrayList;
-
 import org.jdom.Element;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -27,9 +26,11 @@ public interface Component {
     public String getHtmlForDisplay(Response response);
     public String getHtmlForResult(List<Questionresponse> questionresponses);
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses);
+    public String getHtmlForJson(List<Questionresponse> questionresponses);
     public void validateAnswer(SurveyResponseParser srp) throws ComponentException;
     public void processAnswer(SurveyResponseParser srp, Response response) throws ComponentException;
     public int columnsInCsvOutput();
+    public String[] getCsvForResult(List<Questionresponse> allQuestionresponsesAllUsers);
     public String[] getCsvForResult();
     public boolean supportsRank();
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response);

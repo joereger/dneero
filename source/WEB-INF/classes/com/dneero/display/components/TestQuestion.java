@@ -219,6 +219,10 @@ public class TestQuestion implements Component {
         return "";
     }
 
+    public String getHtmlForJson(List<Questionresponse> questionresponses){
+        return getHtmlForResult(questionresponses);
+    }
+
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
 //        StringBuffer out = new StringBuffer();
 //        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
@@ -294,6 +298,10 @@ public class TestQuestion implements Component {
 
     public int columnsInCsvOutput() {
         return 0;
+    }
+
+    public String[] getCsvForResult(List<Questionresponse> allQuestionresponsesAllUsers) {
+        return getCsvForResult();
     }
 
     public String[] getCsvForResult() {

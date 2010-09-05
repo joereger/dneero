@@ -2,12 +2,15 @@ package com.dneero.htmluibeans;
 
 import au.com.bytecode.opencsv.CSVWriter;
 import com.dneero.dao.*;
+import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentTypes;
 import com.dneero.htmlui.Pagez;
 import com.dneero.util.Time;
 import com.dneero.util.Util;
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +20,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -52,7 +57,11 @@ public class ResearcherResultsAnswersCsv extends HttpServlet {
                 headerRow[1]= "NAME";
                 headerRow[2]= "NICKNAME";
                 headerRow[3]= "RESPONSE DATE";
-                for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
+                List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
+                                                       .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                                       .setCacheable(true)
+                                                       .list();
+                for (Iterator<Question> iterator1 = questions.iterator(); iterator1.hasNext();) {
                     Question question = iterator1.next();
                     String colHeader = question.getQuestion().toUpperCase();
                     if (question.getIsuserquestion()){
@@ -65,7 +74,24 @@ public class ResearcherResultsAnswersCsv extends HttpServlet {
                 array[currentRow] = headerRow;
                 currentRow++;
                 //Iterate responses
-                for (Iterator<Response> iterator = survey.getResponses().iterator(); iterator.hasNext();) {
+                List<Response> responses = HibernateUtil.getSession().createCriteria(Response.class)
+                                                   .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+                                                   .addOrder(Order.asc("responseid"))
+                                                   .setCacheable(true)
+                                                   .list();
+                //Iterate responses to get list of responseids... for getting questionresponses
+                ArrayList<Integer> responseids = new ArrayList<Integer>();
+                for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
+                    Response resp = iterator.next();
+                    responseids.add(resp.getResponseid());
+                }
+                //Get list of all questionresponses... for performance
+                List<Questionresponse> allQuestionresponsesAllUsers = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+                                                   .add(Restrictions.in("responseid", responseids))
+                                                   .setCacheable(true)
+                                                   .list();
+                //Iterate responses to generate rows
+                for (Iterator<Response> iterator = responses.iterator(); iterator.hasNext();) {
                     Response resp = iterator.next();
                     //Choose how many cols this will have... later on this will get more complex and i'll have to call each component to get the sizing
                     String[] row = new String[survey.getQuestions().size() + numberOfNonQuestionColumns];
@@ -74,11 +100,15 @@ public class ResearcherResultsAnswersCsv extends HttpServlet {
                     row[1]= User.get(Blogger.get(resp.getBloggerid()).getUserid()).getName();
                     row[2]= User.get(Blogger.get(resp.getBloggerid()).getUserid()).getNickname();
                     row[3]= Time.dateformatcompactwithtime(Time.getCalFromDate(resp.getResponsedate()));
-                    for (Iterator<Question> iterator1 = survey.getQuestions().iterator(); iterator1.hasNext();) {
+//                    List<Question> questions = HibernateUtil.getSession().createCriteria(Question.class)
+//                                                       .add(Restrictions.eq("surveyid", survey.getSurveyid()))
+//                                                       .setCacheable(true)
+//                                                       .list();
+                    for (Iterator<Question> iterator1 = questions.iterator(); iterator1.hasNext();) {
                         Question question = iterator1.next();
                         Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, Blogger.get(resp.getBloggerid()));
                         //Append each question to the end of the row
-                        row = Util.appendToEndOfStringArray(row, component.getCsvForResult());
+                        row = Util.appendToEndOfStringArray(row, component.getCsvForResult(allQuestionresponsesAllUsers));
                     }
                     array[currentRow] = row;
                     currentRow++;

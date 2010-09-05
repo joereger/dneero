@@ -118,6 +118,15 @@
         <url-pattern>/template/main.css</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SurveysAsJson</servlet-name>
+        <servlet-class>com.dneero.json.SurveysAsJson</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SurveysAsJson</servlet-name>
+        <url-pattern>/survey.json</url-pattern>
+    </servlet-mapping>
+
 
 
     <servlet>

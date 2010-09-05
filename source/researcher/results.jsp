@@ -130,6 +130,10 @@ String acl = "researcher";
                 <div class="rounded" style="background: #ffffff; text-align: left; padding: 20px;">
                     <font class="mediumfont" style="color: #333333;"><a href="/results.csv?surveyid=<%=researcherResultsAnswersAdvanced.getSurvey().getSurveyid()%>">Download Results (csv)</a></font>
                     <br/>
+                    <%
+                    //Get Discussion by running this SQL
+                    //SELECT surveyid, user.userid, NAME, nickname, DATE, SUBJECT, COMMENT FROM surveydiscuss, USER WHERE surveydiscuss.userid=user.userid ORDER BY surveyid, surveydiscuss.date;
+                    %>
                 </div>
             </td>
         </tr>

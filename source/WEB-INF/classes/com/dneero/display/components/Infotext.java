@@ -1,23 +1,18 @@
 package com.dneero.display.components;
 
 import com.dneero.dao.*;
-import com.dneero.dao.hibernate.HibernateUtil;
-import com.dneero.util.GeneralException;
-import com.dneero.util.Str;
+import com.dneero.display.SurveyResponseParser;
 import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
-import com.dneero.display.SurveyResponseParser;
 import com.dneero.rank.RankUnit;
-import com.dneero.rank.NormalizedpointsUtil;
-
-import java.util.*;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
-
+import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.Text;
-import org.hibernate.criterion.Restrictions;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Joe Reger Jr
@@ -109,6 +104,10 @@ public class Infotext implements Component {
         return out.toString();
     }
 
+    public String getHtmlForJson(List<Questionresponse> questionresponses){
+        return getHtmlForResult(questionresponses);
+    }
+
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         return getHtmlForResult(questionresponses);
     }
@@ -117,11 +116,16 @@ public class Infotext implements Component {
         return 1;
     }
 
+
     public String[] getCsvForResult() {
         String[] out = new String[0];
         String[] tmpOut = new String[1];
         tmpOut[0]="";
         return tmpOut;
+    }
+
+    public String[] getCsvForResult(List<Questionresponse> allQuestionresponsesAllUsers) {
+        return getCsvForResult();
     }
 
     public boolean supportsRank(){

@@ -437,6 +437,10 @@ public class Matrix implements Component {
         return out.toString();
     }
 
+    public String getHtmlForJson(List<Questionresponse> questionresponses){
+        return getHtmlForResult(questionresponses);
+    }
+
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         return getHtmlForResult(questionresponses);
     }
@@ -446,24 +450,30 @@ public class Matrix implements Component {
     }
 
     public String[] getCsvForResult() {
-        String[] out = new String[0];
+        List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
+        return getCsvForResult(responses);
+    }
+
+    public String[] getCsvForResult(List<Questionresponse> allQuestionresponsesAllUsers) {
+        ArrayList<String> vals = new ArrayList<String>();
         if (blogger!=null){
-            List<Questionresponse> responses = HibernateUtil.getSession().createQuery("from Questionresponse where questionid='"+question.getQuestionid()+"' and bloggerid='"+blogger.getBloggerid()+"'").list();
-            out = new String[responses.size()];
-            int i = 0;
-            for (Iterator<Questionresponse> iterator = responses.iterator(); iterator.hasNext();) {
+            for (Iterator<Questionresponse> iterator = allQuestionresponsesAllUsers.iterator(); iterator.hasNext();) {
                 Questionresponse questionresponse = iterator.next();
-                out[i]=questionresponse.getValue();
-                i=i+1;
+                //Make sure is this user's and for this question
+                if (questionresponse.getBloggerid()==blogger.getBloggerid()){
+                    if (questionresponse.getQuestionid()==question.getQuestionid()){
+                        vals.add(questionresponse.getValue());
+                    }
+                }
             }
         }
-        //return out;
         //For early simplicity I'm just going to concatenate these with a semicolon to take up one cell
         StringBuffer tmp = new StringBuffer();
-        for (int i = 0; i < out.length; i++) {
-            String s = out[i];
-            tmp.append(s + ",");
+        for (Iterator it = vals.iterator(); it.hasNext(); ) {
+            String val = (String)it.next();
+            tmp.append(val);
         }
+        //Put into array
         String[] tmpOut = new String[1];
         tmpOut[0]=tmp.toString();
         return tmpOut;
