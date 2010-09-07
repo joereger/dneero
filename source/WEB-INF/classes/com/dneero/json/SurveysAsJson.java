@@ -80,12 +80,24 @@ public class SurveysAsJson extends HttpServlet {
 
         }
 
+        //Handle jsonp callback thing
+        String jsonCallbackParam = request.getParameter("jsoncallback");
+        String out = "";
+        if (jsonCallbackParam!=null) {
+            out = jsonCallbackParam + "(" + jsonString + ");";
+        } else {
+            out = jsonString;
+        }
+
+
         //Send it on along now y'hear
         ServletOutputStream outStream = response.getOutputStream();
         response.setContentType("application/json");
-        outStream.write(jsonString.getBytes());
+        outStream.write(out.getBytes());
         outStream.close();
+
     }
+
 
 
     

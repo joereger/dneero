@@ -27,6 +27,9 @@ public class SurveyResultsAsJson {
         s.put("numresponses", respondents);
         s.put("impressionstotal", survey.getImpressionstotal());
         s.put("results", SurveyResultsJson.getResults(survey, null, 0, new ArrayList<Integer>(), null, true, false));
+        boolean isopen = false;
+        if (survey.getStatus()==Survey.STATUS_OPEN){ isopen = true; }
+        s.put("isopen", isopen);
         return s;
     }
 
