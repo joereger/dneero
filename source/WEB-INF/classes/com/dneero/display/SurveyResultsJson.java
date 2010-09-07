@@ -117,8 +117,8 @@ public class SurveyResultsJson {
                 m.put("question",  question.getQuestion());
                 m.put("componenttype", question.getComponenttype());
                 m.put("isuserquestion", question.getIsuserquestion());
-                m.put("questionconfigs", question.getQuestionconfigs());
-                m.put("responsehtml", component.getHtmlForJson(questionresponses));
+                //m.put("questionconfigs", question.getQuestionconfigs());
+                //m.put("responsehtml", component.getHtmlForJson(questionresponses));
 
 
                 //Add to the list of questions
