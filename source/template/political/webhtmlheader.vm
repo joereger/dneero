@@ -40,10 +40,10 @@
                         <img src="/images/clear.gif" width="1" height="1" border="0"/>
                         <div class="subnavinner">
                             #if (!$userSession.isloggedin)
-                                <font class="subnavfont"><a href="http://www.matterofopinion.com">Home</a> | <a href="/index.jsp">Surveys</a> | <a href="/login.jsp">My Account</a></font>
+                                <font class="subnavfont"><a href="http://www.matterofopinion.com">home</a> | <a href="http://matterofopinion.com/?p=2">about us</a> | <a href="/login.jsp">my account</a></font>
                             #end
                             #if ($userSession.isloggedin)
-                                <font class="subnavfont">Hi, $userSession.user.nickname | <a href="http://www.matterofopinion.com">Home</a> | <a href="/index.jsp">Surveys</a> | <a href="/account/index.jsp">My Account</a> 
+                                <font class="subnavfont">Hi, $userSession.user.nickname | <a href="http://www.matterofopinion.com">home</a> | <a href="http://matterofopinion.com/?p=2">about us</a> | <a href="/account/index.jsp">my account</a> 
                                 #if ($userSession.isCustomerCare)
                                     | <a href="/customercare/index.jsp">Customer Care</a>
                                 #end

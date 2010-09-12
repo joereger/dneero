@@ -11,41 +11,52 @@ $(document).ready(function(){
 						   
 	var jsonData;
 	$('#listOStuff').html("pre-json call"); 
-	console.log("pre-json call");
-	$.getJSON("/survey.json?surveyid=321&surveyid=318&surveyid=198", function(data){
-          console.log("start function(data)");
+	//console.log("pre-json call");
+	$.getJSON("http://joe.localhost/survey.json?jsoncallback=?&surveyid=321&surveyid=318&surveyid=198", function(data){
+          //console.log("start function(data)");
 		  storeData(data);
      }); 
 	
 
 	function populateScreen() {
-		console.log("start populateScreen()");
+		//console.log("start populateScreen()");
 		var htmlString = "";
 		$.each(jsonData, function(i,survey){
 			htmlString = htmlString + "Surveyid " + survey.surveyid + ":" + survey.title + "<br/>"	
 		});
 		$('#listOStuff').html(htmlString); 
 		
-		
-
-		
-		
+		//Iterate Surveys
 		$.each(jsonData, function(i,survey){
-			console.log("each jsonData found surveyid="+survey.surveyid);
+			//console.log("each jsonData found surveyid="+survey.surveyid);
+			//Iterate NumRespondents DIVs
 			$(".dNeeroNumRespondents").each(function(j) {
-				console.log("$(this).attr(\"surveyid\")=" + $(this).attr("surveyid"));									 
+				//console.log("$(this).attr(\"surveyid\")=" + $(this).attr("surveyid"));									 
 				if ($(this).attr("surveyid") == survey.surveyid){
 					$(this).html("Respondents to '"+survey.title+"' = "+survey.numresponses);	
 				}
 			});	
-			
+			//Iterate Results DIVs
+			$(".dNeeroResults").each(function(j) {								 
+				if ($(this).attr("surveyid") == survey.surveyid){
+					var resultsHtml = "";
+					//Iterate Questions
+					$.each(survey.results, function(i,question){
+						//console.log("found question="+question.questionid);
+						//Only questiontype = 3,4,5 for now
+						if (question.componenttype==3 || question.componenttype==999 || question.componenttype==999){
+							resultsHtml = resultsHtml + question.question + "<br/>" + question.responsehtml + "<br/><br/>";
+						}
+					});	
+					//Set responseHtml
+					$(this).html(resultsHtml);	
+				}
+			});	
 		});
-		
-		
 	}
 	
 	function storeData(data) {
-		console.log("start storeData()");
+		//console.log("start storeData()");
 		jsonData = data;
 		populateScreen();
 	}
@@ -76,14 +87,17 @@ Bottom
 <br/>
 Surveyid 318: 
 <div class="dNeeroNumRespondents" surveyid="318"></div>
+<div style="font-size: 8px;"><div class="dNeeroResults" surveyid="318"></div></div>
 
 <br/>
 Surveyid 321:
 <div class="dNeeroNumRespondents" surveyid="321"></div>
+<div style="font-size: 8px; font-family:Verdana,Arial,Helvetica,SansSerif; width: 250px;"><div class="dNeeroResults" surveyid="321"></div></div>
 
 <br/>
 Surveyid 198:
 <div class="dNeeroNumRespondents" surveyid="198"></div>
+<div class="dNeeroResults" surveyid="198"></div>
 
 </body>
 </html>

@@ -89,7 +89,6 @@ public class SurveysAsJson extends HttpServlet {
             out = jsonString;
         }
 
-
         //Send it on along now y'hear
         ServletOutputStream outStream = response.getOutputStream();
         response.setContentType("application/json");

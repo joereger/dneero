@@ -7,6 +7,7 @@ import com.dneero.display.components.def.Component;
 import com.dneero.display.components.def.ComponentException;
 import com.dneero.rank.NormalizedpointsUtil;
 import com.dneero.rank.RankUnit;
+import com.dneero.systemprops.BaseUrl;
 import com.dneero.util.Str;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -210,6 +211,7 @@ public class Dropdown implements Component {
     }
 
 
+
     public String getHtmlForResult(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
         out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");
@@ -218,11 +220,11 @@ public class Dropdown implements Component {
         out.append("<td valign=\"top\" bgcolor=\"#ffffff\" colspan=\"2\">");
         out.append(" ");
         out.append("</td>");
-        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
-        out.append("<b class=\"smallfont\">Response Percent</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"5%\">");
+        out.append("<b class=\"smallfont\">Percent</b>");
         out.append("</td>");
-        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"65\">");
-        out.append("<b class=\"smallfont\">Response Total</b>");
+        out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\" width=\"5%\">");
+        out.append("<b class=\"smallfont\">Total</b>");
         out.append("</td>");
         out.append("</tr>");
 
@@ -266,11 +268,11 @@ public class Dropdown implements Component {
             formatter.setMaximumFractionDigits(0);
 
             out.append("<tr>");
-            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"130\">");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"25%\">");
             out.append(answer);
             out.append("</td>");
-            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"300\">");
-            out.append("<img src=\"/images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
+            out.append("<td valign=\"top\" bgcolor=\"#ffffff\" width=\"*\">");
+            out.append("<img src=\""+BaseUrl.get(false)+"images/bar_green-blend.gif\" width=\""+percentage+"%\" height=\"10\" border=\"0\">");
             out.append("</td>");
             out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
@@ -284,7 +286,7 @@ public class Dropdown implements Component {
 
         out.append("<tr>");
         out.append("<td valign=\"top\" align=\"right\" bgcolor=\"#ffffff\" colspan=\"3\">");
-        out.append("<b>Total Respondents</b>");
+        out.append("<b>Respondents</b>");
         out.append("</td>");
         out.append("<td valign=\"top\" bgcolor=\"#e6e6e6\">");
         out.append(questionresponses.size());
