@@ -14,6 +14,7 @@ import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.htmlui.Pagez;
 import com.dneero.iptrack.Activitytype;
 import com.dneero.iptrack.RecordIptrackUtil;
+import com.dneero.json.JsonCacheFlusher;
 import com.dneero.rank.RankForResponseThread;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.session.SurveysTakenToday;
@@ -353,6 +354,7 @@ public class StoreResponse {
             if (survey!=null && blogger!=null){
                 EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());
                 SurveyDisplayCacheFlusher.flush(survey.getSurveyid());
+                JsonCacheFlusher.flush(survey.getSurveyid());
             }
         } catch (Exception ex){
             logger.error("", ex);

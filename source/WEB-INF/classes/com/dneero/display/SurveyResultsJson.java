@@ -86,10 +86,10 @@ public class SurveyResultsJson {
                 logger.debug("found component.getName()="+component.getName());
 
 
-                if (question.getIsuserquestion()){
-                    User user = User.get(question.getUserid());
+                //if (question.getIsuserquestion()){
+                //    User user = User.get(question.getUserid());
 
-                }
+                //}
 
 
 
