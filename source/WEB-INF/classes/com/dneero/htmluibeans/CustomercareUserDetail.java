@@ -38,6 +38,7 @@ public class CustomercareUserDetail implements Serializable {
     private boolean issysadmin = false;
     private boolean iscustomercare = false;
     private boolean iscreatesurveys = false;
+    private boolean iseditlaunchedsurveys = false;
     private boolean iscreatetwitasks = false;
     private String activitypin="";
     private double amt;
@@ -79,26 +80,26 @@ public class CustomercareUserDetail implements Serializable {
             facebookuid = String.valueOf(user.getFacebookuserid());
             for (Iterator<Userrole> iterator = user.getUserroles().iterator(); iterator.hasNext();) {
                 Userrole userrole = iterator.next();
-                if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
-                    issysadmin = true;
-                }
+
                 if (userrole.getRoleid()== Userrole.CUSTOMERCARE){
                     iscustomercare = true;
                 }
                 if (userrole.getRoleid()== Userrole.CREATESURVEYS){
                     iscreatesurveys = true;
                 }
+                if (userrole.getRoleid()== Userrole.EDITLAUNCHEDSURVEYS){
+                    iseditlaunchedsurveys = true;
+                }
                 if (userrole.getRoleid()== Userrole.CREATETWITASKS){
                     iscreatetwitasks = true;
+                }
+                if (userrole.getRoleid()== Userrole.SYSTEMADMIN){
+                    issysadmin = true;    
                 }
             }
             if (user.getResearcherid()>0){
                 researcher = Researcher.get(user.getResearcherid());
             }
-
-
-
-
 
         }
     }
@@ -229,6 +230,17 @@ public class CustomercareUserDetail implements Serializable {
             iscreatesurveys = true;
         } else {
             iscreatesurveys = false;
+        }
+        return "sysadminuserdetail";
+    }
+
+    public String toggleeditlaunchedsurveys() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.error("toggleeditlaunchedsurveys()");
+        if (toggleroleprivs(Userrole.EDITLAUNCHEDSURVEYS)){
+            iseditlaunchedsurveys = true;
+        } else {
+            iseditlaunchedsurveys = false;
         }
         return "sysadminuserdetail";
     }
@@ -616,5 +628,13 @@ public class CustomercareUserDetail implements Serializable {
 
     public void setIscreatetwitasks(boolean iscreatetwitasks) {
         this.iscreatetwitasks = iscreatetwitasks;
+    }
+
+    public boolean getIseditlaunchedsurveys() {
+        return iseditlaunchedsurveys;
+    }
+
+    public void setIseditlaunchedsurveys(boolean iseditlaunchedsurveys) {
+        this.iseditlaunchedsurveys = iseditlaunchedsurveys;
     }
 }

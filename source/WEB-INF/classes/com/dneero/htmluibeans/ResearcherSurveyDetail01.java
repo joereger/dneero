@@ -123,7 +123,18 @@ public class ResearcherSurveyDetail01 implements Serializable {
     }
 
 
-
+    public void editLaunched() throws ValidationException {
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        if (Pagez.getUserSession().getIsEditLaunchedSurveys()){
+            survey.setStatus(Survey.STATUS_DRAFT);
+            try{
+                survey.save();
+                EmbedCacheFlusher.flushCache(survey.getSurveyid());
+            } catch (GeneralException gex){
+                logger.debug("saveSurvey() failed: " + gex.getErrorsAsSingleString()); 
+            }
+        }
+    }
 
 
 

@@ -32,8 +32,15 @@ if (!Pagez.getUserSession().getPl().getIsanybodyallowedtocreatesurveys()){
 ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pagez.getBeanMgr().get("ResearcherSurveyDetail01");
 %>
 <%
-    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous"))) {
+    if (request.getParameter("action") != null && (request.getParameter("action").equals("next") || request.getParameter("action").equals("saveasdraft") || request.getParameter("action").equals("previous") || request.getParameter("action").equals("editlaunched"))) {
         try {
+            if (request.getParameter("action").equals("editlaunched")) {
+                logger.debug("Editlaunched was clicked");
+                Pagez.getUserSession().setMessage("Your "+Pagez._Survey()+" has been unlaunched and is available for editing.");
+                researcherSurveyDetail01.editLaunched();
+                Pagez.sendRedirect("/researcher/researchersurveydetail_01.jsp?surveyid="+researcherSurveyDetail01.getSurvey().getSurveyid());
+                return;
+            } 
             if (researcherSurveyDetail01.getSurvey().getStatus()>Survey.STATUS_DRAFT){
                 Pagez.sendRedirect("/researcher/researchersurveydetail_02.jsp?surveyid="+researcherSurveyDetail01.getSurvey().getSurveyid());
                 return;
@@ -218,6 +225,16 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                 <%if (researcherSurveyDetail01.getSurvey().getStatus()==Survey.STATUS_DRAFT) {%>
                     <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Save and Continue Later" onclick="document.getElementById('action').value='saveasdraft';">
                 <%}%>
+
+                <%if (researcherSurveyDetail01.getSurvey().getStatus()==Survey.STATUS_OPEN) {%>
+                    <%if (Pagez.getUserSession().getIsEditLaunchedSurveys() && Pagez.getUserSession().getIsCreateSurveys()){ %>
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Unlaunch and Edit" onclick="document.getElementById('action').value='editlaunched';">
+                    <%}%>
+                <%}%>
+
+
+
+
                 <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Next Step">
             </td>
         </tr>

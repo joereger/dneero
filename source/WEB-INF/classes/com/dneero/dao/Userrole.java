@@ -21,6 +21,7 @@ public class Userrole extends BasePersistentClass implements java.io.Serializabl
     public static final int CUSTOMERCARE = 4;
     public static final int CREATESURVEYS = 5;
     public static final int CREATETWITASKS = 6;
+    public static final int EDITLAUNCHEDSURVEYS = 7;
     // Fields    
 
      private int userroleid;

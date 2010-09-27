@@ -84,6 +84,17 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
     }
 %>
 <%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("toggleeditlaunchedsurveys")) {
+        try {
+            customercareUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
+            customercareUserDetail.setPwd(Textbox.getValueFromRequest("pwd", "Password", true, DatatypeString.DATATYPEID));
+            customercareUserDetail.toggleeditlaunchedsurveys();
+        } catch (com.dneero.htmlui.ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("togglecreatetwitasks")) {
         try {
             customercareUserDetail.setActivitypin(Textbox.getValueFromRequest("activitypin", "Activity Pin", false, DatatypeString.DATATYPEID));
@@ -380,6 +391,27 @@ CustomercareUserDetail customercareUserDetail= (CustomercareUserDetail)Pagez.get
                                 <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
                                 <br/>
                                 <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Toggle Create Surveys">
+                                <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
+                                <br/>
+                                <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>
+                            </form>
+                        </div>
+                        <div class="rounded" style="padding: 15px; margin: 5px; background: #BFFFBF;">
+                            <form action="/customercare/userdetail.jsp" method="post" class="niceform">
+                                <input type="hidden" name="dpage" value="/customercare/userdetail.jsp">
+                                <input type="hidden" name="action" value="toggleeditlaunchedsurveys">
+                                <input type="hidden" name="userid" value="<%=customercareUserDetail.getUserid()%>">
+                                <%if (customercareUserDetail.getIseditlaunchedsurveys()){%>
+                                    <font class="mediumfont">User has edit launched surveys permission.</font>
+                                <%} else {%>
+                                    <font class="mediumfont">User does not have edit launched surveys permission.</font>
+                                <%}%>
+                                <br/>
+                                <font class="formfieldnamefont">Password:</font>
+                                <br/>
+                                <%=Textbox.getHtml("pwd", String.valueOf(customercareUserDetail.getPwd()), 255, 25, "", "")%>
+                                <br/>
+                                <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyl" value="Toggle Edit Launched Surveys">
                                 <%=Textbox.getHtml("activitypin", String.valueOf(customercareUserDetail.getActivitypin()), 255, 25, "", "")%>
                                 <br/>
                                 <font class="tinyfont">You must type "yes, i want to do this" in the box to make this happen</font>

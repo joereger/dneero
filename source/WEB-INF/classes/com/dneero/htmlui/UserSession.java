@@ -31,6 +31,7 @@ public class UserSession implements Serializable {
     private boolean isSysadmin = false;
     private boolean isCustomerCare = false;
     private boolean isCreateSurveys = false;
+    private boolean isEditLaunchedSurveys = false;
     private boolean isCreateTwitasks = false;
     private boolean isLoggedInToBeta = false;
     private int pendingSurveyResponseSurveyid = 0;
@@ -115,6 +116,9 @@ public class UserSession implements Serializable {
                 }
                 if (userrole.getRoleid()== Userrole.CREATESURVEYS){
                     isCreateSurveys = true;
+                }
+                if (userrole.getRoleid()== Userrole.EDITLAUNCHEDSURVEYS){
+                    isEditLaunchedSurveys = true;
                 }
                 if (userrole.getRoleid()== Userrole.CREATETWITASKS){
                     isCreateTwitasks = true;
@@ -409,6 +413,11 @@ public class UserSession implements Serializable {
     }
 
 
+    public boolean getIsEditLaunchedSurveys() {
+        return isEditLaunchedSurveys;
+    }
 
-
+    public void setIsEditLaunchedSurveys(boolean isEditLaunchedSurveys) {
+        isEditLaunchedSurveys = isEditLaunchedSurveys;
+    }
 }
