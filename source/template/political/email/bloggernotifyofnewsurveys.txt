@@ -1,8 +1,8 @@
-New surveys have been created!
+Fellow MOOer!  There's a new survey available and it's a matter of opinion!  Yours matters!
 
 <$args.2$>
 <$args.4$>
 
-Best,
+Thanks,
 
 The Support Team

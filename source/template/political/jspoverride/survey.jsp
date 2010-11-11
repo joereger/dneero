@@ -200,8 +200,8 @@ String acl = "public";
                             <%if (publicSurvey.getOptionaluserquestionlistitems()!=null && publicSurvey.getOptionaluserquestionlistitems().size()>0){%>
                                 <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                     <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                        <font class="formfieldnamefont">Answer other questions that interest you:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
-                                        <font class="tinyfont">(These questions are from other users.)</font><br/><br/>
+                                        <font class="formfieldnamefont">Fellow MOOers want to know:</font> <font class="formfieldnamefont" style="color: #ff0000;">(Optional)</font><br/>
+                                        <br/>
                                         <div style="background : #ffffff; border: 0px solid #ffffff; padding : 5px; width : 400px; height: 150px; overflow : auto;">
                                         <%
                                             try{
@@ -265,7 +265,9 @@ String acl = "public";
                             <%}%>
                             <div class="rounded" style="background: #e6e6e6; text-align: center; padding: 10px;">
                                 <div class="rounded" style="background: #ffffff; padding: 10px; text-align: left;">
-                                    <font class="formfieldnamefont">What do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;">(Required)</font><br/><font class="tinyfont">You can ask anything related to this <%=Pagez._survey()%> (unrelated/vulgar questions will be rejected). People who join after reading your answers will have to answer the question you ask.</font><br/>
+                                    <font class="formfieldnamefont">Ask other MOOers. What do you want to know?</font><font class="formfieldnamefont" style="color: #ff0000;"></font>
+                                    <%if (publicSurvey.getSurvey().getIsuserrequiredtoaddquestion()){%>(Required)<%} %>
+                                    <br/><font class="tinyfont">You can ask anything related to this <%=Pagez._survey()%> (unrelated/vulgar questions will be rejected). MOOers who join after reading your answers will have the option of answering the question you ask.</font><br/>
                                     <input type="text" name="<%=SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER%>userquestion-question" size="50" value="<%=Str.cleanForHtml(publicSurvey.getYourquestion())%>" maxlength="250"/>
                                     <br/><br/><font class="formfieldnamefont">How do people answer your question?</font><br/>
 

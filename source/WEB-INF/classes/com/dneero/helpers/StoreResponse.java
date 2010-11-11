@@ -62,43 +62,55 @@ public class StoreResponse {
         }
         //Userquestion validation
         //@todo One problem with user question validation is that there really isn't any requirement to answer... test it... ignore some user questions... it'll let you... this code only kicks in on questions that are answered but fail somehow
-        if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
-            String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
-            if (uqArr[0].equals("")){
-                if (survey.getIsuserrequiredtoaddquestion()){
-                    allCex.addValidationError("You must add your own question.");
+        //Validate user question if userquestion is required or if it isn't but they've provided one
+        boolean shouldIValidateUserquestion = false;
+        if (survey.getIsuserrequiredtoaddquestion()){
+            shouldIValidateUserquestion = true;
+            logger.debug("shouldIValidateUserquestion because survey.getIsuserrequiredtoaddquestion()");
+        } else {
+            if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
+                String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
+                if (!uqArr[0].equals("")){
+                    shouldIValidateUserquestion = true;
+                    logger.debug("shouldIValidateUserquestion because uqArr[0].equals(\"\")");
                 }
             }
-            if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
-                String[] uqctArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype");
-                if (uqctArr[0].equals("MultipleChoice")){
-                    //Need to val options
-                    if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
-                        String[] uqmcArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer");
-                        int numberofanswers = 0;
-                        for (int i=0; i<uqmcArr.length; i++) {
-                            String s=uqmcArr[i];
-                            if (s!=null && !s.trim().equals("")){
-                                numberofanswers++;
+        }
+        if (shouldIValidateUserquestion){
+            if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question")!=null){
+                String[] uqArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-question");
+                if (uqArr[0].equals("")){
+                        allCex.addValidationError("You must add your own question.");
+                }
+                if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype")!=null){
+                    String[] uqctArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-componenttype");
+                    if (uqctArr[0].equals("MultipleChoice")){
+                        //Need to val options
+                        if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
+                            String[] uqmcArr =(String[]) srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer");
+                            int numberofanswers = 0;
+                            for (int i=0; i<uqmcArr.length; i++) {
+                                String s=uqmcArr[i];
+                                if (s!=null && !s.trim().equals("")){
+                                    numberofanswers++;
+                                }
                             }
+                            if (numberofanswers<=1){
+                                    allCex.addValidationError("You need to create at least two possible answers to your question.");
+                            }
+                        } else {
+                                allCex.addValidationError("You need to create possible answers to your question.");
                         }
-                        if (numberofanswers<=1){
-                            allCex.addValidationError("You need to create at least two possible answers to your question.");
-                        }
-                    } else {
-                        allCex.addValidationError("You need to create possible answers to your question.");
+                    } else if (uqctArr[0].equals("ShortText")){
+                        //No more val needed
+                    } else if (uqctArr[0].equals("LongText")){
+                        //No more val needed
                     }
-                } else if (uqctArr[0].equals("ShortText")){
-                    //No more val needed
-                } else if (uqctArr[0].equals("LongText")){
-                    //No more val needed
+                } else {
+                        allCex.addValidationError("You must tell us how people can answer the question you added.");
                 }
             } else {
-                allCex.addValidationError("You must tell us how people can answer the question you added.");
-            }
-        } else {
-            if (survey.getIsuserrequiredtoaddquestion()){
-                allCex.addValidationError("You must add your own question.");
+                    allCex.addValidationError("You must add your own question.");
             }
         }
 
