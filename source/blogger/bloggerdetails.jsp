@@ -138,9 +138,11 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                     </td>
                                     <td valign="top">
                                         <%if (demographic.getType()==Demographic.TYPE_SELECT){%>
+                                            <%//Note the use of ArrayLists passing to retain order of items in dropdown%>
                                             <%=Dropdown.getHtml("demographic_"+demographic.getDemographicid(),
                                                             bloggerDetails.getDemographicsXML().getValue(demographic.getDemographicid()),
-                                                            Util.stringArrayToTreeMap(bloggerDetails.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid())),
+                                                            bloggerDetails.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid()),
+                                                            bloggerDetails.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid()),
                                                             "",
                                                             "")%>
                                         <% } else { %>

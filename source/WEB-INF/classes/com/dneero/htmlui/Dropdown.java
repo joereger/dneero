@@ -3,6 +3,7 @@ package com.dneero.htmlui;
 import com.dneero.util.Num;
 import com.dneero.util.Str;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,8 +15,26 @@ import java.util.TreeMap;
  */
 public class Dropdown {
 
-    //In options<String, String> the first is the id value... second is displayed in the dropdown
+
+    //convenience function to allow options to be submitted in a treemap
     public static String getHtml(String name, String value, TreeMap<String, String> options, String styleclass, String style){
+        ArrayList<String> optionKeys = new ArrayList<String>();
+        ArrayList<String> optionVals = new ArrayList<String>();
+        //Put the options into two ArrayLists
+        Iterator keyValuePairs = options.entrySet().iterator();
+        for (int i = 0; i < options.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String key = (String)mapentry.getKey();
+            String val = (String)mapentry.getValue();
+            optionKeys.add(key);
+            optionVals.add(val);
+        }
+        //Now call the main function
+        return getHtml(name, value, optionKeys, optionVals, styleclass, style);
+    }
+
+    //In options<String, String> the first is the id value... second is displayed in the dropdown
+    public static String getHtml(String name, String value, ArrayList<String> optionKeys, ArrayList<String> optionVals, String styleclass, String style){
         StringBuffer out = new StringBuffer();
 
         if (styleclass!=null && !styleclass.equals("")){
@@ -30,11 +49,9 @@ public class Dropdown {
 
         out.append("<select name=\""+Str.cleanForHtml(name)+"\" id=\""+name+"\" "+styleclass+" "+style+">");
         out.append("<option value=\"\"></option>");
-        Iterator keyValuePairs = options.entrySet().iterator();
-        for (int i = 0; i < options.size(); i++){
-            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
-            String key = (String)mapentry.getKey();
-            String val = (String)mapentry.getValue();
+        for (int i = 0; i < optionKeys.size(); i++){
+            String key = (String)optionKeys.get(i);
+            String val = (String)optionVals.get(i);
             String selected = "";
             if (key.trim().equals(value.trim())){
                 selected = " selected";
