@@ -30,12 +30,17 @@ public class Dropdown {
             optionVals.add(val);
         }
         //Now call the main function
-        return getHtml(name, value, optionKeys, optionVals, styleclass, style);
+        return getHtml(name, value, optionKeys, optionVals, 0, styleclass, style);
     }
 
+
+
     //In options<String, String> the first is the id value... second is displayed in the dropdown
-    public static String getHtml(String name, String value, ArrayList<String> optionKeys, ArrayList<String> optionVals, String styleclass, String style){
+    public static String getHtml(String name, String value, ArrayList<String> optionKeys, ArrayList<String> optionVals, int maxlength, String styleclass, String style){
         StringBuffer out = new StringBuffer();
+        if (maxlength<=0){
+            maxlength = 35;    
+        }
 
         if (styleclass!=null && !styleclass.equals("")){
             styleclass = "class=\""+styleclass+"\"";
@@ -56,7 +61,7 @@ public class Dropdown {
             if (key.trim().equals(value.trim())){
                 selected = " selected";
             }
-            out.append("<option value=\""+Str.cleanForHtml(key.trim())+"\" "+selected+">" + Str.truncateString(val.trim(), 30) + "</option>");
+            out.append("<option value=\""+Str.cleanForHtml(key.trim())+"\" "+selected+">" + Str.truncateString(val.trim(), maxlength) + "</option>");
         }
         out.append("</select>");
 

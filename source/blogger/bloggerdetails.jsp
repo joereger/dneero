@@ -143,6 +143,7 @@ if (!Pagez.getUserSession().getIsbloggerprofileok()){
                                                             bloggerDetails.getDemographicsXML().getValue(demographic.getDemographicid()),
                                                             bloggerDetails.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid()),
                                                             bloggerDetails.getDemographicsXML().getAllPossibleValues(demographic.getDemographicid()),
+                                                            55,
                                                             "",
                                                             "")%>
                                         <% } else { %>
