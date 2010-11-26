@@ -26,6 +26,7 @@ public class ConvertAnonToReal {
         int anonBloggerid = 0;
         if (anonUser.getBloggerid()<=0){
             Blogger anonBlogger = CreateEmptyBloggerProfile.create(anonUser);
+            anonBloggerid = anonBlogger.getBloggerid();
         } else {
             anonBloggerid = anonUser.getBloggerid();
         }
@@ -33,6 +34,7 @@ public class ConvertAnonToReal {
         int realBloggerid = 0;
         if (realUser.getBloggerid()<=0){
             Blogger realBlogger = CreateEmptyBloggerProfile.create(realUser);
+            realBloggerid = realBlogger.getBloggerid();
         } else {
             realBloggerid = realUser.getBloggerid();
         }
@@ -55,6 +57,16 @@ public class ConvertAnonToReal {
             Question question = questionIterator.next();
             question.setUserid(realUser.getUserid());
             try{question.save();}catch(Exception ex){logger.error("", ex);}
+        }
+        //Move questionresponses
+        List<Questionresponse> questionresponses = HibernateUtil.getSession().createCriteria(Questionresponse.class)
+                                           .add(Restrictions.eq("bloggerid", anonBloggerid))
+                                           .setCacheable(true)
+                                           .list();
+        for (Iterator<Questionresponse> questionIterator = questionresponses.iterator(); questionIterator.hasNext();) {
+            Questionresponse questionresponse = questionIterator.next();
+            questionresponse.setBloggerid(realBloggerid);
+            try{questionresponse.save();}catch(Exception ex){logger.error("", ex);}
         }
         //Move Balance
         List<Balance> balances = HibernateUtil.getSession().createCriteria(Balance.class)

@@ -145,7 +145,7 @@ String acl = "public";
                         <%if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getIsanonymous()){%>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
                                 <font class="mediumfont">You've Entered this <%=Pagez._Survey()%> Anonymously</font>
-                                <br/><font class="smallfont">You can also <a href="/login.jsp">log in or create an account</a>.</font>
+                                <br/><font class="smallfont">You can also <a href="/login.jsp?combineanon=1">log in or create an account</a>.</font>
                             </div>
                         <%} else { %>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
