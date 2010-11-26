@@ -187,18 +187,22 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                     <%}%>
                                 </td>
                             </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font class="formfieldnamefont"></font>
-                                </td>
-                                <td valign="top">
-                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
-                                        <%=CheckboxBoolean.getHtml("isanonymousresponseallowed", researcherSurveyDetail01.getIsanonymousresponseallowed(), "", "")%> People can respond anonymously (recommendation: keep unchecked)
-                                    <%} else {%>
-                                        <font class="normalfont">People can respond anonymously: <%=researcherSurveyDetail01.getIsanonymousresponseallowed()%></font>
-                                    <%}%>
-                                </td>
-                            </tr>
+                            <%if (Pagez.getUserSession().getPl().getIsanonymousresponseallowed()){%>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont"></font>
+                                    </td>
+                                    <td valign="top">
+                                        <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                            <%=CheckboxBoolean.getHtml("isanonymousresponseallowed", researcherSurveyDetail01.getIsanonymousresponseallowed(), "", "")%> People can respond anonymously (recommendation: keep unchecked)
+                                        <%} else {%>
+                                            <font class="normalfont">People can respond anonymously: <%=researcherSurveyDetail01.getIsanonymousresponseallowed()%></font>
+                                        <%}%>
+                                    </td>
+                                </tr>
+                            <%}else{%>
+                                <input type="hidden" name="isanonymousresponseallowed" value="0">
+                            <%}%>
                             <%if (1==2 || Pagez.getUserSession().getIsSysadmin()){%>
                                 <tr>
                                     <td valign="top">

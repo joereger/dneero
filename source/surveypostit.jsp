@@ -142,13 +142,16 @@ String acl = "public";
             <tr>
                 <td valign="top" width="35%">
                     <%--<div class="rounded" style="background: #e6e6e6;">--%>
-                        <div class="rounded" style="background: #ffffff; text-align: center;">
-                            <font class="mediumfont">You've Entered this <%=Pagez._Survey()%>.</font>
-                            <%--<br/>--%>
-                            <%--<img src="/images/ok-128.png" width="128" height="128"/>--%>
-                            <%--<br/>--%>
-                            <%--<font class="smallfont">Now share your response to get others involved!</font>--%>
-                        </div>
+                        <%if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getIsanonymous()){%>
+                            <div class="rounded" style="background: #ffffff; text-align: center;">
+                                <font class="mediumfont">You've Entered this <%=Pagez._Survey()%> Anonymously</font>
+                                <br/><font class="smallfont">You can also <a href="/login.jsp">log in or create an account</a>.</font>
+                            </div>
+                        <%} else { %>
+                            <div class="rounded" style="background: #ffffff; text-align: center;">
+                                <font class="mediumfont">You've Entered this <%=Pagez._Survey()%>.</font>
+                            </div>
+                        <% } %>
                         <br/>
                         <% if (publicSurveyPostit.getSurvey().getIscharityonly()){ %>
                             <br/><br/>
@@ -161,24 +164,24 @@ String acl = "public";
                             </div>
                         <% } %>
 
-                        <font class="smallfont">
-                        <br/><br/><b>What gets shared?</b><br/>
-                        The <%=Pagez._survey()%> with your answers.  This is an opportunity to show your readers, friends and family what you think and encourage them to join the <%=Pagez._survey()%>.
+                        <%--<font class="smallfont">--%>
+                        <%--<br/><br/><b>What gets shared?</b><br/>--%>
+                        <%--The <%=Pagez._survey()%> with your answers.  This is an opportunity to show your readers, friends and family what you think and encourage them to join the <%=Pagez._survey()%>.--%>
 
-                        <br/><br/><b>How big is it?</b><br/>
-                        Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the <%=Pagez._survey()%> is long it'll scroll automatically.
+                        <%--<br/><br/><b>How big is it?</b><br/>--%>
+                        <%--Smaller than a YouTube embed.  It's 425 pixels wide by 250 pixels tall.  That's it.  If the <%=Pagez._survey()%> is long it'll scroll automatically.--%>
 
-                        <br/><br/><b>Can my friends jump in?</b><br/>
-                        Absolutely!  At the bottom of the <%=Pagez._survey()%> there's a link where they can provide their own answers.
+                        <%--<br/><br/><b>Can my friends jump in?</b><br/>--%>
+                        <%--Absolutely!  At the bottom of the <%=Pagez._survey()%> there's a link where they can provide their own answers.--%>
 
-                        <br/><br/><b>Will I see how others answered?</b><br/>
-                        Yes!  This is the cool part!  When you click the See How Others Answered link at the bottom of the <%=Pagez._survey()%> you'll see how those people who clicked from you answered.  Then you can quickly compare your readers to all those who joined the <%=Pagez._survey()%>!
-                        </font>
+                        <%--<br/><br/><b>Will I see how others answered?</b><br/>--%>
+                        <%--Yes!  This is the cool part!  When you click the See How Others Answered link at the bottom of the <%=Pagez._survey()%> you'll see how those people who clicked from you answered.  Then you can quickly compare your readers to all those who joined the <%=Pagez._survey()%>!--%>
+                        <%--</font>--%>
 
-                        <br/><br/>
-                        <% if (Pagez.getUserSession().getIsloggedin() && publicSurveyPostit.getLoggedinuserhasalreadytakensurvey()){ %>
-                                <center><a href="/account/inbox.jsp"><font class="smallfont">Need Help?</font></a></center>
-                        <% } %>
+                        <%--<br/><br/>--%>
+                        <%--<% if (Pagez.getUserSession().getIsloggedin() && publicSurveyPostit.getLoggedinuserhasalreadytakensurvey()){ %>--%>
+                                <%--<center><a href="/account/inbox.jsp"><font class="smallfont">Need Help?</font></a></center>--%>
+                        <%--<% } %>--%>
                     <%--</div>--%>
                 </td>
                 <td valign="top" class="posttoblog_tabs_tablewidth">

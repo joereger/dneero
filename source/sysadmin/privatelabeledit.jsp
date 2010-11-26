@@ -434,7 +434,7 @@ String acl = "sysadmin";
                     </td>
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("isanonymousresponseallowed", pl.getIsanonymousresponseallowed(), "", "")%>
-                        <font class="formfieldnamefont">Is Anonymous Response Allowed?</font>
+                        <font class="formfieldnamefont">Anonymous Responses Allowed When Survey Permits</font>
                     </td>
                 </tr>
 

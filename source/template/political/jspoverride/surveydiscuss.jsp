@@ -49,9 +49,6 @@ String acl = "public";
     <table width="100%" cellpadding="5">
         <tr>
             <td valign="top">
-                <center><div class="rounded" style="background: #e6e6e6; text-align: left; padding: 20px;"><font class="smallfont">
-                Discuss this <%=Pagez._survey()%> here.  Thoughts on the questions?  Thoughts on the results?  Thoughts on the people who are posting it to their blogs? Thoughts on anything else related to this <%=Pagez._survey()%>?
-                </font></div></center>
                 <% if (!Pagez.getUserSession().getIsloggedin()){ %>
                     <br/><br/>
                     <% if (!Pagez.getUserSession().getIsfacebookui()){ %>
@@ -80,7 +77,7 @@ String acl = "public";
             co.append("<font class=\"smallfont\"><$surveydiscuss.comment$></font>");
             co.append("<br/><br/>");
             ArrayList<GridCol> cols=new ArrayList<GridCol>();
-            cols.add(new GridCol("", "<img src=\"/images/user-48.png\" width=\"48\" height=\"48\"/>", false, "", "", "background:#ffffff;", ""));
+            //cols.add(new GridCol("", "<img src=\"/images/user-48.png\" width=\"48\" height=\"48\"/>", false, "", "", "background:#ffffff;", ""));
             cols.add(new GridCol("", "<a href=\"/profile.jsp?userid=<$user.userid$>\"><$user.nickname$></a>", false, "", "normalfont", "background:#ffffff;", "font-weight: bold;"));
             cols.add(new GridCol("", co.toString(), false, "", "", "background:#ffffff;", ""));
         %>

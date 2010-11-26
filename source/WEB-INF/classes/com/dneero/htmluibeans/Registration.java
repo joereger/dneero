@@ -1,5 +1,6 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.anonymous.ConvertAnonToReal;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.User;
 import com.dneero.dao.Usereula;
@@ -233,6 +234,11 @@ public class Registration implements Serializable {
         //Notify customer care group
         SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_CUSTOMERSUPPORT, "New User: "+ user.getNickname() +  " ("+user.getEmail()+")");
         xmpp.send();
+
+        //Handle already-logged-in Anonymous case
+        if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getIsanonymous()){
+            ConvertAnonToReal.convert(Pagez.getUserSession().getUser(), user);
+        }
 
         //Log user in
         UserSession userSession = new UserSession();

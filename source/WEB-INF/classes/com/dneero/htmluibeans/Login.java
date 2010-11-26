@@ -1,6 +1,7 @@
 package com.dneero.htmluibeans;
 
 import com.dneero.anonymous.AnonHelper;
+import com.dneero.anonymous.ConvertAnonToReal;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -72,14 +73,21 @@ public class Login implements Serializable {
         Logger logger = Logger.getLogger(this.getClass().getName());
         logger.debug("login() called.");
         logger.debug("keepmeloggedin="+keepmeloggedin);
+        //Check Login Creds, If Fail, Bounce
         List users = HibernateUtil.getSession().createQuery("FROM User as user WHERE user.email='"+ Str.cleanForSQL(email)+"' AND user.password='"+Str.cleanForSQL(password)+"'").setMaxResults(1).list();
         if (users.size()==0){
             vex.addValidationError("Email/password incorrect.");
             throw vex;
         }
+
+        //Do login stuff
         for (Iterator it = users.iterator(); it.hasNext(); ) {
             User user = (User)it.next();
             if (user.getIsenabled()){
+                //Handle already-logged-in Anonymous case
+                if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser().getIsanonymous()){
+                    ConvertAnonToReal.convert(Pagez.getUserSession().getUser(), user);
+                }
                 //Create a new session so that I can manually move stuff over and guarantee it's clean
                 UserSession userSession = new UserSession();
                 userSession.setUser(user);
@@ -153,7 +161,6 @@ public class Login implements Serializable {
 
         //From nothingness, create an anonymous user
         User user = AnonHelper.createAnonymousUser();
-        
 
         //Create a new session so that I can manually move stuff over and guarantee it's clean
         UserSession userSession = new UserSession();

@@ -1,5 +1,6 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.anonymous.AnonHelper;
 import com.dneero.dao.*;
 import com.dneero.dao.hibernate.HibernateUtil;
 import com.dneero.display.SurveyResponseParser;
@@ -17,9 +18,11 @@ import com.dneero.helpers.NicknameHelper;
 import com.dneero.helpers.StoreResponse;
 import com.dneero.helpers.UserInputSafe;
 import com.dneero.htmlui.Pagez;
+import com.dneero.htmlui.UserSession;
 import com.dneero.htmlui.ValidationException;
 import com.dneero.money.PaymentMethod;
 import com.dneero.scheduledjobs.SurveydisplayActivityObjectQueue;
+import com.dneero.session.PersistentLogin;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.sir.SocialInfluenceRating;
 import com.dneero.survey.servlet.RecordImpression;
@@ -35,6 +38,7 @@ import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
 import java.util.*;
 
@@ -488,35 +492,83 @@ public class PublicSurvey implements Serializable {
         //Do Facebook stuff
         createFacebookUserIfNecessary();
 
-        //If the user is logged-in but has not created a blogger profile, store a pending response
-        if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()<=0){
-            //Pending survey save
-            //Note: this code also on Login and Registration
-            Responsepending responsepending = new Responsepending();
-            responsepending.setUserid(Pagez.getUserSession().getUser().getUserid());
-            responsepending.setResponseasstring(Pagez.getUserSession().getPendingSurveyResponseAsString());
-            responsepending.setReferredbyuserid(Pagez.getUserSession().getPendingSurveyReferredbyuserid());
-            responsepending.setSurveyid(Pagez.getUserSession().getPendingSurveyResponseSurveyid());
-            try{responsepending.save();}catch(Exception ex){logger.error("",ex);}
-            Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
-            Pagez.getUserSession().setPendingSurveyResponseAsString("");
-        }
 
-        //If the user's logged in and is a blogger
-        if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getBloggerid()>0){
-            Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
-            try{
-                StoreResponse.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+        //If user is logged in
+        if (Pagez.getUserSession().getIsloggedin() && Pagez.getUserSession().getUser()!=null){
+            //If user has not created a blogger profile
+            if (Pagez.getUserSession().getUser().getBloggerid()<=0){
+                //Pending survey save
+                //Note: this code also on Login and Registration
+                Responsepending responsepending = new Responsepending();
+                responsepending.setUserid(Pagez.getUserSession().getUser().getUserid());
+                responsepending.setResponseasstring(Pagez.getUserSession().getPendingSurveyResponseAsString());
+                responsepending.setReferredbyuserid(Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+                responsepending.setSurveyid(Pagez.getUserSession().getPendingSurveyResponseSurveyid());
+                try{responsepending.save();}catch(Exception ex){logger.error("",ex);}
                 Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
                 Pagez.getUserSession().setPendingSurveyResponseAsString("");
-            }catch (ComponentException cex){
-                haveerror = true;
-                vex.addValidationError(cex.getErrorsAsSingleString());
-                throw vex;
-            }catch(Exception ex){
-                logger.error("",ex);
+            } else {
+                //Store the response in the database
+                //This is for reals
+                Blogger blogger = Blogger.get(Pagez.getUserSession().getUser().getBloggerid());
+                try{
+                    StoreResponse.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+                    Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
+                    Pagez.getUserSession().setPendingSurveyResponseAsString("");
+                }catch (ComponentException cex){
+                    haveerror = true;
+                    vex.addValidationError(cex.getErrorsAsSingleString());
+                    throw vex;
+                }catch(Exception ex){
+                    logger.error("",ex);
+                }
+            }
+        } else {
+            //User is not logged in (so this should never run for Facebook app)
+            //
+            //If this survey allows anonymous posting
+            if (Pagez.getUserSession().getPl().getIsanonymousresponseallowed() && survey.getIsanonymousresponseallowed()){
+                //From nothingness, create an anonymous user
+                User user = AnonHelper.createAnonymousUser();
+                //Create a new session so that I can manually move stuff over and guarantee it's clean
+                UserSession userSession = new UserSession();
+                userSession.setUser(user);
+                userSession.setIsloggedin(true);
+                userSession.setIsLoggedInToBeta(Pagez.getUserSession().getIsLoggedInToBeta());
+                userSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+                userSession.setIsfacebookui(Pagez.getUserSession().getIsfacebookui());
+                userSession.setFacebookSessionKey(Pagez.getUserSession().getFacebookSessionKey());
+                userSession.setPl(Pagez.getUserSession().getPl());
+                userSession.setIseulaok(true);
+                userSession.setIsbloggerprofileok(true);
+                //Get all possible cookies to set
+                Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Pagez.getRequest());
+                //Add a cookies to the response
+                for (int j = 0; j < cookies.length; j++) {
+                    Pagez.getResponse().addCookie(cookies[j]);
+                }
+                //Store the response in the database
+                //This is for reals
+                Blogger blogger = Blogger.get(user.getBloggerid());
+                try{
+                    StoreResponse.storeResponseInDb(survey, srp, blogger, Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+                    Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
+                    Pagez.getUserSession().setPendingSurveyResponseAsString("");
+                }catch (ComponentException cex){
+                    haveerror = true;
+                    vex.addValidationError(cex.getErrorsAsSingleString());
+                    throw vex;
+                }catch(Exception ex){
+                    logger.error("",ex);
+                }
+                //Notify via XMPP
+                SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Anon User Took Survey: "+ user.getNickname());
+                xmpp.send();
+                //This is where the new UserSession is actually bound to Pagez.getUserSession()
+                Pagez.setUserSessionAndUpdateCache(userSession);
             }
         }
+        
     }
 
 

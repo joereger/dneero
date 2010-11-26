@@ -203,19 +203,32 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
 
         <table cellpadding="10" cellspacing="0" border="0">
             <tr>
-                <td width="" valign="top">
-                    <div class="rounded" style="background: #e6e6e6;">
-                        <font class="pagetitlefont">Anonymous</font>
-                        <br/><br/>
-                        <form action="/login.jsp" method="post" class="niceform">
-                            <input type="hidden" name="dpage" value="/login.jsp">
-                            <input type="hidden" name="action" value="loginanonymously">
-                            <font class="tinyfont">I agree to the terms of the<br/><a href="/eula.jsp" target="_new">End User License Agreement</a></font>
-                            <br/>
-                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Stay Anonymous">
-                        </form>
-                    </div>
-                </td>
+                <%--<%if (Pagez.getUserSession().getPl().getIsanonymousresponseallowed()){%>--%>
+                    <%--<%--%>
+                    <%--boolean showAnonLogin = false;--%>
+                    <%--Survey survey = Survey.get(Pagez.getUserSession().getPendingSurveyResponseSurveyid());--%>
+                    <%--if (survey!=null && survey.getSurveyid()==Pagez.getUserSession().getPendingSurveyResponseSurveyid()){--%>
+                        <%--if (survey.getIsanonymousresponseallowed()){--%>
+                            <%--showAnonLogin = true;--%>
+                        <%--}--%>
+                    <%--}--%>
+                    <%--%>--%>
+                    <%--<%if (showAnonLogin){%>--%>
+                        <%--<td width="" valign="top">--%>
+                            <%--<div class="rounded" style="background: #e6e6e6;">--%>
+                                <%--<font class="pagetitlefont">Anonymous</font>--%>
+                                <%--<br/><br/>--%>
+                                <%--<form action="/login.jsp" method="post" class="niceform">--%>
+                                    <%--<input type="hidden" name="dpage" value="/login.jsp">--%>
+                                    <%--<input type="hidden" name="action" value="loginanonymously">--%>
+                                    <%--<font class="tinyfont">I agree to the terms of the<br/><a href="/eula.jsp" target="_new">End User License Agreement</a></font>--%>
+                                    <%--<br/>--%>
+                                    <%--<input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Stay Anonymous">--%>
+                                <%--</form>--%>
+                            <%--</div>--%>
+                        <%--</td>--%>
+                    <%--<%}%>--%>
+                <%--<%}%>--%>
                 <td width="50%" valign="top">
                     <div class="rounded" style="background: #e6e6e6;">
                         <font class="pagetitlefont">Existing Users</font>
