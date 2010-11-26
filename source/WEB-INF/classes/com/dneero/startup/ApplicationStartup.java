@@ -315,6 +315,7 @@ public class ApplicationStartup implements ServletContextListener {
             pl.setGoogleanalyticsidflash("");
             pl.setSurveycalled("");
             pl.setSurveycalledplural("");
+            pl.setIsanonymousresponseallowed(false);
             try{pl.save();}catch(Exception ex){logger.error(ex);}
         }
     }

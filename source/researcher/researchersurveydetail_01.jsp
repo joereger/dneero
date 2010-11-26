@@ -53,6 +53,7 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
             researcherSurveyDetail01.setIsfree(!CheckboxBoolean.getValueFromRequest("isfree"));
             researcherSurveyDetail01.setIsopentoanybody(!CheckboxBoolean.getValueFromRequest("isopentoanybody"));
             researcherSurveyDetail01.setIsuserrequiredtoaddquestion(!CheckboxBoolean.getValueFromRequest("isuserrequiredtoaddquestion"));
+            researcherSurveyDetail01.setIsanonymousresponseallowed(CheckboxBoolean.getValueFromRequest("isanonymousresponseallowed"));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail01.saveSurvey();
@@ -183,6 +184,18 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                         <%=CheckboxBoolean.getHtml("isopentoanybody", !researcherSurveyDetail01.getIsopentoanybody(), "", "")%> I want to limit who can participate (recommendation: keep unchecked)
                                     <%} else {%>
                                         <font class="normalfont">Open to Anybody: <%=researcherSurveyDetail01.getIsopentoanybody()%></font>
+                                    <%}%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font class="formfieldnamefont"></font>
+                                </td>
+                                <td valign="top">
+                                    <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                        <%=CheckboxBoolean.getHtml("isanonymousresponseallowed", researcherSurveyDetail01.getIsanonymousresponseallowed(), "", "")%> People can respond anonymously (recommendation: keep unchecked)
+                                    <%} else {%>
+                                        <font class="normalfont">People can respond anonymously: <%=researcherSurveyDetail01.getIsanonymousresponseallowed()%></font>
                                     <%}%>
                                 </td>
                             </tr>

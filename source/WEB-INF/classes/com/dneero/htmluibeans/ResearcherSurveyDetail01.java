@@ -34,6 +34,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private boolean isopentoanybody=true;
     private boolean isfree=true;
     private boolean isuserrequiredtoaddquestion=true;
+    private boolean isanonymousresponseallowed=false;
 
 
 
@@ -120,6 +121,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setIsopentoanybody(true);
         survey.setIshiddenfromhomepage(false);
         survey.setIsuserrequiredtoaddquestion(true);
+        survey.setIsanonymousresponseallowed(false);
     }
 
 
@@ -203,9 +205,11 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 survey.setIsfree(isfree);
                 survey.setIsopentoanybody(isopentoanybody);
                 survey.setIsuserrequiredtoaddquestion(isuserrequiredtoaddquestion);
+                survey.setIsanonymousresponseallowed(isanonymousresponseallowed);
                 logger.debug("saveSurvey() isuserrequiredtoaddquestion="+isuserrequiredtoaddquestion);
                 logger.debug("saveSurvey() isfree="+isfree);
                 logger.debug("saveSurvey() isopentoanybody="+isopentoanybody);
+                logger.debug("saveSurvey() isanonymousresponseallowed="+isanonymousresponseallowed);
                 try{
                     logger.debug("saveSurvey() about to save survey.getSurveyid()=" + survey.getSurveyid());
                     survey.save();
@@ -326,5 +330,13 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
     public void setIsuserrequiredtoaddquestion(boolean isuserrequiredtoaddquestion) {
         this.isuserrequiredtoaddquestion = isuserrequiredtoaddquestion;
+    }
+
+    public boolean getIsanonymousresponseallowed() {
+        return isanonymousresponseallowed;
+    }
+
+    public void setIsanonymousresponseallowed(boolean isanonymousresponseallowed) {
+        this.isanonymousresponseallowed = isanonymousresponseallowed;
     }
 }

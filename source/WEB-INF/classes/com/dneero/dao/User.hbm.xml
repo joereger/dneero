@@ -161,5 +161,8 @@
         <property name="sirdebug" type="text">
             <column name="sirdebug" not-null="true" />
         </property>
+        <property name="isanonymous" type="boolean">
+            <column name="isanonymous" />
+        </property>
     </class>
 </hibernate-mapping>

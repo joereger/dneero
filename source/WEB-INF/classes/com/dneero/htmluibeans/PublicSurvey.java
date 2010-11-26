@@ -616,6 +616,7 @@ public class PublicSurvey implements Serializable {
                     user.setSirdebug("");
                     user.setSirpoints(0.0);
                     user.setSirrank(0);
+                    user.setIsanonymous(false);
                     try{
                         user.save();
                     } catch (GeneralException gex){
@@ -640,7 +641,7 @@ public class PublicSurvey implements Serializable {
     }
 
 
-
+   
     
 
     private void loadFacebookUsers(){

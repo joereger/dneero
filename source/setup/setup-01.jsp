@@ -213,6 +213,7 @@
                         user.setSirdebug("");
                         user.setSirpoints(0.0);
                         user.setSirrank(0);
+                        user.setIsanonymous(false);
                         try {
                             user.save();
                         } catch (Exception ex) {

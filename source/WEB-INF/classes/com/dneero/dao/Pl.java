@@ -42,6 +42,7 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private String googleanalyticsidflash="";
     private String surveycalled="";
     private String surveycalledplural="";
+    private boolean isanonymousresponseallowed=false;
 
   
 
@@ -321,5 +322,13 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setSurveycalledplural(String surveycalledplural) {
         this.surveycalledplural = surveycalledplural;
+    }
+
+    public boolean getIsanonymousresponseallowed() {
+        return isanonymousresponseallowed;
+    }
+
+    public void setIsanonymousresponseallowed(boolean isanonymousresponseallowed) {
+        this.isanonymousresponseallowed = isanonymousresponseallowed;
     }
 }

@@ -34,6 +34,7 @@ String acl = "sysadmin";
     pl.setGoogleanalyticsidflash("");
     pl.setSurveycalled("");
     pl.setSurveycalledplural("");
+    pl.setIsanonymousresponseallowed(false);
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -91,6 +92,7 @@ String acl = "sysadmin";
                 pl.setGoogleanalyticsidflash(Textbox.getValueFromRequest("googleanalyticsidflash", "Google Analytics Flash", false, DatatypeString.DATATYPEID));
                 pl.setSurveycalled(Textbox.getValueFromRequest("surveycalled", "Survey Called", false, DatatypeString.DATATYPEID));
                 pl.setSurveycalledplural(Textbox.getValueFromRequest("surveycalledplural", "Survey Called Plural", false, DatatypeString.DATATYPEID));
+                pl.setIsanonymousresponseallowed(CheckboxBoolean.getValueFromRequest("isanonymousresponseallowed"));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     //Save
@@ -427,6 +429,15 @@ String acl = "sysadmin";
                         <font class="formfieldnamefont">Venues Required to Post</font>
                     </td>
                 </tr>
+                <tr>
+                    <td valign="top">
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("isanonymousresponseallowed", pl.getIsanonymousresponseallowed(), "", "")%>
+                        <font class="formfieldnamefont">Is Anonymous Response Allowed?</font>
+                    </td>
+                </tr>
+
                 <tr>
                     <td valign="top">
                         <font class="formfieldnamefont">Template Directory</font>

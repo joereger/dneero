@@ -60,6 +60,7 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
      private Date sirdate;
      private String sirdebug;
      private int siralgorithm;
+     private boolean isanonymous;
 
      //Association
     private Set<Userrole> userroles = new HashSet<Userrole>();
@@ -475,5 +476,13 @@ public class User extends BasePersistentClass implements java.io.Serializable, A
 
     public void setSirpoints(double sirpoints) {
         this.sirpoints=sirpoints;
+    }
+
+    public boolean getIsanonymous() {
+        return isanonymous;
+    }
+
+    public void setIsanonymous(boolean isanonymous) {
+        this.isanonymous = isanonymous;
     }
 }

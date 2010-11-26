@@ -1,5 +1,6 @@
 package com.dneero.htmluibeans;
 
+import com.dneero.anonymous.AnonHelper;
 import com.dneero.dao.Responsepending;
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
@@ -143,6 +144,75 @@ public class Login implements Serializable {
                 throw vex;
             }
         }
+    }
+
+    public void loginAnonymously() throws ValidationException {
+        ValidationException vex = new ValidationException();
+        Logger logger = Logger.getLogger(this.getClass().getName());
+        logger.debug("loginAnonymously() called.");
+
+        //From nothingness, create an anonymous user
+        User user = AnonHelper.createAnonymousUser();
+        
+
+        //Create a new session so that I can manually move stuff over and guarantee it's clean
+        UserSession userSession = new UserSession();
+        userSession.setUser(user);
+        userSession.setIsloggedin(true);
+        userSession.setIsLoggedInToBeta(Pagez.getUserSession().getIsLoggedInToBeta());
+        userSession.setSurveystakentoday(SurveysTakenToday.getNumberOfSurveysTakenToday(user));
+        userSession.setIsfacebookui(Pagez.getUserSession().getIsfacebookui());
+        userSession.setFacebookSessionKey(Pagez.getUserSession().getFacebookSessionKey());
+        userSession.setPl(Pagez.getUserSession().getPl());
+        //Check the eula
+//        if (!EulaHelper.isUserUsingMostRecentEula(user)){
+//            userSession.setIseulaok(false);
+//        } else {
+            userSession.setIseulaok(true);
+        //}
+        //Check the profile completeness
+//        if (!UserProfileCompletenessChecker.isProfileComplete(user)){
+//            userSession.setIsbloggerprofileok(false);
+//        } else {
+            userSession.setIsbloggerprofileok(true);
+        //}
+        //Set persistent login cookie, if necessary
+        //if (keepmeloggedin){
+            //Get all possible cookies to set
+            Cookie[] cookies = PersistentLogin.getPersistentCookies(user.getUserid(), Pagez.getRequest());
+            //Add a cookies to the response
+            for (int j = 0; j < cookies.length; j++) {
+                Pagez.getResponse().addCookie(cookies[j]);
+            }
+        //}
+        //Save last login date
+        user.setLastlogindate(new java.util.Date());
+        try {user.save();} catch (Exception ex) {logger.error("",ex);}
+        //Pending survey save
+        //Note: this code also on Resitration and PublicSurvey
+        if (Pagez.getUserSession().getPendingSurveyResponseSurveyid()>0){
+            if (!Pagez.getUserSession().getPendingSurveyResponseAsString().equals("")){
+                Responsepending responsepending = new Responsepending();
+                responsepending.setUserid(user.getUserid());
+                responsepending.setReferredbyuserid(Pagez.getUserSession().getPendingSurveyReferredbyuserid());
+                responsepending.setResponseasstring(Pagez.getUserSession().getPendingSurveyResponseAsString());
+                responsepending.setSurveyid(Pagez.getUserSession().getPendingSurveyResponseSurveyid());
+                try{responsepending.save();}catch (Exception ex){logger.error("",ex);}
+                Pagez.getUserSession().setPendingSurveyResponseSurveyid(0);
+                Pagez.getUserSession().setPendingSurveyReferredbyuserid(0);
+                Pagez.getUserSession().setPendingSurveyResponseAsString("");
+            }
+        }
+
+        //Notify via XMPP
+        SendXMPPMessage xmpp = new SendXMPPMessage(SendXMPPMessage.GROUP_SALES, "Anon User Login: "+ user.getNickname());
+        xmpp.send();
+
+        //This is where the new UserSession is actually bound to Pagez.getUserSession()
+        Pagez.setUserSessionAndUpdateCache(userSession);
+
+        //Record Iptrack Activity
+        RecordIptrackUtil.record(Pagez.getRequest(), Pagez.getUserSession().getUser().getUserid(), Activitytype.LOGIN);
     }
 
     public void logout() throws ValidationException{

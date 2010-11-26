@@ -79,6 +79,54 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
     }
 %>
 <%
+    if (request.getParameter("action") != null && request.getParameter("action").equals("loginanonymously")) {
+        try {
+            login.loginAnonymously();
+            //Redir if https is on
+            String keepmeloggedinStr = "";
+            if (true){
+                keepmeloggedinStr = "&keepmeloggedin=1";
+            }
+            if (SystemProperty.getProp(SystemProperty.PROP_ISSSLON).equals("1")) {
+                //Is SSL
+                try {
+                    if (Num.isinteger(request.getParameter("redirtosurveyid"))) {
+                        //Redir to a specific survey after link-login
+                        logger.debug("redirecting to https survey - " + "/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
+                        Pagez.sendRedirect(BaseUrl.get(true) + "/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
+                        return;
+                    } else {
+                        //Normal login
+                        logger.debug("redirecting to https - " + BaseUrl.get(true) + "account/index.jsp?"+keepmeloggedinStr);
+                        Pagez.sendRedirect(BaseUrl.get(true) + "account/index.jsp?"+keepmeloggedinStr);
+                        return;
+                    }
+                } catch (Exception ex) {
+                    //Default error play
+                    logger.error("", ex);
+                    Pagez.sendRedirect("/account/index.jsp"+keepmeloggedinStr);
+                    return;
+                }
+            } else {
+                //Not SSL
+                if (Num.isinteger(request.getParameter("redirtosurveyid"))) {
+                    //Redir to a specific survey after link-login
+                    logger.debug("redirecting to http - "+"/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
+                    Pagez.sendRedirect("/survey.jsp?surveyid="+request.getParameter("redirtosurveyid")+"&keepmeloggedin=1");
+                    return;
+                } else {
+                    //Normal login
+                    logger.debug("redirecting to http - /account/index.jsp?"+keepmeloggedinStr);
+                    Pagez.sendRedirect("/account/index.jsp?"+keepmeloggedinStr);
+                    return;
+                }
+            }
+        } catch (ValidationException vex) {
+            Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
+        }
+    }
+%>
+<%
     if (request.getParameter("action") != null && request.getParameter("action").equals("register")) {
         try {
             registration.setEmail(Textbox.getValueFromRequest("email", "Email", true, DatatypeString.DATATYPEID));
@@ -137,15 +185,14 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
 <%@ include file="/template/header.jsp" %>
 
         <%if (registration.getDisplaytempresponsesavedmessage()){%>
-            <div class="rounded" style="padding: 15px; margin: 5px; background: #e6e6e6;">
+            <div class="rounded" style="padding: 15px; margin: 5px; background: #ffffff;">
                 <table cellpadding="5">
                     <tr>
                         <td valign="top">
                             <img src="/images/redo-64.png" width="64" height="64" alt="" align="left"/>
                         </td>
                         <td valign="top">
-                            <font class="mediumfont">Almost done... we've temporarily saved your response.</font><br/>
-                            <font class="smallfont"><b>Please <a href="/login.jsp">log in</a> or sign up below.</b></font>
+                            <font class="mediumfont">We've temporarily saved your response.</font><br/>
                         </td>
                     </tr>
                 </table>
@@ -156,10 +203,22 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
 
         <table cellpadding="10" cellspacing="0" border="0">
             <tr>
-
+                <td width="" valign="top">
+                    <div class="rounded" style="background: #e6e6e6;">
+                        <font class="pagetitlefont">Anonymous</font>
+                        <br/><br/>
+                        <form action="/login.jsp" method="post" class="niceform">
+                            <input type="hidden" name="dpage" value="/login.jsp">
+                            <input type="hidden" name="action" value="loginanonymously">
+                            <font class="tinyfont">I agree to the terms of the<br/><a href="/eula.jsp" target="_new">End User License Agreement</a></font>
+                            <br/>
+                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Stay Anonymous">
+                        </form>
+                    </div>
+                </td>
                 <td width="50%" valign="top">
                     <div class="rounded" style="background: #e6e6e6;">
-                        <font class="pagetitlefont">Login</font>
+                        <font class="pagetitlefont">Existing Users</font>
                         <br/><br/>
                         <form action="/login.jsp" method="post" class="niceform">
                             <input type="hidden" name="dpage" value="/login.jsp">
@@ -211,7 +270,7 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
                 </td>
                 <td width="50%" valign="top">
                     <div class="rounded" style="background: #e6e6e6;">
-                        <font class="pagetitlefont">Create an Account</font>
+                        <font class="pagetitlefont">New Users</font>
                         <br/><br/>
                         <form action="/login.jsp" method="post" class="niceform">
                             <input type="hidden" name="dpage" value="/login.jsp">
@@ -280,7 +339,7 @@ if (request.getParameter("whereToRedirectToAfterSignup")!=null) {
                                         </td>
                                         <td valign="top">
                                             <br/><br/>
-                                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Sign Up">
+                                            <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Create an Account">
                                             <br/><br/>
                                         </td>
                                     </tr>
