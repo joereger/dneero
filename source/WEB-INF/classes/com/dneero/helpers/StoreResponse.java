@@ -14,13 +14,11 @@ import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.htmlui.Pagez;
 import com.dneero.iptrack.Activitytype;
 import com.dneero.iptrack.RecordIptrackUtil;
-import com.dneero.json.JsonCacheFlusher;
 import com.dneero.rank.RankForResponseThread;
 import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.session.SurveysTakenToday;
 import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
-import com.dneero.survey.servlet.SurveyDisplayCacheFlusher;
 import com.dneero.util.Str;
 import com.dneero.xmpp.SendXMPPMessage;
 import org.apache.log4j.Logger;
@@ -276,7 +274,8 @@ public class StoreResponse {
                             //if (!userhadquestionalready){
                                 survey.getQuestions().add(question);
                             //}
-                            try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
+                            //try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
+                            try{survey.save();} catch (Exception ex){logger.error("", ex);}
 
                             if (componenttype==Dropdown.ID){
                                 if (srp.getNameValuePairs().get(SurveyResponseParser.DNEERO_REQUEST_PARAM_IDENTIFIER+"userquestion-predefinedanswer")!=null){
@@ -308,7 +307,8 @@ public class StoreResponse {
                                     if (!userhadquestionconfigalready){
                                         question.getQuestionconfigs().add(qc1);
                                     }
-                                    try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
+                                    //try{survey.save();EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());} catch (Exception ex){logger.error("", ex);}
+                                    try{survey.save();} catch (Exception ex){logger.error("", ex);}
                                 }
                             }
                         }
@@ -364,9 +364,13 @@ public class StoreResponse {
         //Flush the embed cache and display cache
         try{
             if (survey!=null && blogger!=null){
-                EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());
-                SurveyDisplayCacheFlusher.flush(survey.getSurveyid());
-                JsonCacheFlusher.flush(survey.getSurveyid());
+                //These now handled in thread
+                //EmbedCacheFlusher.flushCache(survey.getSurveyid(), blogger.getUserid());
+                //SurveyDisplayCacheFlusher.flush(survey.getSurveyid());
+                //JsonCacheFlusher.flush(survey.getSurveyid());
+                //Kickoff the thread
+                PostSurveyFlushThread psft = new PostSurveyFlushThread(survey.getSurveyid(), blogger.getBloggerid());
+                psft.startThread();
             }
         } catch (Exception ex){
             logger.error("", ex);
