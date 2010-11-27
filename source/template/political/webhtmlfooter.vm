@@ -22,7 +22,7 @@
 ##                    </div>
                     <div style="">
                         © 2010 Political Survey Solutions LLC. All rights reserved.
-                        <a href="/pageperformance.jsp" style="color: #cccccc;">Page in $elapsedTime ms</a>
+                        <a href="/pageperformance.jsp" style="color: #cccccc;">$instancename built this page in $elapsedTime ms</a>
                     </div>
                 </div>
             </div>

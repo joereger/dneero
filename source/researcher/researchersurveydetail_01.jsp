@@ -266,9 +266,9 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
         $("#togglehelp").hide();
         $(".toggledate").hide();
     </script>
-<script>
-        $('#tabs').tabs();
-</script>
+    <script>
+            $('#tabs').tabs();
+    </script>
 
 </form>
 

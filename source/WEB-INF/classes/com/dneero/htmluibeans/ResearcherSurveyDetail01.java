@@ -33,7 +33,7 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private Survey survey;
     private boolean isopentoanybody=true;
     private boolean isfree=true;
-    private boolean isuserrequiredtoaddquestion=true;
+    private boolean isuserrequiredtoaddquestion=false;
     private boolean isanonymousresponseallowed=false;
 
 
@@ -84,6 +84,8 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 Pagez.getUserSession().setSurveyDescriptionFromHomepage("");
             }
         }
+        //Anon
+        isanonymousresponseallowed =  Pagez.getUserSession().getPl().getIsanonymousresponseallowed();
     }
 
 
@@ -192,6 +194,20 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 isValidData = false;
                 vex.addValidationError("The End Date must be after the Start Date.");
                 logger.debug("valdation error - startdate is after end date.");
+            }
+
+            if (isanonymousresponseallowed && !isopentoanybody){
+                isValidData = false;
+                vex.addValidationError("Surveys that permit anonymous responses can't limit who can participate.");
+                logger.debug("valdation error - isanonymousresponseallowed && !isopentoanybody");
+                isopentoanybody = false;
+            }
+
+            if (isanonymousresponseallowed && !isfree){
+                isValidData = false;
+                vex.addValidationError("Surveys that permit anonymous responses can't provide incentives to participants.");
+                logger.debug("valdation error - isanonymousresponseallowed && !isfree");
+                isfree = false;
             }
 
             if (isValidData && Pagez.getUserSession().getUser()!=null && survey.canEdit(Pagez.getUserSession().getUser())){
