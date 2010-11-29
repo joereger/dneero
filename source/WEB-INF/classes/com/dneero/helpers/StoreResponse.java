@@ -14,10 +14,7 @@ import com.dneero.finders.FindSurveysForBlogger;
 import com.dneero.htmlui.Pagez;
 import com.dneero.iptrack.Activitytype;
 import com.dneero.iptrack.RecordIptrackUtil;
-import com.dneero.rank.RankForResponseThread;
-import com.dneero.scheduledjobs.UpdateResponsePoststatus;
 import com.dneero.session.SurveysTakenToday;
-import com.dneero.survey.servlet.EmbedCacheFlusher;
 import com.dneero.survey.servlet.ImpressionsByDayUtil;
 import com.dneero.util.Str;
 import com.dneero.xmpp.SendXMPPMessage;
@@ -316,14 +313,13 @@ public class StoreResponse {
                 }
                 logger.debug("end processing userquestion... note that this is the addition of a userquestion, not the answering of other userquestions");
 
-                //Handle rankings in a thread
+                //Post-survey save stuff for thread
                 try{
-                    RankForResponseThread qThread = new RankForResponseThread(response.getResponseid());
+                    StoreResponsePost qThread = new StoreResponsePost(response.getResponseid());
                     qThread.startThread();
                 } catch (Exception ex){logger.error("",ex);}
 
-                //Process the statusHtml for the response
-                try{UpdateResponsePoststatus.processSingleResponse(response);} catch (Exception ex){logger.error("",ex);};
+
 
                 //Update Facebook
                 try{
@@ -333,11 +329,6 @@ public class StoreResponse {
                 } catch (Exception ex){
                     logger.error(ex);
                 }
-
-                //Do the Incentive hook call
-                try{
-                    response.getIncentive().doImmediatelyAfterResponse(response);
-                } catch (Exception ex){logger.error("",ex);};
 
                 //Record Iptrack Activity
                 RecordIptrackUtil.record(Pagez.getRequest(), user.getUserid(), Activitytype.CONVOJOIN, Str.truncateString(survey.getTitle(), 100));
