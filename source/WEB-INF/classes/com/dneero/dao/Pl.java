@@ -43,6 +43,12 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
     private String surveycalled="";
     private String surveycalledplural="";
     private boolean isanonymousresponseallowed=false;
+    private String customvar1name="";
+    private boolean customvar1ison=false;
+    private String customvar2name="";
+    private boolean customvar2ison=false;
+    private String customvar3name="";
+    private boolean customvar3ison=false;
 
   
 
@@ -330,5 +336,53 @@ public class Pl extends BasePersistentClass implements java.io.Serializable, Aut
 
     public void setIsanonymousresponseallowed(boolean isanonymousresponseallowed) {
         this.isanonymousresponseallowed = isanonymousresponseallowed;
+    }
+
+    public String getCustomvar1name() {
+        return customvar1name;
+    }
+
+    public void setCustomvar1name(String customvar1name) {
+        this.customvar1name = customvar1name;
+    }
+
+    public boolean getCustomvar1ison() {
+        return customvar1ison;
+    }
+
+    public void setCustomvar1ison(boolean customvar1ison) {
+        this.customvar1ison = customvar1ison;
+    }
+
+    public String getCustomvar2name() {
+        return customvar2name;
+    }
+
+    public void setCustomvar2name(String customvar2name) {
+        this.customvar2name = customvar2name;
+    }
+
+    public boolean getCustomvar2ison() {
+        return customvar2ison;
+    }
+
+    public void setCustomvar2ison(boolean customvar2ison) {
+        this.customvar2ison = customvar2ison;
+    }
+
+    public String getCustomvar3name() {
+        return customvar3name;
+    }
+
+    public void setCustomvar3name(String customvar3name) {
+        this.customvar3name = customvar3name;
+    }
+
+    public boolean getCustomvar3ison() {
+        return customvar3ison;
+    }
+
+    public void setCustomvar3ison(boolean customvar3ison) {
+        this.customvar3ison = customvar3ison;
     }
 }

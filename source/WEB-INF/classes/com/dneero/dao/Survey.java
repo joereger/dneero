@@ -76,6 +76,9 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
      private boolean ishiddenfromhomepage=false;
      private boolean isuserrequiredtoaddquestion=true;
      private boolean isanonymousresponseallowed=false;
+     private String customvar1="";
+     private String customvar2="";
+     private String customvar3="";
 
      private Set<Question> questions = new HashSet<Question>();
      private Set<Response> responses = new HashSet<Response>();
@@ -551,5 +554,29 @@ public class Survey extends BasePersistentClass implements java.io.Serializable,
 
     public void setIsanonymousresponseallowed(boolean isanonymousresponseallowed) {
         this.isanonymousresponseallowed = isanonymousresponseallowed;
+    }
+
+    public String getCustomvar1() {
+        return customvar1;
+    }
+
+    public void setCustomvar1(String customvar1) {
+        this.customvar1 = customvar1;
+    }
+
+    public String getCustomvar2() {
+        return customvar2;
+    }
+
+    public void setCustomvar2(String customvar2) {
+        this.customvar2 = customvar2;
+    }
+
+    public String getCustomvar3() {
+        return customvar3;
+    }
+
+    public void setCustomvar3(String customvar3) {
+        this.customvar3 = customvar3;
     }
 }

@@ -90,6 +90,24 @@
         <property name="isanonymousresponseallowed" type="boolean">
             <column name="isanonymousresponseallowed" />
         </property>
+        <property name="customvar1name" type="string">
+            <column name="customvar1name" not-null="true" />
+        </property>
+        <property name="customvar1ison" type="boolean">
+            <column name="customvar1ison" />
+        </property>
+        <property name="customvar2name" type="string">
+            <column name="customvar2name" not-null="true" />
+        </property>
+        <property name="customvar2ison" type="boolean">
+            <column name="customvar2ison" />
+        </property>
+        <property name="customvar3name" type="string">
+            <column name="customvar3name" not-null="true" />
+        </property>
+        <property name="customvar3ison" type="boolean">
+            <column name="customvar3ison" />
+        </property>
 
     </class>
 </hibernate-mapping>

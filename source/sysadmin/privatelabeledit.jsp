@@ -35,6 +35,12 @@ String acl = "sysadmin";
     pl.setSurveycalled("");
     pl.setSurveycalledplural("");
     pl.setIsanonymousresponseallowed(false);
+    pl.setCustomvar1ison(false);
+    pl.setCustomvar1name("");
+    pl.setCustomvar2ison(false);
+    pl.setCustomvar2name("");
+    pl.setCustomvar3ison(false);
+    pl.setCustomvar3name("");
     if (request.getParameter("plid")!=null && Num.isinteger(request.getParameter("plid"))){
         pl = Pl.get(Integer.parseInt(request.getParameter("plid")));
     }
@@ -93,6 +99,12 @@ String acl = "sysadmin";
                 pl.setSurveycalled(Textbox.getValueFromRequest("surveycalled", "Survey Called", false, DatatypeString.DATATYPEID));
                 pl.setSurveycalledplural(Textbox.getValueFromRequest("surveycalledplural", "Survey Called Plural", false, DatatypeString.DATATYPEID));
                 pl.setIsanonymousresponseallowed(CheckboxBoolean.getValueFromRequest("isanonymousresponseallowed"));
+                pl.setCustomvar1name(Textbox.getValueFromRequest("customvar1name", "Custom Var 1 Name", false, DatatypeString.DATATYPEID));
+                pl.setCustomvar1ison(CheckboxBoolean.getValueFromRequest("customvar1ison"));
+                pl.setCustomvar2name(Textbox.getValueFromRequest("customvar2name", "Custom Var 2 Name", false, DatatypeString.DATATYPEID));
+                pl.setCustomvar2ison(CheckboxBoolean.getValueFromRequest("customvar2ison"));
+                pl.setCustomvar3name(Textbox.getValueFromRequest("customvar3name", "Custom Var 3 Name", false, DatatypeString.DATATYPEID));
+                pl.setCustomvar3ison(CheckboxBoolean.getValueFromRequest("customvar3ison"));
                 //Validate data
                 if (PlVerification.isValid(pl)){
                     //Save
@@ -435,6 +447,45 @@ String acl = "sysadmin";
                     <td valign="top">
                         <%=CheckboxBoolean.getHtml("isanonymousresponseallowed", pl.getIsanonymousresponseallowed(), "", "")%>
                         <font class="formfieldnamefont">Anonymous Responses Allowed When Survey Permits</font>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">CustomVar1</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("customvar1ison", pl.getCustomvar1ison(), "", "")%> Is On/Active
+                        <br/>
+                        Name:
+                        <br/>
+                        <%=Textbox.getHtml("customvar1name", pl.getCustomvar1name(), 150, 35, "", "")%>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">CustomVar2</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("customvar2ison", pl.getCustomvar2ison(), "", "")%> Is On/Active
+                        <br/>
+                        Name:
+                        <br/>
+                        <%=Textbox.getHtml("customvar2name", pl.getCustomvar2name(), 150, 35, "", "")%>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                        <font class="formfieldnamefont">CustomVar3</font>
+                    </td>
+                    <td valign="top">
+                        <%=CheckboxBoolean.getHtml("customvar3ison", pl.getCustomvar3ison(), "", "")%> Is On/Active
+                        <br/>
+                        Name:
+                        <br/>
+                        <%=Textbox.getHtml("customvar3name", pl.getCustomvar3name(), 150, 35, "", "")%>
                     </td>
                 </tr>
 

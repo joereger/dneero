@@ -150,6 +150,15 @@
         <property name="isanonymousresponseallowed" type="boolean">
             <column name="isanonymousresponseallowed" />
         </property>
+        <property name="customvar1" type="text">
+            <column name="customvar1" />
+        </property>
+        <property name="customvar2" type="text">
+            <column name="customvar2" />
+        </property>
+        <property name="customvar3" type="text">
+            <column name="customvar3" />
+        </property>
 
     </class>
 </hibernate-mapping>

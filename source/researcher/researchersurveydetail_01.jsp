@@ -54,6 +54,9 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
             researcherSurveyDetail01.setIsopentoanybody(!CheckboxBoolean.getValueFromRequest("isopentoanybody"));
             researcherSurveyDetail01.setIsuserrequiredtoaddquestion(!CheckboxBoolean.getValueFromRequest("isuserrequiredtoaddquestion"));
             researcherSurveyDetail01.setIsanonymousresponseallowed(CheckboxBoolean.getValueFromRequest("isanonymousresponseallowed"));
+            researcherSurveyDetail01.setCustomvar1(Textarea.getValueFromRequest("customvar1", "CustomVar1", false));
+            researcherSurveyDetail01.setCustomvar2(Textarea.getValueFromRequest("customvar2", "CustomVar2", false));
+            researcherSurveyDetail01.setCustomvar3(Textarea.getValueFromRequest("customvar3", "CustomVar3", false));
             if (request.getParameter("action").equals("next")) {
                 logger.debug("Next was clicked");
                 researcherSurveyDetail01.saveSurvey();
@@ -219,6 +222,51 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                             <%} else {%>
                                 <input type="hidden" name="embedversion" value="<%=Survey.EMBEDVERSION_02%>">
                             <%}%>
+                            <!-- Custom vars start -->
+                            <%if (Pagez.getUserSession().getPl().getCustomvar1ison()){%>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont"><%=Pagez.getUserSession().getPl().getCustomvar1name()%></font>
+                                    </td>
+                                    <td valign="top">
+                                        <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                            <%=Textarea.getHtml("customvar1", researcherSurveyDetail01.getCustomvar1(), 3, 45, "", "width:350px;")%>
+                                        <%} else {%>
+                                            <font class="normalfont"><%=Pagez.getUserSession().getPl().getCustomvar1name()%> = <%=researcherSurveyDetail01.getCustomvar1()%></font>
+                                        <%}%>
+                                    </td>
+                                </tr>
+                            <%}%>
+                            <%if (Pagez.getUserSession().getPl().getCustomvar2ison()){%>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont"><%=Pagez.getUserSession().getPl().getCustomvar2name()%></font>
+                                    </td>
+                                    <td valign="top">
+                                        <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                            <%=Textarea.getHtml("customvar2", researcherSurveyDetail01.getCustomvar2(), 3, 45, "", "width:350px;")%>
+                                        <%} else {%>
+                                            <font class="normalfont"><%=Pagez.getUserSession().getPl().getCustomvar2name()%> = <%=researcherSurveyDetail01.getCustomvar2()%></font>
+                                        <%}%>
+                                    </td>
+                                </tr>
+                            <%}%>
+                            <%if (Pagez.getUserSession().getPl().getCustomvar3ison()){%>
+                                <tr>
+                                    <td valign="top">
+                                        <font class="formfieldnamefont"><%=Pagez.getUserSession().getPl().getCustomvar3name()%></font>
+                                    </td>
+                                    <td valign="top">
+                                        <%if (researcherSurveyDetail01.getSurvey().getStatus()<=Survey.STATUS_DRAFT) {%>
+                                            <%=Textarea.getHtml("customvar3", researcherSurveyDetail01.getCustomvar3(), 3, 45, "", "width:350px;")%>
+                                        <%} else {%>
+                                            <font class="normalfont"><%=Pagez.getUserSession().getPl().getCustomvar3name()%> = <%=researcherSurveyDetail01.getCustomvar3()%></font>
+                                        <%}%>
+                                    </td>
+                                </tr>
+                            <%}%>
+
+                            <!-- Custom vars end -->
                         </table>
 
                     </td>

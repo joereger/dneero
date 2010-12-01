@@ -540,12 +540,17 @@ String acl = "public";
                                 <% } %>
 
 
+                               <%if (!publicSurvey.getSurvey().getCustomvar1().equals("")){%>
+                                   <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: left;">
+                                        MOO Box
+                                       <br/>
+                                       <%=publicSurvey.getSurvey().getCustomvar1()%>
+                                   </div>
+                               <%} %>
 
 
 
-
-
-                                <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: left;">
+                               <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: left;">
                                     <table cellpadding="0" cellspacing="5" border="0">
 
                                         <tr>

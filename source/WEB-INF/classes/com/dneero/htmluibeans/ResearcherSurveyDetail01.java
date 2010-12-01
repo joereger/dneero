@@ -35,6 +35,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
     private boolean isfree=true;
     private boolean isuserrequiredtoaddquestion=false;
     private boolean isanonymousresponseallowed=false;
+    private String customvar1;
+    private String customvar2;
+    private String customvar3;
 
 
 
@@ -62,6 +65,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 embedversion = survey.getEmbedversion();
                 isfree = survey.getIsfree();
                 isopentoanybody = survey.getIsopentoanybody();
+                customvar1 = survey.getCustomvar1();
+                customvar2 = survey.getCustomvar2();
+                customvar3 = survey.getCustomvar3();
                 isuserrequiredtoaddquestion = survey.getIsuserrequiredtoaddquestion();
                 logger.debug("initbean() isuserrequiredtoaddquestion="+isuserrequiredtoaddquestion);
                 logger.debug("initbean() isfree="+isfree);
@@ -124,6 +130,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
         survey.setIshiddenfromhomepage(false);
         survey.setIsuserrequiredtoaddquestion(true);
         survey.setIsanonymousresponseallowed(false);
+        survey.setCustomvar1("");
+        survey.setCustomvar2("");
+        survey.setCustomvar3("");
     }
 
 
@@ -222,6 +231,9 @@ public class ResearcherSurveyDetail01 implements Serializable {
                 survey.setIsopentoanybody(isopentoanybody);
                 survey.setIsuserrequiredtoaddquestion(isuserrequiredtoaddquestion);
                 survey.setIsanonymousresponseallowed(isanonymousresponseallowed);
+                survey.setCustomvar1(customvar1);
+                survey.setCustomvar2(customvar2);
+                survey.setCustomvar3(customvar3);
                 logger.debug("saveSurvey() isuserrequiredtoaddquestion="+isuserrequiredtoaddquestion);
                 logger.debug("saveSurvey() isfree="+isfree);
                 logger.debug("saveSurvey() isopentoanybody="+isopentoanybody);
@@ -354,5 +366,30 @@ public class ResearcherSurveyDetail01 implements Serializable {
 
     public void setIsanonymousresponseallowed(boolean isanonymousresponseallowed) {
         this.isanonymousresponseallowed = isanonymousresponseallowed;
+    }
+
+
+    public String getCustomvar1() {
+        return customvar1;
+    }
+
+    public void setCustomvar1(String customvar1) {
+        this.customvar1 = customvar1;
+    }
+
+    public String getCustomvar2() {
+        return customvar2;
+    }
+
+    public void setCustomvar2(String customvar2) {
+        this.customvar2 = customvar2;
+    }
+
+    public String getCustomvar3() {
+        return customvar3;
+    }
+
+    public void setCustomvar3(String customvar3) {
+        this.customvar3 = customvar3;
     }
 }
