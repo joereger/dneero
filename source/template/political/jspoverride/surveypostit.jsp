@@ -140,6 +140,7 @@ String acl = "public";
             <tr>
                 <td valign="top" width="35%">
                     <%--<div class="rounded" style="background: #e6e6e6;">--%>
+
                         <%if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getIsanonymous()){%>
                             <div class="rounded" style="background: #ffffff; text-align: left;">
                                 <font class="mediumfont">You've Joined this <%=Pagez._Survey()%> Anonymously</font>
@@ -150,6 +151,21 @@ String acl = "public";
                                 <font class="mediumfont">You've Joined this <%=Pagez._Survey()%></font>
                             </div>
                         <% } %>
+                        <%if (!publicSurveyPostit.getSurvey().getCustomvar1().equals("")){%>
+                           <br/>
+                           <div class="rounded" style="background: #ffffff; padding: 10px; margin: 5px; text-align: left;">
+                               <img src="/template/political/images/you_are_in.png" alt="" width="260" height="246">
+                               <%
+                               int daysAgo = DateDiff.dateDiff("day", Time.usertogmttime(Time.getCalFromDate(publicSurveyPostit.getSurvey().getEnddate()), "EST"), Time.nowInGmtCalendar());
+                               %>
+                               <%if (daysAgo>0){%>
+                               <br/>
+                               <div class="rounded" style="background: #cccccc; padding: 10px; margin: 5px; text-align: center;">
+                               <font class="mediumfont" style="color:#666666;">This moobox ships<br/>in <%=daysAgo%> day<%if(daysAgo>1){%>s<%}%></font>
+                               </div>
+                               <%} %>
+                           </div>
+                       <%} %>
                         <br/>
                         <div class="rounded" style="background: #ffffff; text-align: center;">
                                 <font class="mediumfont"><a href="/surveyresults.jsp?surveyid=<%=publicSurveyPostit.getSurvey().getSurveyid()%>">See the Results</a></font>

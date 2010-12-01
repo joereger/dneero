@@ -159,7 +159,7 @@ String acl = "public";
                                 <input type="hidden" name="referredbyuserid" value="<%=request.getParameter("referredbyuserid")%>">
 
                             <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                                <div style="float:right;"><font class="smallfont" style="font-weight: bold; color: #666666;">All answers are public.</font></div>
+                                <div style="float:right;"><font class="smallfont" style="font-weight: bold; color: #666666;"><!--All answers are public.--></font></div>
                                 <br clear="all"/>
                                 <%--<%if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>--%>
                                     <%--<font class="mediumfont" style="font-weight: bold; color: #666666;">Enter the <%=Pagez._Survey()%></font>--%>
@@ -401,6 +401,9 @@ String acl = "public";
                             <center>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
                                     <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Join the <%=Pagez._Survey()%>">
+                                    <%if (!publicSurvey.getSurvey().getCustomvar1().equals("")){%>
+                                    <img src="/template/political/images/are_you_in_box.png" alt="" align="top">
+                                    <%}%>
                                 <%}else{%>
                                     <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Edit Your Answers">
                                 <%}%>
@@ -541,10 +544,30 @@ String acl = "public";
 
 
                                <%if (!publicSurvey.getSurvey().getCustomvar1().equals("")){%>
-                                   <div class="rounded" style="background: #f6f6f6; padding: 10px; margin: 5px; text-align: left;">
-                                        MOO Box
+                                   <div class="rounded" style="background: #ffffff; padding: 10px; margin: 5px; text-align: left;">
+                                       <img src="/template/political/images/moobox_rightcol_v01.png" alt="" width="260" height="456">
                                        <br/>
+                                       <font class="mediumfont">
                                        <%=publicSurvey.getSurvey().getCustomvar1()%>
+                                       </font>
+                                       <%
+                                       int daysAgo = DateDiff.dateDiff("day", Time.usertogmttime(Time.getCalFromDate(publicSurvey.getSurvey().getEnddate()), "EST"), Time.nowInGmtCalendar());
+                                       %>
+                                       <%if (daysAgo>0){%>
+                                       <br/>
+                                       <div class="rounded" style="background: #cccccc; padding: 10px; margin: 5px; text-align: center;">
+                                       <font class="mediumfont" style="color:#666666;">This moobox ships<br/>in <%=daysAgo%> day<%if(daysAgo>1){%>s<%}%></font>
+                                       </div>
+                                       <%} %>
+                                       <br/><br/>
+                                       <font class="normalfont">
+                                           <b>Why do we do this?</b>
+                                           <br/>To make your opinion matter.  Look, everybody is bombarded with digital data these days.  We think a printed stack of paper in a cool looking box means something and gets attention.  It's part symbolism, part pragmatism.
+                                           <br/><br/><b>When do we send it?</b>
+                                           <br/>Check the survey end date.  At the end we'll do the printing and sending.  We'll also capture the process to share it with you.  Keeps us honest and shows you that we really are doing what we say we're doing.
+                                           <br/><br/><b>This is Only The Beginning</b>
+                                           <br/>We don't just send the box.  We have a team that follows up, badgering the people we send this box to.  We want their feedback.  We want to know that they've heard your voice.   We want to know that they feel the issue like you do.  
+                                       </font>
                                    </div>
                                <%} %>
 

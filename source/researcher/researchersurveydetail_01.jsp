@@ -265,7 +265,6 @@ ResearcherSurveyDetail01 researcherSurveyDetail01 = (ResearcherSurveyDetail01)Pa
                                     </td>
                                 </tr>
                             <%}%>
-
                             <!-- Custom vars end -->
                         </table>
 

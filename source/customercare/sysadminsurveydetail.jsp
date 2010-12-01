@@ -30,6 +30,9 @@ String acl = "customercare";
             customercareSurveyDetail.getSurvey().setNumberofrespondentsrequested(Textbox.getIntFromRequest("numberofrespondentsrequested", "Number of Respondents Requested", true, DatatypeInteger.DATATYPEID));
             customercareSurveyDetail.getSurvey().setMaxdisplaysperblog(Textbox.getIntFromRequest("maxdisplaysperblog", "Max Displays Per Blog", true, DatatypeInteger.DATATYPEID));
             customercareSurveyDetail.getSurvey().setMaxdisplaystotal(Textbox.getIntFromRequest("maxdisplaystotal", "Max Displays Total", true, DatatypeInteger.DATATYPEID));
+            customercareSurveyDetail.getSurvey().setCustomvar1(Textarea.getValueFromRequest("customvar1", "CustomVar1", false));
+            customercareSurveyDetail.getSurvey().setCustomvar2(Textarea.getValueFromRequest("customvar2", "CustomVar2", false));
+            customercareSurveyDetail.getSurvey().setCustomvar3(Textarea.getValueFromRequest("customvar3", "CustomVar3", false));
             customercareSurveyDetail.saveSurvey();
         } catch (ValidationException vex) {
             Pagez.getUserSession().setMessage(vex.getErrorsAsSingleString());
@@ -165,6 +168,32 @@ String acl = "customercare";
                             <%=CheckboxBoolean.getHtml("isaggressiveslotreclamationon", customercareSurveyDetail.getSurvey().getIsaggressiveslotreclamationon(), "", "")%>
                         </td>
                     </tr>
+                    <!-- Custom vars start -->
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">CustomVar1</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textarea.getHtml("customvar1", customercareSurveyDetail.getSurvey().getCustomvar1(), 3, 45, "", "width:350px;")%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">CustomVar2</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textarea.getHtml("customvar2", customercareSurveyDetail.getSurvey().getCustomvar2(), 3, 45, "", "width:350px;")%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <font class="formfieldnamefont">CustomVar3</font>
+                        </td>
+                        <td valign="top">
+                            <%=Textarea.getHtml("customvar3", customercareSurveyDetail.getSurvey().getCustomvar3(), 3, 45, "", "width:350px;")%>
+                        </td>
+                    </tr>
+                    <!-- Custom vars end -->
                     <tr>
                         <td valign="top">
                             <font class="formfieldnamefont">Start Date</font>
