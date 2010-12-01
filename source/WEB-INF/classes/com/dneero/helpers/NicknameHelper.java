@@ -2,6 +2,7 @@ package com.dneero.helpers;
 
 import com.dneero.dao.User;
 import com.dneero.dao.hibernate.HibernateUtil;
+import com.dneero.util.RandomString;
 import com.dneero.util.Str;
 import org.hibernate.criterion.Restrictions;
 
@@ -49,6 +50,20 @@ public class NicknameHelper {
         while (nicknameExistsAlreadyForSomebodyElse(nickname+appendtoend, user) && appendtoend<25){
             appendtoend++;
         }
+        nickname = nickname + appendtoend;
+        return nickname;
+    }
+
+    public static String generateUniqueAnonymousNickname(String nickname, User user){
+        nickname = Str.onlyKeepLettersAndDigits(nickname.trim());
+//        if (!nicknameExistsAlreadyForSomebodyElse(nickname, user)){
+//            return nickname;
+//        }
+//        int appendtoend = 1;
+//        while (nicknameExistsAlreadyForSomebodyElse(nickname+appendtoend, user) && appendtoend<25){
+//            appendtoend++;
+//        }
+        String appendtoend = RandomString.randomAlphanumericAllUpperCaseNoOsOrZeros(6);
         nickname = nickname + appendtoend;
         return nickname;
     }

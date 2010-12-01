@@ -24,8 +24,9 @@ public class AnonHelper {
         user.setEmail("");
         user.setPlid(Pagez.getUserSession().getPl().getPlid());
         user.setPassword("");
-        user.setName(NicknameHelper.generateUniqueNickname("Anonymous", user));
-        user.setNickname(NicknameHelper.generateUniqueNickname("Anonymous", user));
+        String nick = NicknameHelper.generateUniqueAnonymousNickname("Anonymous", user);
+        user.setName(nick);
+        user.setNickname(nick);
         user.setIsactivatedbyemail(true);  //Auto-activated by email... done because user will have to enter email in account settings
         user.setIsqualifiedforrevshare(true);
         user.setReferredbyuserid(0);
