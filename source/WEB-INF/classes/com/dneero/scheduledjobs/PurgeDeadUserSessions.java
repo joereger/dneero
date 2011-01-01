@@ -19,8 +19,8 @@ public class PurgeDeadUserSessions implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         Logger logger = Logger.getLogger(this.getClass().getName());
         //if (InstanceProperties.getRunScheduledTasksOnThisInstance()){
-            logger.debug("execute() PurgeDeadUserSessions called");
-            PurgeOldUserSessions.purge("/", 100);
+            //logger.debug("execute() PurgeDeadUserSessions called");
+            //PurgeOldUserSessions.purge("/", 100);
 
 //        } else {
 //            logger.debug("InstanceProperties.getRunScheduledTasksOnThisInstance() is FALSE for this instance so this task is not being executed.");

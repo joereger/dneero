@@ -4,18 +4,18 @@
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
     <class name="com.dneero.dao.Question" table="question">
-        <cache usage="transactional"/>
+        <cache usage="read-write"/>
         <id name="questionid" type="int">
             <column name="questionid" />
             <generator class="native" />
         </id>
         <set name="questionconfigs" inverse="true" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
+            <cache usage="read-write"/>
             <key column="questionid"></key>
             <one-to-many class="com.dneero.dao.Questionconfig" not-found="ignore"></one-to-many>
         </set>
         <set name="questionresponses" inverse="true" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
+            <cache usage="read-write"/>
             <key column="questionid"></key>
             <one-to-many class="com.dneero.dao.Questionresponse" not-found="ignore"></one-to-many>
         </set>

@@ -4,31 +4,31 @@
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
     <class name="com.dneero.dao.Survey" table="survey">
-        <cache usage="transactional"/>
+        <cache usage="read-write"/>
         <id name="surveyid" type="int">
             <column name="surveyid" />
             <generator class="native" />
         </id>
         <set name="questions" inverse="true" order-by="questionorder asc" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
+            <cache usage="read-write"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Question" not-found="ignore"></one-to-many>
         </set>
 
         <set name="responses" inverse="true" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
+            <cache usage="read-write"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Response" not-found="ignore"></one-to-many>
         </set>
 
         <set name="surveydiscusses" inverse="true" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
+            <cache usage="read-write"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Surveydiscuss" not-found="ignore"></one-to-many>
         </set>
 
         <set name="surveyincentives" inverse="true" cascade="all-delete-orphan">
-            <cache usage="transactional"/>
+            <cache usage="read-write"/>
             <key column="surveyid"></key>
             <one-to-many class="com.dneero.dao.Surveyincentive" not-found="ignore"></one-to-many>
         </set>

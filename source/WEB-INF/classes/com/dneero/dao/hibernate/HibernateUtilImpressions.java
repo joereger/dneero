@@ -66,23 +66,32 @@ public class HibernateUtilImpressions {
 
                     //Second level cache
                     conf.setProperty("hibernate.cache.use_second_level_cache", "true");
-                    conf.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jbc2.MultiplexedJBossCacheRegionFactory");
-                    conf.setProperty("hibernate.cache.region_prefix", "impressions");
-                    conf.setProperty("hibernate.cache.region.jbc2.configs", "jbc2-config.xml");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.entity", "optimistic-entity-impressions");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.collection", "optimistic-entity-impressions");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.ts", "timestamps-cache-impressions");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.query", "optimistic-entity-impressions");
-                    conf.setProperty("hibernate.cache.region.jbc2.cfg.multiplexer.stacks", "jbc2-stacks.xml");
-                    conf.setProperty("hibernate.cache.use_structured_entries", "true");
                     conf.setProperty("hibernate.cache.use_query_cache", "true");
-                    conf.setProperty("hibernate.cache.usage", "transactional");
+                    conf.setProperty("hibernate.cache.region.factory_class", "net.sf.ehcache.hibernate.EhCacheRegionFactory");
+                    String ehcacheHibernateConfigFile = "/ehcache-hibernate-impressions.xml";
+                    String ehcacheHibernateConfigFilePlusPath = WebAppRootDir.getWebAppRootPath() + "WEB-INF/classes"+ehcacheHibernateConfigFile;
+                    TerracottaServerConfigFileUpdate.updateFile(ehcacheHibernateConfigFilePlusPath);
+                    //String previousValue = System.setProperty("tcserver01", "localhost"); //set host to ${tcserver01} to have it replaced with this value
+                    conf.setProperty("net.sf.ehcache.configurationResourceName", ehcacheHibernateConfigFile);
+
+                    //Second level cache
+                    //conf.setProperty("hibernate.cache.use_second_level_cache", "true");
+                    //conf.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jbc2.MultiplexedJBossCacheRegionFactory");
+                    //conf.setProperty("hibernate.cache.region_prefix", "impressions");
+                    //conf.setProperty("hibernate.cache.region.jbc2.configs", "jbc2-config.xml");
+                    //conf.setProperty("hibernate.cache.region.jbc2.cfg.entity", "optimistic-entity-impressions");
+                    //conf.setProperty("hibernate.cache.region.jbc2.cfg.collection", "optimistic-entity-impressions");
+                    //conf.setProperty("hibernate.cache.region.jbc2.cfg.ts", "timestamps-cache-impressions");
+                    //conf.setProperty("hibernate.cache.region.jbc2.cfg.query", "optimistic-entity-impressions");
+                    //conf.setProperty("hibernate.cache.region.jbc2.cfg.multiplexer.stacks", "jbc2-stacks.xml");
+                    //conf.setProperty("hibernate.cache.use_structured_entries", "true");
+                    //conf.setProperty("hibernate.cache.use_query_cache", "true");
+                    //conf.setProperty("hibernate.cache.usage", "transactional");
 
                     //Transactions
-                    conf.setProperty("hibernate.transaction.manager_lookup_class", "com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup");
-                    //conf.setProperty("hibernate.transaction.factory_class", "org.hibernate.transaction.JTATransactionFactory");
-                    conf.setProperty("hibernate.transaction.factory_class", "com.atomikos.icatch.jta.hibernate3.AtomikosJTATransactionFactory");
-                    conf.setProperty("hibernate.connection.release_mode", "auto");
+                    //conf.setProperty("hibernate.transaction.manager_lookup_class", "com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup");
+                    //conf.setProperty("hibernate.transaction.factory_class", "com.atomikos.icatch.jta.hibernate3.AtomikosJTATransactionFactory");
+                    //conf.setProperty("hibernate.connection.release_mode", "auto");
 
                     
                     //Session context mgr

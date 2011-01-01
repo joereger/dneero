@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.dneero.dao.Dbcacheexpirable" table="dbcacheexpirable">
-        <cache usage="transactional"/>
+        <cache usage="read-write"/>
         <id name="dbcacheexpirableid" type="int">
             <column name="dbcacheexpirableid" />
             <generator class="native" />
