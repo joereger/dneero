@@ -301,6 +301,62 @@ public class Dropdown implements Component {
         return getHtmlForResult(questionresponses);
     }
 
+    public String getResultAsOneLineText(List<Questionresponse> questionresponses){
+        StringBuffer out = new StringBuffer();
+
+        String options = "";
+        for (Iterator<Questionconfig> iterator = question.getQuestionconfigs().iterator(); iterator.hasNext();) {
+            Questionconfig questionconfig = iterator.next();
+            if (questionconfig.getName().equals("options")){
+                options = questionconfig.getValue();
+            }
+        }
+        String[] optionsSplit = options.split("\\n");
+        LinkedHashMap<String, Integer> answers = new LinkedHashMap();
+        for (int i = 0; i < optionsSplit.length; i++) {
+            String s = optionsSplit[i];
+            answers.put(s.trim(), 0);
+        }
+
+        for (Iterator it = questionresponses.iterator(); it.hasNext(); ) {
+            Questionresponse questionresponse = (Questionresponse)it.next();
+            if (questionresponse.getName().equals("response")){
+                if (answers.containsKey(questionresponse.getValue().trim())){
+                    int currcount = (Integer)answers.get(questionresponse.getValue().trim());
+                    answers.put(questionresponse.getValue(), currcount+1);
+                } else {
+                    answers.put(questionresponse.getValue(), 1);
+                }
+            }
+        }
+
+        Iterator keyValuePairs = answers.entrySet().iterator();
+        for (int i = 0; i < answers.size(); i++){
+            Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
+            String answer = (String)mapentry.getKey();
+            int count = (Integer)mapentry.getValue();
+
+            double percentage = 0;
+            if (count>0 && questionresponses!=null && questionresponses.size()>0){
+                percentage = (Double.parseDouble(String.valueOf(count))/Double.parseDouble(String.valueOf(questionresponses.size())))*100;
+            }
+            NumberFormat formatter = DecimalFormat.getInstance();
+            formatter.setMaximumFractionDigits(0);
+
+            out.append(answer);
+            out.append(" ");
+            out.append(String.valueOf(formatter.format(percentage)) + "%");
+            if (i < (answers.size()-1)){
+                out.append(", ");
+            }
+
+            //out.append(count);
+        }
+
+
+        return out.toString();
+    }
+
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         return getHtmlForResult(questionresponses);
     }

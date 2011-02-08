@@ -85,14 +85,10 @@ public class SurveyResultsJson {
                 Component component = ComponentTypes.getComponentByType(question.getComponenttype(), question, blogger);
                 logger.debug("found component.getName()="+component.getName());
 
-
                 //if (question.getIsuserquestion()){
                 //    User user = User.get(question.getUserid());
 
                 //}
-
-
-
 
                 //Find all responses to this question
                 List<Questionresponse>  questionresponses = new ArrayList<Questionresponse>();
@@ -117,10 +113,9 @@ public class SurveyResultsJson {
                 m.put("question",  question.getQuestion());
                 m.put("componenttype", question.getComponenttype());
                 m.put("isuserquestion", question.getIsuserquestion());
-                //m.put("questionconfigs", question.getQuestionconfigs());
                 m.put("responsehtml", component.getHtmlForJson(questionresponses));
-
-
+                m.put("resultoneline", component.getResultAsOneLineText(questionresponses));
+                //m.put("questionconfigs", question.getQuestionconfigs());
 
                 //Add to the list of questions
                 l.add(m);

@@ -35,6 +35,7 @@ public interface Component {
     public boolean supportsRank();
     public ArrayList<RankUnit> calculateRankPoints(Rank rank, Response response);
     public Element getXmlForDisplay(Response response);
+    public String getResultAsOneLineText(List<Questionresponse> questionresponses);
 
 
 }

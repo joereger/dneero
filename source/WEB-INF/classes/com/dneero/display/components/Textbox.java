@@ -178,6 +178,10 @@ public class Textbox implements Component {
         return getHtmlForResult(questionresponses);
     }
 
+    public String getResultAsOneLineText(List<Questionresponse> questionresponses){
+        return "";
+    }
+
 //    public String getHtmlForResult(List<Questionresponse> questionresponses){
 //        StringBuffer out = new StringBuffer();
 //        out.append("<table width=\"100%\" cellpadding=\"3\" cellspacing=\"1\" border=\"0\">");

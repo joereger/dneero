@@ -566,7 +566,7 @@ String acl = "public";
                                            <br/><br/><b>When do we send it?</b>
                                            <br/>Check the survey end date.  At the end we'll do the printing and sending.  We'll also capture the process to share it with you.  Keeps us honest and shows you that we really are doing what we say we're doing.
                                            <br/><br/><b>This is Only The Beginning</b>
-                                           <br/>We don't just send the box.  We have a team that follows up, badgering the people we send this box to.  We want their feedback.  We want to know that they've heard your voice.   We want to know that they feel the issue like you do.  
+                                           <br/>We don't just send the box.  We have a team that follows up with the people we send this box to.  We want their feedback.  We want to know that they've heard your voice.   We want to know that they feel the issue like you do.
                                        </font>
                                    </div>
                                <%} %>

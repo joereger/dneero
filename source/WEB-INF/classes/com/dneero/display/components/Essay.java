@@ -272,6 +272,10 @@ public class Essay implements Component {
         return getHtmlForResult(questionresponses);
     }
 
+    public String getResultAsOneLineText(List<Questionresponse> questionresponses){
+        return "";
+    }
+
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         StringBuffer out = new StringBuffer();
         int i = 0;

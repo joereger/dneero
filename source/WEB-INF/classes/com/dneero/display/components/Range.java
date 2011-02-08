@@ -368,6 +368,10 @@ public class Range implements Component {
         return getHtmlForResult(questionresponses);
     }
 
+    public String getResultAsOneLineText(List<Questionresponse> questionresponses){
+        return "";
+    }
+
     public String getHtmlForResultDetail(List<Questionresponse> questionresponses){
         return getHtmlForResult(questionresponses);
     }
