@@ -35,6 +35,8 @@ public class EhcacheProvider implements CacheProvider {
         //Initialize the groupKeyRelationships
         groupKeyRelationships = new ArrayList<KeyGroupRelationship>();
 
+        logger.debug("isTerracottaClustered()="+isTerracottaClustered());
+
         //Load props file, create cacheManager instance
         //URL url = EhcacheProvider.class.getResource("/ehcache-objects.xml");
         //cacheManager = new CacheManager(url);
@@ -73,6 +75,9 @@ public class EhcacheProvider implements CacheProvider {
         Cache cache = cacheManager.getCache(CACHENAME);
         if (cache!=null){
             cache.getCacheEventNotificationService().registerListener(new EhcacheCacheEventListener(), NotificationScope.ALL);
+            logger.debug("Cache not null");
+        } else {
+            logger.debug("Cache is null");
         }
 
         //List available caches to log
@@ -101,7 +106,18 @@ public class EhcacheProvider implements CacheProvider {
 
     public Object get(String key, String group) {
         try {
-            return getCache().get("/"+group+"/"+key).getValue();
+            logger.debug("get(key="+key+", group="+group+")");
+            Cache cache = getCache();
+            if (cache!=null){
+                Element element = getCache().get("/"+group+"/"+key);
+                if (element!=null){
+                    return element.getValue();
+                } else {
+                    logger.debug("Element is null");
+                }
+            } else {
+                logger.error("CACHE IS NULL");
+            }
         }  catch (Exception e){
             logger.error("Error getting from cacheManager", e);
         }

@@ -545,16 +545,19 @@ String acl = "public";
 
                                <%if (!publicSurvey.getSurvey().getCustomvar1().equals("")){%>
                                    <div class="rounded" style="background: #ffffff; padding: 10px; margin: 5px; text-align: left;">
-                                       <img src="/template/political/images/moobox_rightcol_v01.png" alt="" width="260" height="456">
+                                       <img src="/template/political/images/box-sidebar-graphic.jpg" alt="" width="342" height="393">
                                        <br/>
-                                       <font class="mediumfont">
-                                       <%=publicSurvey.getSurvey().getCustomvar1()%>
-                                       </font>
+                                       <%if (publicSurvey.getSurvey().getCustomvar1()!=null && !publicSurvey.getSurvey().getCustomvar1().equals("")){%>
+                                           <font class="mediumfont">
+                                           <br/><br/>This box will be sent to:<br/>
+                                           <%=publicSurvey.getSurvey().getCustomvar1()%>
+                                           </font>
+                                       <%} %>
                                        <%
                                        int daysAgo = DateDiff.dateDiff("day", Time.usertogmttime(Time.getCalFromDate(publicSurvey.getSurvey().getEnddate()), "EST"), Time.nowInGmtCalendar());
                                        %>
                                        <%if (daysAgo>0){%>
-                                       <br/>
+                                       <br/><br/>
                                        <div class="rounded" style="background: #cccccc; padding: 10px; margin: 5px; text-align: center;">
                                        <font class="mediumfont" style="color:#666666;">This moobox ships<br/>in <%=daysAgo%> day<%if(daysAgo>1){%>s<%}%></font>
                                        </div>
