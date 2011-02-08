@@ -107,6 +107,14 @@ public class EhcacheProvider implements CacheProvider {
     public Object get(String key, String group) {
         try {
             logger.debug("get(key="+key+", group="+group+")");
+
+            if (key==null || key.equals("")){
+                if (group==null || group.equals("")){
+                    logger.debug("Empty key and group requested");
+                    return null;
+                }
+            }
+
             Cache cache = getCache();
             if (cache!=null){
                 Element element = getCache().get("/"+group+"/"+key);
