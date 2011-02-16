@@ -330,6 +330,10 @@ public class Dropdown implements Component {
             }
         }
 
+        out.append("<div class=\"surveyanswer\">");
+        out.append("<ul>");
+
+
         Iterator keyValuePairs = answers.entrySet().iterator();
         for (int i = 0; i < answers.size(); i++){
             Map.Entry mapentry = (Map.Entry) keyValuePairs.next();
@@ -343,18 +347,24 @@ public class Dropdown implements Component {
             NumberFormat formatter = DecimalFormat.getInstance();
             formatter.setMaximumFractionDigits(0);
 
-            out.append("<div class=\"surveyanswer\">");
+            out.append("<li>");
             out.append(answer);
-            out.append("</div>");
-            out.append("<div class=\"surveyanswerpercentage\">");
+            out.append("<span class=\"surveyanswerpercentage\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
-            out.append("</div>");
+            out.append("</span>");
+            out.append("</li>");
+
+
             if (i < (answers.size()-1)){
                 //out.append(", ");
             }
 
             //out.append(count);
         }
+
+
+        out.append("</ul>");
+        out.append("</div>");
 
 
         return out.toString();

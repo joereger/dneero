@@ -144,7 +144,8 @@ String acl = "public";
                         <%if (Pagez.getUserSession().getUser()!=null && Pagez.getUserSession().getUser().getIsanonymous()){%>
                             <div class="rounded" style="background: #ffffff; text-align: left;">
                                 <font class="mediumfont">You've Joined this <%=Pagez._Survey()%> Anonymously</font>
-                                <br/><font class="smallfont">You can also <a href="/login.jsp?combineanon=1">log in or create an account</a> to go on the record</font>
+                                <br/><br/><font class="mediumfont">You can also <a href="/login.jsp?combineanon=1">log in or create an account</a> to go on the record</font>
+                                <br/><font class="smallfont">It's important that you go on the record.  It helps us tell people in power more clearly who is asking them to create change.</font>
                             </div>
                         <%} else { %>
                             <div class="rounded" style="background: #ffffff; text-align: center;">
