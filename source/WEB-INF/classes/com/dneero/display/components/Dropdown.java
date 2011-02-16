@@ -343,11 +343,14 @@ public class Dropdown implements Component {
             NumberFormat formatter = DecimalFormat.getInstance();
             formatter.setMaximumFractionDigits(0);
 
+            out.append("<div class=\"surveyanswer\">");
             out.append(answer);
-            out.append(" ");
+            out.append("</div>");
+            out.append("<div class=\"surveyanswerpercentage\">");
             out.append(String.valueOf(formatter.format(percentage)) + "%");
+            out.append("</div>");
             if (i < (answers.size()-1)){
-                out.append(", ");
+                //out.append(", ");
             }
 
             //out.append(count);
