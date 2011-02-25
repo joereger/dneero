@@ -5,6 +5,7 @@
 <%@ page import="net.tanesha.recaptcha.ReCaptcha" %>
 <%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
 <%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
+<%@ page import="com.dneero.htmluibeans.Registration" %>
 <%String jspPageName="/login.jsp";%>
 <%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
@@ -20,7 +21,7 @@ String acl = "public";
 Login login = (Login) Pagez.getBeanMgr().get("Login");
 %>
 <%
-Registration registration = (Registration)Pagez.getBeanMgr().get("Registration");
+com.dneero.htmluibeans.Registration registration = (Registration)Pagez.getBeanMgr().get("Registration");
 %>
 <%
 if (request.getParameter("whereToRedirectToAfterSignup")!=null) {

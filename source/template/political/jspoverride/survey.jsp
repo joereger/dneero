@@ -400,7 +400,7 @@ String acl = "public";
                             <br/>
                             <center>
                                 <% if (!publicSurvey.getLoggedinuserhasalreadytakensurvey()){%>
-                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Join the <%=Pagez._Survey()%>">
+                                    <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Submit Your Opinion">
                                     <%if (!publicSurvey.getSurvey().getCustomvar1().equals("")){%>
                                     <img src="/template/political/images/are_you_in_box.png" alt="" align="top">
                                     <%}%>
