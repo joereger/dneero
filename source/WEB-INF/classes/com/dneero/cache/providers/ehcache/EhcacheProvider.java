@@ -119,7 +119,7 @@ public class EhcacheProvider implements CacheProvider {
             if (cache!=null){
                 Element element = getCache().get("/"+group+"/"+key);
                 if (element!=null){
-                    return element.getValue();
+                    return element.getObjectValue();
                 } else {
                     logger.debug("Element is null");
                 }
