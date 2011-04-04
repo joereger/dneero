@@ -58,76 +58,84 @@
            <td width="225">
 
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Conversation Engagements</font><br/>
-                    <font class="largefont" style="color: #666666;">$totalConvoJoins.html</font>
-               </div>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <font class="mediumfont" style="color: #999999;">Conversation Engagements</font><br/>
+##                    <font class="largefont" style="color: #666666;">$totalConvoJoinsXXX.html</font>
+##               </div>
 
-               <br/>
+##               <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <font class="mediumfont" style="color: #999999;">Conversation Embeds</font><br/>
-                    <font class="largefont" style="color: #666666;">$totalConvoEmbeds.html</font><br/>
-                    <font class="tinyfont">Times a conversation's been displayed while embedded in a blog or social media profile.</font><br/>
-               </div>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <font class="mediumfont" style="color: #999999;">Conversation Embeds</font><br/>
+##                   <font class="largefont" style="color: #666666;">$totalConvoEmbedsXXX.html</font><br/>
+##                    <font class="tinyfont">Times a conversation's been displayed while embedded in a blog or social media profile.</font><br/>
+##               </div>
 
-               <br/>
+##               <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                   <font class="mediumfont" style="color: #999999;">Are You Experienced?</font><br/>
-                   $usersWithMostConvos.html
-               </div>
 
-               <br/>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                   <font class="mediumfont" style="color: #999999;">Are You Experienced?</font><br/>
+##                   $usersWithMostConvosXXX.html
+##               </div>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##               <br/>
+
+
+                 <div class="rounded" style="background: #e6e6e6; padding: 10px;">
                     <form action="/index.jsp" method="post" class="niceform">
                         <input type="hidden" name="action" value="enteraccesscode">
                         <font class="mediumfont" style="color: #999999;">Got an Access Code?</font><br/>
                         <input type="text" name="accesscode" size="10" maxlength="250">
-                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexyxxl" value="Use Access Code" style="font-size: 11px;">
+                        <input type="submit" class="formsubmitbutton sexybutton sexysimple sexysmall" value="Use Access Code" style="font-size: 11px;">
                     </form>
                 </div>
 
                <br/>
 
-               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                   <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
-                   $donationsMiniReport.html
-                   <br/>
-                   <div class="rounded" style="background: #ffffff; padding: 10px;">
-                        <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  You can create conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
-                   </div>
-               </div>
 
-               <br/>
+ ##              <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+ ##                  <font class="mediumfont" style="color: #999999;">Donations to Charity</font><br/>
+ ##                  $donationsMiniReportXXX.html
+ ##                  <br/>
+ ##                  <div class="rounded" style="background: #ffffff; padding: 10px;">
+ ##                       <font class="tinyfont">You can choose to donate your earnings to charity with a single click!  You can create conversations that require people to donate.  We even give you the ability to add your own charity.<br/><a href="/charity.jsp">Learn more.</a></font><br/>
+ ##                  </div>
+ ##              </div>
+
+ ##              <br/>
+
 
 ##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
 ##                    <font class="mediumfont" style="color: #999999;">Recent Earners</font><br/>
-##                    $recentDonations.html
+##                    $recentDonationsXXX.html
 ##               </div>
 
            </td>
            <td>
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    $recentConvos.html
-                </div>
 
-                <br/>
 
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
-                    <font class="mediumfont" style="color: #999999;">Recent Conversation Participants</font><br/>
-                    $recentConvoJoins.html
-                </div>
 
-                <br/>
 
-                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
-                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
-                    <font class="mediumfont" style="color: #999999;">Recent Twitter Question Responses</font><br/>
-                    $twitterAnswers.html
-                </div>
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    $recentConvosXXX.html
+##                </div>
+
+##                <br/>
+
+##               <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
+##                    <font class="mediumfont" style="color: #999999;">Recent Conversation Participants</font><br/>
+##                    $recentConvoJoinsXXX.html
+##                </div>
+
+##                <br/>
+
+##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
+##                    <div style="text-align: right; float: right; width: 100px;"><font class="tinyfont" style="color: #999999;">updated every 90 min</font></div>
+##                    <font class="mediumfont" style="color: #999999;">Recent Twitter Question Responses</font><br/>
+##                    $twitterAnswersXXX.html
+##                </div>
 
 ##                <br/>
 ##
@@ -137,13 +145,13 @@
 ##                            <td width="50%">
 ##                                <div class="rounded" style="background: #ffffff; padding: 10px;">
 ##                                    <font class="mediumfont" style="color: #999999;">Recent Money Earners</font><br/>
-##                                    $recentlyPaid.html
+##                                    $recentlyPaidXXX.html
 ##                                </div>
 ##                            </td>
 ##                            <td width="50%">
 ##                                <div class="rounded" style="background: #ffffff; padding: 10px;">
 ##                                    <font class="mediumfont" style="color: #999999;">Newest Users</font><br/>
-##                                    $newestUsers.html
+##                                    $newestUsersXXX.html
 ##                                </div>
 ##                            </td>
 ##                        </tr>
@@ -154,7 +162,7 @@
 ##
 ##                <div class="rounded" style="background: #e6e6e6; padding: 10px;">
 ##                    <font class="mediumfont" style="color: #999999;">Blog Posts/Latest News/System Status</font><br/>
-##                    $blogPosts.html
+##                    $blogPostsXXX.html
 ##                </div>
            </td>
        </tr>
