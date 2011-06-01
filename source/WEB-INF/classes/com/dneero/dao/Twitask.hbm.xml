@@ -4,7 +4,7 @@
 <!-- Generated Apr 17, 2006 3:45:28 PM by Hibernate Tools 3.1.0.beta4 -->
 <hibernate-mapping>
     <class name="com.dneero.dao.Twitask" table="twitask">
-        <cache usage="read-write"/>
+        <cache usage="transactional"/>
         <id name="twitaskid" type="int">
             <column name="twitaskid" />
             <generator class="native" />
@@ -12,13 +12,13 @@
 
 
         <set name="twitanswers" inverse="true" cascade="all-delete-orphan">
-            <cache usage="read-write"/>
+            <cache usage="transactional"/>
             <key column="twitaskid"></key>
             <one-to-many class="com.dneero.dao.Twitanswer" not-found="ignore"></one-to-many>
         </set>
 
         <set name="twitaskincentives" inverse="true" cascade="all-delete-orphan">
-            <cache usage="read-write"/>
+            <cache usage="transactional"/>
             <key column="twitaskid"></key>
             <one-to-many class="com.dneero.dao.Twitaskincentive" not-found="ignore"></one-to-many>
         </set>

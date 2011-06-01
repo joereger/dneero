@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.jboss.cache.Fqn;
 import org.jboss.cache.Node;
 import org.jgroups.Address;
-import org.jgroups.protocols.JMS;
+//import org.jgroups.protocols.JMS;
 import org.jgroups.stack.IpAddress;
 
 import java.util.Calendar;
@@ -35,10 +35,10 @@ public class CacheDumper {
                     if (address instanceof IpAddress){
                         IpAddress ipaddress = (IpAddress)address;
                         out.append("ip="+ipaddress.getIpAddress().toString());
-                    } else if (address instanceof JMS.JMSAddress){
-                        JMS.JMSAddress jmsaddress = (JMS.JMSAddress)address;
-                        out.append("jms="+jmsaddress.getAddress());
-                    } 
+                    } //else if (address instanceof JMS.JMSAddress){
+                        //JMS.JMSAddress jmsaddress = (JMS.JMSAddress)address;
+                        //out.append("jms="+jmsaddress.getAddress());
+                    //}
                     if (addressIterator.hasNext()){
                         out.append(", ");
                     }

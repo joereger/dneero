@@ -59,12 +59,12 @@
       <copy todir="${lastbuild}">
         <fileset dir="${sourcedir}" excludes="**.*Thumbs.db"/>
       </copy>
-      <echo message="privatelabeltobuild=${privatelabeltobuild}"/>
+      <!--<echo message="privatelabeltobuild=${privatelabeltobuild}"/>-->
       <!-- Start Moving Jbosscache config files  -->
-      <echo message="Copy ${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config.xml to ${lastbuild}/WEB-INF/classes/jbc2-config.xml"/>
-      <copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-config.xml"/>
-      <copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config-nondao.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-config-nondao.xml"/>
-      <copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-stacks.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-stacks.xml"/>
+      <!--<echo message="Copy ${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config.xml to ${lastbuild}/WEB-INF/classes/jbc2-config.xml"/> -->
+      <!--<copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-config.xml"/> -->
+      <!--<copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-config-nondao.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-config-nondao.xml"/> -->
+      <!--<copy overwrite="true" file="${sourcedir}/WEB-INF/classes/${privatelabeltobuild}jbc2-stacks.xml" tofile="${lastbuild}/WEB-INF/classes/jbc2-stacks.xml"/> -->
       <!-- End Moving Jbosscache config files  -->
   </target>
 

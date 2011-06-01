@@ -71,6 +71,15 @@ public class InstanceProperties {
 
 
 
+    private static String infinispanconfigfilehibernatedbcache;
+    private static String infinispanconfigfilehibernateimpressions;
+    private static String infinispanconfigfileobjectcache;
+    private static String infinispanconfigfilehibernate;
+    private static String jgroupstcppinginitialhosts;
+    private static String jgroupstcpport;
+
+
+
     private static String passPhrase = "pupper";
     private static boolean haveNewConfigToTest = true;
     private static boolean haveAttemptedToLoadDefaultPropsFile = false;
@@ -190,6 +199,14 @@ public class InstanceProperties {
             terracottahost01 = properties.getProperty("terracottahost01", "");
             terracottahost02 = properties.getProperty("terracottahost02", "");
             terracottahost03 = properties.getProperty("terracottahost03", "");
+
+
+            infinispanconfigfileobjectcache = properties.getProperty("infinispanconfigfileobjectcache", "");
+            infinispanconfigfilehibernate = properties.getProperty("infinispanconfigfilehibernate", "");
+            infinispanconfigfilehibernatedbcache = properties.getProperty("infinispanconfigfilehibernatedbcache", "");
+            infinispanconfigfilehibernateimpressions = properties.getProperty("infinispanconfigfilehibernateimpressions", "");
+            jgroupstcppinginitialhosts = properties.getProperty("jgroupstcppinginitialhosts", "localhost[7800]");
+            jgroupstcpport = properties.getProperty("jgroupstcpport", "7800");
 
             haveAttemptedToLoadDefaultPropsFile = true;
             haveNewConfigToTest = true;
@@ -378,6 +395,28 @@ public class InstanceProperties {
         if (terracottahost03!=null){
             properties.setProperty("terracottahost03", terracottahost03);
         }
+
+
+
+        if (infinispanconfigfileobjectcache!=null){
+            properties.setProperty("infinispanconfigfileobjectcache", infinispanconfigfileobjectcache);
+        }
+        if (infinispanconfigfilehibernate!=null){
+            properties.setProperty("infinispanconfigfilehibernate", infinispanconfigfilehibernate);
+        }
+        if (infinispanconfigfilehibernatedbcache!=null){
+            properties.setProperty("infinispanconfigfilehibernatedbcache", infinispanconfigfilehibernatedbcache);
+        }
+        if (infinispanconfigfilehibernateimpressions!=null){
+            properties.setProperty("infinispanconfigfilehibernateimpressions", infinispanconfigfilehibernateimpressions);
+        }
+        if (jgroupstcppinginitialhosts!=null){
+            properties.setProperty("jgroupstcppinginitialhosts", jgroupstcppinginitialhosts);
+        }
+        if (jgroupstcpport!=null){
+            properties.setProperty("jgroupstcpport", jgroupstcpport);
+        }
+
 
         boolean savedsuccessfully = false;
         String saveiomsg = "";
@@ -876,6 +915,65 @@ public class InstanceProperties {
         InstanceProperties.terracottahost03 = terracottahost03;
     }
 
+
+
+
+    public static String getInfinispanconfigfileobjectcache() {
+        load();
+        return infinispanconfigfileobjectcache;
+    }
+
+    public static void setInfinispanconfigfileobjectcache(String infinispanconfigfileobjectcache) {
+        InstanceProperties.infinispanconfigfileobjectcache = infinispanconfigfileobjectcache;
+    }
+
+
+
+    public static String getInfinispanconfigfilehibernate() {
+        load();
+        return infinispanconfigfilehibernate;
+    }
+
+    public static void setInfinispanconfigfilehibernate(String infinispanconfigfilehibernate) {
+        InstanceProperties.infinispanconfigfilehibernate = infinispanconfigfilehibernate;
+    }
+
+    public static String getInfinispanconfigfilehibernatedbcache() {
+        load();
+        return infinispanconfigfilehibernatedbcache;
+    }
+
+    public static void setInfinispanconfigfilehibernatedbcache(String infinispanconfigfilehibernatedbcache) {
+        InstanceProperties.infinispanconfigfilehibernatedbcache = infinispanconfigfilehibernatedbcache;
+    }
+
+    public static String getInfinispanconfigfilehibernateimpressions() {
+        load();
+        return infinispanconfigfilehibernateimpressions;
+    }
+
+    public static void setInfinispanconfigfilehibernateimpressions(String infinispanconfigfilehibernateimpressions) {
+        InstanceProperties.infinispanconfigfilehibernateimpressions = infinispanconfigfilehibernateimpressions;
+    }
+
+    public static String getJgroupstcppinginitialhosts() {
+        load();
+        return jgroupstcppinginitialhosts;
+    }
+
+    public static void setJgroupstcppinginitialhosts(String jgroupstcppinginitialhosts) {
+        InstanceProperties.jgroupstcppinginitialhosts = jgroupstcppinginitialhosts;
+    }
+
+
+    public static String getJgroupstcpport() {
+        load();
+        return jgroupstcpport;
+    }
+
+    public static void setJgroupstcpport(String jgroupstcpport) {
+        InstanceProperties.jgroupstcpport = jgroupstcpport;
+    }
 
 
 }

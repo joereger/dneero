@@ -2,8 +2,6 @@
 <%@ page import="com.dneero.htmlui.ValidationException" %>
 <%@ page import="com.dneero.htmluibeans.PublicIndex" %>
 <%@ page import="com.dneero.privatelabel.PlUtil" %>
-<%String jspPageName="/index.jsp";%>
-<%@ include file="/jspOverrideFrameworkHeader.jsp" %>
 <%
 Logger logger = Logger.getLogger(this.getClass().getName());
 String pagetitle = "";
@@ -96,4 +94,4 @@ PublicIndex publicIndex = (PublicIndex)Pagez.getBeanMgr().get("PublicIndex");
 
 
 
-<%@ include file="/template/footer.jsp" %><%@ include file="/jspOverrideFrameworkFooter.jsp" %>
+<%@ include file="/template/footer.jsp" %>

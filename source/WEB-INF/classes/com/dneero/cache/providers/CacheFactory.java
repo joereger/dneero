@@ -1,6 +1,7 @@
 package com.dneero.cache.providers;
 
 import com.dneero.cache.providers.ehcache.EhcacheProvider;
+import com.dneero.cache.providers.infinispan.InfinispanProvider;
 import com.dneero.cache.providers.jboss.JbossTreeCacheAOPProvider;
 import com.dneero.cache.providers.oscache.OsCacheProvider;
 import com.dneero.cache.providers.oscache.OsCacheClusteredProvider;
@@ -12,11 +13,13 @@ import com.dneero.cache.providers.dbcache.DbcacheProvider;
 public class CacheFactory {
 
     public static CacheProvider getCacheProvider(){
-        return getCacheProvider("EhcacheProvider");
+        return getCacheProvider("InfinispanProvider");
     }
 
     public static CacheProvider getCacheProvider(String providername){
-        if (providername.equals("EhcacheProvider")){
+        if (providername.equals("InfinispanProvider")){
+            return new InfinispanProvider();
+        } else if (providername.equals("EhcacheProvider")){
             return new EhcacheProvider();
         } else if (providername.equals("JbossTreeCacheAOPProvider")){
             return new JbossTreeCacheAOPProvider();
